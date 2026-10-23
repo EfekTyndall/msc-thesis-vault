@@ -1,4 +1,6 @@
 [
   "obsidian-zotero-desktop-connector",
-  "obsidian-pandoc-reference-list"
+  "obsidian-pandoc-reference-list",
+  "obsidian-git",
+  "templater-obsidian"
 ]
