@@ -1,5 +1,5 @@
 ---
-date: {{date:YYYY-MM-DD}}
+date: <% tp.date.now("YYYY-MM-DD") %>
 with:
 tags: [meeting]
 ---

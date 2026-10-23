@@ -9,7 +9,7 @@ Obsidian vault for the MSc thesis (handheld vs VR-teleop demonstrations for GR00
 - `Experiments/` one note per experiment, linked to `msc-thesis/experiments/<YYYY-MM-DD>-<name>/`
 - `Chapters/NN <Title>.md` hub per thesis chapter
 - `Meetings/YYYY-MM-DD <who>.md`
-- `Templates/` core Templates plugin syntax (`{{date:YYYY-MM-DD}}`)
+- `Templates/` Templater syntax (`<% tp.date.now("YYYY-MM-DD") %>`); Literature template is Zotero Integration (Nunjucks)
 
 ## Conventions
 - Link notes with wikilinks `[[Note name]]`; refer to repo files as plain text `msc-thesis/<path>`.

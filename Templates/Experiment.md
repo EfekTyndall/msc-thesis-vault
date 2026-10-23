@@ -1,7 +1,7 @@
 ---
-date: {{date:YYYY-MM-DD}}
+date: <% tp.date.now("YYYY-MM-DD") %>
 status: planned
-repo: experiments/{{date:YYYY-MM-DD}}-
+repo: experiments/<% tp.date.now("YYYY-MM-DD") %>-
 tags: [experiment]
 ---
 ## Question

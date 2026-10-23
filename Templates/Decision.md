@@ -1,5 +1,5 @@
 ---
-date: {{date:YYYY-MM-DD}}
+date: <% tp.date.now("YYYY-MM-DD") %>
 status: accepted
 tags: [decision]
 ---
@@ -15,4 +15,4 @@ tags: [decision]
 ## Revisit if
 
 ## History
-- {{date:YYYY-MM-DD}}: accepted
+- <% tp.date.now("YYYY-MM-DD") %>: accepted
