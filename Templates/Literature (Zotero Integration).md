@@ -11,6 +11,9 @@ tags: [literature]
 
 ## Relevance to thesis
 
+## Q&A
+<!-- ### Question ✓  then paste the validated answer -->
+
 ## Annotations
 {% for annotation in annotations %}
 - {{annotation.annotatedText}} (p. {{annotation.page}}){% if annotation.comment %} — {{annotation.comment}}{% endif %}
