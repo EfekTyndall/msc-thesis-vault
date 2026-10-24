@@ -1,5 +1,6 @@
 ---
 tags: [chapter]
+status: not started
 ---
 Source material: `docs/proposal.md` §6, §9
 

@@ -1,5 +1,6 @@
 ---
 tags: [chapter]
+status: not started
 ---
 Source material: `docs/thesis-plan.md` §2
 

@@ -11,3 +11,6 @@ tags: [daily]
 
 ## Agent log
 <!-- Note noticeable Claude mistakes: wrong assumption, unrequested change, overbuilt, unverified claim -->
+
+## Next step
+<!-- One concrete first action for the next session -->
