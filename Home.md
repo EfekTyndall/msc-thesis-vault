@@ -21,6 +21,7 @@ views:
       - property: file.name
         direction: DESC
     limit: 5
+
 ```
 
 ## New from Claude
