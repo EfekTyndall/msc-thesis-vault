@@ -3,7 +3,7 @@ tags: [home]
 ---
 # Thesis home
 
-**Open:** [Claude Project]([https://claude.ai/code/projects](https://claude.ai/code/project/chan_01G4aGPhjBp5PAux7Vb5PVPP)) · [Thesis repo in VS Code](vscode://file/Users/martyn/msc-thesis) · [Zotero](zotero://select/library) · [Thesis plan & open items](https://github.com/EfekTyndall/msc-thesis/blob/main/docs/thesis-plan.md)
+**Open:** [Claude Project](https://claude.ai/code/project/chan_01G4aGPhjBp5PAux7Vb5PVPP) · [Thesis repo in VS Code](vscode://file/Users/martyn/msc-thesis) · [Zotero](zotero://select/library) · [Thesis plan & open items](https://github.com/EfekTyndall/msc-thesis/blob/main/docs/thesis-plan.md)
 
 ## Recent days
 Today's note and the "Next step" from the last session.
