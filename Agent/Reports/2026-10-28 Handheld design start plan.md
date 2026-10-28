@@ -79,7 +79,7 @@ Steps 1–4 can start now; steps 3 and 4 are independent and can run in parallel
 
 ## 7. Open questions for Martyn
 
-1. Passive trigger or motor? An ActiveUMI-style motor on the printed copy is a change to [[D01 Handheld gripper body]] ("no motor power on the handheld") and to the approved proposal §1. If chosen, it should be recorded with `record-decision`, and the supervisor may need to be told. This plan assumes the passive copy until then.
+1. ~~Passive trigger or motor?~~ Settled 2026-10-28: passive trigger, D01 unchanged. A motor (Actuated UMI, §6) stays a later option.
 2. Gripper delivery date, and whether the Flagship version (with the RGB camera) is confirmed. Without it, the camera interface (step 5) is blocked.
 3. Which CAD tool will be used (e.g. Onshape, Fusion, SolidWorks)? It decides what goes into `msc-thesis/hardware/` besides STEP.
 4. Trigger behaviour: squeeze closes and a spring opens (assumed here as UMI-like; unverified), or the reverse?
