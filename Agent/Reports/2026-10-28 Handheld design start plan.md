@@ -56,8 +56,8 @@ body/handle ── camera mount datum ── Dex1-1 RGB camera, D405 bracket
 
 | Step | Work | Needs the gripper? | Done when |
 | --- | --- | --- | --- |
-| 1 | Collect references: UMI Hardware Guide and Push/Pull Gripper, CAD of later variants where published (open item in the thesis plan), [G1 + Dex1-1 meshes](https://huggingface.co/k-valentin/unitree-g1-mujoco) for rough geometry; check the PICO model (Settings > About) | No | Folder of references; model known |
-| 2 | CAD skeleton: TCP frame, camera-mount datum, finger travel envelope (0–90 mm), from the meshes; replaced by measured values later | No | Skeleton in `msc-thesis/hardware/` |
+| 1 | Collect references: UMI Hardware Guide and Push/Pull Gripper, CAD of later variants where published (open item in the thesis plan), the official Dex1-1 URDF and STL meshes (§6) for geometry; check the PICO model (Settings > About) | No | Folder of references; model known |
+| 2 | CAD skeleton: TCP frame, camera-mount datum, finger travel envelope (0–90 mm), from the official meshes; checked against measurements on delivery | No | Skeleton in `msc-thesis/hardware/` |
 | 3 | Controller adapter v0 and a bench tracking test while holding it as intended (occlusion by the hand, facing the headset) | No | Static jitter and dropouts logged with XRoboToolkit |
 | 4 | Mechanism v0: jaws + guide + trigger + spring, no camera | No | Full stroke, returns to open, play measured with calipers |
 | 5 | On delivery: measure the Dex1-1, confirm camera interface (USB/UVC), finger-visibility check (decides tags vs encoder, D05), update skeleton | Yes | Measured dimensions; D05 branch chosen |
@@ -65,9 +65,21 @@ body/handle ── camera mount datum ── Dex1-1 RGB camera, D405 bracket
 
 Steps 1–4 can start now; steps 3 and 4 are independent and can run in parallel. Hardware freeze is end of December (thesis plan §5), so v1 should leave December for calibration.
 
-## 6. Open questions for Martyn
+## 6. Public starting points (checked 2026-10-28)
 
-1. "Adjusted Dex1-1 gripper": does this mean the printed copy (D01), or modifying a real Dex1-1 (the fallback)? This plan assumes the printed copy and no motor.
+| Source | What is public | Licence | Use here |
+| --- | --- | --- | --- |
+| Unitree [`unitree_ros`](https://github.com/unitreerobotics/unitree_ros), `robots/dexterous_hand_description/dex1_1/` | Official Dex1-1 URDF (`dex1_1.urdf`) with STL meshes (`base_link`, `Link1_*`, `Link2_*`); two prismatic fingers, each −0.020 to +0.0245 m, i.e. 0.089 m total (matches the 90 mm stroke) | BSD-3-Clause | Finger and body geometry for the CAD skeleton (step 2). The URDF has no camera link, so the camera mount still needs the supplier STEP or measurement |
+| [UMI](https://umi-gripper.github.io) (chi2024) | [Hardware Guide](https://docs.google.com/document/d/1TPYwV9sNVPAi0ZlAupDMkXZ4CA1hsZx7YDMSmcEy6EU/edit?usp=sharing), print and assembly videos; mechanism credited to the [Push/Pull Gripper](https://www.thingiverse.com/thing:2204113) | Repo: MIT | Passive trigger mechanism |
+| [Actuated UMI gripper](https://github.com/actuated-umi/actuated-umi-gripper) (Helmut et al. 2024, not in `literature.bib`) | STL files, BOM, assembly video: Dynamixel XL430-W250-T, two MGN7C rails, flat belt, constant-force springs; based on [OpenGrip](https://github.com/clayhaight01/OpenGrip) | MIT | Reference if the handheld is motorised |
+| [Grabette / Gripette](https://github.com/pollen-robotics/grabette) (Pollen Robotics) | Onshape CAD, BOM, assembly guides; magnetic encoders; Gripette is motorised (two servos per the [blog](https://huggingface.co/blog/grabette)) | Apache-2.0 | Encoder integration (D05), recorder reference (D07) |
+| Community PICO 4 Ultra controller holders, e.g. [Printables 1035537](https://www.printables.com/model/1035537-pico-4-ultra-controller-holder-for-multiboard), [Printables 1301547](https://www.printables.com/model/1301547-beatsaber-groovylab-hilt-for-pico-4-ultra) | STL of controller cradles | Per model (unchecked) | Controller outline for the adapter (step 3); fit unverified |
+| ActiveUMI (zeng2025) | Paper only: a copy of the robot gripper on a Quest 3S controller, driven by a micro-motor; no CAD, BOM or code on the [project page](https://activeumi.github.io) | – | Concept only |
+| ViTaMIn-B (li2025) | Paper says design files "will be released"; none found | – | – |
+
+## 7. Open questions for Martyn
+
+1. Passive trigger or motor? An ActiveUMI-style motor on the printed copy is a change to [[D01 Handheld gripper body]] ("no motor power on the handheld") and to the approved proposal §1. If chosen, it should be recorded with `record-decision`, and the supervisor may need to be told. This plan assumes the passive copy until then.
 2. Gripper delivery date, and whether the Flagship version (with the RGB camera) is confirmed. Without it, the camera interface (step 5) is blocked.
 3. Which CAD tool will be used (e.g. Onshape, Fusion, SolidWorks)? It decides what goes into `msc-thesis/hardware/` besides STEP.
 4. Trigger behaviour: squeeze closes and a spring opens (assumed here as UMI-like; unverified), or the reverse?
