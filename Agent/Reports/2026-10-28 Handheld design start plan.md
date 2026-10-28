@@ -29,7 +29,7 @@ Only what the camera sees must match the robot gripper: finger shape and the cam
 | R5 | Space for both width options in v1: tag faces visible to the camera, and a shaft site for the AS5600 magnet | D05 | Finger-visibility check on delivery |
 | R6 | D405 on the Dex1-1 bracket | D03 | Fit check |
 | R7 | One cable exit with strain relief | D06 | Pull test (method unverified) |
-| R8 | Mass: no target set. References: TacUMI handheld 540 g (cheng2026 / zhang2026), Dex1-1 550 g ([Unitree](https://unitree.com/Dex1-1)), UMI-3D at 1120 g reported as causing fatigue (wang2026) | – | Weigh v1 |
+| R8 | Mass: no target; v1 is weighed (settled 2026-10-28). References: TacUMI handheld 540 g (cheng2026 / zhang2026), Dex1-1 550 g ([Unitree](https://unitree.com/Dex1-1)), UMI-3D at 1120 g reported as causing fatigue (wang2026) | – | Weigh v1 |
 | R9 | Printable in-house (PLA/PETG body, TPU fingertips, per proposal BOM) | proposal | Print |
 
 ## 4. Subsystems and interfaces
@@ -81,7 +81,7 @@ Steps 1–4 can start now; steps 3 and 4 are independent and can run in parallel
 
 1. ~~Passive trigger or motor?~~ Settled 2026-10-28: passive trigger, D01 unchanged. A motor (Actuated UMI, §6) stays a later option.
 2. Gripper delivery date, and whether the Flagship version (with the RGB camera) is confirmed. Without it, the camera interface (step 5) is blocked.
-3. Which CAD tool will be used (e.g. Onshape, Fusion, SolidWorks)? It decides what goes into `msc-thesis/hardware/` besides STEP.
-4. Trigger behaviour: squeeze closes and a spring opens (assumed here as UMI-like; unverified), or the reverse?
-5. Is there a weight target, or is "weigh v1 and compare with R8" enough?
-6. Are the two ordered Dex1-1s left and right versions with different geometry? Unverified; affects which unit the replica copies.
+3. ~~CAD tool?~~ Settled 2026-10-28: Autodesk Fusion. `msc-thesis/hardware/` keeps STEP exports next to the Fusion files.
+4. ~~Trigger behaviour?~~ Settled 2026-10-28: squeezing the trigger closes the jaws, and a spring opens them (rest state open).
+5. ~~Weight target?~~ Settled 2026-10-28: no target yet; v1 is weighed and compared with the R8 references.
+6. ~~Which unit to copy?~~ Settled 2026-10-28: the replica copies the Dex1-1 that sits on the UR10e. Whether left and right versions differ in geometry is still unverified.
