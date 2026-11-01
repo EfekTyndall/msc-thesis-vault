@@ -12,10 +12,12 @@ How the passive handheld ([[D01 Handheld gripper body]]) moves its fingers: guid
 | Copy of the Dex1-1 mechanism: rack-and-pinion on MGN9 miniature rails | Same kinematics and guide as the robot gripper; low play; the pinion shaft carries the AS5600 magnet ([[D05 Gripper width sensing]]) | Rails and blocks must be bought; rails cut to length | **Chosen** |
 | Rack-and-pinion on MGN7 rails (as in the open [Actuated UMI](https://github.com/actuated-umi/actuated-umi-gripper)) | Smaller, proven in a UMI-size gripper | Not what the Dex1-1 uses | Rejected |
 | Steel rods with linear bushings or printed sleeves | Cheap, easy to source | More play | Rejected |
+| Separate pistol grip with trigger, controller mounted elsewhere | Free trigger layout | Two grips, awkward and heavier (Martyn) | Rejected |
+| Squeeze lever along the controller grip, or thumb lever | Higher force (squeeze lever) | Covers more of the controller, so more LED occlusion risk; thumb lever is weak and sits on buttons | Rejected |
 | Printed dovetail slide or UMI-style linkage ([Push/Pull Gripper](https://www.thingiverse.com/thing:2204113)) | No bought parts | Most play and wear; no natural encoder shaft | Rejected |
 
 ## Decision
-The handheld copies the Dex1-1 mechanism. Each finger carriage carries a rack and a short MGN9 rail; two MGN9C blocks are fixed in the body (blocks fixed, rails moving, as in the Dex1-1). One central pinion (module 0.8, 20 teeth, pitch diameter 16 mm, axis along the approach axis y) synchronises the fingers. Trigger: passive, squeeze to close, spring return to open; hard stops at both stroke limits. Finger geometry: converted from the official Dex1-1 meshes; redrawn as a parametric model once the physical Dex1-1 (the unit for the UR10e) is measured.
+The handheld copies the Dex1-1 mechanism. Each finger carriage carries a rack and a short MGN9 rail; two MGN9C blocks are fixed in the body (blocks fixed, rails moving, as in the Dex1-1). One central pinion (module 0.8, 20 teeth, pitch diameter 16 mm, axis along the approach axis y) synchronises the fingers. Trigger: passive, squeeze to close, spring return to open; hard stops at both stroke limits. Handle: no separate grip; the operator holds the PICO controller, mounted below and behind the gripper like a pistol grip with the gripper as the barrel, and closes the fingers with a printed index-finger lever in front of the controller trigger that drives one carriage through a rod. Finger geometry: converted from the official Dex1-1 meshes; redrawn as a parametric model once the physical Dex1-1 (the unit for the UR10e) is measured.
 
 ## Evidence
 Measured from the official Dex1-1 meshes (`msc-thesis/hardware/dex1-1-reference/`, unitree_ros, BSD-3) on 2026-11-01:
@@ -31,3 +33,4 @@ The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the 
 ## History
 - 2026-10-28: passive trigger kept (no motor), squeeze to close with spring return (Martyn)
 - 2026-11-01: accepted: copy of the Dex1-1 rack-and-pinion on MGN9 rails; finger geometry from the official meshes until the physical gripper is measured (mesh analysis above; Martyn)
+- 2026-11-01: handle: the PICO controller is the grip (gun hold, gripper as barrel), with an index-finger lever in front of the controller trigger (Martyn; no separate pistol grip)
