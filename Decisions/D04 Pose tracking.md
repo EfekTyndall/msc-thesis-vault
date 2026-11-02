@@ -18,7 +18,7 @@ How the 6-DoF pose of each handheld is measured during collection. Source: `msc-
 *Also considered:* optical motion capture such as [OptiTrack](https://www.optitrack.com/cameras) (sub-0.3 mm, but a fixed truss); only useful for a one-off validation.
 
 ## Decision
-The VR controllers of the PICO headset (PICO 4 Ultra expected; model to be confirmed), one rigidly fixed to each handheld, streamed to the recording PC with PICO's open-source XRoboToolkit, and measured against the UR10e before data collection. A Vive Tracker 3.0 + Lighthouse setup remains the accuracy reference and fallback.
+The VR controllers of the PICO headset (PICO 4 Ultra Enterprise, 12 GB; confirmed 2026-11-02), one rigidly fixed to each handheld, streamed to the recording PC with PICO's open-source XRoboToolkit, and measured against the UR10e before data collection. A Vive Tracker 3.0 + Lighthouse setup remains the accuracy reference and fallback.
 
 ## Evidence
 In [ViTaMIn-B](https://arxiv.org/html/2511.05858v1), VR controller tracking gave 100% valid demonstrations and 70% policy success, against 16% and 10% with onboard SLAM; the PICO headset is already available, and [XRoboToolkit](https://arxiv.org/html/2508.00097v2) streams its controller poses at 90 Hz with timestamps.
@@ -28,3 +28,4 @@ Measured error or dropouts too high → Vive Tracker 3.0 + base stations (ordere
 
 ## History
 - 2026-10-19: accepted (proposal approved)
+- 2026-11-02: headset model confirmed as PICO 4 Ultra Enterprise, 12 GB (Martyn). Enterprise and consumer controllers reported as the same hardware by secondary sources ([ArborXR](https://arborxr.com/blog/pico-4-ultra/), [VR/AR Wiki](https://vrarwiki.com/wiki/Pico_4_Ultra_Enterprise)); no official confirmation found (unverified)
