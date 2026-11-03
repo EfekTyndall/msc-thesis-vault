@@ -4,7 +4,7 @@ tags: [research, hardware, dex1-1]
 ---
 # Dex1-1 technical note: RS-485 control and use as a handheld
 
-Question: can the real Dex1-1 serve as the handheld body ([[D01 Handheld gripper body]], swap option), driven by the PICO controller trigger from the recording PC? Answers the open questions in `Daily/2026-11-03`.
+Question: can the real Dex1-1 serve as the handheld body ([[D01 Handheld gripper body]], swap option), driven by the PICO controller trigger from the recording PC? Answers the open questions in [[2026-11-03]].
 
 Method: Unitree product page; reseller listings for box contents; source code of Unitree's `dex1_1_service` ([commit ced3216](https://github.com/unitreerobotics/dex1_1_service/tree/ced3216290bb22dae356213993786beeaa7143ab), 2026-09-16), `unitree_sdk2` headers and the Dex1-1 controller in `xr_teleoperate` ([commit 817fb00](https://github.com/unitreerobotics/xr_teleoperate/tree/817fb00c63cde15e5f24a0f8fa08e1e33ed89d3b), 2026-09-07). Unitree's support page ([Dex1-1 gripper](https://support.unitree.com/home/zh/dex1-1_gripper), section 4.2: wiring) renders only in a browser and was not read. Nothing was tested on hardware.
 
