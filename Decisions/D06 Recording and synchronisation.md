@@ -4,6 +4,7 @@ status: accepted
 tags: [decision]
 ---
 ## Context
+
 Where data is recorded and how all streams share one time base. Source: `msc-thesis/docs/proposal.md` §6 (approved by Supervisor on 19 Oct 2026).
 
 ## Options

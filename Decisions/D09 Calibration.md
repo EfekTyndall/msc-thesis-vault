@@ -4,9 +4,10 @@ status: accepted
 tags: [decision]
 ---
 ## Context
-How the transforms, latencies and width mappings the data depends on are calibrated and versioned. Source: `msc-thesis/docs/proposal.md` §9 (approved by Yanmei on 19 Oct 2026).
+How the transforms, latencies and width mappings the data depends on are calibrated and versioned. Source: `msc-thesis/docs/proposal.md` §9 (approved by Supervisor on 19 Oct 2026).
 
 ## Options
+
 | Calibration | Method | Cadence |
 | --- | --- | --- |
 | Camera intrinsics (handheld and robot cameras) | Fisheye model ([Kannala-Brandt via OpenCV](https://docs.opencv.org/4.x/db/d58/group__calib3d__fisheye.html) or [Kalibr](https://github.com/ethz-asl/kalibr/wiki/supported-models)); target < 0.5 px. Used for geometry checks only: the policy receives raw images, as in [UMI](https://arxiv.org/pdf/2402.10329) | Once per camera unit |
@@ -17,16 +18,18 @@ How the transforms, latencies and width mappings the data depends on are calibra
 | Visual match of printed copy vs real gripper | Images at equal widths; finger-mask overlap and camera pose offset | Once per build; after finger or mount reprint |
 | Tracking accuracy and jitter | Controller pose vs UR10e TCP pose after hand-eye; RMSE and static jitter (method of [arXiv 2412.06116](https://arxiv.org/html/2412.06116v1)) | Once per build; short static log every session |
 
-
-
 ## Decision
+
 Treat calibration as its own subsystem that produces versioned files, with three cadences: once per build, after any reprint, and every session. Each dataset records which calibration version it used.
 
 ## Evidence
+
 [ViTaMIn-B](https://arxiv.org/html/2511.05858v1) is the only variant that describes its calibration procedure (hand-eye with about 10 poses on the robot), and it is reproducible here because the real Dex1-1 sits on the UR10e.
 
 ## Revisit if
+
 –
 
 ## History
+
 - 2026-10-19: accepted (proposal approved)

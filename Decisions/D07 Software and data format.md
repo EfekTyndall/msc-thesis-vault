@@ -20,10 +20,13 @@ How handheld episodes are recorded and exported so they match the VR teleop data
 A new recorder that writes episodes directly in the same format as the VR teleop pipeline, using the action representation of [UMI](https://arxiv.org/pdf/2402.10329).
 
 ## Evidence
+
 One format for handheld and teleop data is what makes the comparison possible, and the [UMI code](https://github.com/real-stanford/universal_manipulation_interface) is tied to the GoPro and SLAM, which this design does not use.
 
 ## Revisit if
+
 –
 
 ## History
+
 - 2026-10-19: accepted (proposal approved)
