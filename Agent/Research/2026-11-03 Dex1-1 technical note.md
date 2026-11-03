@@ -6,7 +6,7 @@ tags: [research, hardware, dex1-1]
 
 Question: can the real Dex1-1 serve as the handheld body ([[D01 Handheld gripper body]], swap option), driven by the PICO controller trigger from the recording PC? Answers the open questions in [[2026-11-03]].
 
-Method: Unitree product page; reseller listings for box contents; source code of Unitree's `dex1_1_service` ([commit ced3216](https://github.com/unitreerobotics/dex1_1_service/tree/ced3216290bb22dae356213993786beeaa7143ab), 2026-09-16), `unitree_sdk2` headers and the Dex1-1 controller in `xr_teleoperate` ([commit 817fb00](https://github.com/unitreerobotics/xr_teleoperate/tree/817fb00c63cde15e5f24a0f8fa08e1e33ed89d3b), 2026-09-07). Unitree's support page ([Dex1-1 gripper](https://support.unitree.com/home/zh/dex1-1_gripper), section 4.2: wiring) renders only in a browser and was not read. Nothing was tested on hardware.
+Method: Unitree product page; reseller listings for box contents; source code of Unitree's `dex1_1_service` ([commit ced3216](https://github.com/unitreerobotics/dex1_1_service/tree/ced3216290bb22dae356213993786beeaa7143ab), 2026-09-16), `unitree_sdk2` headers and the Dex1-1 controller in `xr_teleoperate` ([commit 817fb00](https://github.com/unitreerobotics/xr_teleoperate/tree/817fb00c63cde15e5f24a0f8fa08e1e33ed89d3b), 2026-09-07). Unitree's support page ([Dex1-1 developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)) was read by Martyn on 2026-11-03; its figures and the official STEP/URDF are in `msc-thesis/hardware/dex1-1-reference/from-official-docs/` (see Wiring below). Nothing was tested on hardware.
 
 ## Summary
 
@@ -33,6 +33,16 @@ Method: Unitree product page; reseller listings for box contents; source code of
 
 Peak electrical power is about 84 W at 24 V (3.5 A × 24 V), computed here and not stated by Unitree.
 
+## Wiring (support page §4, figures)
+
+From the figures in `msc-thesis/hardware/dex1-1-reference/from-official-docs/images/`, read here; the page text was not read by Claude.
+
+- **Gripper connector:** XT30PW(2+2)-M (male): two power pins (DC 24–64 V) and two RS-485 pins (A, B). Per [[2026-11-03]] and `Dex1-1_Electrical_Interface.jpg`.
+- **Topology** (`Dex1-1_Connection_Diagram.jpg`): PC running the Dex1-1 SDK (`/dev/ttyUSB0`) → USB → RS-485-to-USB adapter → RS-485 → gripper. The DC 24–64 V supply joins the cable between adapter and gripper, so power does not pass through the adapter.
+- **Cable** (`Dex1-1_Connection_Cable_Power+Data.png`, photo): one end is a 2+2 XT30 plug; the other end splits into a two-pin XT30-style power plug and a small three-wire connector for the adapter. Length not stated (unverified).
+- **Adapter** (`Communication_Adapter_(RS485-USB).png`, photo): four RS-485 ports labelled UART1–UART4, each with G, A, B pins, and a USB Type-C port to the PC. Whether more than one gripper can share one adapter is not stated (unverified).
+- **Official URDF:** finger travel 0 to 0.041 m per side (0.082 m total), length 0.1433 m; see `msc-thesis/hardware/dex1-1-reference/README.md`.
+
 ## Software path (from the source code)
 
 - **Chain:** PC → USB → 485 board → gripper motor (Unitree M4010, `main.cpp`). The service `dex1_1_gripper_server` finds the motor on `/dev/ttyUSB*`, `/dev/ttyCH343USB*` or `/dev/ttyACM*`. Motor ID 0 is published as `right` and ID 1 as `left`.
@@ -48,7 +58,8 @@ Peak electrical power is about 84 W at 24 V (3.5 A × 24 V), computed here and n
 **Position scale.** The sources disagree:
 - The `xr_teleoperate` comments state 5.4 rad ↔ 90 mm, i.e. 0.6 rad per cm. Another comment in the same file says "0.6 cm/rad · 9 rad = 5.4 cm".
 - The service calibrates over 322° (5.62 rad).
-- The URDF gives each finger −0.02 to 0.0245 m, i.e. 89 mm in total.
+- The unitree_ros URDF gives each finger −0.02 to 0.0245 m, i.e. 89 mm in total.
+- The official URDF (`Dex1-1_URDF_261030`) gives each finger 0 to 0.041 m, i.e. 82 mm in total.
 
 The command-to-width curve must therefore be measured, which the D09 row "Dex1-1 command → fingertip width" already covers.
 
@@ -58,7 +69,7 @@ The command-to-width curve must therefore be measured, which the D09 row "Dex1-1
 | --- | --- | --- |
 | How does the RS-485 protocol work? | Unitree motor frames at 6 Mbit/s through the 485-to-USB board. The user does not touch the protocol: `dex1_1_service` exposes DDS topics | From source code |
 | Which computing unit? | The recording PC (Linux, x86-64 libraries shipped). No Jetson or onboard board needed | Inferred; not run |
-| Power supply? | 24 or 48 V DC, at least 3.5 A peak. Bench supply plus a cable to the handheld | Product page; connector and cable type unverified (support page §4.2) |
+| Power supply? | 24 or 48 V DC, at least 3.5 A peak. Bench supply plus a cable to the handheld | Product page; connector XT30PW(2+2)-M, power joins the cable outside the adapter (support page §4.2 figures) |
 | F/T data? | No F/T sensor. Only the motor torque estimate `tau_est` | From source code |
 | How does PICO actuation work? | XRoboToolkit gives the trigger as a float (see [[2026-11-03 PICO 4 Ultra trigger readout]]). A program maps it to `q` and publishes it on `rt/dex1/<side>/cmd` | Pattern used in `xr_teleoperate`; not tested |
 | Binary or continuous? | Either. Proportional (width follows the trigger) is what Unitree's teleop does. Binary is a threshold on the trigger | Software choice |
@@ -76,7 +87,7 @@ The command-to-width curve must therefore be measured, which the D09 row "Dex1-1
 
 ## Open
 
-- Read the support page §4.2 (wiring, connector, cable) in a browser.
+- Does the RS-485-to-USB adapter ship with the gripper or with the robot ([[2026-11-03]] question)? A reseller lists it in the gripper box (table above); confirm on delivery.
 - Confirm with the supplier or the delivered box which version and accessories arrived.
 - Check whether the fingers can be back-driven by hand when the motor is unpowered or braked. This matters for safety and for hand-guided corrections; unverified.
 - Measure the latency from trigger to finger motion, the command-to-width curve, and `tau_est` against a force gauge.
