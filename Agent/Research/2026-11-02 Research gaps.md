@@ -1,0 +1,82 @@
+---
+date: 2026-11-02
+tags: [research, gaps]
+---
+# Research gaps: handheld vs VR-teleop data collection
+
+Question: what do the published handheld (UMI-style) and VR-teleop data-collection works leave unmeasured or unanswered, and which issues raised during the handheld design should the thesis measure, control or discuss?
+
+Method: the papers in `msc-thesis/thesis/literature.bib` were checked section by section for (a) a comparison against teleoperation, (b) operator workload or fatigue, (c) handheld mass, (d) calibration and sync accuracy, (e) limitations stated by the authors. Design-time issues come from [[D01 Handheld gripper body]] to [[D10 Handheld mechanism]], `msc-thesis/docs/proposal.md`, `msc-thesis/docs/thesis-plan.md`, `msc-thesis/hardware/PRINT-TEST-QUEUE.md` (msc-thesis PR #3) and [[2026-11-02 Handheld trigger survey]]. Papers are cited by key; three works outside `literature.bib` are marked **(not in bib)** and listed at the end as candidates for Zotero. Statistical figures were computed for this note (exact binomial, script not committed).
+
+## Summary
+
+1. **No work in `literature.bib` compares handheld and VR teleop on the same arm and task at equal demonstrations and equal operator time.** Closest are ai2026 (not sample-matched, teleop collected in the evaluation scene) and, outside the bib, DM-UMI (Surendran et al. 2026, **not in bib**), which compares handheld and teleop on a Franka but uses its own device for teleop, not VR. The thesis's C1–C4 design addresses exactly this, but the novelty claim must be framed against DM-UMI.
+2. **No handheld paper measures operator workload or fatigue.** chi2024, ai2026, zeng2025, nai2026, cheng2026, wang2026, zhaxizhuoma2025 and liu2026 report none; li2025 reports only time and a 1–10 satisfaction score from 5 participants. NASA-TLX is used in teleop interface studies (Zhou et al. 2026, **not in bib**), never for handheld vs teleop. The thesis plan's NASA-TLX is a genuine contribution; physical effort (trigger force, mass) is the unmeasured part.
+3. **Mixing teleop into handheld data is not reliably positive.** zeng2025 reports 80 → 95% with 1% teleop on one task (20 trials); DM-UMI (**not in bib**) found that a naive mix performed worse than handheld alone on two of three tasks. H3 should be framed as an open question, not an expected gain.
+4. **20 rollouts per condition cannot resolve the differences the hypotheses predict.** At 20 vs 20 rollouts, Fisher's exact test detects a 50% vs 80% difference with only about 41% power (74% for 50% vs 90%). A continuous outcome (placement error) or more rollouts is needed (section C).
+5. **Several error terms specific to this design are unpublished:** PICO controller accuracy with the operator's own sleeve and hand near the LEDs, repeatability of the sleeve and the camera remount, the width mismatch between a passive handheld (achieved width) and a position-commanded Dex1-1, and the residual sync error. Most are already in the error budget (thesis plan §4); the width mismatch and the two repeatability terms are not.
+
+## A. Gaps in the published work
+
+| # | Gap | What the literature shows | Thesis implication | Already planned? |
+| --- | --- | --- | --- | --- |
+| A1 | Controlled handheld vs teleop comparison | chi2024 Sec. VII: UMI > 3× faster than SpaceMouse teleop (demos in 15 min), no policy comparison on teleop data. ai2026 Sec. 6.1.3, Tab. 4: ~3,200 UMI vs ~300 teleop trajectories per task, π0.5 77.5% vs 74.4%; the authors state it is not sample-matched and teleop was collected in the evaluation scene. zeng2025 Sec. 4.5: completion time 2.06× / 1.49× of bare hand vs 3.27× / 2.63× for teleop. cheng2026 Sec. IV-B: 1 min 10 s vs 4 min per trial. nai2026: 3× vs TWIST2 (humanoid), no TWIST2-trained policy. li2025 and liu2026: no teleop baseline | Equal-N (C2) and equal-time (C3) arms with policy outcomes on one robot fill a real gap | Yes (C1–C4) |
+| A2 | Operator workload and fatigue | No measurement in any handheld paper (list in Summary 2). wang2026 Sec. VI: 1120 g "can lead to user fatigue", not measured. cheng2026 Sec. III-A: ergonomic claims (centre of mass near palm, self-lock), not measured | NASA-TLX alone covers perceived load; add the objective terms the papers lack: handheld mass and centre of mass, trigger force over the stroke, session length | NASA-TLX yes; force and mass no |
+| A3 | VR controller accuracy | banaszczyk2024: Quest 2 / Pro **headsets** only, 2.3–5.3 mm RMSE on a UR5e, headset cameras partly covered; no controllers, no lighting variation; Unity-to-robot timestamps differed up to 200 ms before correction. hu2024: Quest 3 headset > 10 cm error in dim, featureless rooms (proposal §4). No PICO or Quest controller study | Controller error must be measured, including occlusion by the sleeve and hand, lighting, and speed; sync between controller and robot logs must be solved first, otherwise the accuracy test is biased (banaszczyk2024 limitation) | Yes (thesis plan §4); occlusion by the operator's own hand and speed dependence not explicit |
+| A4 | Hand-eye calibration accuracy | li2025 Sec. IV-D: 10 poses, Horaud–Dornaika; no residual reported. cheng2026, liu2026: transform "fixed by the mount", procedure not described | Report hand-eye residuals and their effect on action error (rotation more than translation, proposal §9) | Yes (D09) |
+| A5 | Residual sync error after compensation | li2025: per-sensor latencies (0.14 s GoPro, 0.01 s Quest), "10 ms" is a target, no residual. wang2026: STM32 clock, no residual. chi2024 App. A gives the latency method, no residual | Measure and report the residual; already listed as a contribution | Yes (thesis plan §4) |
+| A6 | Tracking dropouts and episode rejection | li2025 handles tracking loss only for SLAM; controller occlusion not handled. nai2026 chose the Ultimate Tracker because headset tracking degrades under occlusion; no recovery method. ai2026 Sec. 5.5 lists rejection criteria (missing frames, timestamp gaps, pose outliers, action spikes, gripper inconsistency) | Define rejection criteria before collection and apply them identically to both sources, so "share of unusable demonstrations" is comparable | Metric yes; criteria not defined |
+| A7 | Kinematic feasibility | chi2024 Sec. VIII: robot kinematic limits unknown at collection, handled by filtering. ai2026 Sec. 3.3.3: replay in simulation, ~2% rejected | Teleop demonstrations are feasible by construction, handheld ones are not: the filtered share is a cost of the handheld and belongs in the efficiency metric | Filtering yes (D08); counting it in C3 not stated |
+| A8 | Replica vs real gripper | liu2026 App. A.1: replica in PA66+GF with exact geometry; friction and contact differences not addressed. No paper quantifies image match | Image overlap already planned; contact (printed vs alloy jaws, TPU tips) is unmeasured anywhere | Image match yes; contact no |
+| A9 | Gripper action semantics | ai2026 Sec. 6.2.2 excludes the gripper channel from its fidelity analysis because UMI and teleop gripper signals mean different things | See B4: the passive handheld records achieved width, the robot needs a command | No |
+| A10 | Small trial counts | chi2024: 20 trials per condition; zeng2025: mostly 10; li2025: trial counts not stated; ai2026: 40 per pair, notes 1 trial = 2.5 pp | See section C | Partly |
+
+## B. Gaps raised during the design
+
+| # | Issue | Why it matters | What to measure or decide | Source |
+| --- | --- | --- | --- | --- |
+| B1 | **LED occlusion by the mount and the hand.** Controller is the grip; sleeve leaves rim (6 LEDs) and pommel (2 LEDs) uncovered; LED count from a user video, unverified | Tracking degrades when LEDs are hidden; in a gun hold the gripper and lever sit in front of the controller, between it and the headset in some poses | Dropout rate and error vs pose and hand position, with and without the gripper mounted (A3); LED check in the print queue | D10, PRINT-TEST-QUEUE |
+| B2 | **Sleeve repeatability.** The controller sits in a two-part snap-fit sleeve that can be opened | Every re-seat may shift the controller-to-TCP transform; the D09 cadence covers reprints, not re-seating | Re-seat N times, re-check with the 5-pose test; add "after opening the sleeve" to the D09 cadence | D09, D10, PRINT-TEST-QUEUE §1 |
+| B3 | **Calibration fixture.** D09 solves controller-to-TCP with the controller on the real Dex1-1 on the UR10e | That gives the transform for the real gripper. It transfers to the handheld only if the sleeve-to-gripper interface is identical on both, i.e. the bracket on the robot reproduces the replica's bracket. Not yet designed | Either a robot-side bracket with the same interface, or a direct check of the replica TCP (e.g. touching reference points with the replica held by the UR10e); compare with CAD | D09, start plan §4.4 |
+| B4 | **Width mismatch (passive vs commanded).** The handheld records the width the fingers reach, which stops at the object; the Dex1-1 executes a position command | Replaying a recorded grasp width as a command makes the robot stop at the surface with little or no grip force (behaviour of the Dex1-1 controller at a blocked target unverified). Grip force is not recorded at all by a passive handheld | Decide a mapping (e.g. close-past-contact offset when width stops decreasing) and apply it at export or deployment; record the Dex1-1 command-to-width curve (D09 row exists) and its force at a blocked target | D01, D05, D09 |
+| B5 | **Squeeze force vs stroke.** Index-finger lever in front of the controller trigger, about 2:1 (CAD thread notes; not in the repo). Spring return means the operator holds force for the whole grasp | Neglecting friction, lever travel × force equals finger travel × force: a ratio that shortens trigger travel raises the force needed, and vice versa. No paper reports trigger force (trigger survey). Holding force over long grasps is the fatigue term cheng2026 addresses with its self-lock | Force at the lever over the full stroke (spring scale or load cell), plus friction hysteresis; decide on a lock after the first print | Trigger survey, D10 |
+| B6 | **Width sensing.** ArUco first, AS5600 on the pinion shaft as fallback; pinion turns ~319° over the stroke | Marker visibility in the Dex1-1 view is unchecked; gear backlash (0.1–0.2 mm planned) adds width error between encoder and fingertips | Width error vs caliper over the stroke, both directions (hysteresis); marker detection rate during grasps | D05, D10 |
+| B7 | **Time sync.** XRoboToolkit timestamp meaning (sample vs send time) undocumented; Wi-Fi link | Unknown latency jitter enters both the handheld data and the VR teleop baseline | Log headset and PC receive times; measure offset drift over a session (banaszczyk2024 saw drift over 2 h) | D06, proposal §4 |
+| B8 | **Camera remount.** One Dex1-1 camera moved between robot and handheld each session | Any shift changes the image geometry, which the policy is not trained to tolerate (xue2026: a lens change dropped π0.5 to 0.0025) | Remount repeatability (image overlay of a fixed target after N remounts); no paper reports it | D02, proposal §1 |
+| B9 | **Passive vs motorised.** D01 keeps the handheld passive | zeng2025 is the only motorised copy and gives no details; the trade-off (mass, power vs force control and closed-loop width) is undocumented | Discuss in the design chapter with B4 and B5 as the measured cost of passivity | D01, trigger survey |
+| B10 | **Headset during handheld collection.** The operator wears the headset for tracking in both conditions | Workload of wearing it is shared by both conditions, which helps fairness; the workspace is limited to the headset's tracking view | Note in fairness rules; record whether passthrough was used | D04, proposal §4 |
+| B11 | **Mass and centre of mass.** No target (start plan R8). Reported: UMI 780 g (chi2024), UMI-3D 1120 g (wang2026), TacUMI 540 g (cheng2026 / zhang2026), Dex1-1 550 g (Unitree); zeng2025, li2025, liu2026, zhaxizhuoma2025 report none | Mass is the only fatigue factor the papers name | Weigh v1 with controller, camera, D405 and cable; report centre of mass relative to the grip | Start plan R8 |
+
+## C. Gaps in the thesis's own experiment design
+
+1. **Statistical power.** With 20 rollouts per condition, the Wilson 95% interval at 10/20 is 0.30–0.70 and at 16/20 is 0.58–0.92. Power of Fisher's exact test (α = 0.05, 20 vs 20) is about 0.16 for 50 vs 70%, 0.41 for 50 vs 80% and 0.74 for 50 vs 90%; with 40 per condition, 50 vs 80% reaches about 0.75. H1 ("at least as good") is an equivalence-type claim that 20 rollouts cannot support. Options: a continuous primary metric (final placement error in mm, which the fine-alignment task allows), partial-stage success, or more rollouts for the key pair (C1 vs C3). Changing the protocol touches the thesis plan, so it needs Martyn's approval.
+2. **Mixing (H3).** Evidence is one task in zeng2025 (positive) and DM-UMI (**not in bib**; naive mixing worse than handheld alone on two of three tasks). Report C4 as a test, and fix the mixing ratio and sampling before collection.
+3. **Asymmetric costs in the efficiency metric.** Teleop time includes robot execution and resets; handheld time does not, but handheld demos are lost later to filtering (A7) and calibration. Count operator time and the filtered share both, per source.
+4. **Same scene for both sources.** ai2026 collected teleop in the evaluation scene and UMI elsewhere; the thesis fairness rules (same grid) already prevent this and can be cited as the reason.
+5. **Few operators.** li2025 used 5 participants. The thesis plan does not state the number of operators; NASA-TLX with very few operators is descriptive only and should be reported as such.
+
+## Suggested additions, by priority
+
+| Priority | Addition | Check |
+| --- | --- | --- |
+| Must | Primary continuous metric or more rollouts for C1 vs C3 (C1) | Power recomputed for the chosen design |
+| Must | Width mapping from handheld to Dex1-1 command (B4) | Replayed grasps hold the object on the UR10e |
+| Must | Calibration path for the replica's TCP (B3) and re-check after sleeve opening (B2) | Residual vs CAD; 5-pose re-check spread |
+| Should | Trigger force over the stroke, mass and centre of mass (A2, B5, B11) | Load cell or spring scale; scale |
+| Should | Tracking error and dropouts with the operator's hand on the sleeve, at operator speeds (A3, B1) | UR10e replay plus handheld-held trials |
+| Should | Episode rejection criteria written before collection (A6) | Applied to both sources |
+| Optional | Camera remount repeatability (B8) | Overlay after N remounts |
+| Optional | Trajectory-quality metrics from recorded data (path length, idle time) for both sources; not reported in any bib paper as a handheld vs teleop comparison | Analysis script |
+
+## Candidates for Zotero (not in `literature.bib`)
+
+- Surendran, Peri, Watkins (2026), *Bridging Handheld and Teleoperated Supervision for Contact-Rich Manipulation via State-Gated Experts*, [arXiv 2606.26603](https://arxiv.org/html/2606.26603v2). Closest prior work to the thesis comparison; read in full before writing related work.
+- Zhou, Hou, Baraka (2026, year not on page), *Static Is Not Enough: A Comparative Study of VR and SpaceMouse in Static and Dynamic Teleoperation Tasks*, [arXiv 2601.13042](https://arxiv.org/html/2601.13042). 25 participants, NASA-TLX and SUS; method reference for operator effort.
+- Vanc, Behrens, Hlaváč, Stepanova, *How Should We Teach Robots? A Comparison of Kinesthetic, Joystick, and Gesture-Based Teaching*, [arXiv 2605.28033](https://arxiv.org/html/2605.28033v1). Modified NASA-TLX, 8 participants; method reference.
+
+## Open
+
+- The full texts were read through arXiv HTML summaries for chi2024, ai2026, zeng2025, li2025, liu2026, nai2026, cheng2026, wang2026, zhaxizhuoma2025 and banaszczyk2024; page numbers not extracted. Section numbers are from those pages.
+- Not checked for this note: yang2026, yin2026, choi2026, zhang2026, zhao2025, kulozik2024, kuhlmanndecanaviri2023, xue2026 beyond what the proposal already cites.
+- The ~2:1 lever ratio and the LED count are not confirmed in the repo; the Dex1-1 behaviour at a blocked position target is unverified.
+- The non-bib works were read only through their arXiv HTML pages; claims about them must be re-checked once they are in Zotero.
