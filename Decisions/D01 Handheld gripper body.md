@@ -4,6 +4,7 @@ status: accepted
 tags: [decision]
 ---
 ## Context
+
 What the operator holds: how the handheld reproduces the Dex1-1 so that handheld and robot camera images match. Source: `msc-thesis/docs/proposal.md` §1 (approved by Yanmei on 19 Oct 2026).
 
 ## Options
@@ -26,3 +27,5 @@ Printed copy proves too inaccurate.
 
 ## History
 - 2026-10-19: accepted (proposal approved)
+- 2026-10-28: the replica copies the Dex1-1 that sits on the UR10e; passive trigger confirmed, no motor (Martyn)
+- 2026-11-01: mechanism details moved to [[D10 Handheld mechanism]]
