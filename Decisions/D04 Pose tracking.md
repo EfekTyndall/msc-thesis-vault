@@ -4,7 +4,8 @@ status: accepted
 tags: [decision]
 ---
 ## Context
-How the 6-DoF pose of each handheld is measured during collection. Source: `msc-thesis/docs/proposal.md` §4 (approved by Yanmei on 19 Oct 2026).
+
+How the 6-DoF pose of each handheld is measured during collection. Source: `msc-thesis/docs/proposal.md` §4 (approved by Supervisor on 19 Oct 2026).
 
 ## Options
 | Option | Strengths | Weaknesses | Verdict |

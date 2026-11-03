@@ -5,7 +5,7 @@ tags: [decision]
 ---
 ## Context
 
-Whether depth is used as a policy input, given the D405 that was ordered with the grippers. Source: `msc-thesis/docs/proposal.md` §3 (approved by Yanmei on 19 Oct 2026).
+Whether depth is used as a policy input, given the D405 that was ordered with the grippers. Source: `msc-thesis/docs/proposal.md` §3 (approved by Supervisor on 19 Oct 2026).
 
 ## Options
 | Option | Strengths | Weaknesses | Verdict |
