@@ -29,6 +29,7 @@ Measured from the official Dex1-1 meshes (`msc-thesis/hardware/dex1-1-reference/
 - Rack teeth on both finger carriages (`Link1_1`, `Link2_1`) repeat every 2.51 mm, i.e. module 0.8; the racks face each other across z = 0, pitch lines at z = ±8 mm.
 - The body mesh contains a pinion with 20 teeth, tip diameter 17.6 mm, root about 14 mm (pitch 16 mm at module 0.8), axis along y at x = z = 0.
 - The body mesh contains two fixed blocks of 28.9 × 20.0 × 8.0 mm with ball-groove profile at z = ±17.2 to 25.2 mm. 20 mm matches the MGN9C block width ([reseller table](https://www.lily-bearing.com/products/mgn9c1r115z0cm/), which lists the length as 30 mm); the 28.9 mm length against HIWIN's own table ([MG catalogue](https://s3.amazonaws.com/www.motionusa.com/hiwin/2025/MG%20Series-2025.pdf)) is unverified.
+- The official Dex1-1 STEP (Unitree documentation, file dated 2026-07-31; `msc-thesis/hardware/dex1-1-reference/README.md`) confirms the layout: parts named MGN9C blocks, MGN9 rails 75 mm long, a 20-tooth output gear (tip r 8.8 mm, root r 6.91 mm) and two drive racks. Its blocks and rails sit about 2 mm closer to the axis than in the unitree_ros mesh (blocks z 15.09–23.11 vs 17.2–25.2 mm), and its pads are 26.8 mm wide (mesh: 28.4 mm).
 - Stroke 89 mm (URDF joint limits) turns the 16 mm pinion by 89 / (π · 16) · 360° ≈ 319°, i.e. less than one turn, so a single-turn AS5600 reads the width directly.
 Not yet checked against the physical gripper.
 
@@ -42,3 +43,4 @@ The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the 
 - 2026-11-01: accepted: copy of the Dex1-1 rack-and-pinion on MGN9 rails; finger geometry from the official meshes until the physical gripper is measured (mesh analysis above; Martyn)
 - 2026-11-01: handle: the PICO controller is the grip (gun hold, gripper as barrel), with an index-finger lever in front of the controller trigger (Martyn; no separate pistol grip)
 - 2026-11-02: controller held in a grip sleeve (rim and pommel LEDs uncovered) instead of a cap on the head (LED positions; community gun shells; Martyn)
+- 2026-11-03: evidence updated from the official Dex1-1 STEP (MGN9C/MGN9 confirmed, rails 75 mm; block/rail positions differ by about 2 mm from the unitree_ros mesh). Decision unchanged; the mechanism CAD is not yet updated (on hold until the D01 question with the supervisor is settled)
