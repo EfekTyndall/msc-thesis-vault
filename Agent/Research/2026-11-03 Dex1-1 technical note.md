@@ -69,10 +69,10 @@ The command-to-width curve must therefore be measured, which the D09 row "Dex1-1
 - **[[D10 Handheld mechanism]]:** no rails, pinion, lever or spring are needed. The index finger works the PICO trigger directly. The grip sleeve design carries over, with a bracket to the real gripper body.
 - **[[D02 Policy camera]]:** the camera stays on the gripper.
 - **New costs:**
-  - A power cable and a USB cable to the handheld.
-  - 550 g of gripper, plus the controller and sleeve (mass unmeasured).
-  - Gripper remount on the UR10e, if one gripper does both roles.
-  - Grip force set indirectly through `kp` and the position error.
+	- A power cable and a USB cable to the handheld.
+	- 550 g of gripper, plus the controller and sleeve (mass unmeasured).
+	- Gripper remount on the UR10e, if one gripper does both roles.
+	- Grip force set indirectly through `kp` and the position error.
 
 ## Open
 
