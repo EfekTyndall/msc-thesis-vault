@@ -5,7 +5,7 @@ tags: [decision]
 ---
 ## Context
 
-What the operator holds: how the handheld reproduces the Dex1-1 so that handheld and robot camera images match. Source: `msc-thesis/docs/proposal.md` §1 (approved by Yanmei on 19 Oct 2026).
+What the operator holds: how the handheld reproduces the Dex1-1 so that handheld and robot camera images match. Source: `msc-thesis/docs/proposal.md` §1 (approved by Supervisor on 19 Oct 2026).
 
 ## Options
 | Option | Strengths | Weaknesses | Verdict |
