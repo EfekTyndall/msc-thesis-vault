@@ -8,6 +8,7 @@ tags: [daily]
 ## Measured / learned
 
 ## Blocked / open
+<!-- Today's blockers only, 1-3 lines; the running list lives in [[TODO]] -->
 
 ## Agent log
 <!-- Note noticeable Claude mistakes: wrong assumption, unrequested change, overbuilt, unverified claim -->
