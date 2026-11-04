@@ -11,7 +11,13 @@ Vidullan Surendran, Neehar Peri, David Watkins · [Zotero](zotero://select/libra
 
 ## Key facts (with page)
 
+Naive mixing was worse than handheld alone on all tree tasks (Page 5):
+- **NIST Pulley Routing:** 44.0 → 0.0 %
+- **Pipe Insertion:** 13.3 → 6.7 %, 
+- **Spring-Loaded Battery Evaluation:** 10.0 → 0.0 %
+
 ---
+
 ## Relevance to thesis
 
 
@@ -22,6 +28,7 @@ Handheld devices record _observed_ actions (where the end-effector actually we
 
 
 ---
+
 ## Q&A
 
 ### Question: What is tolerant phase and contact sensitive phase?
@@ -59,7 +66,7 @@ Standard UMI relies on offline monocular SLAM for 6-DoF tracking and offline ArU
 - **Franka FR3 7-DoF Arm**: Serves as the real-robot execution platform for targeted teleoperation and policy evaluation.
 - **Cartesian Impedance Controller**: The robot is operated under a Cartesian impedance controller with torque smoothing. Compliance is critical for contact-rich tasks (such as pipe insertion, battery placement, and pulley routing) because rigid position controllers produce excessively large contact forces when small tracking deviations occur during contact.
 
-
 ---
+
 ## Annotations
 
