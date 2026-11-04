@@ -36,5 +36,4 @@ Recommendation (to be confirmed by Martyn): a multi-finger squeeze trigger along
 
 ## Open
 
-- UMI's trigger geometry (which fingers, lever ratio) is only in its CAD and assembly video, not in the text; not checked.
-- No source reports trigger force or fatigue measurements.
+Open items reviewed on 2026-11-04: the relevant ones are in the TODO of [[2026-11-04]], the rest were dropped.

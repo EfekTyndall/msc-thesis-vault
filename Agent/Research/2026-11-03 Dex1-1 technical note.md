@@ -89,8 +89,4 @@ The command-to-width curve must therefore be measured, which the D09 row "Dex1-1
 
 ## Open
 
-- Does the RS-485-to-USB adapter ship with the gripper or with the robot ([[2026-11-03]] question)? A reseller lists it in the gripper box (table above); confirm on delivery.
-- Confirm with the supplier or the delivered box which version and accessories arrived.
-- Check whether the fingers can be back-driven by hand when the motor is unpowered or braked. This matters for safety and for hand-guided corrections; unverified.
-- Measure the latency from trigger to finger motion, the command-to-width curve, and `tau_est` against a force gauge.
-- Unverified whether the UR10e tool connector can supply 24 V at 3.5 A peak for the robot-side gripper, or whether it needs its own supply there too.
+Open items reviewed on 2026-11-04: the relevant ones are in the TODO of [[2026-11-04]], the rest were dropped.
