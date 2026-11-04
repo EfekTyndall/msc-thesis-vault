@@ -38,7 +38,7 @@ Peak electrical power is about 84 W at 24 V (3.5 A × 24 V), computed here and n
 From the figures in `msc-thesis/hardware/dex1-1-reference/from-official-docs/images/`, read here; the page text was not read by Claude.
 
 - **Gripper connector:** XT30PW(2+2)-M (male): two power pins (DC 24–64 V) and two RS-485 pins (A, B). Per [[2026-11-03]] and `Dex1-1_Electrical_Interface.jpg`.
-- **Topology** (`Dex1-1_Connection_Diagram.jpg`): PC running the Dex1-1 SDK (`/dev/ttyUSB0`) → USB → RS-485-to-USB adapter → RS-485 → gripper. The DC 24–64 V supply joins the cable between adapter and gripper, so power does not pass through the adapter.
+- **Topology** (`Dex1-1_Connection_Diagram.jpg`): PC running the Dex1-1 SDK (`/dev/ttyUSB0`) → USB → RS-485-to-USB adapter → RS-485 → gripper. The DC 24–64 V supply joins the cable between adapter and gripper, so power does not pass through the adapter. Martyn checked the support page text on 2026-11-04: the PC connects by USB to the RS-485-to-USB communication adapter, and the gripper to its RS-485 side, matching the figure.
 - **Cable** (`Dex1-1_Connection_Cable_Power+Data.png`, photo): one end is a 2+2 XT30 plug; the other end splits into a two-pin XT30-style power plug and a small three-wire connector for the adapter. Length not stated (unverified).
 - **Adapter** (`Communication_Adapter_(RS485-USB).png`, photo): four RS-485 ports labelled UART1–UART4, each with G, A, B pins, and a USB Type-C port to the PC. Whether more than one gripper can share one adapter is not stated (unverified).
 - **Official URDF:** finger travel 0 to 0.041 m per side (0.082 m total), length 0.1433 m; see `msc-thesis/hardware/dex1-1-reference/README.md`.
@@ -84,6 +84,8 @@ The command-to-width curve must therefore be measured, which the D09 row "Dex1-1
 	- 550 g of gripper, plus the controller and sleeve (mass unmeasured).
 	- Gripper remount on the UR10e, if one gripper does both roles. Two grippers are ordered (one pair = two grippers; Martyn, 2026-11-04), so one could stay on the UR10e.
 	- Grip force set indirectly through `kp` and the position error.
+
+**Version (2026-11-04):** the ordered grippers come with the RGB camera (Flagship), confirmed by the supervisor (Martyn).
 
 ## Open
 
