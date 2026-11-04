@@ -21,7 +21,7 @@ How the passive handheld ([[D01 Handheld gripper body]]) moves its fingers: guid
 
 ## Decision
 
-The handheld copies the Dex1-1 mechanism. Each finger carriage carries a rack and a short MGN9 rail; two MGN9C blocks are fixed in the body (blocks fixed, rails moving, as in the Dex1-1). One central pinion (module 0.8, 20 teeth, pitch diameter 16 mm, axis along the approach axis y) synchronises the fingers. Trigger: passive, squeeze to close, spring return to open; hard stops at both stroke limits. Handle: no separate grip; the operator holds the PICO controller, mounted below and behind the gripper like a pistol grip with the gripper as the barrel, and closes the fingers with a printed index-finger lever in front of the controller trigger that drives one carriage through a rod. The controller sits in a printed grip sleeve (two halves) that leaves the faceplate, top rim and pommel uncovered, following community PICO 4 Ultra gun shells ([Printables 1481698](https://www.printables.com/model/1481698-pico-4-ultra-gun-new-glock-shell), CC BY 4.0); the gripper attaches to the sleeve's top front. Finger geometry: converted from the official Dex1-1 meshes; redrawn as a parametric model once the physical Dex1-1 (the unit for the UR10e) is measured.
+The handheld copies the Dex1-1 mechanism. Each finger carriage carries a rack and a short MGN9 rail; two MGN9C blocks are fixed in the body (blocks fixed, rails moving, as in the Dex1-1). One central pinion (module 0.8, 20 teeth, pitch diameter 16 mm, axis along the approach axis y) synchronises the fingers. Trigger: passive, squeeze to close, spring return to open; hard stops at both stroke limits. Handle: no separate grip; the operator holds the PICO controller, mounted below and behind the gripper like a pistol grip with the gripper as the barrel, and closes the fingers with a printed index-finger lever in front of the controller trigger that drives one carriage through a rod. The controller sits in a printed grip sleeve (two halves) that leaves the faceplate, top rim and pommel uncovered, following community PICO 4 Ultra gun shells ([Printables 1481698](https://www.printables.com/model/1481698-pico-4-ultra-gun-new-glock-shell), CC BY 4.0); the gripper attaches to the sleeve's top front. The controller is rotated +35° in the sleeve, so the grip axis sits about 25° below horizontal with the pommel pointing back (both paths share controller-grip). For the real-Dex1-1 path of [[D01 Handheld gripper body]], the gripper attaches instead through real-adapter: an ActiveUMI-style bow from the gripper's rear to a boss under the sleeve's front half, joined by 2 × M3 screws into heat-set inserts so the sleeve variants stay swappable. Finger geometry: converted from the official Dex1-1 meshes; redrawn as a parametric model once the physical Dex1-1 (the unit for the UR10e) is measured.
 
 ## Evidence
 
@@ -35,7 +35,7 @@ Not yet checked against the physical gripper.
 
 ## Revisit if
 
-The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the bought rails give too much play or mass.
+The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the bought rails give too much play or mass. Angle and bow: the grip angle is uncomfortable in the print test, or the bow flexes noticeably under the gripper's weight.
 
 ## History
 
@@ -46,3 +46,5 @@ The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the 
 - 2026-11-03: evidence updated from the official Dex1-1 STEP (MGN9C/MGN9 confirmed, rails 75 mm; block/rail positions differ by about 2 mm from the unitree_ros mesh). Decision unchanged
 - 2026-11-03: finger-replica and mechanism CAD rebuilt from the official STEP parts (Martyn). The STEP's rack stops limit the opening to about 83 mm pad gap, so its stroke is about 41.6 mm per side, matching the official URDF (82 mm) rather than the 90 mm product page (unverified until measured on the gripper)
 - 2026-11-04: purchase of 2 MGN9C blocks and 2 MGN9 rails (75 mm) on hold until [[D01 Handheld gripper body]] is settled (only needed if the printed copy stays; Martyn)
+- 2026-11-04: controller angle in the sleeve: rotated +35°, grip axis about 25° below horizontal, pommel back (controller-grip v15/v16; Martyn confirmed it in Fusion; comfort unverified until printed)
+- 2026-11-04: real-path attachment: ActiveUMI-style bow (real-adapter v4) to a boss under the sleeve front half, 2 × M3 into heat-set inserts (4.0 mm × 6 mm holes); keeps sleeve variants swappable; Fusion check showed aligned holes and no interference (Martyn)
