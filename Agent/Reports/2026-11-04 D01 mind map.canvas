@@ -1,0 +1,258 @@
+{
+	"nodes": [
+		{
+			"id": "q",
+			"type": "text",
+			"text": "# D01: what does the operator hold?\n\n**A. Real Dex1-1** driven by the PICO trigger over RS-485\n**B. Printed passive copy** (current [[D01 Handheld gripper body]], 2026-10-19)\n\nNot decided. Discussion with the supervisor by email / online.",
+			"x": -260,
+			"y": -700,
+			"width": 520,
+			"height": 260,
+			"color": "6"
+		},
+		{
+			"id": "aim",
+			"type": "text",
+			"text": "## Supervisor's aim\nThe handheld is for simplicity: add as little extra hardware as possible.\n\nSource: [[2026-11-03]]",
+			"x": -260,
+			"y": -1000,
+			"width": 520,
+			"height": 200
+		},
+		{
+			"id": "gs",
+			"type": "group",
+			"label": "Status 2026-11-04 (Martyn)",
+			"x": -1500,
+			"y": -1100,
+			"width": 640,
+			"height": 560
+		},
+		{
+			"id": "st",
+			"type": "text",
+			"text": "1. Dex1-1 not delivered, date unknown: RS-485 check blocked\n2. One pair = **two grippers**, both ordered\n3. Path A hardware below is the bare minimum\n4. Trigger: test **proportional and binary**\n5. Printed copy = test rig until delivery, or full fallback\n6. **Both paths in parallel** until the decision: copy CAD continues; real-path attachment (gripper ↔ PICO controller) next\n\nSource: [[2026-11-04]]",
+			"x": -1480,
+			"y": -1070,
+			"width": 600,
+			"height": 510
+		},
+		{
+			"id": "ga",
+			"type": "group",
+			"label": "A. Real Dex1-1 as handheld",
+			"x": -1500,
+			"y": -380,
+			"width": 1000,
+			"height": 1500,
+			"color": "4"
+		},
+		{
+			"id": "apro",
+			"type": "text",
+			"text": "## For\n- Exact match: same fingers, camera position, kinematics\n- Width from motor `q`: command and achieved width recorded, same signal as VR teleop; no ArUco or encoder ([[D05 Gripper width sensing]])\n- No passive-vs-commanded width mismatch (gaps B4)\n- No mechanism: index finger works the controller trigger directly ([[D10 Handheld mechanism]])\n- Camera stays on the gripper ([[D02 Policy camera]])\n- Two grippers: one stays on the UR10e, one in the handheld; no swap (inferred; camera version for both unconfirmed)\n- Software exists: `dex1_1_service`, DDS `rt/dex1/<side>/cmd|state`, 500 Hz, x86-64 libs (from source, not run)",
+			"x": -1480,
+			"y": -340,
+			"width": 460,
+			"height": 700,
+			"color": "4"
+		},
+		{
+			"id": "acon",
+			"type": "text",
+			"text": "## Against / risks\n- Nothing tested; delivery date unknown vs hardware freeze end Dec (thesis plan §5)\n- Tethered: power + USB cable to the handheld\n- 550 g gripper ([Unitree](https://unitree.com/Dex1-1)) + controller + sleeve (unmeasured); UMI 780 g, TacUMI 540 g (gaps B11)\n- Trigger-to-finger latency unmeasured\n- No F/T sensor, only `tau_est`; grip force via `kp`\n- Back-drive when unpowered unknown\n- Stroke scale disagrees (82 / 89 / 90 mm): measure command-to-width\n\nSource: [[2026-11-03 Dex1-1 technical note]]",
+			"x": -980,
+			"y": -340,
+			"width": 460,
+			"height": 700,
+			"color": "1"
+		},
+		{
+			"id": "aneed",
+			"type": "text",
+			"text": "## Needs (bare minimum)\n- 24 or 48 V DC supply, ≥ 3.5 A peak; none in the box ([Unitree](https://unitree.com/Dex1-1))\n- RS-485-to-USB adapter (in the box per reseller, unverified) + XT30PW(2+2) power/data cable\n- Recording PC: `dex1_1_service` + trigger-to-command program\n- New part: bracket gripper back ↔ PICO grip sleeve, own controller position (Fusion *ASM real-path*)",
+			"x": -1480,
+			"y": 400,
+			"width": 960,
+			"height": 330,
+			"color": "3"
+		},
+		{
+			"id": "atrig",
+			"type": "text",
+			"text": "## Trigger behaviour (test both)\n- **Proportional**: width follows trigger 0–1; Unitree's teleop pattern ([[2026-11-03 PICO 4 Ultra trigger readout]])\n- **Binary**: threshold on the trigger, full open / close\n- Both are software choices; pick by test\n- Only path A: on the copy the lever *is* the width (passive)",
+			"x": -1480,
+			"y": 760,
+			"width": 960,
+			"height": 320,
+			"color": "5"
+		},
+		{
+			"id": "gb",
+			"type": "group",
+			"label": "B. Printed copy as handheld",
+			"x": 500,
+			"y": -380,
+			"width": 1000,
+			"height": 1500,
+			"color": "2"
+		},
+		{
+			"id": "bpro",
+			"type": "text",
+			"text": "## For\n- No motor power, supply or data cable on the handheld; light, cheap\n- Buildable now: CAD rebuilt from the official STEP ([[2026-11-03]])\n- Prior work uses printed copies: UMI, RDT2\n- Mechanism copies the Dex1-1: rack and pinion on MGN9 ([[D10 Handheld mechanism]])\n\nSource: [[D01 Handheld gripper body]]",
+			"x": 520,
+			"y": -340,
+			"width": 460,
+			"height": 600,
+			"color": "4"
+		},
+		{
+			"id": "bcon",
+			"type": "text",
+			"text": "## Against / risks\n- Width mismatch: passive width stops at the object, robot executes a position command; mapping needed (gaps B4)\n- Width sensing unsolved: ArUco (visibility unchecked) or AS5600 (gaps B6)\n- Operator holds squeeze force for the whole grasp (gaps B5)\n- Printed fingers grip unlike alloy jaws\n- Camera moved per session if only one camera; remount repeatability unmeasured (gaps B8)\n- Wobble / jam risk; print tests pending\n\nSource: [[2026-11-02 Research gaps]]",
+			"x": 1020,
+			"y": -340,
+			"width": 460,
+			"height": 700,
+			"color": "1"
+		},
+		{
+			"id": "bneed",
+			"type": "text",
+			"text": "## Needs\n- 2 MGN9C blocks + 2 MGN9 rails (75 mm): purchase on hold until D01\n- Printed fingers, mechanism, lever, sleeve; spring\n- Width sensing (ArUco or AS5600) + width mapping (B4)\n\nPrint list: `msc-thesis/hardware/PRINT-TEST-QUEUE.md`",
+			"x": 520,
+			"y": 400,
+			"width": 960,
+			"height": 330,
+			"color": "3"
+		},
+		{
+			"id": "brole",
+			"type": "text",
+			"text": "## Role now\nTest rig until the Dex1-1 arrives (sleeve fit, controller position, ergonomics), or the full fallback if A fails.\n\nSource: Martyn, [[2026-11-04]] point 5",
+			"x": 520,
+			"y": 760,
+			"width": 960,
+			"height": 320,
+			"color": "5"
+		},
+		{
+			"id": "shared",
+			"type": "text",
+			"text": "## Shared by both paths\n- PICO 4 Ultra Enterprise controller = grip + pose tracker; Vive Tracker 3.0 fallback ([[D04 Pose tracking]])\n- RGB only, D405 not mounted ([[D03 Depth sensing]])\n- Grip sleeve keeps rim and pommel LEDs uncovered; occlusion by the gripper unmeasured (gaps B1)\n- Controller-to-TCP calibration fixture still to design (gaps B3)",
+			"x": -460,
+			"y": -380,
+			"width": 920,
+			"height": 420
+		},
+		{
+			"id": "rule",
+			"type": "text",
+			"text": "## Proposed decision rule (for discussion)\nChoose **A** if the RS-485 check passes on the delivered gripper: PC commands it at the needed rate; supply, cable and mass acceptable on a tethered handheld. Otherwise **B**.\nUntil then: both paths in parallel.",
+			"x": -460,
+			"y": 100,
+			"width": 920,
+			"height": 300,
+			"color": "6"
+		},
+		{
+			"id": "fb",
+			"type": "text",
+			"text": "## Fallbacks\n- A fails (check fails, too heavy, too late) → **B**, already built as test rig\n- B too inaccurate → swap a real gripper into the handheld (thesis plan §6)\n- Delivery delayed → copy from official STEP; recorder with any USB camera (thesis plan §6)\n- PICO tracking too inaccurate → Vive Tracker 3.0 ([[D04 Pose tracking]])",
+			"x": -460,
+			"y": 440,
+			"width": 920,
+			"height": 340,
+			"color": "2"
+		},
+		{
+			"id": "oq",
+			"type": "text",
+			"text": "## Open questions for the supervisor\n1. Do supply, adapter, cables and ~550 g + controller still meet \"minimal hardware\"?\n2. Latest date for D01? Hardware freeze end Dec; delivery date unknown\n3. Flagship/Advanced version (RGB camera) confirmed for both grippers?\n4. Buy MGN9 rails/blocks now for a working copy rig, or hold?\n5. Which trigger-test result decides: task success, operator effort, match with VR teleop?",
+			"x": -460,
+			"y": 820,
+			"width": 920,
+			"height": 400,
+			"color": "3"
+		}
+	],
+	"edges": [
+		{
+			"id": "e1",
+			"fromNode": "aim",
+			"fromSide": "bottom",
+			"toNode": "q",
+			"toSide": "top"
+		},
+		{
+			"id": "e2",
+			"fromNode": "q",
+			"fromSide": "left",
+			"toNode": "ga",
+			"toSide": "top",
+			"label": "option A"
+		},
+		{
+			"id": "e3",
+			"fromNode": "q",
+			"fromSide": "right",
+			"toNode": "gb",
+			"toSide": "top",
+			"label": "option B"
+		},
+		{
+			"id": "e4",
+			"fromNode": "gs",
+			"fromSide": "right",
+			"toNode": "q",
+			"toSide": "left"
+		},
+		{
+			"id": "e5",
+			"fromNode": "q",
+			"fromSide": "bottom",
+			"toNode": "shared",
+			"toSide": "top"
+		},
+		{
+			"id": "e6",
+			"fromNode": "shared",
+			"fromSide": "bottom",
+			"toNode": "rule",
+			"toSide": "top"
+		},
+		{
+			"id": "e7",
+			"fromNode": "rule",
+			"fromSide": "bottom",
+			"toNode": "fb",
+			"toSide": "top"
+		},
+		{
+			"id": "e8",
+			"fromNode": "fb",
+			"fromSide": "bottom",
+			"toNode": "oq",
+			"toSide": "top"
+		},
+		{
+			"id": "e9",
+			"fromNode": "ga",
+			"fromSide": "right",
+			"toNode": "fb",
+			"toSide": "left",
+			"label": "if A fails → B",
+			"color": "1"
+		},
+		{
+			"id": "e10",
+			"fromNode": "gb",
+			"fromSide": "left",
+			"toNode": "fb",
+			"toSide": "right",
+			"label": "if B inaccurate → A",
+			"color": "1"
+		}
+	]
+}
