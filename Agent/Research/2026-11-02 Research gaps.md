@@ -76,7 +76,4 @@ Method: the papers in `msc-thesis/thesis/literature.bib` were checked section by
 
 ## Open
 
-- The full texts were read through arXiv HTML summaries for chi2024, ai2026, zeng2025, li2025, liu2026, nai2026, cheng2026, wang2026, zhaxizhuoma2025 and banaszczyk2024; page numbers not extracted. Section numbers are from those pages.
-- Not checked for this note: yang2026, yin2026, choi2026, zhang2026, zhao2025, kulozik2024, kuhlmanndecanaviri2023, xue2026 beyond what the proposal already cites.
-- The ~2:1 lever ratio and the LED count are not confirmed in the repo; the Dex1-1 behaviour at a blocked position target is unverified.
-- The non-bib works were read only through their arXiv HTML pages; claims about them must be re-checked once they are in Zotero.
+Open items reviewed on 2026-11-04: the relevant ones are in the TODO of [[2026-11-04]], the rest were dropped.

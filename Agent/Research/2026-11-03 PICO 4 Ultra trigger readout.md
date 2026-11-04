@@ -30,6 +30,4 @@ Method: source code of [XRoboToolkit-PC-Service-Pybind](https://github.com/XR-Ro
 
 ## Open
 
-- Measure the trigger value against trigger travel (linearity, dead zone, resolution) on the PICO 4 Ultra Enterprise controller.
-- Measure the latency from trigger press to arrival at the PC, together with the pose latency (D06).
-- Whether the PC service also delivers controller inputs from the Enterprise firmware without changes is unverified (D04: Enterprise and consumer controllers are reported as the same hardware).
+Open items reviewed on 2026-11-04: the relevant ones are in the TODO of [[2026-11-04]], the rest were dropped.
