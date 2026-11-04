@@ -45,3 +45,4 @@ The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the 
 - 2026-11-02: controller held in a grip sleeve (rim and pommel LEDs uncovered) instead of a cap on the head (LED positions; community gun shells; Martyn)
 - 2026-11-03: evidence updated from the official Dex1-1 STEP (MGN9C/MGN9 confirmed, rails 75 mm; block/rail positions differ by about 2 mm from the unitree_ros mesh). Decision unchanged
 - 2026-11-03: finger-replica and mechanism CAD rebuilt from the official STEP parts (Martyn). The STEP's rack stops limit the opening to about 83 mm pad gap, so its stroke is about 41.6 mm per side, matching the official URDF (82 mm) rather than the 90 mm product page (unverified until measured on the gripper)
+- 2026-11-04: purchase of 2 MGN9C blocks and 2 MGN9 rails (75 mm) on hold until [[D01 Handheld gripper body]] is settled (only needed if the printed copy stays; Martyn)
