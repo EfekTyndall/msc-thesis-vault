@@ -14,7 +14,7 @@ Method: Unitree product page; reseller listings for box contents; source code of
 2. **No separate computer is needed.** The service ships x86-64 and arm64 libraries, so the recording PC can run it. This is inferred from the files in `lib/`; it has not been run on x86-64.
 3. **Power: 24–64 V DC (24 or 48 V recommended), 3.5 A peak, 0.03 A static.** This means a bench supply and a power cable to the handheld. No supply is listed in the box.
 4. **No force/torque sensor.** The state gives only the motor torque estimate (`tau_est`), alongside position and velocity. Grip force can only be estimated from it after calibration against a force gauge.
-5. **The trigger can drive the gripper proportionally or as a binary switch.** Both are software choices. Unitree's own teleop maps the trigger value linearly to position, at a 0.18 rad limit per control cycle.
+5. **The trigger can drive the gripper proportionally or as a binary switch.** Both are software choices. Unitree's own teleop maps the trigger value linearly to position, at a 0.18 rad limit per control cycle. Both are to be tested on the delivered gripper before choosing (Martyn, 2026-11-04).
 
 ## Hardware (Unitree product page)
 
@@ -82,7 +82,7 @@ The command-to-width curve must therefore be measured, which the D09 row "Dex1-1
 - **New costs:**
 	- A power cable and a USB cable to the handheld.
 	- 550 g of gripper, plus the controller and sleeve (mass unmeasured).
-	- Gripper remount on the UR10e, if one gripper does both roles.
+	- Gripper remount on the UR10e, if one gripper does both roles. Two grippers are ordered (one pair = two grippers; Martyn, 2026-11-04), so one could stay on the UR10e.
 	- Grip force set indirectly through `kp` and the position error.
 
 ## Open
