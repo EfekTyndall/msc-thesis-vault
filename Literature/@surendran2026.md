@@ -33,7 +33,7 @@ Handheld devices record _observed_ actions (where the end-effector actually we
 
 ### Question: What is tolerant phase and contact sensitive phase?
 
-In the context of hybrid robotic data collection (Surendran et al., 2026), **tolerant phases** and **contact-sensitive phases**categorize task segments based on how accurately handheld data represents the true control intent needed by a robot:
+In the context of hybrid robotic data collection (Surendran et al., 2026), **tolerant phases** and **contact-sensitive phases** categorize task segments based on how accurately handheld data represents the true control intent needed by a robot:
 
 #### 1. Tolerant Phase
 
