@@ -25,10 +25,11 @@ A 3D-printed passive copy of the Dex1-1, matching only what the camera sees.
 
 ## Revisit if
 
-Printed copy proves too inaccurate.
+Printed copy proves too inaccurate, or the RS-485 check on the delivered Dex1-1 passes and the supervisor chooses the real gripper as the handheld.
 
 ## History
 
 - 2026-10-19: accepted (proposal approved)
 - 2026-10-28: the replica copies the Dex1-1 that sits on the UR10e; passive trigger confirmed, no motor (Martyn)
 - 2026-11-01: mechanism details moved to [[D10 Handheld mechanism]]
+- 2026-11-04: still open in practice, decision kept until the supervisor decides: the real Dex1-1 as handheld is worked on in parallel with the printed copy; the printed copy is the test rig until delivery, or the full fallback; two grippers are ordered (one pair = two grippers); delivery date unknown, so the RS-485 check waits (Martyn; supervisor on leave until early 2027, email only)
