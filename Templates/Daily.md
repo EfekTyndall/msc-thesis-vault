@@ -3,12 +3,16 @@
 date: <% tp.date.now("YYYY-MM-DD") %>
 tags: [daily]
 ---
+## TODO
+<!-- Carry over open items from the last daily note; tick when done -->
+- [ ] 
+
 ## Done
 
 ## Measured / learned
 
 ## Blocked / open
-<!-- Today's blockers only, 1-3 lines; the running list lives in [[TODO]] -->
+<!-- Blockers only, 1-3 lines; tasks go under TODO -->
 
 ## Agent log
 <!-- Note noticeable Claude mistakes: wrong assumption, unrequested change, overbuilt, unverified claim -->
