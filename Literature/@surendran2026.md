@@ -26,6 +26,22 @@ Handheld devices record _observed_ actions (where the end-effector actually we
 
 ### Question: What is tolerant phase and contact sensitive phase?
 
+In the context of hybrid robotic data collection (Surendran et al., 2026), **tolerant phases** and **contact-sensitive phases**categorize task segments based on how accurately handheld data represents the true control intent needed by a robot:
+
+#### 1. Tolerant Phase
+
+- **Definition**: Task segments involving unconstrained, free-space motion with minimal or no physical contact with the environment.
+- **Action Validity**: In tolerant phases, the **observed action** (the physically realized path recorded by a handheld device like UMI) closely matches the **desired action** (the target trajectory commanded to a robot controller).
+- **Supervision**: Handheld data provides fully valid, highly scalable supervision for these phases without requiring a robot in the loop.
+
+#### 2. Contact-Sensitive Phase
+
+- **Definition**: Task segments requiring tight geometric alignment, compliance, or interaction against persistent external forces (such as inserting a pipe, seating a spring-loaded battery, or maintaining tension on an O-ring).
+- **Action Mismatch (\(\Delta\))**: Due to surface contact, controller dynamics, and finite stiffness, the desired trajectory drives into or below the contact surface, creating a persistent tracking deviation (\(\Delta\)) relative to the observed trajectory.
+- **Why Observed Supervision Fails**:
+    - If a policy trained only on observed actions executes under **high stiffness**, proportional control converts tracking error into excessively large contact forces (\(F \propto K(x_d - x)\)).
+    - If executed under **low stiffness**, positioning errors cause jamming or misalignment.
+- **Supervision**: Because observed actions are an invalid proxy for desired intent during contact, these phases require **desired action supervision**—typically gathered through targeted on-robot teleoperation.
 
 
 ---
