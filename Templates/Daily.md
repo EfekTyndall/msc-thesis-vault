@@ -5,6 +5,7 @@ tags: [daily]
 ---
 ## TODO
 <!-- Carry over open items from the last daily note; tick when done -->
+Waiting and long-running items: [[Waiting]]
 - [ ] 
 
 ## Done
