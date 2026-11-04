@@ -40,7 +40,7 @@ From the figures in `msc-thesis/hardware/dex1-1-reference/from-official-docs/ima
 - **Gripper connector:** XT30PW(2+2)-M (male): two power pins (DC 24–64 V) and two RS-485 pins (A, B). Per [[2026-11-03]] and `Dex1-1_Electrical_Interface.jpg`.
 - **Topology** (`Dex1-1_Connection_Diagram.jpg`): PC running the Dex1-1 SDK (`/dev/ttyUSB0`) → USB → RS-485-to-USB adapter → RS-485 → gripper. The DC 24–64 V supply joins the cable between adapter and gripper, so power does not pass through the adapter. Martyn checked the support page text on 2026-11-04: the PC connects by USB to the RS-485-to-USB communication adapter, and the gripper to its RS-485 side, matching the figure.
 - **Cable** (`Dex1-1_Connection_Cable_Power+Data.png`, photo): one end is a 2+2 XT30 plug; the other end splits into a two-pin XT30-style power plug and a small three-wire connector for the adapter. Length not stated (unverified).
-- **Adapter** (`Communication_Adapter_(RS485-USB).png`, photo): four RS-485 ports labelled UART1–UART4, each with G, A, B pins, and a USB Type-C port to the PC. Whether more than one gripper can share one adapter is not stated (unverified).
+- **Adapter** (`Communication_Adapter_(RS485-USB).png`, photo): four RS-485 ports labelled UART1–UART4, each with G, A, B pins, and a USB Type-C port to the PC. Whether more than one gripper can share one adapter is not stated by Unitree. The four UART ports suggest one gripper per port, matching the four `/dev/ttyUSB0`–`3` in the `dex1_1_service` README log (inferred). See *One adapter for both grippers* below.
 - **Official URDF:** finger travel 0 to 0.041 m per side (0.082 m total), length 0.1433 m; see `msc-thesis/hardware/dex1-1-reference/README.md`.
 
 ## Software path (from the source code)
@@ -58,10 +58,21 @@ From the figures in `msc-thesis/hardware/dex1-1-reference/from-official-docs/ima
 **Position scale.** The sources disagree:
 - The `xr_teleoperate` comments state 5.4 rad ↔ 90 mm, i.e. 0.6 rad per cm. Another comment in the same file says "0.6 cm/rad · 9 rad = 5.4 cm".
 - The service calibrates over 322° (5.62 rad).
-- The unitree_ros URDF gives each finger −0.02 to 0.0245 m, i.e. 89 mm in total.
+- The unitree_ros URDF and the URDF in `dex1_1_service` give each finger −0.02 to 0.0245 m, i.e. 89 mm in total. The `dex1_1_service` copy was last changed on 2025-11-17 (git log) and lists 0.188 kg total mass, which looks like a placeholder. The support page calls the official URDF the latest version (Martyn, 2026-11-04), so both are treated as outdated.
 - The official URDF (`Dex1-1_URDF_261030`) gives each finger 0 to 0.041 m, i.e. 82 mm in total.
 
-The command-to-width curve must therefore be measured, which the D09 row "Dex1-1 command → fingertip width" already covers.
+For geometry the official STEP and URDF (about 82 mm) are the reference until the real gripper is measured. The command-to-width curve must therefore be measured, which the D09 row "Dex1-1 command → fingertip width" already covers.
+
+## One adapter for both grippers (2026-11-04)
+
+From `dex1_1_service` at commit ced3216:
+- **Addressing:** the motor frame carries a 4-bit ID, 0–14, with 15 as broadcast without reply (`include/unitreeMotor/include/motor_msg_HG.h:15`).
+- **Detection:** the service probes IDs 0 and 1 on every serial port it finds. If both answer on one port, both are served through that port. A second motor with an ID already found is skipped as a duplicate (`main.cpp:179-196`).
+- **IDs are fixed:** ID 0 is published as `right` and ID 1 as `left` (`main.cpp:123`). The repo has no tool for setting an ID. Whether the two delivered grippers have different IDs is unverified.
+- **Unitree's reference setup:** one serial port per gripper (`README.md:112-115`).
+- **Shared port risk:** each gripper runs its own 500 Hz thread (`main.cpp:60`), and the closed `SerialPort` library shows no mutex symbols. Two grippers on one port may therefore collide (unverified).
+
+**Relevance to D01: none (Martyn, 2026-11-04).** Only one gripper is driven in each phase. During handheld collection the PC drives the handheld gripper. During VR teleop and UR10e deployment it drives the robot gripper. On a Unitree robot, the onboard computer runs the service. Both grippers would need different IDs only if they were connected to the same PC at the same time.
 
 ## Answers to the daily-note questions
 
