@@ -12,10 +12,10 @@ Both paths share: the PICO 4 Ultra Enterprise controller as the grip, the grip s
 
 ## Summary
 
-1. **Mass:** the real path carries the 550 g gripper ([Unitree](https://unitree.com/Dex1-1)) plus real-adapter; the copy path carries printed parts plus 2 MGN9C blocks and 2 MGN9 rails. Modelled so far, without controller and cables: about 645 g for the real path and about 228 g for the copy path (sleeve A in both), i.e. about 420 g more on the real path. The copy figure misses the lever, rod, spring, bracket and screws, which are not modelled yet.
+1. **Mass:** the real path carries the 550 g gripper ([Unitree](https://unitree.com/Dex1-1)) plus real-adapter; the copy path carries printed parts plus 2 MGN9C blocks and 2 MGN9 rails. Modelled so far, with the controller (≈ 201 g with battery) but without cables: about 846 g for the real path and about 429 g for the copy path (sleeve A in both), i.e. about 420 g more on the real path. For scale: UMI 780 g, UMI-3D 1120 g ([[2026-11-02 Handheld trigger survey]]). The copy figure misses the lever, rod, spring, bracket and screws, which are not modelled yet.
 2. **Size and stroke are the same by construction:** the copy is rebuilt from the official STEP solids, so both have the 143.3 mm length and about 82–83 mm stroke of the official model. The 90 mm on the product page is unverified until the real gripper is measured.
 3. **Parts:** the real path needs no bought mechanical parts beyond the ordered grippers, but adds a 24–64 V supply (≥ 3.5 A peak), a power cable and the RS-485 cable to the handheld. The copy path needs rails, blocks, a return spring, a lever and, for an online width signal, an AS5600 encoder.
-4. **Cost:** no prices are in the notes for the Dex1-1, the MGN9 parts, the supply or cables (all "to be quoted"); only the AS5600 module is priced (€8.95). A cost comparison in euros is therefore open.
+4. **Cost:** left out of the mind map (Martyn, 2026-11-05): parts are ordered through the company's suppliers, and prices wait for access to the internal Storefront ([[Waiting]]).
 
 ## Side-by-side
 
@@ -25,8 +25,8 @@ Both paths share: the PICO 4 Ultra Enterprise controller as the grip, the grip s
 | Camera | Included in the gripper (Flagship) | Moved from the robot gripper: 21.5 g (`Camera` link in the official URDF; unverified) | `dex1-1-reference/README.md` |
 | Attachment to sleeve | real-adapter v6 (bow + clamp ring): 50.00 cm³ → 63.5 g | grip-to-gripper-bracket v6 is still empty (0 cm³) | Fusion |
 | Sleeve (shared) | Variant A 25.01 cm³ → 31.8 g; variant B 18.46 cm³ → 23.4 g | same | Fusion (controller-grip v16) |
-| Controller (shared) | Unverified (not weighed) | same | – |
-| Handheld total without cable (sleeve A) | ≈ 645 g + controller | ≈ 228 g + controller + unmodelled lever, rod, spring, bracket | Sum of rows above |
+| Controller (shared) | 155 g, plus about 46 g for AA batteries (Martyn's estimate, unverified): ≈ 201 g; not weighed (no scale) | same | [VR Expert](https://vr-expert.com/accessories/vr-accessories/pico-4-ultra-controller-l/) (reseller), via Martyn 2026-11-05 |
+| Handheld total without cable (sleeve A) | ≈ 846 g | ≈ 429 g + unmodelled lever, rod, spring, bracket | Sum of rows above |
 | Length / envelope of the gripper | 143 × 78 × 67 mm (product page); 0.1433 m in the official URDF | Same outer geometry (copy-fingers from the official STEP); copy-mechanism 84.0 × 27.9 × 52.2 mm, copy-fingers 84.0 × 80.4 × 29.0 mm (Fusion bounding boxes at q = 0) | [Unitree](https://unitree.com/Dex1-1); `dex1-1-reference/README.md`; Fusion |
 | Stroke | Official URDF 0–0.041 m per side (82 mm); STEP rack stops ≈ 41.6 mm per side (83.2 mm pad gap); product page 90 mm (unverified which is right) | Same geometry: copy-mechanism moves without collision for q from −16.5 to 24.9 mm per side (≈ 41.4 mm per side) | `dex1-1-reference/README.md`; [[D10 Handheld mechanism]] History 2026-11-03 |
 | Actuation | PICO trigger → PC → `rt/dex1/<side>/cmd`; proportional or binary (software choice) | Passive index-finger lever in front of the controller trigger, ~2:1, rod to one carriage, spring return | [[2026-11-03 Dex1-1 technical note]]; [[D10 Handheld mechanism]] |
@@ -56,6 +56,7 @@ Both paths share: the PICO 4 Ultra Enterprise controller as the grip, the grip s
 ## Open
 
 - Lab filaments ([[2026-11-05]], Done): PETG (4 spools), HT-PLA and TPU are in stock, so the PETG assumption holds; densities are not on the labels, so 1.27 g/cm³ stays assumed. TPU allows the pads in TPU, as the proposal's BOM plans ("TPU fingertips").
-- Weigh the controller, the delivered gripper and the printed parts; Fusion masses use an assumed PETG density at 100 % infill (upper bound); set the real material and infill once the slicer settings are known.
-- Prices for the Dex1-1, MGN9 parts, supply and cables are not in the notes.
+- Weigh the controller (if a scale becomes available), the delivered gripper and the printed parts; Fusion masses use an assumed PETG density at 100 % infill (upper bound); set the real material and infill once the slicer settings are known.
+- Prices: waiting on company Storefront access ([[Waiting]]).
+- Copy-path lever, rod, spring and bracket: model after the trigger concept (TODO 2026-11-05), then add their mass.
 - Stroke: measure on the delivered gripper (82–83 mm vs 90 mm).
