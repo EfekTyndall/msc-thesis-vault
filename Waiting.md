@@ -21,8 +21,8 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 - [ ] Check that the PC service delivers the Enterprise controller inputs, then measure trigger value vs travel (linearity, dead zone, resolution). Needed for the real path, where the trigger is the gripper command. (since 2026-11-03)
 
 ## Printer access
-- [ ] Print and test everything in `msc-thesis/hardware/PRINT-TEST-QUEUE.md`: sleeve variants A and B (PETG), fit near the screw boss, copy-path lever force, friction and lock, ArUco / AS5600 width error against calipers. (since 2026-11-02)
-- [ ] Maybe print a gripper prop from the official mesh or STEP to judge the size in hand. (since 2026-11-04)
+- [ ] Print and test everything in `msc-thesis/hardware/PRINT-TEST-QUEUE.md`: sleeve variants A and B (PETG), fit near the screw boss. Copy-path items (lever force, friction and lock, ArUco / AS5600 width error) only if the copy path is resumed (frozen since 2026-11-05). (since 2026-11-02)
+- [ ] Print the dummy gripper from the official STEP (size in hand, adapter fit, LED check); main line since 2026-11-05; preparing the print file is a daily TODO. (since 2026-11-04)
 
 ## Purchases
 - [ ] M3 heat-set inserts: once bought, check the 4.0 mm × 6 mm boss holes against them (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)

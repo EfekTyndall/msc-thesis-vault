@@ -31,5 +31,6 @@ No source gives a trigger *travel*; they give the span (distance from the palm s
 - The ILO latch note and the NJIT "bar instead of a single finger switch" note support the already chosen multi-finger trigger and continuous lock ([[D10 Handheld mechanism]]).
 
 ## Open
+Reviewed 2026-11-05: the copy path is frozen as fallback ([[D01 Handheld gripper body]] History), so these apply only if it is resumed.
 - Hand size of the operators is unknown; Lee et al. relate the best span to hand length (normalised grip span 27–29 %).
 - Measure the real squeeze travel and force on the first print.
