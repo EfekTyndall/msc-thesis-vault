@@ -22,27 +22,27 @@
         </UserObject>
         <UserObject label="Idea" tooltip="" detail="" source="" status="" id="n2">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="1689.1" y="295" width="90.7" height="36" as="geometry" />
+            <mxGeometry x="1760" y="295" width="90.7" height="36" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Trigger → PC → RS-485 → gripper" tooltip="PICO trigger → recording PC → rt/dex1/&lt;side&gt;/cmd → dex1_1_service → USB → RS-485-to-USB board → gripper. Proportional or binary mapping is a software choice; both to be tested.&#xa;&#xa;Source: Technical note (dex1_1_service ced3216, xr_teleoperate 817fb00); Unitree support page §4" detail="PICO trigger → recording PC → rt/dex1/&lt;side&gt;/cmd → dex1_1_service → USB → RS-485-to-USB board → gripper. Proportional or binary mapping is a software choice; both to be tested." source="Technical note (dex1_1_service ced3216, xr_teleoperate 817fb00); Unitree support page §4" status="" id="n3">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="2042.1" y="230" width="284.5" height="34" as="geometry" />
+            <mxGeometry x="2042.1" y="209" width="284.5" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="real-adapter bow to the sleeve" tooltip="ActiveUMI-style bow from the gripper rear to a boss under the sleeve front half, 2 × M3 into heat-set inserts; sleeve variants stay swappable.&#xa;&#xa;Source: D10 Decision and History 2026-11-04; zeng2025" detail="ActiveUMI-style bow from the gripper rear to a boss under the sleeve front half, 2 × M3 into heat-set inserts; sleeve variants stay swappable." source="D10 Decision and History 2026-11-04; zeng2025" status="" id="n4">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="2042.1" y="274" width="261" height="34" as="geometry" />
+            <mxGeometry x="2042.1" y="253" width="261" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Second gripper stays on UR10e" tooltip="Two grippers are ordered (one pair). One is the handheld, the other stays on the robot, so the robot remains available.&#xa;&#xa;Source: D01 History 2026-11-04" detail="Two grippers are ordered (one pair). One is the handheld, the other stays on the robot, so the robot remains available." source="D01 History 2026-11-04" status="" id="n5">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="2042.1" y="318" width="264.3" height="34" as="geometry" />
+            <mxGeometry x="2042.1" y="297" width="264.3" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="References: ActiveUMI, RAPID" tooltip="ActiveUMI puts a motorised gripper on the VR controller. RAPID uses one device for both the handheld and the robot role.&#xa;&#xa;Source: zeng2025 Sec. 3.1; RAPID arXiv 2602.06653 (as cited in D01 Options)" detail="ActiveUMI puts a motorised gripper on the VR controller. RAPID uses one device for both the handheld and the robot role." source="zeng2025 Sec. 3.1; RAPID arXiv 2602.06653 (as cited in D01 Options)" status="" id="n6">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="2042.1" y="362" width="247.9" height="34" as="geometry" />
+            <mxGeometry x="2042.1" y="341" width="247.9" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Gripper signal" tooltip="" detail="" source="" status="" id="n7">
@@ -85,7 +85,7 @@
             <mxGeometry x="1759.9999999999998" y="837" width="165.8" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Dummy gripper print" tooltip="Print the gripper from the official STEP to check fit, balance and LED visibility in hand.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="Print the gripper from the official STEP to check fit, balance and LED visibility in hand." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n15">
+        <UserObject label="Print dummy gripper" tooltip="Print the gripper from the official STEP to check fit, balance and LED visibility in hand.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="Print the gripper from the official STEP to check fit, balance and LED visibility in hand." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n15">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="2085.2" y="829" width="194.9" height="34" as="geometry" />
           </mxCell>
