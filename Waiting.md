@@ -27,6 +27,9 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 ## Purchases
 - [ ] M3 heat-set inserts: once bought, check the 4.0 mm × 6 mm boss holes against them (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
 
+## Company IT access (internal Storefront)
+- [ ] Prices for the D01 side-by-side (Dex1-1, MGN9C blocks and MGN9 rails, 24/48 V supply, cables), from the company's suppliers; not needed for the mind map ([[2026-11-05 D01 real vs copy side-by-side]]). (since 2026-11-05)
+
 ## Intern (no date yet)
 - [ ] Hold the meeting, then fill in Notes, Agreed actions and the intern's name in [[2026-11-03 Intern VR teleop]]. (since 2026-11-03)
 
