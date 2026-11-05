@@ -43,6 +43,8 @@ Excluded: motor (ActiveUMI, Actuated UMI) because D01 keeps the handheld passive
 
 **Recommendation (for Martyn to decide):** option A, a rigid link from the trigger to one carriage, with a bellcrank only if the Fusion layout needs the 90° turn. It is the transmission family the UMI line actually uses, it adds the fewest parts, and it has no tensioning or creep. This revises the cable-and-drum recommendation in [[2026-11-02 Handheld trigger survey]], which had no precedent behind it. Keep option B as the fallback if the link path around the controller sleeve is blocked or the varying ratio feels bad in the print test.
 
+**Chosen (Martyn, 2026-11-05):** design both from the start, option A as the main design and option B as the fallback, so the two can be compared.
+
 ## Open
 - Check in Fusion (controller-grip v16, +35°) whether the squeeze direction lies in the plane of carriage travel; this decides whether option A needs a bellcrank.
 - Mechanism details that only figures and videos show: UMI [assembly video](https://youtu.be/x3ko0v_xwpg) and [Onshape CAD](https://cad.onshape.com/documents/a8a98201374f5cc9c6538790), TacUMI Fig. 2 lock insets and 3D-print zips. Martyn can view these; they were not readable here.
