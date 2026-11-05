@@ -90,7 +90,7 @@
             <mxGeometry x="2085.2" y="829" width="194.9" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Software against a mock" tooltip="Trigger → rt/dex1/&lt;side&gt;/cmd pipeline developed against a mock gripper, so it is ready when the gripper arrives.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="Trigger → rt/dex1/&lt;side&gt;/cmd pipeline developed against a mock gripper, so it is ready when the gripper arrives." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n16">
+        <UserObject label="Test Software Stack against a mock" tooltip="Trigger → rt/dex1/&lt;side&gt;/cmd pipeline developed against a mock gripper, so it is ready when the gripper arrives.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="Trigger → rt/dex1/&lt;side&gt;/cmd pipeline developed against a mock gripper, so it is ready when the gripper arrives." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n16">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="2085.2" y="873" width="220.6" height="34" as="geometry" />
           </mxCell>
