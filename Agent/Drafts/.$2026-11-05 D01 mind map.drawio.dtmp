@@ -40,14 +40,14 @@
             <mxGeometry x="2042.1" y="318" width="264.3" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Precedent: ActiveUMI, RAPID" tooltip="ActiveUMI puts a motorised gripper on the VR controller. RAPID uses one device for both the handheld and the robot role.&#xa;&#xa;Source: zeng2025 Sec. 3.1; RAPID arXiv 2602.06653 (as cited in D01 Options)" detail="ActiveUMI puts a motorised gripper on the VR controller. RAPID uses one device for both the handheld and the robot role." source="zeng2025 Sec. 3.1; RAPID arXiv 2602.06653 (as cited in D01 Options)" status="" id="n6">
+        <UserObject label="References: ActiveUMI, RAPID" tooltip="ActiveUMI puts a motorised gripper on the VR controller. RAPID uses one device for both the handheld and the robot role.&#xa;&#xa;Source: zeng2025 Sec. 3.1; RAPID arXiv 2602.06653 (as cited in D01 Options)" detail="ActiveUMI puts a motorised gripper on the VR controller. RAPID uses one device for both the handheld and the robot role." source="zeng2025 Sec. 3.1; RAPID arXiv 2602.06653 (as cited in D01 Options)" status="" id="n6">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="2042.1" y="362" width="255.4" height="34" as="geometry" />
+            <mxGeometry x="2042.1" y="362" width="247.9" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Gripper signal" tooltip="" detail="" source="" status="" id="n7">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="1689.1" y="439" width="157.9" height="36" as="geometry" />
+            <mxGeometry x="1760" y="439" width="157.9" height="36" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Command + width + tau_est" tooltip="State q, dq and tau_est at 500 Hz (the product page says 1000 Hz). No force/torque sensor; grip force only from tau_est after calibration against a force gauge.&#xa;&#xa;Source: Technical note, Software path (2000 µs RecurrentThread)" detail="State q, dq and tau_est at 500 Hz (the product page says 1000 Hz). No force/torque sensor; grip force only from tau_est after calibration against a force gauge." source="Technical note, Software path (2000 µs RecurrentThread)" status="" id="n8">
@@ -57,32 +57,32 @@
         </UserObject>
         <UserObject label="rad → width curve" tooltip="Position is in rad and the sources disagree on the scale (5.4 rad vs 5.62 rad over the stroke). Measure the curve on the delivered gripper.&#xa;&#xa;Source: Technical note, Position scale; D09 row" detail="Position is in rad and the sources disagree on the scale (5.4 rad vs 5.62 rad over the stroke). Measure the curve on the delivered gripper." source="Technical note, Position scale; D09 row" status="open" id="n9">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2fb8a3;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
-            <mxGeometry x="2042.1" y="462" width="178.1" height="34" as="geometry" />
+            <mxGeometry x="2042.1" y="467" width="178.1" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Mass and tether" tooltip="" detail="" source="" status="" id="n10">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="1760" y="643" width="171.4" height="36" as="geometry" />
+            <mxGeometry x="1760" y="640" width="171.4" height="39" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="&lt;div&gt;550 g Gripper + 3D-Printed Adapter +&amp;nbsp;&lt;/div&gt;≈ 846 g without cables" tooltip="550 g gripper + 63.5 g real-adapter + 31.8 g sleeve A + ≈ 201 g controller with batteries. Printed parts at 1.27 g/cm³ PETG (assumed), 100 % infill. Unverified until weighed. For scale: UMI 780 g, UMI-3D 1120 g.&#xa;&#xa;Source: D01 side-by-side 2026-11-05; Unitree product page; VR Expert listing; chi2024, wang2026 via trigger survey" detail="550 g gripper + 63.5 g real-adapter + 31.8 g sleeve A + ≈ 201 g controller with batteries. Printed parts at 1.27 g/cm³ PETG (assumed), 100 % infill. Unverified until weighed. For scale: UMI 780 g, UMI-3D 1120 g." source="D01 side-by-side 2026-11-05; Unitree product page; VR Expert listing; chi2024, wang2026 via trigger survey" status="unverified" id="n11">
+        <UserObject label="&lt;div&gt;Gripper + 3D-Printed Adapter + Controller w/ Battery&amp;nbsp;&lt;/div&gt;≈&amp;nbsp;&lt;div&gt;846 g (without cables)&lt;/div&gt;" tooltip="550 g gripper + 63.5 g real-adapter + 31.8 g sleeve A + ≈ 201 g controller with batteries. Printed parts at 1.27 g/cm³ PETG (assumed), 100 % infill. Unverified until weighed. For scale: UMI 780 g, UMI-3D 1120 g.&#xa;&#xa;Source: D01 side-by-side 2026-11-05; Unitree product page; VR Expert listing; chi2024, wang2026 via trigger survey" detail="550 g gripper + 63.5 g real-adapter + 31.8 g sleeve A + ≈ 201 g controller with batteries. Printed parts at 1.27 g/cm³ PETG (assumed), 100 % infill. Unverified until weighed. For scale: UMI 780 g, UMI-3D 1120 g." source="D01 side-by-side 2026-11-05; Unitree product page; VR Expert listing; chi2024, wang2026 via trigger survey" status="unverified" id="n11">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="2036.4" y="380" width="206.1" height="193" as="geometry" />
+            <mxGeometry x="2045.3999999999999" y="530" width="389.2" height="80" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="24–64 V, 3.5 A peak" tooltip="24–64 V DC, 0.03 A static, 3.5 A peak (≈ 84 W at 24 V, computed). No supply in the box. Grip force 5–120 N set through kp.&#xa;&#xa;Source: Unitree product page; US Robot Store (reseller)" detail="24–64 V DC, 0.03 A static, 3.5 A peak (≈ 84 W at 24 V, computed). No supply in the box. Grip force 5–120 N set through kp." source="Unitree product page; US Robot Store (reseller)" status="" id="n12">
+        <UserObject label="Power: 24–64 V, 3.5 A peak" tooltip="24–64 V DC, 0.03 A static, 3.5 A peak (≈ 84 W at 24 V, computed). No supply in the box. Grip force 5–120 N set through kp.&#xa;&#xa;Source: Unitree product page; US Robot Store (reseller)" detail="24–64 V DC, 0.03 A static, 3.5 A peak (≈ 84 W at 24 V, computed). No supply in the box. Grip force 5–120 N set through kp." source="Unitree product page; US Robot Store (reseller)" status="" id="n12">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="2112.9999999999995" y="644" width="189.3" height="34" as="geometry" />
+            <mxGeometry x="2045.4" y="639" width="220" height="40" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="USB + XT30 power/RS-485 cable" tooltip="Cables to the handheld: camera USB plus one XT30 2+2 cable carrying power and RS-485. Cable length unverified.&#xa;&#xa;Source: Technical note, Wiring" detail="Cables to the handheld: camera USB plus one XT30 2+2 cable carrying power and RS-485. Cable length unverified." source="Technical note, Wiring" status="" id="n13">
+        <UserObject label="USB + Power/RS-485 cable&amp;nbsp;&lt;div&gt;(should be included with the gripper)&lt;/div&gt;" tooltip="Cables to the handheld: camera USB plus one XT30 2+2 cable carrying power and RS-485. Cable length unverified.&#xa;&#xa;Source: Technical note, Wiring" detail="Cables to the handheld: camera USB plus one XT30 2+2 cable carrying power and RS-485. Cable length unverified." source="Technical note, Wiring" status="" id="n13">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="2112.9999999999995" y="688" width="276.6" height="34" as="geometry" />
+            <mxGeometry x="2045.4" y="719" width="257" height="52" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Before delivery" tooltip="" detail="" source="" status="" id="n14">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="1732.1999999999998" y="850" width="165.8" height="36" as="geometry" />
+            <mxGeometry x="1759.9999999999998" y="837" width="165.8" height="36" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Dummy gripper print" tooltip="Print the gripper from the official STEP to check fit, balance and LED visibility in hand.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="Print the gripper from the official STEP to check fit, balance and LED visibility in hand." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n15">
@@ -97,12 +97,7 @@
         </UserObject>
         <UserObject label="Open" tooltip="" detail="" source="" status="" id="n17">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="1540" y="993" width="96.3" height="36" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Delivery date" tooltip="Unknown; the supervisor does not know either.&#xa;&#xa;Source: Daily 2026-11-04" detail="Unknown; the supervisor does not know either." source="Daily 2026-11-04" status="open" id="n18">
-          <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2fb8a3;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
-            <mxGeometry x="1893" y="928" width="143.4" height="34" as="geometry" />
+            <mxGeometry x="1719.9" y="980" width="96.3" height="36" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="RS-485 check" tooltip="The PC commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld.&#xa;&#xa;Source: Waiting.md, Dex1-1 delivery" detail="The PC commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld." source="Waiting.md, Dex1-1 delivery" status="open" id="n19">
@@ -125,12 +120,12 @@
             <mxGeometry x="1440" y="1214" width="205" height="42" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Main line: real Dex1-1" tooltip="Work before delivery goes into the real path: dummy-gripper print and software pipeline.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="Work before delivery goes into the real path: dummy-gripper print and software pipeline." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n23">
+        <UserObject label="Main Path: Real Dex1-1" tooltip="Work before delivery goes into the real path: dummy-gripper print and software pipeline.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="Work before delivery goes into the real path: dummy-gripper print and software pipeline." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n23">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#7a63d6;strokeColor=#7a63d6;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="1726" y="1173" width="212.8" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Fallback: printed copy, frozen" tooltip="The copy stays at its current CAD state (link A modelled, bracket not started) as the documented fallback.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="The copy stays at its current CAD state (link A modelled, bracket not started) as the documented fallback." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n24">
+        <UserObject label="Fallback: Printed Copy" tooltip="The copy stays at its current CAD state (link A modelled, bracket not started) as the documented fallback.&#xa;&#xa;Source: D01 History 2026-11-05 (vault PR #21)" detail="The copy stays at its current CAD state (link A modelled, bracket not started) as the documented fallback." source="D01 History 2026-11-05 (vault PR #21)" status="" id="n24">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#7a63d6;strokeColor=#7a63d6;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="1726" y="1217" width="265.4" height="36" as="geometry" />
           </mxCell>
@@ -349,9 +344,6 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e17" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#2fb8a3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n1" target="n17" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e18" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#2fb8a3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n17" target="n18" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e19" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#2fb8a3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n17" target="n19" edge="1">
