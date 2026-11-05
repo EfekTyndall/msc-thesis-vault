@@ -29,5 +29,6 @@ Obsidian vault for the MSc thesis (handheld vs VR-teleop demonstrations for GR00
 3. Surgical changes: touch only what the task needs; match existing style; report unrelated issues, don't fix them; never overwrite the user's edits.
 4. Goal-driven: define how the result is checked (test, measurement, compile, source) before starting, and run that check before calling it done.
 5. Facts only: every number or claim needs a source or a measurement; say "unverified" otherwise.
-6. Ask first before: merging, changing a CLAUDE.md or the thesis plan, adding dependencies, or anything that sends messages.
-7. Reports: short — what was done, how it was checked, what is open.
+6. Research before options: before laying out options or a recommendation for a design choice, first survey how published work (papers in `msc-thesis/thesis/literature.bib`, open hardware) solves it, and ground each option in that evidence with sources; say so when no precedent is found. "Seems right" is not a reason.
+7. Ask first before: merging, changing a CLAUDE.md or the thesis plan, adding dependencies, or anything that sends messages.
+8. Reports: short — what was done, how it was checked, what is open.
