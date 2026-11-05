@@ -46,6 +46,7 @@ Excluded: motor (ActiveUMI, Actuated UMI) because D01 keeps the handheld passive
 **Chosen (Martyn, 2026-11-05):** design both from the start, option A as the main design and option B as the fallback, so the two can be compared.
 
 ## Open
-- Check in Fusion (controller-grip v16, +35°) whether the squeeze direction lies in the plane of carriage travel; this decides whether option A needs a bellcrank.
+Reviewed 2026-11-05: the copy path is frozen as fallback ([[D01 Handheld gripper body]] History), so the items below apply only if it is resumed.
+- Resolved 2026-11-05: copy-transmission-A v1 in Fusion uses a rod and bellcrank.
 - Mechanism details that only figures and videos show: UMI [assembly video](https://youtu.be/x3ko0v_xwpg) and [Onshape CAD](https://cad.onshape.com/documents/a8a98201374f5cc9c6538790), TacUMI Fig. 2 lock insets and 3D-print zips. Martyn can view these; they were not readable here.
-- Trigger travel 20–25 mm is unverified; measure it on the first print.
+- Superseded 2026-11-05: travel set to about 10 mm with a recessed blade ([[2026-11-05 Trigger travel and grip span]], [[D10 Handheld mechanism]]); measure it on the first print.

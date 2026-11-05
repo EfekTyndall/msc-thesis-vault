@@ -56,8 +56,8 @@ Both paths share: the PICO 4 Ultra Enterprise controller as the grip, the grip s
 
 ## Open
 
-- Lab filaments ([[2026-11-05]], Done): PETG (4 spools), HT-PLA and TPU are in stock, so the PETG assumption holds; densities are not on the labels, so 1.27 g/cm³ stays assumed. TPU allows the pads in TPU, as the proposal's BOM plans ("TPU fingertips").
+- Resolved 2026-11-05: lab filaments ([[2026-11-05]], Done): PETG (4 spools), HT-PLA and TPU are in stock, so the PETG assumption holds; densities are not on the labels, so 1.27 g/cm³ stays assumed. TPU allows the pads in TPU, as the proposal's BOM plans ("TPU fingertips").
 - Weigh the controller (if a scale becomes available), the delivered gripper and the printed parts; Fusion masses use an assumed PETG density at 100 % infill (upper bound); set the real material and infill once the slicer settings are known.
 - Prices: waiting on company Storefront access ([[Waiting]]).
-- Copy-path lever, rod, spring and bracket: model after the trigger concept (TODO 2026-11-05), then add their mass.
+- Copy-path lever, rod, spring and bracket: copy path frozen on 2026-11-05 (link A modelled, bracket not started), so their mass stays open unless the copy path is resumed.
 - Stroke: measure on the delivered gripper (82–83 mm vs 90 mm).
