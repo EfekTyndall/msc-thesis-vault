@@ -8,6 +8,12 @@ status: draft
 
 Status 5 November 2026. Nothing has been weighed or tested on hardware yet; masses are CAD estimates and electrical values come from manufacturer documentation.
 
+## Overview
+
+![Overview map of the gripper choice](figures/2026-11-05%20gripper%20choice%20map.png)
+
+*Figure 1. Overview of the choice and how it branches: the communication and power check on the delivered gripper decides between the real gripper (main line) and the printed copy (fallback). Values and precedents are those of this brief; sources are linked in the text below. CAD views as in Figures 2 and 4.*
+
 ## Decision needed
 
 The handheld demonstration device must show the camera the same fingers that the robot uses, so that handheld and robot images match. Two ways to achieve this are compared:
@@ -29,15 +35,15 @@ The handheld demonstration device must show the camera the same fingers that the
 
 ![Real gripper option, side view](figures/2026-11-05%20real%20gripper%20option%20side.png)
 
-*Figure 1. Real gripper option, side view (CAD, 5 November 2026). The gripper (blue, Unitree's official CAD model from the [developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)) is attached by a printed adapter to a two-part sleeve on the PICO controller. Controller shape: 3D scan "Pico 4 Ultra controller scan" by alonym, [Thingiverse 7350019](https://www.thingiverse.com/thing:7350019), CC BY.*
+*Figure 2. Real gripper option, side view (CAD, 5 November 2026). The gripper (blue, Unitree's official CAD model from the [developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)) is attached by a printed adapter to a two-part sleeve on the PICO controller. Controller shape: 3D scan "Pico 4 Ultra controller scan" by alonym, [Thingiverse 7350019](https://www.thingiverse.com/thing:7350019), CC BY.*
 
 ![Real gripper option, isometric view](figures/2026-11-05%20real%20gripper%20option%20iso.png)
 
-*Figure 2. Real gripper option, isometric view (same model as Figure 1).*
+*Figure 3. Real gripper option, isometric view (same model as Figure 2).*
 
 ![Printed copy option, side view](figures/2026-11-05%20printed%20copy%20option%20side.png)
 
-*Figure 3. Printed copy option, side view (CAD, 5 November 2026). Copy of the Dex1-1 mechanism and fingers (grey) driven by the squeeze trigger under the grip through a rigid link and bellcrank. The bracket between grip and mechanism is not yet designed, so the two are shown unconnected. Controller shape as in Figure 1.*
+*Figure 4. Printed copy option, side view (CAD, 5 November 2026). Copy of the Dex1-1 mechanism and fingers (grey) driven by the squeeze trigger under the grip through a rigid link and bellcrank. The bracket between grip and mechanism is not yet designed, so the two are shown unconnected. Controller shape as in Figure 2.*
 
 ## Comparison
 
