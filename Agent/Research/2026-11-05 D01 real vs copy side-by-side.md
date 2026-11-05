@@ -55,6 +55,7 @@ Both paths share: the PICO 4 Ultra Enterprise controller as the grip, the grip s
 
 ## Open
 
+- Lab filaments ([[2026-11-05]], Done): PETG (4 spools), HT-PLA and TPU are in stock, so the PETG assumption holds; densities are not on the labels, so 1.27 g/cm³ stays assumed. TPU allows the pads in TPU, as the proposal's BOM plans ("TPU fingertips").
 - Weigh the controller, the delivered gripper and the printed parts; Fusion masses use an assumed PETG density at 100 % infill (upper bound); set the real material and infill once the slicer settings are known.
 - Prices for the Dex1-1, MGN9 parts, supply and cables are not in the notes.
 - Stroke: measure on the delivered gripper (82–83 mm vs 90 mm).
