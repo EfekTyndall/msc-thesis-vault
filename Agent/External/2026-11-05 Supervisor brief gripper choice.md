@@ -1,8 +1,8 @@
 ---
 date: 2026-11-05
-audience: company supervisor
-type: decision brief
-status: draft
+audience: Company Supervisor
+type: Decision Brief
+status: Draft
 ---
 # Handheld data collection: Real Dex1-1 Gripper or Printed Copy
 
