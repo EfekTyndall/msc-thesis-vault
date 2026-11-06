@@ -99,7 +99,7 @@
         </UserObject>
         <UserObject label="Concept check on one gripper" tooltip="On one delivered gripper: trigger reading, commands and command rate, gripper signal, power supply, communication, cable and handling with the tether. If it fails, the printed copy is built. Data collection and deployment are planned after it passes.&#xa;&#xa;Source: Accompanying brief" detail="On one delivered gripper: trigger reading, commands and command rate, gripper signal, power supply, communication, cable and handling with the tether. If it fails, the printed copy is built. Data collection and deployment are planned after it passes." source="Accompanying brief" status="open" id="n19">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2fb8a3;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
-            <mxGeometry x="1972" y="783" width="147.8" height="34" as="geometry" />
+            <mxGeometry x="1972" y="783" width="248" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Proportional vs open/close trigger" tooltip="Both mappings are tested on the gripper, together with the PICO trigger readout through XRoboToolkit and the trigger-to-finger latency.&#xa;&#xa;Source: Zhao et al., 2025, arXiv:2508.00097" detail="Both mappings are tested on the gripper, together with the PICO trigger readout through XRoboToolkit and the trigger-to-finger latency." source="Zhao et al., 2025, arXiv:2508.00097" status="open" link="https://arxiv.org/abs/2508.00097" id="n20">
@@ -454,13 +454,14 @@
         <mxCell id="e57" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#f2c230;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n55" target="n57" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="x0" value="decides" style="curved=1;html=1;endArrow=none;startArrow=none;dashed=1;dashPattern=1 4;strokeWidth=2.4;strokeColor=#1f2a37;fontSize=12;fontStyle=1;fontColor=#1f2a37;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n19" edge="1">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="x0" value="decides" style="curved=1;html=1;endArrow=none;startArrow=none;dashed=1;dashPattern=1 4;strokeWidth=2.4;strokeColor=#1f2a37;fontSize=12;fontStyle=1;fontColor=#1f2a37;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n19" target="n25" edge="1">
+          <mxGeometry x="-0.2909" relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2314" y="781" />
-              <mxPoint x="2314" y="1051" />
+              <mxPoint x="2320" y="800" />
+              <mxPoint x="2320" y="1060" />
             </Array>
             <mxPoint x="2123.7" y="1039" as="targetPoint" />
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="x1" value="caused by" style="curved=1;html=1;endArrow=none;startArrow=none;dashed=1;dashPattern=1 4;strokeWidth=2.4;strokeColor=#1f2a37;fontSize=12;fontStyle=1;fontColor=#1f2a37;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n44" target="n48" edge="1">
