@@ -4,20 +4,24 @@ audience: company supervisor
 type: decision brief
 status: draft
 ---
-# Handheld data collection: real Dex1-1 gripper or printed copy
+# Handheld data collection: Real Dex1-1 Gripper or Printed Copy
 
-Status 5 November 2026. Nothing has been weighed or tested on hardware yet; masses are CAD estimates and electrical values come from manufacturer documentation.
+> Nothing has been weighed or tested on hardware yet; masses are CAD estimates and electrical values come from manufacturer documentation.
 
 ## Decision needed
 
 The handheld demonstration device must show the camera the same fingers that the robot uses, so that handheld and robot images match. Two ways to achieve this are compared:
 
-1. **Real gripper.** One of the two ordered Unitree Dex1-1 grippers is mounted on the VR controller and driven electrically from the controller trigger. The second gripper stays on the UR10e.
+1. **Real gripper.** One of the two ordered Unitree Dex1-1 grippers is mounted on the VR controller and driven electrically from the controller trigger.
 2. **Printed copy.** A passive, 3D-printed copy of the Dex1-1 mechanism, closed by a squeeze trigger. This is the design in the original proposal.
 
-**Recommendation (for discussion):** the real gripper as the main line, with the printed copy kept at its current design state as a documented fallback. **Proposed rule:** the real gripper is used if a communication and power check on the delivered gripper passes; otherwise the printed copy is built.
+**Recommendation (for discussion):** the real gripper as the main approach, with the printed copy kept at its current design state as a documented fallback. 
 
-**Main argument:** the real gripper gives identical fingers and a complete gripper signal (command, measured position, torque estimate) without designing a mechanism. **Main cost:** about 410 g more mass and a powered cable to the handheld.
+**Proposed rule:** the real gripper is used if a communication and power check on the delivered gripper passes; otherwise the printed copy is built.
+
+**Main argument:** the real gripper gives identical fingers and a complete gripper signal (command, measured position, torque estimate) without designing a mechanism. 
+
+**Main cost:** about 410 g more mass and a powered cable to the handheld.
 
 ## The two options
 
@@ -100,3 +104,5 @@ Costs are not yet included.
 - [Universal Robots, UR10e datasheet](https://www.universal-robots.com/manuals/latest/en/datasheets/ur10e/)
 - [ILO Encyclopaedia of Occupational Health and Safety, Ergonomics: hand tools](https://iloencyclopaedia.org/part-iv-66769/ergonomics-52353/item/634)
 - ["Pico 4 Ultra controller scan" by alonym, Thingiverse 7350019, CC BY](https://www.thingiverse.com/thing:7350019)
+
+[^1]: 
