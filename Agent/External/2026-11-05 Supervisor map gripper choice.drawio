@@ -35,7 +35,7 @@
             <mxGeometry x="2042.1" y="253" width="261" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Second gripper stays on UR10e" tooltip="Two grippers are ordered. One is the handheld, the other stays on the robot, so the robot remains available.&#xa;&#xa;Source: Project plan" detail="Two grippers are ordered. One is the handheld, the other stays on the robot, so the robot remains available." source="Project plan" status="" id="n5">
+        <UserObject label="One gripper validates the concept" tooltip="One of the two ordered grippers becomes the handheld. One gripper is enough to validate the concept: trigger, command, gripper signal, power and communication. The number of grippers needed on the robot depends on the deployment robot, which is not yet decided.&#xa;&#xa;Source: Accompanying brief" detail="One of the two ordered grippers becomes the handheld. One gripper is enough to validate the concept: trigger, command, gripper signal, power and communication. The number of grippers needed on the robot depends on the deployment robot, which is not yet decided." source="Accompanying brief" status="" id="n5">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="2042.1" y="297" width="264.3" height="34" as="geometry" />
           </mxCell>
@@ -70,7 +70,7 @@
             <mxGeometry x="2045.3999999999999" y="530" width="389.2" height="80" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Power: 24–64 V, 3.5 A peak" tooltip="24–64 V DC, 0.03 A static, 3.5 A peak (≈ 84 W at 24 V, computed). No supply in the box. Grip force 5–120 N, set by the controller.&#xa;&#xa;Source: Unitree product page" detail="24–64 V DC, 0.03 A static, 3.5 A peak (≈ 84 W at 24 V, computed). No supply in the box. Grip force 5–120 N, set by the controller." source="Unitree product page" status="" link="https://unitree.com/Dex1-1" id="n12">
+        <UserObject label="Power: 24–64 V, 3.5 A peak" tooltip="24–64 V DC, 0.03 A static, 3.5 A peak (≈ 84 W at 24 V, computed). No supply in the box. Grip force 5–120 N; not commanded as a force: the recording PC sends a target position and a stiffness, and the gripper&#x27;s built-in motor controller pushes harder the further an object keeps the fingers from the target.&#xa;&#xa;Source: Unitree product page; Unitree dex1_1_service" detail="24–64 V DC, 0.03 A static, 3.5 A peak (≈ 84 W at 24 V, computed). No supply in the box. Grip force 5–120 N; not commanded as a force: the recording PC sends a target position and a stiffness, and the gripper&#x27;s built-in motor controller pushes harder the further an object keeps the fingers from the target." source="Unitree product page; Unitree dex1_1_service" status="" link="https://unitree.com/Dex1-1" id="n12">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="2045.4" y="639" width="220" height="40" as="geometry" />
           </mxCell>
@@ -85,7 +85,7 @@
             <mxGeometry x="1759.9999999999998" y="837" width="165.8" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Print dummy gripper" tooltip="Print the gripper from the official CAD model to check fit, balance and tracking-LED visibility in the hand.&#xa;&#xa;Source: Unitree developer docs (CAD model)" detail="Print the gripper from the official CAD model to check fit, balance and tracking-LED visibility in the hand." source="Unitree developer docs (CAD model)" status="" link="https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1" id="n15">
+        <UserObject label="Print dummy gripper" tooltip="Print the gripper from the official CAD model to check size, adapter fit and tracking-LED visibility in the hand.&#xa;&#xa;Source: Unitree developer docs (CAD model)" detail="Print the gripper from the official CAD model to check size, adapter fit and tracking-LED visibility in the hand." source="Unitree developer docs (CAD model)" status="" link="https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1" id="n15">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#2fb8a3;strokeColor=#2fb8a3;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="2085.2" y="829" width="194.9" height="34" as="geometry" />
           </mxCell>
@@ -100,7 +100,7 @@
             <mxGeometry x="1719.9" y="980" width="96.3" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Communication and power check" tooltip="The PC commands the gripper at the needed rate; supply, cable and mass are acceptable on a tethered handheld. Possible only after delivery.&#xa;&#xa;Source: Project plan" detail="The PC commands the gripper at the needed rate; supply, cable and mass are acceptable on a tethered handheld. Possible only after delivery." source="Project plan" status="open" id="n19">
+        <UserObject label="Concept check on one gripper" tooltip="On one delivered gripper: trigger reading, commands and command rate, gripper signal, power supply, communication, cable and handling with the tether. If it fails, the printed copy is built. Data collection and deployment are planned after it passes.&#xa;&#xa;Source: Accompanying brief" detail="On one delivered gripper: trigger reading, commands and command rate, gripper signal, power supply, communication, cable and handling with the tether. If it fails, the printed copy is built. Data collection and deployment are planned after it passes." source="Accompanying brief" status="open" id="n19">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2fb8a3;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
             <mxGeometry x="1893" y="972" width="147.8" height="34" as="geometry" />
           </mxCell>
@@ -110,12 +110,12 @@
             <mxGeometry x="1893" y="1016" width="252" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Cable clip, UR10e supply" tooltip="The cable clip depends on where the cables leave the gripper. The UR10e tool connector supplies 24 V at 2 A, below the gripper&#x27;s 3.5 A peak, so the robot-side gripper very likely needs an external supply.&#xa;&#xa;Source: UR10e datasheet; Unitree product page" detail="The cable clip depends on where the cables leave the gripper. The UR10e tool connector supplies 24 V at 2 A, below the gripper&#x27;s 3.5 A peak, so the robot-side gripper very likely needs an external supply." source="UR10e datasheet; Unitree product page" status="open" link="https://www.universal-robots.com/manuals/latest/en/datasheets/ur10e/" id="n21">
+        <UserObject label="Cable clip" tooltip="The cable clip depends on where the cables leave the gripper; known only after delivery.&#xa;&#xa;Source: CAD design" detail="The cable clip depends on where the cables leave the gripper; known only after delivery." source="CAD design" status="open" link="https://www.universal-robots.com/manuals/latest/en/datasheets/ur10e/" id="n21">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2fb8a3;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
             <mxGeometry x="1893" y="1060" width="255.4" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Recommendation" tooltip="Real Dex1-1 as the main line; printed copy kept at its current design state as the documented fallback. For discussion.&#xa;&#xa;Source: Accompanying brief" detail="Real Dex1-1 as the main line; printed copy kept at its current design state as the documented fallback. For discussion." source="Accompanying brief" status="" id="n22">
+        <UserObject label="Recommendation" tooltip="Real Dex1-1 as the main line; printed copy kept as a fallback at concept level. For discussion.&#xa;&#xa;Source: Accompanying brief" detail="Real Dex1-1 as the main line; printed copy kept as a fallback at concept level. For discussion." source="Accompanying brief" status="" id="n22">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#7a63d6;strokeColor=#7a63d6;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=15;" parent="1" vertex="1">
             <mxGeometry x="1440" y="1214" width="205" height="42" as="geometry" />
           </mxCell>
@@ -125,7 +125,7 @@
             <mxGeometry x="1726" y="1173" width="212.8" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Fallback: Printed Copy" tooltip="The copy stays at its current CAD state (mechanism, trigger and link designed; bracket open) as the documented fallback.&#xa;&#xa;Source: CAD design" detail="The copy stays at its current CAD state (mechanism, trigger and link designed; bracket open) as the documented fallback." source="CAD design" status="" id="n24">
+        <UserObject label="Fallback: Printed Copy" tooltip="The printed copy is kept as a fallback at concept level (rack-and-pinion principle); its design is not final.&#xa;&#xa;Source: Accompanying brief" detail="The printed copy is kept as a fallback at concept level (rack-and-pinion principle); its design is not final." source="Accompanying brief" status="" id="n24">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#7a63d6;strokeColor=#7a63d6;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="1726" y="1217" width="265.4" height="36" as="geometry" />
           </mxCell>
@@ -135,7 +135,7 @@
             <mxGeometry x="1726" y="1261" width="323.7" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Printed copy · fallback" tooltip="A printed passive copy of the Dex1-1 mechanism, closed by a squeeze trigger; no motor or power on the handheld.&#xa;&#xa;Source: Original proposal" detail="A printed passive copy of the Dex1-1 mechanism, closed by a squeeze trigger; no motor or power on the handheld." source="Original proposal" status="" id="n26">
+        <UserObject label="Printed copy · fallback" tooltip="A passive, 3D-printed copy of the Dex1-1 finger mechanism, closed by hand; no motor or power on the handheld.&#xa;&#xa;Source: Original proposal" detail="A passive, 3D-printed copy of the Dex1-1 finger mechanism, closed by hand; no motor or power on the handheld." source="Original proposal" status="" id="n26">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ef6c2f;strokeColor=#ef6c2f;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=15;" parent="1" vertex="1">
             <mxGeometry x="718.2" y="425" width="241.9" height="42" as="geometry" />
           </mxCell>
@@ -145,17 +145,17 @@
             <mxGeometry x="569.4" y="173" width="90.7" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Rack-and-pinion on MGN9 rails" tooltip="Copy of the Dex1-1 mechanism rebuilt from Unitree&#x27;s official CAD model: MGN9C carriages, MGN9 rails, one central 20-tooth pinion.&#xa;&#xa;Source: Unitree developer docs (CAD model)" detail="Copy of the Dex1-1 mechanism rebuilt from Unitree&#x27;s official CAD model: MGN9C carriages, MGN9 rails, one central 20-tooth pinion." source="Unitree developer docs (CAD model)" status="" link="https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1" id="n28">
+        <UserObject label="Rack-and-pinion (Dex1-1 principle)" tooltip="Each finger is fixed to a rack (a straight toothed bar); both racks mesh with one central pinion (a small gear) from opposite sides. When the pinion turns, the racks move the same distance in opposite directions, so the fingers close or open together and stay centred. Each rack runs on a miniature linear rail. Layout from Unitree&#x27;s official CAD model.&#xa;&#xa;Source: Unitree developer docs (CAD model)" detail="Each finger is fixed to a rack (a straight toothed bar); both racks mesh with one central pinion (a small gear) from opposite sides. When the pinion turns, the racks move the same distance in opposite directions, so the fingers close or open together and stay centred. Each rack runs on a miniature linear rail. Layout from Unitree&#x27;s official CAD model." source="Unitree developer docs (CAD model)" status="" link="https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1" id="n28">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ef6c2f;strokeColor=#ef6c2f;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="156.8" y="130" width="264.3" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Squeeze trigger, link ≈ 4:1" tooltip="Multi-finger squeeze trigger in the grip, about 10 mm travel (design value, untested), rigid link to one carriage (about 4:1), spring return and optional lock.&#xa;&#xa;Source: CAD design" detail="Multi-finger squeeze trigger in the grip, about 10 mm travel (design value, untested), rigid link to one carriage (about 4:1), spring return and optional lock." source="CAD design" status="" id="n29">
+        <UserObject label="Trigger pushes one finger" tooltip="No motor: a trigger in the grip pushes one finger, and the pinion makes the other finger follow by the same amount.&#xa;&#xa;Source: Accompanying brief" detail="No motor: a trigger in the grip pushes one finger, and the pinion makes the other finger follow by the same amount." source="Accompanying brief" status="" id="n29">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ef6c2f;strokeColor=#ef6c2f;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="192.6" y="174" width="228.5" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Precedent: UMI, RDT2, TacUMI" tooltip="UMI (Chi et al., 2024) and RDT2 (Liu et al., 2026) use a printed copy of the robot gripper; UMI and UMI-3D (Wang, 2026) use a printed linkage; TacUMI (Cheng et al., 2026) uses a continuous lock instead of a ratchet.&#xa;&#xa;Source: arXiv:2402.10329; arXiv:2602.03310; arXiv:2604.14089; arXiv:2601.14550" detail="UMI (Chi et al., 2024) and RDT2 (Liu et al., 2026) use a printed copy of the robot gripper; UMI and UMI-3D (Wang, 2026) use a printed linkage; TacUMI (Cheng et al., 2026) uses a continuous lock instead of a ratchet." source="arXiv:2402.10329; arXiv:2602.03310; arXiv:2604.14089; arXiv:2601.14550" status="" link="https://arxiv.org/abs/2402.10329" id="n30">
+        <UserObject label="Precedent: UMI, RDT2" tooltip="UMI (Chi et al., 2024) and RDT2 (Liu et al., 2026) use a printed copy of the robot gripper.&#xa;&#xa;Source: Chi et al., 2024, arXiv:2402.10329; Liu et al., 2026, arXiv:2602.03310" detail="UMI (Chi et al., 2024) and RDT2 (Liu et al., 2026) use a printed copy of the robot gripper." source="Chi et al., 2024, arXiv:2402.10329; Liu et al., 2026, arXiv:2602.03310" status="" link="https://arxiv.org/abs/2402.10329" id="n30">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ef6c2f;strokeColor=#ef6c2f;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="157.9" y="218" width="263.2" height="34" as="geometry" />
           </mxCell>
@@ -165,7 +165,7 @@
             <mxGeometry x="502.2" y="295" width="157.9" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Achieved width only" tooltip="No command and no force signal. Width needs a calibration from the sensor to the fingertips.&#xa;&#xa;Source: Accompanying brief" detail="No command and no force signal. Width needs a calibration from the sensor to the fingertips." source="Accompanying brief" status="" id="n32">
+        <UserObject label="Achieved width only" tooltip="No command and no force signal. An added sensor gives a raw reading that is related to the true finger gap by measuring known gaps.&#xa;&#xa;Source: Accompanying brief" detail="No command and no force signal. An added sensor gives a raw reading that is related to the true finger gap by measuring known gaps." source="Accompanying brief" status="" id="n32">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ef6c2f;strokeColor=#ef6c2f;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="230.7" y="274" width="190.4" height="34" as="geometry" />
           </mxCell>
@@ -185,7 +185,7 @@
             <mxGeometry x="182.6" y="374" width="238.6" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Camera USB only, no power" tooltip="Unpowered handheld; camera USB plus encoder USB if the width is measured online. The robot keeps its gripper.&#xa;&#xa;Source: Accompanying brief" detail="Unpowered handheld; camera USB plus encoder USB if the width is measured online. The robot keeps its gripper." source="Accompanying brief" status="" id="n36">
+        <UserObject label="Camera USB only, no power" tooltip="Unpowered handheld; camera USB plus encoder USB if the width is measured online. Both ordered grippers remain available for the robot.&#xa;&#xa;Source: Accompanying brief" detail="Unpowered handheld; camera USB plus encoder USB if the width is measured online. Both ordered grippers remain available for the robot." source="Accompanying brief" status="" id="n36">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ef6c2f;strokeColor=#ef6c2f;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="180.3" y="418" width="240.8" height="34" as="geometry" />
           </mxCell>
@@ -205,7 +205,7 @@
             <mxGeometry x="220.6" y="518" width="200.5" height="34" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Design paused" tooltip="Mechanism, trigger and link designed in CAD; work paused while the real gripper is the main line. A cable-and-drum transmission was set aside (drum radius about 2 mm, too small).&#xa;&#xa;Source: CAD design" detail="Mechanism, trigger and link designed in CAD; work paused while the real gripper is the main line. A cable-and-drum transmission was set aside (drum radius about 2 mm, too small)." source="CAD design" status="" id="n40">
+        <UserObject label="Concept only; design not final" tooltip="The concept is worked out; the design is not final and is not shown.&#xa;&#xa;Source: Accompanying brief" detail="The concept is worked out; the design is not final and is not shown." source="Accompanying brief" status="" id="n40">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ef6c2f;strokeColor=#ef6c2f;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
             <mxGeometry x="291.2" y="562" width="129.9" height="34" as="geometry" />
           </mxCell>
@@ -215,24 +215,14 @@
             <mxGeometry x="563.8" y="683" width="96.3" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Gripper bracket (open)" tooltip="The bracket that joins the copy to the grip sleeve is not yet designed.&#xa;&#xa;Source: CAD design" detail="The bracket that joins the copy to the grip sleeve is not yet designed." source="CAD design" status="open" id="n42">
+        <UserObject label="Grip span above optimum" tooltip="Grip span is the distance the hand closes around, from the back of the grip to the front. The sleeve alone is 56.9 mm (CAD estimate); with the squeeze trigger about 54–64 mm (CAD estimate). Both lie above the 45–55 mm span at which grip strength and comfort are highest.&#xa;&#xa;Source: ILO Encyclopaedia, hand tools" detail="Grip span is the distance the hand closes around, from the back of the grip to the front. The sleeve alone is 56.9 mm (CAD estimate); with the squeeze trigger about 54–64 mm (CAD estimate). Both lie above the 45–55 mm span at which grip strength and comfort are highest." source="ILO Encyclopaedia, hand tools" status="open" link="https://iloencyclopaedia.org/part-iv-66769/ergonomics-52353/item/634" id="n44">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ef6c2f;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
-            <mxGeometry x="205" y="618" width="216.2" height="34" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="Pivots, spring, pins, lock" tooltip="Not modelled yet. Squeeze travel and force are measured on the first print.&#xa;&#xa;Source: CAD design" detail="Not modelled yet. Squeeze travel and force are measured on the first print." source="CAD design" status="open" id="n43">
-          <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ef6c2f;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
-            <mxGeometry x="202.7" y="662" width="218.4" height="34" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <UserObject label="57 mm grip-span limit" tooltip="The controller as grip sets a floor: the sleeve is 56.9 mm across (CAD). With the trigger blade the span is about 54–64 mm, against an optimum of 45–55 mm.&#xa;&#xa;Source: ILO Encyclopaedia, hand tools" detail="The controller as grip sets a floor: the sleeve is 56.9 mm across (CAD). With the trigger blade the span is about 54–64 mm, against an optimum of 45–55 mm." source="ILO Encyclopaedia, hand tools" status="open" link="https://iloencyclopaedia.org/part-iv-66769/ergonomics-52353/item/634" id="n44">
-          <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ef6c2f;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
-            <mxGeometry x="217.3" y="706" width="203.8" height="34" as="geometry" />
+            <mxGeometry x="217.3" y="662" width="203.8" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="MGN9 parts not yet bought" tooltip="2 MGN9C carriages and 2 MGN9 rails (75 mm), bought only if the copy is chosen.&#xa;&#xa;Source: Project plan" detail="2 MGN9C carriages and 2 MGN9 rails (75 mm), bought only if the copy is chosen." source="Project plan" status="open" id="n45">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ef6c2f;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
-            <mxGeometry x="206.1" y="750" width="215" height="34" as="geometry" />
+            <mxGeometry x="206.1" y="706" width="215" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Shared and open for both" tooltip="What both paths have in common, what is open for both, and what this choice does not decide.&#xa;&#xa;Source: Accompanying brief" detail="What both paths have in common, what is open for both, and what this choice does not decide." source="Accompanying brief" status="" id="n46">
@@ -242,22 +232,27 @@
         </UserObject>
         <UserObject label="Shared" tooltip="" detail="" source="" status="" id="n47">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#f2c230;strokeColor=#f2c230;fontColor=#2a2410;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="551.5" y="871" width="108.6" height="36" as="geometry" />
+            <mxGeometry x="551.5" y="861" width="108.6" height="36" as="geometry" />
           </mxCell>
         </UserObject>
-        <UserObject label="Controller is the grip" tooltip="PICO 4 Ultra Enterprise controller held like a pistol, gripper as barrel, rotated by 35° in a printed two-part sleeve that leaves the tracking LEDs uncovered.&#xa;&#xa;Source: CAD design" detail="PICO 4 Ultra Enterprise controller held like a pistol, gripper as barrel, rotated by 35° in a printed two-part sleeve that leaves the tracking LEDs uncovered." source="CAD design" status="" id="n48">
+        <UserObject label="Controller is the grip" tooltip="PICO 4 Ultra Enterprise controller held like a pistol, gripper as barrel. A printed two-part sleeve holds the controller tilted by 35° relative to the gripper, so that the grip slants back like a pistol grip (CAD; comfort untested), and leaves the tracking LEDs uncovered.&#xa;&#xa;Source: CAD design" detail="PICO 4 Ultra Enterprise controller held like a pistol, gripper as barrel. A printed two-part sleeve holds the controller tilted by 35° relative to the gripper, so that the grip slants back like a pistol grip (CAD; comfort untested), and leaves the tracking LEDs uncovered." source="CAD design" status="" id="n48">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#f2c230;strokeColor=#f2c230;fontColor=#2a2410;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="228.5" y="828" width="192.6" height="34" as="geometry" />
+            <mxGeometry x="228.5" y="796" width="192.6" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="RGB camera, tethered PC" tooltip="RGB camera on the gripper; tethered recording PC.&#xa;&#xa;Source: Project plan" detail="RGB camera on the gripper; tethered recording PC." source="Project plan" status="" id="n49">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#f2c230;strokeColor=#f2c230;fontColor=#2a2410;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="194.9" y="872" width="226.2" height="34" as="geometry" />
+            <mxGeometry x="194.9" y="840" width="226.2" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Same size and stroke" tooltip="Same by construction: the copy is rebuilt from the official CAD model. 143.3 mm long, about 82–83 mm stroke in the official model.&#xa;&#xa;Source: Unitree developer docs (CAD model)" detail="Same by construction: the copy is rebuilt from the official CAD model. 143.3 mm long, about 82–83 mm stroke in the official model." source="Unitree developer docs (CAD model)" status="" link="https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1" id="n50">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#f2c230;strokeColor=#f2c230;fontColor=#2a2410;fontFamily=Helvetica;fontStyle=1;fontSize=13;" parent="1" vertex="1">
-            <mxGeometry x="224" y="916" width="197.1" height="34" as="geometry" />
+            <mxGeometry x="224" y="884" width="197.1" height="34" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="Deployment robot open: UR10e or H2" tooltip="Not yet decided between the UR10e and the Unitree H2 (possibly with a gripper on each hand); trade-offs not yet weighed. Known for the UR10e: a flange adapter plate (ISO 9409-1-50-4-M6) and very likely an external supply, since its tool connector provides 24 V at 2 A against the gripper&#x27;s 3.5 A peak.&#xa;&#xa;Source: UR10e datasheet; Unitree product page" detail="Not yet decided between the UR10e and the Unitree H2 (possibly with a gripper on each hand); trade-offs not yet weighed. Known for the UR10e: a flange adapter plate (ISO 9409-1-50-4-M6) and very likely an external supply, since its tool connector provides 24 V at 2 A against the gripper&#x27;s 3.5 A peak." source="UR10e datasheet; Unitree product page" status="open" link="https://www.universal-robots.com/manuals/latest/en/datasheets/ur10e/" id="n58">
+          <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f2c230;fontColor=#1f2a37;fontFamily=Helvetica;fontStyle=1;fontSize=13;dashed=1;dashPattern=5 4;strokeWidth=2;" parent="1" vertex="1">
+            <mxGeometry x="140.1" y="928" width="281" height="34" as="geometry" />
           </mxCell>
         </UserObject>
         <UserObject label="Open for both" tooltip="" detail="" source="" status="" id="n51">
@@ -415,12 +410,6 @@
         <mxCell id="e41" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#ef6c2f;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n26" target="n41" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e42" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#ef6c2f;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n41" target="n42" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e43" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#ef6c2f;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n41" target="n43" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="e44" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#ef6c2f;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n41" target="n44" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
@@ -431,6 +420,9 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e47" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#f2c230;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n46" target="n47" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e58" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#f2c230;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n47" target="n58" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e48" style="edgeStyle=entityRelationEdgeStyle;curved=1;html=1;endArrow=none;startArrow=none;strokeWidth=2.4;strokeColor=#f2c230;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="n47" target="n48" edge="1">
