@@ -1,11 +1,11 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
   <diagram id="gripper-choice-map" name="Gripper choice">
-    <mxGraphModel dx="2712" dy="1424" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2486" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3443" dy="2017" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2486" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="Handheld Gripper Body: Real Dex1-1 vs Printed Copy" style="text;html=1;fontSize=24;fontStyle=1;fontFamily=Helvetica;align=left;verticalAlign=top;" parent="1" vertex="1">
-          <mxGeometry x="40" y="20" width="800" height="36" as="geometry" />
+        <mxCell id="title" value="Handheld Gripper Body: Real Dex1-1 vs Printed Copy" style="text;html=1;fontSize=24;fontStyle=1;fontFamily=Helvetica;align=center;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="840" y="80" width="800" height="40" as="geometry" />
         </mxCell>
         <UserObject label="Handheld gripper body" tooltip="What does the operator hold, so that handheld and robot camera images match? The original proposal names a printed copy; the real gripper is now proposed as the main line.&#xa;&#xa;Source: Original proposal" detail="What does the operator hold, so that handheld and robot camera images match? The original proposal names a printed copy; the real gripper is now proposed as the main line." source="Original proposal" status="" id="n0">
           <mxCell style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#243447;strokeColor=#243447;fontColor=#ffffff;fontFamily=Helvetica;fontStyle=1;fontSize=22;" parent="1" vertex="1">
