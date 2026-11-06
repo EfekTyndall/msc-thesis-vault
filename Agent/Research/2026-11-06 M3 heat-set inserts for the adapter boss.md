@@ -36,6 +36,6 @@ Method: manufacturer pages and datasheets read on 2026-11-06 (web search, standa
 Availability: both CNC Kitchen and ruthex are sold in packs of 100 by 3DJake (EU) and the makers' own shops. Whether the internal Storefront lists either is unknown ([[Waiting]], company IT access).
 
 ## Open
-- CAD change for Martyn to approve: hole depth 6 → 7.0 mm and boss wall fix (a) or (b) in controller-grip (real-path front halves).
+- CAD change in controller-grip (real-path front halves): hole depth 6 → 7.0 mm and boss wall fix (a), grow boss to y 53..69 (chosen by Martyn 2026-11-06); not yet applied in Fusion.
 - Print fit: print a small coupon with 3.9 / 4.0 / 4.1 mm holes in the lab PETG before the boss, since the review above saw 4.0 mm tight (suggestion; not yet in `PRINT-TEST-QUEUE.md`).
 - Pull-out strength in PETG is not covered by any source read; check by hand on the first print.
