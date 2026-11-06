@@ -13,9 +13,9 @@ status: draft
 The handheld demonstration device must show the camera the same fingers that the robot uses, so that handheld and robot images match. Two ways to achieve this are compared:
 
 1. **Real gripper.** One of the two ordered Unitree Dex1-1 grippers is mounted on the VR controller and driven electrically from the controller trigger.
-2. **Printed copy.** A passive, 3D-printed copy of the Dex1-1 mechanism, closed by a squeeze trigger. This is the design in the original proposal.
+2. **Printed copy.** A passive, 3D-printed copy of the Dex1-1 finger mechanism, closed by hand. This is the concept in the original proposal.
 
-**Recommendation (for discussion):** the real gripper as the main approach, with the printed copy kept at its current design state as a documented fallback. 
+**Recommendation (for discussion):** the real gripper as the main approach, with the printed copy kept as a fallback at concept level.
 
 **Proposed rule:** the real gripper is used if a communication and power check on the delivered gripper passes; otherwise the printed copy is built.
 
@@ -27,21 +27,23 @@ The handheld demonstration device must show the camera the same fingers that the
 
 **Real gripper.** The PICO controller trigger is read on the recording PC, which commands the gripper through Unitree's RS-485-to-USB adapter and open-source gripper service ([Unitree dex1_1_service](https://github.com/unitreerobotics/dex1_1_service)). The trigger can map to the gripper proportionally or as an open/close switch; both mappings are to be tested. The gripper is attached under the controller grip by a printed adapter. A real gripper mounted on a VR controller has been used in ActiveUMI ([Zeng et al., 2025](https://arxiv.org/abs/2510.01607)); one device serving both handheld collection and robot deployment in RAPID ([Yin et al., 2026](https://arxiv.org/abs/2602.06653)).
 
-**Printed copy.** Rack-and-pinion mechanism on two MGN9 linear rails, rebuilt from Unitree's official CAD model ([Unitree developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)). A multi-finger squeeze trigger in the grip, with about 10 mm travel (design value, untested), drives the fingers through a rigid link at about 4:1, with spring return and an optional lock. Printed copies of the robot gripper are used in UMI ([Chi et al., 2024](https://arxiv.org/abs/2402.10329)) and RDT2 ([Liu et al., 2026](https://arxiv.org/abs/2602.03310)); printed linkages in UMI ([Chi et al., 2024](https://arxiv.org/abs/2402.10329)) and UMI-3D ([Wang, 2026](https://arxiv.org/abs/2604.14089)); a continuous lock in TacUMI ([Cheng et al., 2026](https://arxiv.org/abs/2601.14550)).
+**Printed copy.** The copy reuses the finger mechanism of the Dex1-1, a rack and pinion, rebuilt from Unitree's official CAD model ([Unitree developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)). A pinion is a small gear; a rack is a straight bar with teeth. Each finger is fixed to its own rack, and both racks mesh with one central pinion from opposite sides (Figure 1). When the pinion turns, the two racks move by the same distance in opposite directions, so both fingers close or open together and stay centred. In the robot gripper the motor turns the pinion. In the printed copy there is no motor: a trigger in the grip pushes one finger, and the pinion makes the other finger follow by the same amount. Each rack runs on a miniature linear rail, as in the original. Printed copies of the robot gripper are used in UMI ([Chi et al., 2024](https://arxiv.org/abs/2402.10329)) and RDT2 ([Liu et al., 2026](https://arxiv.org/abs/2602.03310)).
+
+![Rack-and-pinion principle](figures/2026-11-06%20rack%20and%20pinion%20principle.png)
+
+*Figure 1. Rack-and-pinion principle of the Dex1-1 finger mechanism, which the printed copy reuses (schematic, not to scale). Left: open. Right: the pinion turns clockwise, rack 1 moves right and rack 2 moves left, so the fingers close symmetrically. Layout after Unitree's official CAD model ([developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)).*
 
 ## Design state in CAD
 
 ![Real gripper option, side view](figures/2026-11-05%20real%20gripper%20option%20side.png)
 
-*Figure 1. Real gripper option, side view (CAD, 5 November 2026). The gripper (blue, Unitree's official CAD model from the [developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)) is attached by a printed adapter to a two-part sleeve on the PICO controller. Controller shape: 3D scan "Pico 4 Ultra controller scan" by alonym, [Thingiverse 7350019](https://www.thingiverse.com/thing:7350019), CC BY.*
+*Figure 2. Real gripper option, side view (CAD, 5 November 2026). The gripper (blue, Unitree's official CAD model from the [developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)) is attached by a printed adapter to a two-part sleeve on the PICO controller. Controller shape: 3D scan "Pico 4 Ultra controller scan" by alonym, [Thingiverse 7350019](https://www.thingiverse.com/thing:7350019), CC BY.*
 
 ![Real gripper option, isometric view](figures/2026-11-05%20real%20gripper%20option%20iso.png)
 
-*Figure 2. Real gripper option, isometric view (same model as Figure 1).*
+*Figure 3. Real gripper option, isometric view (same model as Figure 2).*
 
-![Printed copy option, side view](figures/2026-11-05%20printed%20copy%20option%20side.png)
-
-*Figure 3. Printed copy option, side view (CAD, 5 November 2026). Copy of the Dex1-1 mechanism and fingers (grey) driven by the squeeze trigger under the grip through a rigid link and bellcrank. The bracket between grip and mechanism is not yet designed, so the two are shown unconnected. Controller shape as in Figure 1.*
+The printed copy is described at concept level only (Figure 1); its detailed design is not shown.
 
 ## Comparison
 
@@ -86,7 +88,6 @@ Costs are not yet included.
 
 **Papers**
 
-- T. Cheng et al., "TacUMI: A Multi-Modal Universal Manipulation Interface for Contact-Rich Tasks," 2026, [arXiv:2601.14550](https://arxiv.org/abs/2601.14550).
 - C. Chi et al., "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots," 2024, [arXiv:2402.10329](https://arxiv.org/abs/2402.10329).
 - S. Liu et al., "RDT2: Exploring the Scaling Limit of UMI Data Towards Zero-Shot Cross-Embodiment Generalization," 2026, [arXiv:2602.03310](https://arxiv.org/abs/2602.03310).
 - V. Surendran, N. Peri, D. Watkins, "Bridging Handheld and Teleoperated Supervision for Contact-Rich Manipulation via State-Gated Experts," 2026, [arXiv:2606.26603](https://arxiv.org/abs/2606.26603).
