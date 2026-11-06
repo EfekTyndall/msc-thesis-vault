@@ -37,6 +37,7 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 - [ ] Update D01, D05 and D10 with the record-decision skill; OK the matching thesis-plan changes.
 - [ ] Buy 2 MGN9C blocks and 2 MGN9 rails (75 mm) only if the printed copy stays (on hold since 2026-11-04).
 - [ ] Drop the unused Fusion assembly and parts.
+- [ ] Revisit PICO Motion Trackers as an optional addition ([[2026-11-06 PICO Motion Tracker uses]]): use one in the UR10e accuracy test next to the controller; forearm trackers for the H2 elbow (only if H2 is the deployment robot) or as an objective effort metric need a thesis-plan change and the supervisor's OK. First bench test: arm trackers and both controllers tracked together through XRoboToolkit. (since 2026-11-06)
 
 ## Later stages
 - [ ] 20 rollouts per condition is underpowered: keep, or change the protocol ([[2026-11-02 Research gaps]]). Flagged 2026-11-04.
