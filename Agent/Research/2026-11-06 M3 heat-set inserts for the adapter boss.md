@@ -6,7 +6,7 @@ tags: [research, handheld, real-path, purchase]
 
 Question: which M3 heat-set inserts to buy for the joint between real-adapter (bow pad) and the boss on the sleeve front half ([[D10 Handheld mechanism]]; `msc-thesis/hardware/PRINT-TEST-QUEUE.md` §3), and what hole the boss needs. Current CAD: 2 × M3, holes 4.0 mm × 6 mm deep, PETG.
 
-Method: manufacturer pages and datasheets read on 2026-11-06 (web search, standard; no deep research). No source is in `msc-thesis/thesis/literature.bib`; all are product documents. CAD not changed (Fusion in use by another thread); boss outer diameter and pad thickness not read from Fusion.
+Method: manufacturer pages and datasheets read on 2026-11-06 (web search, standard; no deep research). No source is in `msc-thesis/thesis/literature.bib`; all are product documents. CAD not changed (Fusion in use by another thread). Boss and pad geometry read in Fusion by the CAD thread on 2026-11-06: boss is a 14 × 14 mm block (face at z −31, 8.5 mm into the sleeve wall), holes Ø4.0 × 6 at (x −7, y 57) and (x −7, y 65); about 9.3 mm of material under the boss face at the holes; bow pad 5.0 mm thick with 2 × Ø3.4 holes, 0.3 mm gap to the boss face.
 
 ## Findings
 
@@ -28,13 +28,14 @@ Method: manufacturer pages and datasheets read on 2026-11-06 (web search, standa
 1. **Hole diameter 4.0 mm stays.** It matches the Standard and Short inserts of CNC Kitchen (poster) and the ruthex RX-M3x5.7 table value.
 2. **Hole depth: 6 mm is too short for a 5.7 mm insert.** The poster minimum is 6.7 mm; 7.0 mm would meet it (computed, rounded up).
 3. **Recommendation:** CNC Kitchen M3 × 5.7 Standard (ruthex RX-M3x5.7 has the same published dimensions and is an equivalent second source). Boss hole 4.0 mm × 7.0 mm. Reason: the only insert with a manufacturer-stated hole and depth, and the longest thread engagement of the options at the same 4.0 mm hole.
-4. **If the boss cannot take 7 mm** (boss height or the wall underneath unknown), the M3 × 3.0 Short fits the current 4.0 mm × 6 mm hole unchanged (needs ≥ 4.0 mm). Its holding strength in PETG is not given by any source read (unverified).
-5. **Wall:** at least 1.6 mm around the 4.0 mm hole, i.e. boss Ø ≥ 7.2 mm (computed from the poster W).
-6. **Screw length:** pad thickness + up to the insert length (5.7 mm), with the tip not bottoming in the hole; set once the pad thickness is read from Fusion.
+4. **Fallback** (not needed for depth, see 6): the M3 × 3.0 Short fits the current 4.0 mm × 6 mm hole unchanged (needs ≥ 4.0 mm). Its holding strength in PETG is not given by any source read (unverified).
+5. **Wall: too thin along y.** The poster minimum is 1.6 mm. Hole edge to boss edge is 5.0 mm along x but only 1.0 mm along y (holes at y 57 and 65, Ø4.0, boss y 54..68). Two fixes: (a) grow the boss 1 mm at each end (y 53..69), giving 2.0 mm, pad holes unchanged; (b) move the holes 0.6 mm inwards (y 57.6 and 64.4), which also moves the pad holes and leaves 2.8 mm between the holes. (a) is simpler because the pad stays as it is; check it against the ~0.5 mm scan intrusion near the boss (`PRINT-TEST-QUEUE.md` §2). This applies to the Short fallback too.
+6. **Depth fits.** A 7.0 mm hole in 9.3 mm of material leaves about 2.3 mm below it (computed).
+7. **Screw: M3 × 10 socket head** (ISO 4762). Under the head: 5.0 mm pad + 0.3 mm gap (assumed to be a gap between pad and boss face) = 5.3 mm, so 4.7 mm goes into the 5.7 mm insert, and the tip stays 2.3 mm above the hole bottom (7.0 mm hole). M3 × 12 would put the tip 0.3 mm above the bottom, too close; M3 × 8 engages only 2.7 mm (computed). With the Short fallback in the 6 mm hole: M3 × 8 (2.7 mm into a 3.0 mm insert, tip 3.3 mm above the bottom).
 
 Availability: both CNC Kitchen and ruthex are sold in packs of 100 by 3DJake (EU) and the makers' own shops. Whether the internal Storefront lists either is unknown ([[Waiting]], company IT access).
 
 ## Open
-- Read boss outer diameter, boss height and pad thickness in Fusion; then set hole depth (7.0 mm) and screw length.
+- CAD change for Martyn to approve: hole depth 6 → 7.0 mm and boss wall fix (a) or (b) in controller-grip (real-path front halves).
 - Print fit: print a small coupon with 3.9 / 4.0 / 4.1 mm holes in the lab PETG before the boss, since the review above saw 4.0 mm tight (suggestion; not yet in `PRINT-TEST-QUEUE.md`).
 - Pull-out strength in PETG is not covered by any source read; check by hand on the first print.
