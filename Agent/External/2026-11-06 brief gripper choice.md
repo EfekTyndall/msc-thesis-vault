@@ -122,5 +122,3 @@ Costs are not yet included.
 - [Universal Robots, UR10e datasheet](https://www.universal-robots.com/manuals/latest/en/datasheets/ur10e/)
 - [ILO Encyclopaedia of Occupational Health and Safety, Ergonomics: hand tools](https://iloencyclopaedia.org/part-iv-66769/ergonomics-52353/item/634)
 - ["Pico 4 Ultra controller scan" by alonym, Thingiverse 7350019, CC BY](https://www.thingiverse.com/thing:7350019)
-
-[^1]: 
