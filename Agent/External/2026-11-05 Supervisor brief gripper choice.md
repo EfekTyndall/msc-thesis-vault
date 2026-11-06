@@ -13,9 +13,9 @@ status: draft
 The handheld demonstration device must show the camera the same fingers that the robot uses, so that handheld and robot images match. Two ways to achieve this are compared:
 
 1. **Real gripper.** One of the two ordered Unitree Dex1-1 grippers is mounted on the VR controller and driven electrically from the controller trigger.
-2. **Printed copy.** A passive, 3D-printed copy of the Dex1-1 mechanism, closed by a squeeze trigger. This is the design in the original proposal.
+2. **Printed copy.** A passive, 3D-printed copy of the Dex1-1 finger mechanism, closed by hand. This is the concept in the original proposal.
 
-**Recommendation (for discussion):** the real gripper as the main approach, with the printed copy kept at its current design state as a documented fallback. 
+**Recommendation (for discussion):** the real gripper as the main approach, with the printed copy kept as a fallback at concept level.
 
 **Proposed rule:** the real gripper is used if a communication and power check on the delivered gripper passes; otherwise the printed copy is built.
 
@@ -27,52 +27,71 @@ The handheld demonstration device must show the camera the same fingers that the
 
 **Real gripper.** The PICO controller trigger is read on the recording PC, which commands the gripper through Unitree's RS-485-to-USB adapter and open-source gripper service ([Unitree dex1_1_service](https://github.com/unitreerobotics/dex1_1_service)). The trigger can map to the gripper proportionally or as an open/close switch; both mappings are to be tested. The gripper is attached under the controller grip by a printed adapter. A real gripper mounted on a VR controller has been used in ActiveUMI ([Zeng et al., 2025](https://arxiv.org/abs/2510.01607)); one device serving both handheld collection and robot deployment in RAPID ([Yin et al., 2026](https://arxiv.org/abs/2602.06653)).
 
-**Printed copy.** Rack-and-pinion mechanism on two MGN9 linear rails, rebuilt from Unitree's official CAD model ([Unitree developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)). A multi-finger squeeze trigger in the grip, with about 10 mm travel (design value, untested), drives the fingers through a rigid link at about 4:1, with spring return and an optional lock. Printed copies of the robot gripper are used in UMI ([Chi et al., 2024](https://arxiv.org/abs/2402.10329)) and RDT2 ([Liu et al., 2026](https://arxiv.org/abs/2602.03310)); printed linkages in UMI ([Chi et al., 2024](https://arxiv.org/abs/2402.10329)) and UMI-3D ([Wang, 2026](https://arxiv.org/abs/2604.14089)); a continuous lock in TacUMI ([Cheng et al., 2026](https://arxiv.org/abs/2601.14550)).
+**Printed copy.** The copy reuses the finger mechanism of the Dex1-1, a rack and pinion, rebuilt from Unitree's official CAD model ([Unitree developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)). A pinion is a small gear; a rack is a straight bar with teeth. Each finger is fixed to its own rack, and both racks mesh with one central pinion from opposite sides (Figure 1). When the pinion turns, the two racks move by the same distance in opposite directions, so both fingers close or open together and stay centred. In the robot gripper the motor turns the pinion. In the printed copy there is no motor: a trigger in the grip pushes one finger, and the pinion makes the other finger follow by the same amount. Each rack runs on a miniature linear rail, as in the original. Printed copies of the robot gripper are used in UMI ([Chi et al., 2024](https://arxiv.org/abs/2402.10329)) and RDT2 ([Liu et al., 2026](https://arxiv.org/abs/2602.03310)).
+
+![Rack-and-pinion principle](figures/2026-11-06%20rack%20and%20pinion%20principle.png)
+
+*Figure 1. Rack-and-pinion principle of the Dex1-1 finger mechanism, which the printed copy reuses (schematic, not to scale). Left: open. Right: the pinion turns clockwise, rack 1 moves right and rack 2 moves left, so the fingers close symmetrically. Layout after Unitree's official CAD model ([developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)).*
 
 ## Design state in CAD
 
 ![Real gripper option, side view](figures/2026-11-05%20real%20gripper%20option%20side.png)
 
-*Figure 1. Real gripper option, side view (CAD, 5 November 2026). The gripper (blue, Unitree's official CAD model from the [developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)) is attached by a printed adapter to a two-part sleeve on the PICO controller. Controller shape: 3D scan "Pico 4 Ultra controller scan" by alonym, [Thingiverse 7350019](https://www.thingiverse.com/thing:7350019), CC BY.*
+*Figure 2. Real gripper option, side view (CAD, 5 November 2026). The gripper (blue, Unitree's official CAD model from the [developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)) is attached by a printed adapter to a two-part sleeve on the PICO controller. Controller shape: 3D scan "Pico 4 Ultra controller scan" by alonym, [Thingiverse 7350019](https://www.thingiverse.com/thing:7350019), CC BY.*
 
 ![Real gripper option, isometric view](figures/2026-11-05%20real%20gripper%20option%20iso.png)
 
-*Figure 2. Real gripper option, isometric view (same model as Figure 1).*
+*Figure 3. Real gripper option, isometric view (same model as Figure 2).*
 
-![Printed copy option, side view](figures/2026-11-05%20printed%20copy%20option%20side.png)
-
-*Figure 3. Printed copy option, side view (CAD, 5 November 2026). Copy of the Dex1-1 mechanism and fingers (grey) driven by the squeeze trigger under the grip through a rigid link and bellcrank. The bracket between grip and mechanism is not yet designed, so the two are shown unconnected. Controller shape as in Figure 1.*
+The printed copy is described at concept level only (Figure 1); its detailed design is not shown.
 
 ## Comparison
 
 | Criterion | Real gripper | Printed copy |
 | --- | --- | --- |
-| Fingers vs robot | Identical (same model, metal jaws) | Same geometry, but printed; friction and stiffness differ from the metal jaws |
-| Gripper signal | Commanded position, measured position and torque estimate, logged at 500 Hz by the gripper service ([Unitree dex1_1_service](https://github.com/unitreerobotics/dex1_1_service)) | Finger width only, from a fiducial marker in the camera image (offline) or a magnetic angle encoder (online); no command, no force |
-| Width in metres | Needs a measured motor-angle-to-width curve; Unitree's own code uses 5.62 rad ([Unitree dex1_1_service](https://github.com/unitreerobotics/dex1_1_service)) and 5.4 rad ([Unitree xr_teleoperate](https://github.com/unitreerobotics/xr_teleoperate)) for the full stroke | Needs a sensor-to-width calibration |
-| Grip force | 5–120 N, set by the controller ([Unitree product page](https://unitree.com/Dex1-1)) | Operator's finger force; at 4:1, the recommended repetitive grip force of 50–60 N ([ILO Encyclopaedia, hand tools](https://iloencyclopaedia.org/part-iv-66769/ergonomics-52353/item/634)) allows about 12–15 N at the fingers (computed) |
-| Mass incl. controller, without cables (CAD estimate) | ≈ 846 g: gripper 550 g ([Unitree product page](https://unitree.com/Dex1-1)) + adapter 64 g + grip sleeve 32 g + controller ≈ 201 g (155 g per a [retailer listing](https://vr-expert.com/accessories/vr-accessories/pico-4-ultra-controller-l/) plus batteries, estimated) | ≈ 438 g, rising: bracket, pivots, spring, pins and lock not yet modelled |
-| Reference masses | UMI 780 g ([Chi et al., 2024](https://arxiv.org/abs/2402.10329)); UMI-3D 1120 g, where weight is named as a cause of fatigue ([Wang, 2026](https://arxiv.org/abs/2604.14089)) | |
-| Power and cabling | 24–64 V DC, 3.5 A peak ([Unitree product page](https://unitree.com/Dex1-1)) (≈ 84 W at 24 V, computed); camera USB plus one power/RS-485 cable; an extension may be needed (cable length in the box not stated) | Unpowered; camera USB (plus encoder USB) |
-| Grip ergonomics | Controller trigger only; grip 56.9 mm deep (CAD) | Grip plus squeeze trigger: 54–64 mm span, above the 45–55 mm optimum ([ILO Encyclopaedia, hand tools](https://iloencyclopaedia.org/part-iv-66769/ergonomics-52353/item/634)) |
-| Robot availability | Second gripper stays on the UR10e | Robot keeps its gripper |
-| Parts to buy | 24/48 V supply (≥ 3.5 A), cable extension, threaded inserts | 2 MGN9C carriages, 2 MGN9 rails, spring, inserts; encoder if width is measured online |
-| Design state | Adapter and grip sleeve designed; fit checked in CAD | Mechanism, trigger and link designed; gripper bracket open |
-| Testable before delivery | Printed dummy gripper (size, adapter fit, tracking-LED visibility); software against a simulated gripper | Whole mechanism, once printed and rails bought |
-| Main risk | Delivery date unknown; communication check only possible after delivery | Mechanism and width-calibration effort; printed-finger mismatch |
+| **Signal** | | |
+| Fingers vs robot | Identical | Same shape, printed material ¹ |
+| Gripper signal | Command, position and torque estimate at 500 Hz ² | Finger width only, from an added sensor ³ |
+| Width in metres | Angle-to-width curve to be measured ⁴ | Sensor calibration needed ³ |
+| Grip force | 5–120 N, set through target position and stiffness ⁵ | Operator's hand; about 12–15 N at the fingers ⁶ |
+| **Operator** | | |
+| Mass incl. controller (CAD estimate) | ≈ 846 g ⁷ | ≈ 438 g, rising ⁸ |
+| Power and cabling | 24–64 V, 3.5 A peak; power/RS-485 cable plus camera USB ⁹ | Unpowered; camera USB (plus encoder USB) |
+| Grip span (CAD estimate) | 56.9 mm ¹⁰ | About 54–64 mm ¹⁰ |
+| **Project** | | |
+| Robot availability | One gripper becomes the handheld ¹¹ | Both grippers free for the robot |
+| Parts to buy | Supply (≥ 3.5 A), cable extension, threaded inserts | 2 MGN9C carriages, 2 MGN9 rails, spring, inserts; encoder optional |
+| Design state | Adapter and sleeve designed; fit checked in CAD | Concept worked out; design not final |
+| Testable before delivery | Dummy gripper print; software against a simulated gripper ¹² | Whole mechanism, after printing and buying rails |
+| Main risk | Delivery date unknown; concept check only after delivery | Mechanism and calibration effort; printed fingers differ |
+
+**Notes**
+
+1. Same geometry as Unitree's CAD model, but printed plastic instead of metal jaws, so friction and stiffness differ.
+2. Commanded position, measured position and motor torque estimate, logged at 500 Hz by Unitree's gripper service ([Unitree dex1_1_service](https://github.com/unitreerobotics/dex1_1_service)).
+3. The copy has no motor, so nothing reports its width. A marker on the fingers is read from the camera image (offline), or a magnetic angle sensor sits on the pinion (online). The raw reading is related to the true finger gap by measuring known gaps. No command and no force signal.
+4. The gripper reports its finger position as a motor angle in radians, not as a gap in metres. Unitree's own code disagrees on the angle for the full stroke: 5.62 rad in the gripper service ([Unitree dex1_1_service](https://github.com/unitreerobotics/dex1_1_service)) and 5.4 rad in the teleoperation code ([Unitree xr_teleoperate](https://github.com/unitreerobotics/xr_teleoperate)). The curve is therefore measured on the delivered gripper.
+5. Force range from the [Unitree product page](https://unitree.com/Dex1-1). The force is not commanded directly: the recording PC sends a target finger position and a stiffness, and the gripper's built-in motor controller pushes harder the further an object keeps the fingers from the target ([Unitree dex1_1_service](https://github.com/unitreerobotics/dex1_1_service)).
+6. For repetitive gripping, about 50–60 N (women) and 90–100 N (men) are recommended ([ILO Encyclopaedia, hand tools](https://iloencyclopaedia.org/part-iv-66769/ergonomics-52353/item/634)). At the design link ratio of about 4:1, the lower figure allows about 12–15 N at the fingers (computed).
+7. Gripper 550 g ([Unitree product page](https://unitree.com/Dex1-1)) + adapter 64 g + grip sleeve 32 g + controller ≈ 201 g (155 g per a [retailer listing](https://vr-expert.com/accessories/vr-accessories/pico-4-ultra-controller-l/) plus batteries, estimated); cables not included. For reference: UMI 780 g ([Chi et al., 2024](https://arxiv.org/abs/2402.10329)); UMI-3D 1120 g, where weight is named as a cause of fatigue ([Wang, 2026](https://arxiv.org/abs/2604.14089)).
+8. Bracket, pivots, spring, pins and lock not yet modelled.
+9. Supply range and peak current from the [Unitree product page](https://unitree.com/Dex1-1); ≈ 84 W at 24 V (computed). An extension cable may be needed, since the length of the supplied cable is not stated.
+10. Distance the hand closes around, from the back of the grip to the front. Real gripper: sleeve only, index finger on the controller's own trigger. Printed copy: sleeve plus squeeze trigger. Both lie above the 45–55 mm span at which grip strength and comfort are highest ([ILO Encyclopaedia, hand tools](https://iloencyclopaedia.org/part-iv-66769/ergonomics-52353/item/634)).
+11. One gripper is enough to validate the concept (trigger, command, gripper signal, power, communication). The number of grippers needed on the robot depends on the deployment robot, which is not yet decided.
+12. The dummy gripper, printed from the official CAD model, checks size, adapter fit and tracking-LED visibility.
 
 Costs are not yet included.
 
 ## Common to both options
 
-- PICO 4 Ultra Enterprise controller as the handle, held like a pistol with the gripper as the barrel, rotated by 35° in a printed two-part sleeve that leaves the tracking LEDs uncovered.
+- PICO 4 Ultra Enterprise controller as the handle, held like a pistol with the gripper as the barrel. A printed two-part sleeve holds the controller tilted by 35° relative to the gripper, so that the grip slants back like a pistol grip (CAD; comfort untested), and leaves the tracking LEDs uncovered.
 - RGB camera on the gripper; recording PC connected by cable.
 - Gripper size and stroke follow the official CAD model: 143.3 mm long, about 82–83 mm stroke ([Unitree developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1)).
-- Robot side: the UR10e needs a flange adapter plate (ISO 9409-1-50-4-M6) and very likely an external supply, since its tool connector provides 24 V at 2 A ([UR10e datasheet](https://www.universal-robots.com/manuals/latest/en/datasheets/ur10e/)) against the gripper's 3.5 A peak.
+- Deployment robot: not yet decided between the UR10e and the Unitree H2 (possibly with a gripper on each hand); trade-offs not yet weighed. Known for the UR10e: it needs a flange adapter plate (ISO 9409-1-50-4-M6) and very likely an external supply, since its tool connector provides 24 V at 2 A ([UR10e datasheet](https://www.universal-robots.com/manuals/latest/en/datasheets/ur10e/)) against the gripper's 3.5 A peak.
 
 ## Open points that could change the choice
 
-- **Communication and power check** on the delivered gripper: command rate, supply, cable, handling with the tether. If it fails, the printed copy is built.
+- **Concept check on one delivered gripper:** trigger reading, commands and command rate, gripper signal, power supply, communication, cable and handling with the tether. If it fails, the printed copy is built. Data collection and deployment are planned after it passes.
 - **Stroke:** about 82–83 mm in the official CAD model versus 90 mm on the product page ([Unitree developer docs](https://support.unitree.com/home/en/dex1-1_gripper/about_dex1_1); [Unitree product page](https://unitree.com/Dex1-1)); to be measured on the gripper. Affects both options equally.
 - **Handheld mass:** 846 g lies between UMI and UMI-3D; operator fatigue is untested.
 - **Trigger mapping:** proportional versus open/close, and reading the PICO trigger through XRoboToolkit ([Zhao et al., 2025](https://arxiv.org/abs/2508.00097)).
@@ -86,7 +105,6 @@ Costs are not yet included.
 
 **Papers**
 
-- T. Cheng et al., "TacUMI: A Multi-Modal Universal Manipulation Interface for Contact-Rich Tasks," 2026, [arXiv:2601.14550](https://arxiv.org/abs/2601.14550).
 - C. Chi et al., "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots," 2024, [arXiv:2402.10329](https://arxiv.org/abs/2402.10329).
 - S. Liu et al., "RDT2: Exploring the Scaling Limit of UMI Data Towards Zero-Shot Cross-Embodiment Generalization," 2026, [arXiv:2602.03310](https://arxiv.org/abs/2602.03310).
 - V. Surendran, N. Peri, D. Watkins, "Bridging Handheld and Teleoperated Supervision for Contact-Rich Manipulation via State-Gated Experts," 2026, [arXiv:2606.26603](https://arxiv.org/abs/2606.26603).
