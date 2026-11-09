@@ -6,7 +6,7 @@ tags: [research, handheld, grip-sleeve, print-test]
 
 Question: why the halves of sleeve variant A do not hold, and how to size a snap-fit that does ([[D10 Handheld mechanism]]; `msc-thesis/hardware/PRINT-TEST-QUEUE.md` §1).
 
-Method: PLA fit print of variant A (Martyn, 2026-11-09, lab Bambu Lab H2, photos in the project thread), then design guides and datasheets read on 2026-11-09 (web search, standard; no deep research). None of the sources is in `msc-thesis/thesis/literature.bib` (all "not in bib"). CAD not measured: Fusion on the Mac did not respond, so the current barb dimensions are not in this note.
+Method: PLA fit print of variant A (Martyn, 2026-11-09, lab Bambu Lab H2, photos in the project thread), then design guides and datasheets read on 2026-11-09 (web search, standard; no deep research). None of the sources is in `msc-thesis/thesis/literature.bib` (all "not in bib"). Barb geometry read from Fusion (controller-grip v19) on 2026-11-09.
 
 ## Print result (PLA, variant A)
 
@@ -31,9 +31,26 @@ Bayer guide, used here:
 - Allowable strain: amorphous plastics up to about 70 % of the yield strain (p. 11); for frequent separation use about 60 % of the single-assembly value (Table 2, p. 12). Root radius not below 0.38 mm (p. 8).
 - No values for PETG or PLA, and no friction coefficient for either. The ABS value 0.50–0.65 (×1.2 for the same material on both parts) is the closest, assumed here.
 
-## Why A does not hold (reasoning, CAD not checked)
+## Why A does not hold (measured in CAD)
 
-A's barb sits on a continuous tongue in a 3.5 mm wall. Nothing in that joint is a free beam, so only the wall itself can deflect, and a stiff, short section allows almost no deflection before it either jams or lets go. This matches the Sculpteo and Bayer descriptions of a snap-fit as a flexible beam that springs back, and the PLA print, where the halves closed but did not hold. To be confirmed against the barb dimensions in Fusion.
+Section sketches of `sleeve-A barbed tongue` in controller-grip v19 at y = 42 mm, read on the +x seam side (radial positions in x, z ≈ 1.8 mm):
+
+| Feature | Outer edge x (mm) |
+| --- | --- |
+| Sleeve outer surface | 11.64 |
+| Recess in the groove (`recess_out`) | 10.86 |
+| Bead on the tongue (`bead_out`) | 10.71 |
+| Groove outer wall (`groove_out`) | 10.56 |
+| Tongue outer face (`tongue_out`) | 10.42 |
+| Tongue inner face (`tongue_in`) | 9.44 |
+| Groove inner wall (`groove_in`) | 9.29 |
+| Sleeve inner surface | 8.21 |
+
+- The wall is 3.4 mm thick. The tongue is 1.0 mm thick with 0.14–0.15 mm clearance on each side of the groove.
+- The bead stands 0.29 mm proud of the tongue. Net of the groove clearance, it overlaps the groove wall by only **0.15 mm**, and the recess gives it 0.15 mm room. So the catch is about 0.15 mm.
+- The bead and the recess run as continuous lofts along the whole seam, so the joint is a long, stiff rib, not a free beam.
+
+A 0.15 mm catch is below the dimensional scatter of FDM. Hubs recommends 0.5 mm clearance for FDM fits. The PLA halves therefore close without a felt click and do not hold, as observed. The beam sizing below uses a 1.0 mm catch.
 
 ## Allowable strain (computed from the sources above, unverified for printed parts)
 
@@ -74,6 +91,5 @@ The sleeve was printed upright (layer lines run around the grip in the photos), 
 
 ## Open
 
-- Measure the current barb in Fusion (tongue thickness, barb height, angles) to confirm the explanation above.
 - PETG–PETG friction coefficient (none found), so the closing and opening forces carry the ABS value.
 - Which PETG the lab spools are. The Ultimaker values stand in for it.
