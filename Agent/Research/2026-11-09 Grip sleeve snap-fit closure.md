@@ -105,6 +105,16 @@ Fusion "sleeve-A seam rings" v1 (`1 Parts`): both halves of `sleeve-A barbed ton
 - Checked: section probe of A1 at y 42 (tongue, bead and recess where intended; one body per half).
 - Pass: the halves click shut by hand, hold when shaken and released, and open again without cracking.
 
+Result 2026-11-09 (Martyn, PLA, photos in the project thread):
+
+| Ring | Result |
+| --- | --- |
+| A0 | Does not stay together (as the sleeve) |
+| A1 | Locks; splits under slight pull |
+| A2 | Firmest; stays closed when shaken; splits under moderate pull; no cracking reported |
+
+The bead and tongue print coarser than modelled. The bead (0.30–0.45 mm high, 0.1 mm flat) and the 1.0 mm tongue are close to one extrusion line wide. Printed upright, this profile lies in the layer plane, so line width, not layer height, limits it (reasoning; line width in the slicer profile not checked).
+
 ## Open
 
 - PETG–PETG friction coefficient (none found), so the closing and opening forces carry the ABS value.
