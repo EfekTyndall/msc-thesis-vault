@@ -17,9 +17,6 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 - [ ] Real path: cable clip for power and RS-485 on real-adapter, once it is known where the cables leave the gripper. (since 2026-11-04)
 - [ ] Real-adapter checks on the gripper (rear-mount 4×M3, clamp ring): see `PRINT-TEST-QUEUE.md` §3. (since 2026-11-04)
 
-## PICO + XRoboToolkit setup
-- [ ] Check that the PC service delivers the Enterprise controller inputs, then measure trigger value vs travel (linearity, dead zone, resolution). Needed for the real path, where the trigger is the gripper command. (since 2026-11-03)
-
 ## Purchases
 - [ ] M3 heat-set inserts: CNC Kitchen M3 × 5.7 Standard picked 2026-11-06 ([[2026-11-06 M3 heat-set inserts for the adapter boss]]); once bought, check the 4.0 mm × 7.0 mm boss holes against them, with the hole-size coupon and pull-out check from that note (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
 
