@@ -100,6 +100,7 @@ Fusion "sleeve-A seam rings" v1 (`1 Parts`): both halves of `sleeve-A barbed ton
 | A0 | 0.15 mm | none (control) |
 | A1 | 0.30 mm | tongue lengthened 1.0 → 2.0 mm, groove 1.15 → 2.1 mm; old bead and recess removed; new bead on the tongue's outer face near its tip: lead 45°, 0.1 mm flat, return 60° (to the seam axis); recess = bead + 0.15 mm, outer skin 0.6 mm |
 | A2 | 0.45 mm | same, outer skin 0.45 mm |
+| A3 | 0.45 mm | as A2, return face 80° instead of 60° (added 2026-11-09 after the A0–A2 test; Bayer: separation force set by the return angle, p. 15) |
 
 - The lead and return angles are chosen so the bead fits on a 2 mm tongue. The Bayer annular example uses 45° / 45° (p. 23).
 - Checked: section probe of A1 at y 42 (tongue, bead and recess where intended; one body per half).
