@@ -89,6 +89,22 @@ The sleeve was printed upright (layer lines run around the grip in the photos), 
 3. **One-piece slide-on sleeve.** The PLA zip-tie test shows the closed sleeve slides on. It needs a removable stop under the pommel so the sleeve cannot slide off under the gripper load (reasoning, no precedent checked).
 4. **2 × M3 screws across the seam into heat-set inserts.** Same inserts as the adapter boss ([[2026-11-06 M3 heat-set inserts for the adapter boss]]). No snap-fit sizing needed. Not from the snap-fit sources.
 
+## Ring test (chosen 2026-11-09, Martyn: prototypes from what A already has)
+
+The internal cantilever hooks do not fit. The front-half wall at +x is 3.25 mm (y 25) to 2.75–3.0 mm (y 55), measured with 0.25 mm steps, and it curves about 1.25 mm inward over 10 mm. A hook needs about 3.0 mm straight. So A's tongue-and-bead is kept, and the catch is chosen empirically on 10 mm seam rings.
+
+Fusion "sleeve-A seam rings" v1 (`1 Parts`): both halves of `sleeve-A barbed tongue` (controller-grip v19) cut to y 37–47 mm. STLs are in `msc-thesis/hardware/controller-grip/files/ring-A*-{front,back}.stl` (not in Git).
+
+| Ring | Catch | Change from A |
+| --- | --- | --- |
+| A0 | 0.15 mm | none (control) |
+| A1 | 0.30 mm | tongue lengthened 1.0 → 2.0 mm, groove 1.15 → 2.1 mm; old bead and recess removed; new bead on the tongue's outer face near its tip: lead 45°, 0.1 mm flat, return 60° (to the seam axis); recess = bead + 0.15 mm, outer skin 0.6 mm |
+| A2 | 0.45 mm | same, outer skin 0.45 mm |
+
+- The lead and return angles are chosen so the bead fits on a 2 mm tongue. The Bayer annular example uses 45° / 45° (p. 23).
+- Checked: section probe of A1 at y 42 (tongue, bead and recess where intended; one body per half).
+- Pass: the halves click shut by hand, hold when shaken and released, and open again without cracking.
+
 ## Open
 
 - PETG–PETG friction coefficient (none found), so the closing and opening forces carry the ABS value.
