@@ -20,10 +20,6 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 ## PICO + XRoboToolkit setup
 - [ ] Check that the PC service delivers the Enterprise controller inputs, then measure trigger value vs travel (linearity, dead zone, resolution). Needed for the real path, where the trigger is the gripper command. (since 2026-11-03)
 
-## Printer access
-- [ ] Print and test everything in `msc-thesis/hardware/PRINT-TEST-QUEUE.md`: sleeve variants A and B (PETG), fit near the screw boss. Copy-path items (lever force, friction and lock, ArUco / AS5600 width error) only if the copy path is resumed (frozen since 2026-11-05). (since 2026-11-02)
-- [ ] Print the dummy gripper from the official STEP (size in hand, adapter fit); main line since 2026-11-05. Print file ready (msc-thesis PR #14, `hardware/real-dummy-gripper/`; test in `PRINT-TEST-QUEUE.md` §3); LED check dropped 2026-11-06. (since 2026-11-04)
-
 ## Purchases
 - [ ] M3 heat-set inserts: CNC Kitchen M3 × 5.7 Standard picked 2026-11-06 ([[2026-11-06 M3 heat-set inserts for the adapter boss]]); once bought, check the 4.0 mm × 7.0 mm boss holes against them, with the hole-size coupon and pull-out check from that note (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
 
