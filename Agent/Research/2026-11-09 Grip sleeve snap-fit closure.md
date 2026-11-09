@@ -113,6 +113,9 @@ Result 2026-11-09 (Martyn, PLA, photos in the project thread):
 | A0 | Does not stay together (as the sleeve) |
 | A1 | Locks; splits under slight pull |
 | A2 | Firmest; stays closed when shaken; splits under moderate pull; no cracking reported |
+| A3 | Pulls apart more easily than A2 (Martyn, 2026-11-09). The steeper return face did not raise the hold, contrary to the Bayer trend. Cause not checked; possibly the printed shape of the near-vertical step (unverified). |
+
+**Choice: A2** (0.45 mm catch, 60° return) goes into the full sleeve.
 
 The bead and tongue print coarser than modelled. The bead (0.30–0.45 mm high, 0.1 mm flat) and the 1.0 mm tongue are close to one extrusion line wide. Printed upright, this profile lies in the layer plane, so line width, not layer height, limits it (reasoning; line width in the slicer profile not checked).
 
