@@ -36,5 +36,5 @@ Whether any of these enters the thesis plan is for you to decide; I have not cha
 
 ## Open
 
-- Run a deep-research pass for G1 to G3 outside the bib? Needs your go.
-- Ask the intern which gripper mapping the VR stack uses (G2).
+- Run a deep-research pass for G1 to G3 outside the bib? Needs your go. (Moved 2026-11-10 to the TODO in [[2026-11-11]], with the G2 mapping decision.)
+- Ask the intern which gripper mapping the VR stack uses (G2). (Moved 2026-11-10 to [[Waiting]], Intern.)

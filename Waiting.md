@@ -7,6 +7,7 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 
 ## Supervisor (on leave until early 2027, email only)
 - [ ] Decide [[D01 Handheld gripper body]] after she has seen the mind map. Proposed rule: real Dex1-1 if the RS-485 check passes, otherwise the printed copy. Brief and map sent by email 2026-11-06; waiting for her reply. (since 2026-11-03)
+- [ ] Claude Code on fractal-pc: give the install go once Yanmei confirms that a company PC may run a cloud AI agent on thesis code and data ([[2026-11-09 Lab workstation Claude Code plan]]; `msc-thesis/docs/setup/SETUP.md` §6 step 4). (since 2026-11-09)
 
 ## Dex1-1 delivery (date unknown)
 - [ ] RS-485 check: the PC commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld. (since 2026-11-03)
@@ -25,6 +26,7 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 
 ## Intern (no date yet)
 - [ ] Hold the meeting, then fill in Notes, Agreed actions and the intern's name in [[2026-11-03 Intern VR teleop]]. (since 2026-11-03)
+- [ ] Ask which trigger-to-gripper mapping the VR stack uses (gap G2, [[2026-11-10 Research gaps from the PICO sim test]]). (since 2026-11-10)
 
 ## After D01 is settled
 - [ ] Update D01, D05 and D10 with the record-decision skill; OK the matching thesis-plan changes.
