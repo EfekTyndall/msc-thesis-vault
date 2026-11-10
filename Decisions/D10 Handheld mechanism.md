@@ -38,11 +38,13 @@ Measured from the official Dex1-1 meshes (`msc-thesis/hardware/dex1-1-reference/
 - Stroke 89 mm (URDF joint limits) turns the 16 mm pinion by 89 / (π · 16) · 360° ≈ 319°, i.e. less than one turn, so a single-turn AS5600 reads the width directly.
 Not yet checked against the physical gripper.
 
+Grip sleeve closure (2026-11-10, PLA prints by Martyn, [[2026-11-09 Grip sleeve snap-fit closure]]): sleeve A v21 with the A2 seam (0.45 mm catch, 60° return) on both seams holds firmly on the controller and opens by sliding the controller out. A hinge-hook on the short +x seam failed in two forms: a free 0.45 mm bead did not catch (H1), and a 0.9 mm knuckle lip caught but snapped (H2, H2b), since the 3.0–3.4 mm wall leaves no room for a thicker hinge with the controller inside.
+
 Transmission (2026-11-05, [[2026-11-05 Trigger-to-finger transmission survey]]): no UMI variant describes its transmission in words; the UMI bill of materials (handle, linkage L/R, gear L/R, spring) is the only part-level evidence and points to a printed linkage, which UMI-3D reuses. No trigger-driven cable, Bowden or tendon transmission was found. TacUMI rejected a ratchet lock (quantised widths, cable slip) in favour of a continuous self-locking part (cheng2026, Sec. III-A, IV-B).
 
 ## Revisit if
 
-The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the bought rails give too much play or mass. Angle and bow: the grip angle is uncomfortable in the print test, or the bow flexes noticeably under the gripper's weight. Transmission: switch to B if the link path around the sleeve is blocked or the varying ratio feels bad in the print test; drop B if A works.
+The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the bought rails give too much play or mass. Angle and bow: the grip angle is uncomfortable in the print test, or the bow flexes noticeably under the gripper's weight. Sleeve: A2 seam cracks or loosens in the PETG cycle test, or removal proves too hard in use. Transmission: switch to B if the link path around the sleeve is blocked or the varying ratio feels bad in the print test; drop B if A works.
 
 ## History
 
@@ -60,3 +62,5 @@ The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the 
 - 2026-11-05: the trigger window clashes with the real-adapter insert boss on the sleeve underside, so the copy path gets its own front halves (A and B) with the window and no boss; the real-path halves stay unchanged (controller-grip v17; Martyn)
 - 2026-11-05: transmission B (cable and drum) parked: 10.6 mm cable pull from the 35 mm trigger arm over 5.2 rad of pinion rotation (41.4 mm per finger at 8 mm pitch radius) needs a drum of about 2 mm radius, below the 2.5 mm pinion bore; a 4 mm drum would need about 21 mm pull and a 65 mm cable arm under the controller head (computed; Martyn)
 - 2026-11-09: grip sleeve variant B (edge hooks, 2.5 mm wall) dropped; variant A stays, its closure to be redesigned (PLA print test: B's unfinished front half was uncomfortable in the hand; A's halves did not hold each other; [[2026-11-09 Grip sleeve snap-fit closure]]; Martyn)
+- 2026-11-10: sleeve A seam redesigned: tongue 2 mm, bead 0.45 mm catch, lead 45°, return 60° (controller-grip v20). The v19 catch was 0.15 mm; PLA seam rings at 0.15/0.30/0.45 mm (60° return) and 0.45 mm (80° return) showed only 0.45 mm/60° holding when shaken and opening by hand ([[2026-11-09 Grip sleeve snap-fit closure]]; Martyn)
+- 2026-11-10: grip sleeve A v21 kept: A2 snap on both seams, pointed slivers beside the grip-button window removed, pry notches added; hinge-hook on the +x seam (rings H1, H2, H2b) dropped (v21 PLA print firm and comfortable; hinge rings did not catch or snapped; Martyn)
