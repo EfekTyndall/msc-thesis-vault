@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>html{color-scheme:light}body{margin:0}</style>
+<title>Trigger to Gripper</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+  /* Layout: one calm column. A live gripper demo first, then the journey of the signal, then findings and open questions.
+     Colour carries one fact: who wrote the code (slate = others, public; teal = ours). Orange is the live signal. */
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --ink: #13171e;
+    --muted: #5a6473;
+    --line: #dde1e8;
+    --theirs: #4f628a;
+    --theirs-tint: #e6ebf5;
+    --ours: #0b8574;
+    --ours-tint: #dcf1ed;
+    --signal: #d9540b;
+    --signal-tint: #fbe6d9;
+    --font-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-head: "Space Grotesk", "Inter", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1116; --surface: #161b22; --ink: #e9ecf1; --muted: #9ba5b4; --line: #29303b;
+      --theirs: #93a8d4; --theirs-tint: #1f2736; --ours: #37c4ac; --ours-tint: #12302c;
+      --signal: #ff8a4c; --signal-tint: #3a2417; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1116; --surface: #161b22; --ink: #e9ecf1; --muted: #9ba5b4; --line: #29303b;
+    --theirs: #93a8d4; --theirs-tint: #1f2736; --ours: #37c4ac; --ours-tint: #12302c;
+    --signal: #ff8a4c; --signal-tint: #3a2417; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 16px; line-height: 1.55;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 64px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+  h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; margin: 0; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.01em; }
+  h2 { font-size: 1.5rem; font-weight: 600; }
+  h3 { font-size: 1.05rem; font-weight: 600; }
+  p { margin: 0; max-width: 65ch; }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .lead { font-size: 1.15rem; color: var(--ink); }
+  .muted { color: var(--muted); }
+  section { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+  header { display: flex; flex-direction: column; gap: 16px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.9rem; color: var(--muted); }
+  .key { display: inline-flex; align-items: center; gap: 8px; }
+  .swatch { width: 14px; height: 14px; border-radius: 4px; border: 2px solid; flex: none; }
+  .swatch.theirs { background: var(--theirs-tint); border-color: var(--theirs); }
+  .swatch.ours { background: var(--ours-tint); border-color: var(--ours); }
+  .swatch.signal { background: var(--signal-tint); border-color: var(--signal); border-radius: 50%; }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; min-width: 0; }
+
+  /* Demo */
+  .demo { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px; }
+  @media (max-width: 760px) { .demo { grid-template-columns: minmax(0, 1fr); } }
+  .demo svg { width: 100%; height: auto; display: block; }
+  .controls { display: flex; flex-direction: column; gap: 16px; }
+  .slider-row { display: flex; flex-direction: column; gap: 6px; }
+  .slider-row label { font-weight: 600; font-size: 0.95rem; }
+  input[type=range] { width: 100%; accent-color: var(--signal); height: 28px; }
+  .readouts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .readout { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-width: 0; }
+  .readout b { display: block; font-family: var(--font-head); font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+  .readout span { font-size: 0.75rem; color: var(--muted); }
+  .modes { display: flex; flex-direction: column; gap: 8px; border: 0; padding: 0; margin: 0; }
+  .modes legend { font-weight: 600; font-size: 0.95rem; padding: 0; margin-bottom: 4px; }
+  .mode { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; cursor: pointer; }
+  .mode input { margin-top: 4px; accent-color: var(--ours); }
+  .mode small { display: block; color: var(--muted); font-size: 0.8rem; }
+  button.play { align-self: flex-start; font: inherit; font-weight: 600; font-size: 0.9rem; padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+  button.play:hover { border-color: var(--signal); }
+  button.play:focus-visible, input:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+  .chart-title { font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; }
+  .note { font-size: 0.85rem; color: var(--muted); }
+
+  /* Journey */
+  .chain { display: flex; align-items: stretch; gap: 0; }
+  .node { flex: 1 1 0; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 12px;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+  .node svg { width: 44px; height: 44px; }
+  .node b { font-family: var(--font-head); font-size: 1rem; }
+  .node span { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
+  .hop { flex: 0 0 128px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 0 6px; font-size: 0.78rem; color: var(--muted); text-align: center; }
+  .rail { position: relative; width: 100%; height: 2px; background: var(--line); }
+  .rail::after { content: ""; position: absolute; right: -1px; top: -4px; border-left: 8px solid var(--line); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .dot { position: absolute; top: -4px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--signal); animation: travel 2.4s linear infinite; }
+  @keyframes travel { from { left: 0; opacity: 1; } 85% { opacity: 1; } to { left: calc(100% - 10px); opacity: 0; } }
+  @keyframes travel-v { from { top: 0; opacity: 1; } 85% { opacity: 1; } to { top: calc(100% - 10px); opacity: 0; } }
+  @media (max-width: 760px) {
+    .chain { flex-direction: column; }
+    .hop { flex: 0 0 auto; flex-direction: row; padding: 10px 0; gap: 12px; }
+    .rail { width: 2px; height: 40px; }
+    .rail::after { right: auto; left: -4px; top: auto; bottom: -1px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--line); border-bottom: 0; }
+    .dot { top: 0; left: -4px; animation-name: travel-v; }
+  }
+  @media (prefers-reduced-motion: reduce) { .dot { animation: none; opacity: 1; } }
+
+  .steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 760px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+  .step { display: flex; flex-direction: column; gap: 6px; }
+  .step .n { font-family: var(--font-head); font-weight: 700; color: var(--signal); }
+  .tech { font-size: 0.8rem; color: var(--muted); }
+  code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.86em; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; overflow-wrap: anywhere; }
+
+  .inside { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
+  .chip { flex: 1 1 170px; min-width: 0; border: 2px solid; border-radius: 10px; padding: 10px 12px; font-size: 0.88rem; display: flex; flex-direction: column; gap: 2px; }
+  .chip b { font-family: var(--font-head); font-size: 0.98rem; }
+  .chip.theirs { background: var(--theirs-tint); border-color: var(--theirs); }
+  .chip.ours { background: var(--ours-tint); border-color: var(--ours); }
+  .chip small { color: var(--muted); font-size: 0.78rem; }
+  .arrow { align-self: center; color: var(--muted); font-size: 1.2rem; flex: none; }
+  .callout { border-left: 4px solid var(--signal); padding: 4px 0 4px 14px; max-width: 65ch; }
+
+  /* Findings */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .tag { align-self: flex-start; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; }
+  .tag.measured { background: var(--ours-tint); color: var(--ours); }
+  .tag.code { background: var(--theirs-tint); color: var(--theirs); }
+  .tag.paper { background: var(--theirs-tint); color: var(--theirs); }
+  .tag.unknown { background: var(--signal-tint); color: var(--signal); }
+  .card p { font-size: 0.93rem; }
+  .open-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .open-list .card { border-style: dashed; }
+  .sources { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.9rem; }
+  a { color: var(--theirs); }
+  a:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Test report · run of 2026-11-09, reviewed 2026-11-10</div>
+    <h1>PICO trigger driving a simulated Dex1-1</h1>
+    <p class="lead">The analog trigger of the PICO 4 Ultra Enterprise controller drives a Dex1-1 gripper model in MuJoCo in real time. This page explains the signal path, the checks made and the open questions.</p>
+    <p class="muted">Relevance: in the real-gripper handheld option (D01), the controller trigger is the gripper command. The test confirms that the trigger value can reach a PC and drive a gripper model before the hardware is delivered.</p>
+    <div class="legend" aria-label="Colour key">
+      <span class="key"><span class="swatch theirs"></span>Public code written by others (XRoboToolkit, Unitree)</span>
+      <span class="key"><span class="swatch ours"></span>Code of this project (msc-thesis)</span>
+      <span class="key"><span class="swatch signal"></span>The trigger value</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="demo-h">
+    <h2 id="demo-h">Interactive model: trigger value to finger motion</h2>
+    <div class="panel demo">
+      <div>
+        <svg id="grip" viewBox="0 0 520 240" role="img" aria-label="Top view of the two gripper fingers. They close as the trigger value rises.">
+          <rect x="195" y="12" width="130" height="62" rx="8" fill="var(--theirs-tint)" stroke="var(--theirs)" stroke-width="2"/>
+          <text x="260" y="48" text-anchor="middle" font-size="14" fill="var(--ink)" font-family="Inter, sans-serif">Dex1-1 body</text>
+          <rect x="20" y="74" width="480" height="14" rx="3" fill="var(--line)"/>
+          <g id="fingerL">
+            <rect id="carL" x="0" y="70" width="52" height="22" rx="4" fill="var(--ours)"/>
+            <rect id="bodyL" x="0" y="92" width="46" height="100" rx="3" fill="var(--ours-tint)" stroke="var(--ours)" stroke-width="2"/>
+            <rect id="padL" x="0" y="112" width="6" height="70" fill="var(--ours)"/>
+          </g>
+          <g id="fingerR">
+            <rect id="carR" x="0" y="70" width="52" height="22" rx="4" fill="var(--ours)"/>
+            <rect id="bodyR" x="0" y="92" width="46" height="100" rx="3" fill="var(--ours-tint)" stroke="var(--ours)" stroke-width="2"/>
+            <rect id="padR" x="0" y="112" width="6" height="70" fill="var(--ours)"/>
+          </g>
+          <line id="dimL" x1="0" x2="0" y1="205" y2="225" stroke="var(--signal)" stroke-width="2"/>
+          <line id="dimR" x1="0" x2="0" y1="205" y2="225" stroke="var(--signal)" stroke-width="2"/>
+          <line id="dimLine" x1="0" x2="0" y1="215" y2="215" stroke="var(--signal)" stroke-width="2"/>
+          <text id="dimText" x="260" y="236" text-anchor="middle" font-size="14" fill="var(--signal)" font-weight="600" font-family="Inter, sans-serif">80 mm</text>
+        </svg>
+        <p class="note">Top view, schematic. The orange line is the pad gap in the MuJoCo model (official URDF 261030). Collisions are off in the model, so no object is grasped: it shows motion only.</p>
+      </div>
+      <div class="controls">
+        <div class="slider-row">
+          <label for="trig">Trigger value</label>
+          <input id="trig" type="range" min="0" max="1" step="0.01" value="0">
+          <span class="note">0 = released, 1 = fully pressed</span>
+        </div>
+        <div class="readouts" aria-live="off">
+          <div class="readout"><b id="rTrig">0.00</b><span>trigger</span></div>
+          <div class="readout"><b id="rClosed">0%</b><span>closed</span></div>
+          <div class="readout"><b id="rGap">80</b><span>pad gap, mm</span></div>
+        </div>
+        <fieldset class="modes">
+          <legend>Mapping from trigger value to finger position</legend>
+          <label class="mode"><input type="radio" name="mode" value="full" checked>
+            <span>Linear, full range<small>Used in the test and in the XRoboToolkit teleop sample (<code>calc_parallel_gripper_position</code>).</small></span></label>
+          <label class="mode"><input type="radio" name="mode" value="unitree">
+            <span>Unitree xr_teleoperate, controller mode<small>Derived from their code, not run: fully open below 0.3, fully closed above 0.5, linear in between.</small></span></label>
+        </fieldset>
+        <button class="play" id="play" type="button">Play slow sweep (0.25 Hz)</button>
+        <div>
+          <div class="chart-title">Trigger value (x) against gripper closed (y)</div>
+          <svg id="chart" viewBox="0 0 240 150" role="img" aria-label="Chart of the two mappings from trigger value to percent closed">
+            <line x1="30" y1="10" x2="30" y2="120" stroke="var(--line)" stroke-width="2"/>
+            <line x1="30" y1="120" x2="230" y2="120" stroke="var(--line)" stroke-width="2"/>
+            <polyline id="lnFull" fill="none" stroke="var(--ours)" stroke-width="2" points="30,120 230,10"/>
+            <polyline id="lnUni" fill="none" stroke="var(--theirs)" stroke-width="2" points="30,120 90,120 130,10 230,10"/>
+            <circle id="chDot" r="6" fill="var(--signal)" cx="30" cy="120"/>
+            <text x="30" y="138" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="Inter, sans-serif">0</text>
+            <text x="230" y="138" font-size="11" text-anchor="middle" fill="var(--muted)" font-family="Inter, sans-serif">1</text>
+            <text x="24" y="124" font-size="11" text-anchor="end" fill="var(--muted)" font-family="Inter, sans-serif">0%</text>
+            <text x="24" y="16" font-size="11" text-anchor="end" fill="var(--muted)" font-family="Inter, sans-serif">100%</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="path-h">
+    <h2 id="path-h">Signal path</h2>
+    <div class="chain">
+      <div class="node">
+        <svg viewBox="0 0 44 44" aria-hidden="true"><rect x="12" y="6" width="20" height="32" rx="9" fill="var(--theirs-tint)" stroke="var(--theirs)" stroke-width="2"/><circle cx="22" cy="16" r="4" fill="var(--signal)"/></svg>
+        <b>Controller</b><span>PICO 4 Ultra Enterprise, analog trigger</span>
+      </div>
+      <div class="hop"><div class="rail"><span class="dot"></span></div>PICO wireless link</div>
+      <div class="node">
+        <svg viewBox="0 0 44 44" aria-hidden="true"><rect x="4" y="12" width="36" height="20" rx="8" fill="var(--theirs-tint)" stroke="var(--theirs)" stroke-width="2"/><circle cx="15" cy="22" r="4" fill="none" stroke="var(--theirs)" stroke-width="2"/><circle cx="29" cy="22" r="4" fill="none" stroke="var(--theirs)" stroke-width="2"/></svg>
+        <b>Headset</b><span>XRoboToolkit app 1.1.1</span>
+      </div>
+      <div class="hop"><div class="rail"><span class="dot" style="animation-delay:.8s"></span></div>Wi-Fi<br>TCP 63901<br>90 Hz</div>
+      <div class="node">
+        <svg viewBox="0 0 44 44" aria-hidden="true"><rect x="8" y="5" width="28" height="34" rx="4" fill="var(--theirs-tint)" stroke="var(--theirs)" stroke-width="2"/><line x1="13" y1="14" x2="31" y2="14" stroke="var(--theirs)" stroke-width="2"/><line x1="13" y1="20" x2="31" y2="20" stroke="var(--theirs)" stroke-width="2"/><circle cx="29" cy="32" r="2" fill="var(--ours)"/></svg>
+        <b>Lab PC</b><span>fractal-pc, Ubuntu 22.04</span>
+      </div>
+      <div class="hop"><div class="rail"><span class="dot" style="animation-delay:1.6s"></span></div>LAN<br>UDP 5005<br>30 Hz</div>
+      <div class="node">
+        <svg viewBox="0 0 44 44" aria-hidden="true"><rect x="9" y="9" width="26" height="18" rx="2" fill="var(--ours-tint)" stroke="var(--ours)" stroke-width="2"/><path d="M4 33h36l-3 4H7z" fill="var(--ours)"/></svg>
+        <b>Mac</b><span>MuJoCo viewer, Dex1-1 model</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><h3><span class="n">1</span> Controller to headset app</h3>
+        <p>The app reads the trigger as a float between 0 and 1 (Unity <code>CommonUsages.trigger</code>) and puts it into one JSON message together with pose and button data. JSON is plain text with named fields.</p>
+        <span class="tech">Source: XRoboToolkit-Unity-Client, <code>Assets/Scripts/TrackingData.cs</code>. <code>Assets/</code> is the app's source folder in that public repo. It is not in msc-thesis and not on the lab PC.</span></div>
+      <div class="step"><h3><span class="n">2</span> Headset to lab PC</h3>
+        <p>The app sends one JSON message 90 times per second to TCP port 63901 of the lab PC. TCP acknowledges data and resends lost data. A port is a numbered entry point of a computer, and the ufw firewall of the lab PC must allow it. The headset app needs "Tracking → Controller" and "Data &amp; Control → Send" switched on, otherwise the trigger stays 0.</p></div>
+      <div class="step"><h3><span class="n">3</span> Lab PC: receiver, Python bridge, sender</h3>
+        <p>Three programs run in a chain, shown below. The sender polls the trigger 30 times per second and forwards each value as one UDP message to the Mac. UDP does not resend, so a lost value is replaced by the next one 33 ms later.</p></div>
+      <div class="step"><h3><span class="n">4</span> Mac: MuJoCo model</h3>
+        <p><code>dex1_1_mujoco.py</code> takes the newest UDP message as the actuator command (0 open, 1 closed) and steps the simulation. It holds the last value if messages stop.</p></div>
+    </div>
+
+    <div class="panel">
+      <h3>Inside the lab PC</h3>
+      <div class="inside" style="margin-top:12px">
+        <div class="chip theirs"><b>PC Service 1.0.0</b>TCP server on port 63901. Keeps the latest value per control, each behind a mutex (a lock, so a value is never read half-written).<small>XRoboToolkit · installed from a .deb package in /opt/apps/roboticsservice/</small></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="chip theirs"><b>xrobotoolkit-sdk 1.1.0</b>C++ code exposed to Python by Pybind (glue between C++ and Python). Asks the service over gRPC (a call between two programs) on 127.0.0.1:60061, local to the PC.<small>XRoboToolkit · conda env <code>xrobotoolkit</code></small></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="chip ours"><b>trigger_udp.py</b>Polls <code>get_right_trigger()</code> at 30 Hz. Sends JSON <code>{seq, trigger, xr_ts_ns, send_ts_ns}</code> by UDP.<small>This project · <code>msc-thesis/software/xr/</code> on the Mac is the master; copied once with scp to <code>~/xr_trigger/</code> on the lab PC</small></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>Why a Linux PC sits in the middle</h3>
+      <p>PC Service and SDK exist for Windows and Linux only (no macOS build, per the XRoboToolkit READMEs). The Linux PC terminates the headset stream, and the Mac only runs the model.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="found-h">
+    <h2 id="found-h">Checks and findings</h2>
+    <p class="muted">Each card states its basis: measured in the test, read in public source code, or taken from the published paper.</p>
+    <div class="cards">
+      <div class="card"><span class="tag measured">Measured</span><h3>End-to-end chain works</h3>
+        <p>The fingers followed the right trigger. 425 UDP messages arrived in about 14 s with 0 lost (checked with the sequence numbers).</p></div>
+      <div class="card"><span class="tag measured">Measured</span><h3>Model travel</h3>
+        <p>Pad gap 80.0 / 39.0 / −2.0 mm at trigger 0 / 0.5 / 1 (<code>--check</code>). Each finger travels 0.041 m per URDF 261030. Stiffness and damping are chosen values, not Dex1-1 data.</p></div>
+      <div class="card"><span class="tag code">Source code</span><h3>Timestamp is headset time at packing</h3>
+        <p><code>timeStampNs</code> is the headset UTC clock when the JSON is packed (<code>DateTime.UtcNow</code>), not the sensor sample time. The offset to the recording-PC clock is unmeasured (research gap B7, now partly resolved).</p></div>
+      <div class="card"><span class="tag code">Source code</span><h3>90 Hz source, 30 Hz poll</h3>
+        <p>Adequate for the model. A recorder needs all 90 Hz: the SDK getters return only the newest value, and trigger and timestamp are read in separate calls, so a pair can come from two messages.</p></div>
+      <div class="card"><span class="tag code">Source code</span><h3>Two mappings in two toolkits</h3>
+        <p>XRoboToolkit: linear 0 to 1. Unitree: <code>10 − 10t</code>, interpolated over [5, 7] to [0, 5.4] rad, ±0.18 rad per step at 200 Hz. The VR baseline and the handheld need the same mapping (research gap G2).</p></div>
+      <div class="card"><span class="tag code">Source code</span><h3>Ports confirmed</h3>
+        <p>63901 (headset to PC) and 60061 (gRPC, localhost) match the measurement. UDP 42952 is most likely the sending port of a 5 s discovery broadcast to UDP 29888 (unverified), so its ufw rule is probably unnecessary.</p></div>
+      <div class="card"><span class="tag paper">Paper</span><h3>No trigger latency published</h3>
+        <p>zhao2025, Table II, reports video latency only (82 to 100.5 ms). Trigger-to-gripper latency has to be measured.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="open-h">
+    <h2 id="open-h">Open questions</h2>
+    <div class="open-list">
+      <div class="card"><span class="tag unknown">Open</span><h3>Trigger resolution and dead zone</h3><p>Number of distinct values and linearity are undocumented. Method: log a slow 20 s squeeze and count the distinct values.</p></div>
+      <div class="card"><span class="tag unknown">Open</span><h3>Squeeze-to-motion latency</h3><p>Needs a measurement along the whole chain.</p></div>
+      <div class="card"><span class="tag unknown">Open</span><h3>Clock offset and drift</h3><p>Headset clock against recording-PC clock, over a full session (B7).</p></div>
+      <div class="card"><span class="tag unknown">Open</span><h3>Link reliability over a session</h3><p>The run lasted about 14 s. Wi-Fi stalls over 1 to 2 h are unmeasured. Hold-last-value hides a stall in a recording, and the timeout behaviour of the real gripper is undecided.</p></div>
+      <div class="card"><span class="tag unknown">Open</span><h3>Real finger stroke</h3><p>Official URDF about 82 to 83 mm, product page 90 mm. To be measured on the real gripper.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <p class="muted">Public sources, read at fixed commits. Full write-up: vault notes <code>Agent/Reports/2026-11-10 PICO trigger test review.md</code> and <code>Agent/Research/2026-11-10 Research gaps from the PICO sim test.md</code> (PR #38).</p>
+    <div class="sources">
+      <a href="https://arxiv.org/abs/2508.00097" target="_blank" rel="noopener">XRoboToolkit paper (zhao2025)</a>
+      <a href="https://github.com/XR-Robotics/XRoboToolkit-PC-Service" target="_blank" rel="noopener">PC Service</a>
+      <a href="https://github.com/XR-Robotics/XRoboToolkit-Unity-Client" target="_blank" rel="noopener">Headset app (Unity client)</a>
+      <a href="https://github.com/XR-Robotics/XRoboToolkit-PC-Service-Pybind" target="_blank" rel="noopener">Python SDK (Pybind)</a>
+      <a href="https://github.com/XR-Robotics/XRoboToolkit-Teleop-Sample-Python" target="_blank" rel="noopener">Teleop sample</a>
+      <a href="https://github.com/unitreerobotics/xr_teleoperate" target="_blank" rel="noopener">Unitree xr_teleoperate</a>
+      <a href="https://mujoco.readthedocs.io/" target="_blank" rel="noopener">MuJoCo docs</a>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  var S = 2.8, CX = 260;                       // px per mm, centre x of the drawing
+  var el = function (id) { return document.getElementById(id); };
+  var slider = el('trig'), playBtn = el('play');
+  var mode = 'full', playing = false, raf = 0, t0 = 0;
+
+  function closedFraction(t) {
+    if (mode === 'unitree') return Math.min(1, Math.max(0, (t - 0.3) / 0.2));
+    return t;
+  }
+  function render(t) {
+    var f = closedFraction(t);
+    var gap = 80 - 82 * f;                      // mm between pads: 80 open, -2 closed (checked in the simulation)
+    var inL = CX - gap / 2 * S, inR = CX + gap / 2 * S;
+    var w = 46;
+    el('bodyL').setAttribute('x', inL - w);  el('padL').setAttribute('x', inL - 6);  el('carL').setAttribute('x', inL - w - 4);
+    el('bodyR').setAttribute('x', inR);      el('padR').setAttribute('x', inR);      el('carR').setAttribute('x', inR - 2);
+    el('dimL').setAttribute('x1', inL); el('dimL').setAttribute('x2', inL);
+    el('dimR').setAttribute('x1', inR); el('dimR').setAttribute('x2', inR);
+    el('dimLine').setAttribute('x1', Math.min(inL, inR)); el('dimLine').setAttribute('x2', Math.max(inL, inR));
+    el('dimText').textContent = gap.toFixed(0) + ' mm';
+    el('rTrig').textContent = t.toFixed(2);
+    el('rClosed').textContent = Math.round(f * 100) + '%';
+    el('rGap').textContent = gap.toFixed(0);
+    el('chDot').setAttribute('cx', 30 + 200 * t);
+    el('chDot').setAttribute('cy', 120 - 110 * f);
+    el('lnFull').setAttribute('stroke-width', mode === 'full' ? 4 : 1.5);
+    el('lnUni').setAttribute('stroke-width', mode === 'unitree' ? 4 : 1.5);
+    el('lnFull').setAttribute('opacity', mode === 'full' ? 1 : 0.5);
+    el('lnUni').setAttribute('opacity', mode === 'unitree' ? 1 : 0.5);
+  }
+  function setT(t) { slider.value = t; render(t); }
+
+  slider.addEventListener('input', function () { stop(); render(parseFloat(slider.value)); });
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=mode]'), function (r) {
+    r.addEventListener('change', function () { mode = r.value; render(parseFloat(slider.value)); });
+  });
+  function tick(ts) {
+    if (!playing) return;
+    if (!t0) t0 = ts;
+    var t = 0.5 - 0.5 * Math.cos(2 * Math.PI * 0.25 * (ts - t0) / 1000);   // slow squeeze, 4 s per cycle
+    setT(t);
+    raf = requestAnimationFrame(tick);
+  }
+  function stop() { playing = false; cancelAnimationFrame(raf); playBtn.textContent = 'Play slow sweep (0.25 Hz)'; }
+  playBtn.addEventListener('click', function () {
+    if (playing) { stop(); return; }
+    playing = true; t0 = 0; playBtn.textContent = 'Stop';
+    raf = requestAnimationFrame(tick);
+  });
+  render(0);
+})();
+</script>
+
+</body>
+</html>
