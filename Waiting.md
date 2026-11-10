@@ -22,6 +22,8 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 - [ ] M3 heat-set inserts: CNC Kitchen M3 × 5.7 Standard picked 2026-11-06 ([[2026-11-06 M3 heat-set inserts for the adapter boss]]); once bought, check the 4.0 mm × 7.0 mm boss holes against them, with the hole-size coupon and pull-out check from that note (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
 
 ## Company IT access (internal Storefront)
+As of 2026-11-10 the Storefront can be browsed but not ordered from.
+- [ ] Order M3 heat-set inserts and long M3 cap screws if no colleague in the arena has them (list in the TODO of [[2026-11-11]]). (since 2026-11-10)
 - [ ] Prices for the D01 side-by-side (Dex1-1, MGN9C blocks and MGN9 rails, 24/48 V supply, cables), from the company's suppliers; not needed for the mind map ([[2026-11-05 D01 real vs copy side-by-side]]). (since 2026-11-05)
 
 ## Intern (no date yet)
