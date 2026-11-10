@@ -140,4 +140,4 @@ Martyn's PLA prints on the lab Bambu Lab H2S (photos in the project thread); geo
 
 - PETG–PETG friction coefficient (none found), so the closing and opening forces carry the ABS value.
 - Which PETG the lab spools are. The Ultimaker values stand in for it.
-- PETG cycle test of v21 (20 open/close cycles) and repeatability (`msc-thesis/hardware/PRINT-TEST-QUEUE.md` §1).
+- PETG cycle test of v21 (20 open/close cycles) and repeatability (`msc-thesis/hardware/PRINT-TEST-QUEUE.md` §1). (Moved 2026-11-10 to the TODO in [[2026-11-11]].)
