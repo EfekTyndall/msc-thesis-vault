@@ -62,7 +62,7 @@ The source confirms all three ports, so the guide's line "the ports are not docu
 | ufw: TCP 63901 from 10.36.0.0/16 | Headset stuck "connecting" until opened | Port from source (§1). Needed and grounded; subnet mask unchecked. |
 | ufw: UDP 42952 | Added during troubleshooting | Not needed (§2.1). Removal is the optional TODO. |
 | Headset settings: Tracking → Controller, Data & Control → Send | Trigger stayed 0.000 without them | Unity client README table ("Toggle On/Off to parse VR controller's 6 DoF pose and button status"; "Send … sync above selected poses"). Grounded. |
-| Service started by hand, restarted per session, stopped after | Does not autostart; reconnects left stale TCP connections | README run step `/opt/apps/roboticsservice/runService.sh`. No autostart is documented. Stale connections were observed, not explained (unverified). |
+| Service started by hand, restarted per session, stopped after | Does not autostart; reconnects left stale TCP connections | Unity client README run step ("Run `/opt/apps/roboticsservice/runService.sh`"). No autostart is documented. Stale connections were observed, not explained (unverified). |
 | UDP + JSON, port 5005, 30 Hz | Simple; 30 Hz is the export rate | 30 Hz from msc-thesis CLAUDE.md (training export). Port 5005 and JSON are a free choice with no precedent needed. |
 | Hold last value when packets stop | The sim must not jump | Own choice. Acceptable for a sim. For the real gripper, a timeout or safe state is undecided (no source checked). |
 | Sim from the official URDF 261030, stroke 0.041 m per finger | URDF is the geometry reference | Project memory: service URDF outdated; use official STEP/URDF (vault PR #15). Real stroke still to measure (82 vs 90 mm). |
@@ -76,7 +76,7 @@ The source confirms all three ports, so the guide's line "the ports are not docu
 `trigger_udp.py`
 - Correct for its purpose. The trigger and the timestamp are read by two separate calls under different mutexes, so a packet can pair a trigger with the timestamp of another message. This does not matter for the sim, but it matters for recording ([[2026-11-03 PICO 4 Ultra trigger readout]]).
 - `send_ts_ns` is the Linux PC clock and the Mac does not log its receive time, so no latency can be computed from the packets yet.
-- `xrt.close()` is called in `finally`. Its existence in SDK 1.1.0 was not checked against the bindings (unverified). It ran without error on 2026-11-09 (the guide shows no error).
+- `xrt.close()` in `finally` maps to `deinit` (`PXREADeinit`) in the bindings (`py_bindings.cpp`, `XRT_FUNCTION("close", deinit, …)`). Correct.
 
 `dex1_1_mujoco.py`
 - Packet loss counting ignores out-of-order packets and a sender restart (seq back to 0). Minor; a LAN with 0 loss was measured.
