@@ -5,7 +5,7 @@ tags: [knowledge-base, pico, xrobotoolkit, sim]
 ---
 # PICO trigger test: knowledge base
 
-Reference for everything known about driving a simulated Dex1-1 from the PICO 4 Ultra Enterprise controller trigger through XRoboToolkit. It holds how the chain works, what was measured, what was read in source code, what was decided, and what is still unknown. The visual version is the page [Trigger to Gripper](https://claude.ai/artifact/Axkm9SVvxYQtvcriaF56MB) (private Artifact). Research gaps derived from the test: [[2026-11-10 Research gaps from the PICO sim test]].
+Reference for everything known about driving a simulated Dex1-1 from the PICO 4 Ultra Enterprise controller trigger through XRoboToolkit. It holds how the chain works, what was measured, what was read in source code, what was decided, and what is still unknown. The visual version is the page [Trigger to Gripper](https://claude.ai/artifact/Axkm9SVvxYQtvcriaF56MB) (private Artifact in the Claude app). A standalone copy that opens in any browser is `Agent/Drafts/2026-11-10 Trigger to Gripper.html` (open it from the file manager or Obsidian's "Open in default app"; the fonts load from the internet and fall back to system fonts offline). Research gaps derived from the test: [[2026-11-10 Research gaps from the PICO sim test]].
 
 **How to keep it current:** add a row to the test log (section 4) after each new test and a row to the facts register (section 5) for each new fact. Do not delete old rows. When a fact is replaced, mark the old row *superseded by F-nn*. Every row needs a status: **Measured** (run on the hardware), **Source** (read in public code), **Paper** (published), or **Unverified**.
 
