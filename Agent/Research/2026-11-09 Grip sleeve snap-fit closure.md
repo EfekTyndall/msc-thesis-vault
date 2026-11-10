@@ -119,7 +119,25 @@ Result 2026-11-09 (Martyn, PLA, photos in the project thread):
 
 The bead and tongue print coarser than modelled. The bead (0.30–0.45 mm high, 0.1 mm flat) and the 1.0 mm tongue are close to one extrusion line wide. Printed upright, this profile lies in the layer plane, so line width, not layer height, limits it (reasoning; line width in the slicer profile not checked).
 
+## Full sleeve and hinge-hook test (2026-11-10)
+
+Martyn's PLA prints on the lab Bambu Lab H2S (photos in the project thread); geometry checks in Fusion ("sleeve-A seam rings" v4–v6, controller-grip v20–v21).
+
+| Print | Change | Result |
+| --- | --- | --- |
+| Sleeve v20 | A2 seam over the full length | Fits with slight play; holds very firmly but is hard to take apart; print failures along the front half's outer groove wall; pointed tip beside the grip-button window pokes the hand |
+| Ring H1 | +x seam as a hook: A2 ring with the groove inner wall removed, so the half can swing open about the outer seam edge (Fusion: free from 5° to 25°; A2 jams from 10°) | Hook does not catch; the 0.45 mm bead is too coarse once the tongue can bend |
+| Ring H2 | +x knuckle hinge: 0.9 mm quarter-round lip on the front half, J hook on the back (0.8 mm tongue, 0.9 mm hook, 0.2 mm clearance), 6 mm window (Fusion: free from 5° to 90°, catches on a straight pull) | Hook catches the hinge well; strings and a rough step at the flat window and hook ends |
+| Ring H2b | H2 with 45° ends | Lip too thin, snapped; hook has too little room to catch |
+| Sleeve v21 | v20 plus: pointed slivers beside the window removed, window top corners R 1.5 mm, 1 mm pry notches in the back half (y 54–61) | **Best so far, kept.** Firm lock, slight play, no sharp edges; notches do not help much; removal by sliding the controller out until the halves open |
+
+- Precedent: none found for a hook-one-side, snap-other-side closure in the sources read on 2026-11-10 (web search, standard). Closest is the evive enclosure lid ([Hackaday log](https://hackaday.io/project/13091-evive-a-prototyping-platform-for-makers/log/47471-designing-snap-joints-for-evives-lid), not in bib): "one snap joint from where the user will open and other two passive snaps for locking". Formlabs' snap-fit guide (read through a summary only, unverified) uses a 1.2 mm protrusion.
+- Why the hinge failed (reasoning): the hook must swing inward to release, and the controller leaves only about 1 mm of room inside the 3.0–3.4 mm wall. That caps every hinge feature at about two extrusion lines (0.42 mm each), too thin for PLA.
+- Feature size: features about one line wide (the 0.45 mm bead, the 0.4–0.5 mm skin over the recess) print rounded or drop out. A2 works anyway because the groove's inner wall pins the tongue. The v20 slicer project used the Classic wall generator; Arachne was recommended for v21 (whether it was used is not confirmed; effect not isolated).
+- Result: A2 kept on both seams (D10 history 2026-11-10). Later, cosmetic only: shape the edges around the grip-button window.
+
 ## Open
 
 - PETG–PETG friction coefficient (none found), so the closing and opening forces carry the ABS value.
 - Which PETG the lab spools are. The Ultimaker values stand in for it.
+- PETG cycle test of v21 (20 open/close cycles) and repeatability (`msc-thesis/hardware/PRINT-TEST-QUEUE.md` §1).
