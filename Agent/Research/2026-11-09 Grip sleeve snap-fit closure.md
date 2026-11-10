@@ -133,7 +133,7 @@ Martyn's PLA prints on the lab Bambu Lab H2S (photos in the project thread); geo
 
 - Precedent: none found for a hook-one-side, snap-other-side closure in the sources read on 2026-11-10 (web search, standard). Closest is the evive enclosure lid ([Hackaday log](https://hackaday.io/project/13091-evive-a-prototyping-platform-for-makers/log/47471-designing-snap-joints-for-evives-lid), not in bib): "one snap joint from where the user will open and other two passive snaps for locking". Formlabs' snap-fit guide (read through a summary only, unverified) uses a 1.2 mm protrusion.
 - Why the hinge failed (reasoning): the hook must swing inward to release, and the controller leaves only about 1 mm of room inside the 3.0–3.4 mm wall. That caps every hinge feature at about two extrusion lines (0.42 mm each), too thin for PLA.
-- Feature size: features about one line wide (the 0.45 mm bead, the 0.4–0.5 mm skin over the recess) print rounded or drop out. A2 works anyway because the groove's inner wall pins the tongue. The v20 slicer project used the Classic wall generator; Arachne was recommended for v21 (whether it was used is not confirmed; effect not isolated).
+- Feature size: features about one line wide (the 0.45 mm bead, the 0.4–0.5 mm skin over the recess) print rounded or drop out. A2 works anyway because the groove's inner wall pins the tongue. The v20 slicer project used the Classic wall generator; v21 was sliced with Arachne (Martyn; effect not isolated, since v21 also changed the geometry).
 - Result: A2 kept on both seams (D10 history 2026-11-10). Later, cosmetic only: shape the edges around the grip-button window.
 
 ## Open
