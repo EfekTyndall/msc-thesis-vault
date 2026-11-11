@@ -3,7 +3,7 @@ tags: [waiting]
 ---
 # Waiting
 
-Long-running items that cannot be done in a single session, grouped by what unblocks them. Each item lives in one place only: here while it waits, or in a daily note's `## TODO` once it can be worked on. When a blocker clears, move (cut, not copy) its items into that day's TODO. Tests to run on printed parts stay in `msc-thesis/hardware/PRINT-TEST-QUEUE.md`; this note only points to them.
+Long-running items that cannot be done in a single session, grouped by what unblocks them. Each item lives in one place only: here while it waits, or in a daily note's `## TODO` once it can be worked on. When a blocker clears, move (cut, not copy) its items into that day's TODO. Tests to run on printed parts stay in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md`; this note only points to them.
 
 ## Supervisor (on leave until early 2027, email only)
 - [ ] Decide [[D01 Handheld gripper body]] after she has seen the mind map. Proposed rule: real Dex1-1 if the RS-485 check passes, otherwise the printed copy. Brief and map sent by email 2026-11-06; waiting for her reply. (since 2026-11-03)
@@ -22,7 +22,7 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orders need the manager's approval and a colleague to place them.
 
 **Before the gripper arrives**
-- [ ] M3 heat-set inserts: ruthex set GE-KASTEN-001 (100 × RX-M3x5.7, same dims as the CNC Kitchen M3 × 5.7 picked 2026-11-06, [[2026-11-06 M3 heat-set inserts for the adapter boss]]); ordered 2026-11-11 via the Storefront, delivery 1 day per the Storefront (expected about 2026-11-12). Once in, check the 4.0 mm × 7.0 mm boss holes with the hole-size coupon and pull-out check (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
+- [ ] M3 heat-set inserts: ruthex set GE-KASTEN-001 (100 × RX-M3x5.7, same dims as the CNC Kitchen M3 × 5.7 picked 2026-11-06, [[2026-11-06 M3 heat-set inserts for the adapter boss]]); ordered 2026-11-11 via the Storefront, delivery 1 day per the Storefront (expected about 2026-11-12); the coupon and pull-out check are in the TODO of [[2026-11-12]]. (since 2026-11-04)
 - [ ] Digital scale: Martyn borrows one from a friend; tells Claude when it is there. (since 2026-11-11)
 - Ballast for the dummy: spare lab screws and nuts, nothing to buy.
 
@@ -47,7 +47,7 @@ As of 2026-11-10 the Storefront can be browsed but not ordered from; orders go t
 - [ ] Update D01, D05 and D10 with the record-decision skill; OK the matching thesis-plan changes.
 - [ ] Buy 2 MGN9C blocks and 2 MGN9 rails (75 mm) only if the printed copy stays (on hold since 2026-11-04).
 - [ ] Drop the unused Fusion assembly and parts.
-- [ ] Copy path, only if resumed: print tests in `msc-thesis/hardware/PRINT-TEST-QUEUE.md` §2 (lever force over the stroke, friction and lock, ArUco / AS5600 width error against calipers). Copy path frozen since 2026-11-05. (since 2026-11-04)
+- [ ] Copy path, only if resumed: print tests in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md` §2 (lever force over the stroke, friction and lock, ArUco / AS5600 width error against calipers). Copy path frozen since 2026-11-05. (since 2026-11-04)
 - [ ] Revisit PICO Motion Trackers as an optional addition ([[2026-11-06 PICO Motion Tracker uses]]): use one in the UR10e accuracy test next to the controller; forearm trackers for the H2 elbow (only if H2 is the deployment robot) or as an objective effort metric need a thesis-plan change and the supervisor's OK. First bench test: arm trackers and both controllers tracked together through XRoboToolkit. (since 2026-11-06)
 
 ## Later stages
