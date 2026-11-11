@@ -22,7 +22,7 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orders need the manager's approval and a colleague to place them.
 
 **Before the gripper arrives**
-- [ ] M3 heat-set inserts: ruthex set GE-KASTEN-001 (100 × RX-M3x5.7, same dims as the CNC Kitchen M3 × 5.7 picked 2026-11-06, [[2026-11-06 M3 heat-set inserts for the adapter boss]]); ordered 2026-11-11 via the Storefront, about 10 days. Once in, check the 4.0 mm × 7.0 mm boss holes with the hole-size coupon and pull-out check (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
+- [ ] M3 heat-set inserts: ruthex set GE-KASTEN-001 (100 × RX-M3x5.7, same dims as the CNC Kitchen M3 × 5.7 picked 2026-11-06, [[2026-11-06 M3 heat-set inserts for the adapter boss]]); ordered 2026-11-11 via the Storefront, delivery 1 day per the Storefront (expected about 2026-11-12). Once in, check the 4.0 mm × 7.0 mm boss holes with the hole-size coupon and pull-out check (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
 - [ ] Digital scale: Martyn borrows one from a friend; tells Claude when it is there. (since 2026-11-11)
 - Ballast for the dummy: spare lab screws and nuts, nothing to buy.
 
