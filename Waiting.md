@@ -23,7 +23,6 @@ Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orde
 
 **Before the gripper arrives**
 - [ ] M3 heat-set inserts: ruthex set GE-KASTEN-001 (100 × RX-M3x5.7, same dims as the CNC Kitchen M3 × 5.7 picked 2026-11-06, [[2026-11-06 M3 heat-set inserts for the adapter boss]]); about 10 days after ordering. Once in, check the 4.0 mm × 7.0 mm boss holes with the hole-size coupon and pull-out check (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
-- [ ] M3 screws (DIN 912 assortment, Amazon, Martyn orders): M3 × 25 rear mount, M3 × 16 clamp ring. (since 2026-11-10)
 - [ ] Digital scale: Martyn borrows one from a friend; tells Claude when it is there. (since 2026-11-11)
 - Ballast for the dummy: spare lab screws and nuts, nothing to buy.
 
