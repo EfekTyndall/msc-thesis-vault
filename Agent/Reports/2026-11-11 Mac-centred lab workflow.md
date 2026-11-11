@@ -50,6 +50,7 @@ flowchart LR
 1. **Done 2026-11-11:** read-only deploy key `~/.ssh/dex1_1_handheld_deploy` on `fractal-pc` (GitHub title `fractal-pc`, no write access), ssh alias `github-dex1` in `~/.ssh/config`; `ssh -T github-dex1` authenticates. Options were a read-only [deploy key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/managing-deploy-keys#deploy-keys) for `dex1-1-handheld` (PC can only pull; all edits on the Mac) or a personal key (PC can push too); Martyn chose the deploy key.
 2. **Clone done 2026-11-11:** `~/dex1-1-handheld` on the PC (`git clone github-dex1:EfekTyndall/dex1-1-handheld.git`). Open: point the trigger sender at the repo copy instead of `~/xr_trigger`.
 3. **Done 2026-11-11:** Remote-SSH extension on the Mac, connected to `fractal-pc`, folder `~/dex1-1-handheld`, interpreter `~/anaconda3/envs/xrobotoolkit/bin/python`. Edits stay on the Mac (PC key is read-only).
+4. **Claude in VS Code (Martyn, 2026-11-11):** Claude Code panel only in the Mac window (`~/dex1-1-handheld` local); it reaches the PC with `ssh fractal-pc …`. The Remote-SSH window to the PC has no Claude: in a remote window the extension most likely runs on the PC itself ([VS Code remote extensions](https://code.visualstudio.com/api/advanced-topics/remote-extensions); not covered by the [Claude Code VS Code docs](https://code.claude.com/docs/en/vs-code); unverified), which is the open Claude-on-PC question.
 
 ## Open
 
