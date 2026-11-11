@@ -45,15 +45,14 @@ flowchart LR
 | Mac | Fusion, Bambu Studio, MuJoCo sim, LaTeX, vault, all code editing, Claude |
 | PC | XRoboToolkit PC Service, UR10e control, Dex1-1 over RS-485, recording, later GPU training |
 
-## Setup steps (proposed, not done)
+## Setup steps
 
-1. GitHub access from the PC: an SSH key in Martyn's PC account. Either a read-only [deploy key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/managing-deploy-keys#deploy-keys) for `dex1-1-handheld` (PC can only pull; all edits on the Mac) or a personal key (PC can push too). Choice open.
-2. Clone `dex1-1-handheld` to `~/dex1-1-handheld` on the PC; point the trigger sender at the repo copy instead of `~/xr_trigger`.
+1. **Done 2026-11-11:** read-only deploy key `~/.ssh/dex1_1_handheld_deploy` on `fractal-pc` (GitHub title `fractal-pc`, no write access), ssh alias `github-dex1` in `~/.ssh/config`; `ssh -T github-dex1` authenticates. Options were a read-only [deploy key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/managing-deploy-keys#deploy-keys) for `dex1-1-handheld` (PC can only pull; all edits on the Mac) or a personal key (PC can push too); Martyn chose the deploy key.
+2. **Clone done 2026-11-11:** `~/dex1-1-handheld` on the PC (`git clone github-dex1:EfekTyndall/dex1-1-handheld.git`). Open: point the trigger sender at the repo copy instead of `~/xr_trigger`.
 3. Install the Remote-SSH extension on the Mac and connect to `fractal-pc` (after go).
 
 ## Open
 
-- Deploy key or personal key (step 1).
 - Where raw recordings (MCAP) are stored and how they reach the Mac or training; raw data stays out of Git.
 - Yanmei's OK for Claude running commands on the PC.
 - **Later topic (Martyn, 2026-11-11):** can a Raspberry Pi replace the PC for the Dex1-1 / RS-485 link? Not addressed here.
