@@ -19,11 +19,25 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 - [ ] Real-adapter checks on the gripper (rear-mount 4×M3, clamp ring): see `PRINT-TEST-QUEUE.md` §3. (since 2026-11-04)
 
 ## Purchases
-- [ ] M3 heat-set inserts: CNC Kitchen M3 × 5.7 Standard picked 2026-11-06 ([[2026-11-06 M3 heat-set inserts for the adapter boss]]); once bought, check the 4.0 mm × 7.0 mm boss holes against them, with the hole-size coupon and pull-out check from that note (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
+Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orders need the manager's approval and a colleague to place them.
+
+**Before the gripper arrives**
+- [ ] M3 heat-set inserts: ruthex set GE-KASTEN-001 (100 × RX-M3x5.7, same dims as the CNC Kitchen M3 × 5.7 picked 2026-11-06, [[2026-11-06 M3 heat-set inserts for the adapter boss]]); about 10 days after ordering. Once in, check the 4.0 mm × 7.0 mm boss holes with the hole-size coupon and pull-out check (`PRINT-TEST-QUEUE.md` §3). (since 2026-11-04)
+- [ ] M3 screws (DIN 912 assortment, Amazon, Martyn orders): M3 × 25 rear mount, M3 × 16 clamp ring. (since 2026-11-10)
+- [ ] Digital scale: Martyn borrows one from a friend; tells Claude when it is there. (since 2026-11-11)
+- Ballast for the dummy: spare lab screws and nuts, nothing to buy.
+
+**After the gripper arrives**
+- [ ] RS-485-to-USB adapter: check the gripper box first; else Storefront (about 1 day to 1 week). (since 2026-11-11)
+- [ ] 24 V supply (24–64 V, about 3.5 A peak) and cables: Storefront or arena. (since 2026-11-11)
+- [ ] 3–5 m sleeved cable and an overhead cable balancer: not in the lab; length depends on where the cables leave the gripper. (since 2026-11-11)
+
+**Only if needed**
+- [ ] Private Wi-Fi access point: only if measurements show the shared lab network is too slow (it worked end to end on 2026-11-09); IT rules question for Yanmei first. (since 2026-11-11)
+- Vive Tracker 3.0 + base stations: fallback only, not a concern for now (Martyn, 2026-11-11).
 
 ## Company IT access (internal Storefront)
-As of 2026-11-10 the Storefront can be browsed but not ordered from.
-- [ ] Order M3 heat-set inserts and long M3 cap screws if no colleague in the arena has them (list in the TODO of [[2026-11-11]]). (since 2026-11-10)
+As of 2026-11-10 the Storefront can be browsed but not ordered from; orders go through the manager's approval and a colleague (2026-11-11).
 - [ ] Prices for the D01 side-by-side (Dex1-1, MGN9C blocks and MGN9 rails, 24/48 V supply, cables), from the company's suppliers; not needed for the mind map ([[2026-11-05 D01 real vs copy side-by-side]]). (since 2026-11-05)
 
 ## Intern (no date yet)
