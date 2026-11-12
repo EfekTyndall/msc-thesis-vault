@@ -197,6 +197,8 @@ These overlap the intern questions in `Meetings/2026-11-03 Intern VR teleop.md` 
 | Services | `ser2net` ("Serial port to network proxy"), `chrony` (NTP); no ROS in `/opt/ros`; no gripper or camera program running at the time |
 | Home folder | `realsense_pi_setup/`, `wrist/` (contents not read) |
 
+Confirmed (`/etc/ser2net.yaml`): TCP port 4001 ↔ `/dev/serial/by-id/usb-FTDI_USB_TO_RS-485_…`, 115200 8N1, `kickolduser: true` (a new client replaces the old one). Camera folders: `realsense_pi_setup/` (`README.md`, `config.env`, `install_pi.sh`, `start_stream.sh`, `stream_camera_sync.py`, `measure_camera_delay.py`, `measure_v4l2_direct.py`, `camera_logs/`) and `wrist/` (Python venv with `realsense_streamer.py`, `stamp_check.py`, `fov_check.py`, `realsense_wb_calibrate.py`); contents not read. The file names suggest the previous setup measured camera delay and timestamp alignment, which is relevant to [[D06 Recording and synchronisation]] (unverified until read).
+
 Reading (inferred, not confirmed with whoever built it): the Pi is a **thin bridge**. `ser2net` exposes the Robotiq serial port over the network, so the gripper logic (Modbus RTU) runs on another computer; the camera is presumably streamed by the scripts in `realsense_pi_setup/` or `wrist/`. Chrony suggests its clock is synced over NTP.
 
 Consequences for the Dex1-1:
