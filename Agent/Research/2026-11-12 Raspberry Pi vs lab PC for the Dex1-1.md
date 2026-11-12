@@ -247,6 +247,6 @@ Both stand far from the station, so for the handheld there is no technical diffe
 
 ## Open
 
-- Where the Jetson stands (at the station?), whether it is one of the two AGX Orin 64GB units, and whether it may be shared (supervisor, Monday).
-- Station Pi model, OS and software (above); access to it.
-- Company acceptance of a battery pack and a portable access point on the lab network (unknown).
+- Where the Jetson stands (at the station?), whether it is one of the two AGX Orin 64GB units, and whether it may be shared (supervisor, Monday). → Moved 2026-11-12 to the agenda of [[2026-11-16 Yanmei]].
+- Station Pi model, OS and software (above); access to it. → Resolved 2026-11-12: inspected read-only (Pi 5 2 GB, Ubuntu 25.10, ser2net + chrony), see above.
+- Company acceptance of a battery pack and a portable access point on the lab network (unknown). → Superseded 2026-11-12: mobile collection dropped (Martyn).

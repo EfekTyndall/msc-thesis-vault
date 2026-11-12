@@ -56,5 +56,5 @@ flowchart LR
 ## Open
 
 - Where raw recordings (MCAP) are stored and how they reach the Mac or training; raw data stays out of Git.
-- Yanmei's OK for Claude running commands on the PC.
+- Yanmei's OK for Claude running commands on the PC. → Superseded 2026-11-12 (Martyn): Claude runs only on the MacBook, so the question is dropped.
 - **Later topic (Martyn, 2026-11-11):** can a Raspberry Pi replace the PC for the Dex1-1 / RS-485 link? Answered in [[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]]. Correction (2026-11-12): fractal-pc is far from the robot station, so the Dex1-1 is not plugged into it; it goes on a station computer (teleop Jetson or a station Pi), as in the existing VR-teleop setup.
