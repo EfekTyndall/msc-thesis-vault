@@ -225,7 +225,14 @@ The station Pi serves the robot side. On the handheld side (real path, [[D01 Han
 
 H1 is the simpler and already-recorded first choice; H2 is worth it only if the station Pi software turns out reusable, so both conditions run the same gripper node. Cable length from handheld to PC or Pi: D06 suggests 3–5 m over a balancer (unmeasured for this lab).
 
+## Station layout confirmed (Martyn, 2026-11-12)
+
+fractal-pc is physically far from the robot station, and handheld collection happens at the station, so layout H1 (handheld straight into fractal-pc) is dropped. The station has a wired network switch. The existing VR-teleop setup (built by the supervisor): the **XRoboToolkit service runs on a Jetson Orin**; the **station Pi** is the I/O node the gripper and camera connect to (ser2net, ZMQ camera stream, chrony).
+
+Consequence: the handheld can mirror this proven split. Jetson = brain (XRoboToolkit, gripper commands, recording); a station box = gripper and camera I/O. Because the Dex1-1 loop cannot go through ser2net, `dex1_1_service` must run on whichever computer the RS-485 adapter is plugged into: the Jetson (if at the station and reachable by cable; Unitree's reference platform) or a second Pi 5 (untested). Using the same Jetson stack for handheld and VR teleop also keeps both conditions on one pipeline.
+
 ## Open
 
+- Where the Jetson stands (at the station?), whether it is one of the two AGX Orin 64GB units, and whether it may be shared (supervisor, Monday).
 - Station Pi model, OS and software (above); access to it.
 - Company acceptance of a battery pack and a portable access point on the lab network (unknown).
