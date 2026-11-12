@@ -241,6 +241,10 @@ Cheapest decisive test (before the gripper arrives): build `unitree_sdk2` + `dex
 
 Proposal: handheld Dex1-1 and camera to the station Pi; Dex1-1 powered from the supply under the station; Pi relays to fractal-pc, which runs XRoboToolkit and the PICO. Works for the camera as-is. For the gripper the Pi must **run `dex1_1_service` itself** instead of relaying (ser2net), because the 2 ms request/response loop cannot cross the network (inference from the source, unmeasured); fractal-pc then sends commands at 30–90 Hz over DDS and reads state. Monday questions: (1) existing Pi or a second one (2 GB, Ubuntu 25.10, runs the teleop Robotiq); (2) supply rating: sized for the Robotiq (24 V, max 1.7 A per retailer) vs Dex1-1 24–64 V, 3.5 A peak; (3) handheld on fractal-pc or on the supervisor's Jetson.
 
+### fractal-pc vs Jetson as the far computer (2026-11-12, 15:58)
+
+Both stand far from the station, so for the handheld there is no technical difference between them (Martyn). The only argument for the Jetson is non-technical: it already runs the supervisor's VR-teleop pipeline, so both conditions would share one pipeline. Arguments for fractal-pc: XRoboToolkit and the PICO already work on it (2026-11-09), it is set up for Martyn's workflow (own account, repo clone, VS Code), and it leaves the supervisor's setup untouched. **Proposal:** fractal-pc as the far computer; a Pi at the station runs `dex1_1_service` and the camera stream. Supervisor to confirm.
+
 ## Open
 
 - Where the Jetson stands (at the station?), whether it is one of the two AGX Orin 64GB units, and whether it may be shared (supervisor, Monday).
