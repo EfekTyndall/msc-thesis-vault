@@ -105,7 +105,53 @@ This matches the fallback already in [[D06 Recording and synchronisation]] ("onb
 2. Measure the gripper's average current during a collection session to size the battery.
 3. Record the gripper camera on that box at 30 Hz and check dropped frames.
 
+## Lab Jetson AGX Orin: justification and time-boxed tests (added 2026-11-12)
+
+Fact (Martyn, 2026-11-12): the lab has two **Jetson AGX Orin 64GB Developer Kits**, probably in use; using one needs the supervisor's OK.
+
+### AGX Orin 64GB Developer Kit (NVIDIA)
+
+| Property | Value | Source |
+| --- | --- | --- |
+| CPU | "12-core Arm Cortex-A78AE v8.2 64-bit", 2.2 GHz (ARM64, same architecture as Unitree's PC2) | [NVIDIA Jetson Orin](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/) spec table |
+| Video encode | up to "16x 1080p30 (H.265)" (column mapping of the extracted table inferred, verify) | same |
+| Power | "configurable between 15W and 60W" | same |
+| Size / mass | 110 × 110 × 71.65 mm; mass not stated | same |
+| Power input | DC jack 5.5/2.5 mm, centre positive; voltage range not stated | [AGX Orin dev kit layout](https://docs.nvidia.com/jetson/agx-orin-devkit/user-guide/latest/hardware_layout.html) |
+| USB | 4 × Type-A (2 × 3.2 Gen 2, 2 × 3.2 Gen 1), 2 × Type-C | same |
+| OS | JetPack 7 is "Ubuntu 24.04"; JetPack 6 is Ubuntu 22.04 (general knowledge, not checked against an NVIDIA page; unverified). Version installed on the lab units: unknown | [JetPack](https://developer.nvidia.com/embedded/jetpack) |
+
+### Why this unit and not a Pi 5 or another computer
+
+| Criterion | AGX Orin (lab) | Raspberry Pi 5 | x86 laptop / mini PC with Ubuntu 22.04 |
+| --- | --- | --- | --- |
+| Cost / availability | already in the lab, no purchase | purchase via Storefront | purchase or borrow (the Mac cannot run XRoboToolkit) |
+| Dex1-1 service | ARM64 lib; Unitree's reference host is also an Orin (NX) | ARM64 lib, but Pi 5 needs Ubuntu 24.04, untested by Unitree | x86-64 lib, same as the lab PC |
+| XRoboToolkit service | ARM build instructions written on an Orin | untested OS | same .deb as the lab PC |
+| Python SDK | wheel `manylinux_2_34_aarch64` needs glibc ≥ 2.34 (Ubuntu 22.04+) | fits | fits |
+| Video encoder | yes (NVIDIA table) | no | depends on model |
+| Power for battery use | 15–60 W, heaviest of the three | low (not checked) | depends |
+| Precedent | Unitree PC2 (Orin NX) for the gripper | Grabette (no motor) | RDT2 onboard Intel PC; UMI-FT laptop tether |
+
+Argument for the supervisor: the AGX Orin is the **only option that needs no purchase** and it is the **platform family both software stacks were built for** (Unitree's gripper service on an Orin NX, XRoboToolkit's ARM build on an Orin), with a hardware video encoder. A Pi 5 would need a purchase and an OS neither stack was tested on. The AGX is larger and draws more than a final mobile unit needs. If the tests pass on it, the same JetPack software runs on a smaller Orin (NX/Nano) later (unverified for the specific versions). An x86 Ubuntu laptop would be the lowest software risk (same binaries as the lab PC) but must be bought or borrowed.
+
+### Limiting the risk: gates with a time box
+
+Principle: the **core path stays on the lab PC** and is never blocked by this side track. All recording code is written for Linux/Python on the lab PC first; it runs on the Jetson unchanged if the OS matches, so no work is lost if the mobile track is dropped. Each gate has a time box (estimates, unverified); if a gate fails inside its box, stop, record why, and stay on the lab PC. A failed gate is itself a reportable result ("mobile collection on X failed because Y").
+
+| Gate | When | Test | Box | Stop if |
+| --- | --- | --- | --- | --- |
+| G0 | after supervisor OK, now | Check the unit: JetPack / Ubuntu version (`cat /etc/nv_tegra_release`, `lsb_release -a`), free disk, network, who else uses it | 1 h | Ubuntu older than 22.04 and reflashing not allowed (SDK needs glibc 2.34) |
+| G1 | now, no gripper needed | Install XRoboToolkit ARM64 service + SDK; repeat the 2026-11-09 test (PICO trigger → Mac sim) | 1 day | PICO link does not work on the Jetson |
+| G2 | after gripper delivery, after it runs on the lab PC | Build `unitree_sdk2` + `dex1_1_service`; trigger drives the real gripper; check the 500 Hz loop | 1 day | Service does not build or loop misses its rate |
+| G3 | after the recorder works on the lab PC | 10 min recording: camera, controller pose, gripper at 30 Hz; count dropped frames | 1 day | Drops that the lab PC does not have |
+| G4 | last | Measure power draw (Jetson + gripper) on the bench; size a battery; one walk-around demo | ½ day | Battery size not practical |
+
+Total about 3.5 working days, spread over the thesis, with the first two decision points (G0, G1) before the gripper arrives.
+
+Plan impact: `msc-thesis/docs/thesis-plan.md` lists "Onboard computer build" as out of scope. Moving a "mobile collection feasibility (G0–G4)" item to Stretch would be a plan change and needs Martyn's OK.
+
 ## Open
 
-- Whether the lab or company already has a Jetson to borrow (unknown).
+- Supervisor OK to use one lab AGX Orin; whether the units are in use and may be reflashed.
 - Company acceptance of a battery pack and a portable access point on the lab network (unknown).
