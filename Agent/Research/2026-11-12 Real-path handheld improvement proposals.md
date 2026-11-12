@@ -193,3 +193,32 @@ Checks run:
 Not done: STL export and print-queue text (dex1-1-handheld, by pull request), P3 (sleeve joint), P6 (hang eye).
 
 Images: project files `cad-snapshots/2026-11-12-asm-real-path-adapter-v8-side.png`, `…-iso.png`, `2026-11-12-real-adapter-v8.png`.
+
+## Stage 2b: real-adapter v9, clean rebuild (Fusion, 2026-11-12)
+
+Martyn asked for a tidy part (look, ergonomics, fewer sharp edges, rigidity) after noticing that pad and sleeve boss did not line up. The timeline was rebuilt from scratch: 30 features instead of 93, one side-profile sketch drives the bow. Saved as v9; v8 and v7 stay in the version history. All interfaces to the gripper and the sleeve are unchanged, so nothing else has to change.
+
+| Change | Detail |
+| --- | --- |
+| Joint to the sleeve | The pad is now the top of a 24 mm wide pedestal that is flush with the 16 mm sleeve boss front and back (v8: 14 mm pad, 4 mm overhang in front, 13 mm heel behind). Screw positions, 5 mm pad thickness and the 0.3 mm gap are unchanged |
+| Bow shape | One continuous 24 mm wide band. Bends rounded with R 30 on the finger side and R 52 outside instead of kinks; one kink of the v7 finger-side line removed (about 2 mm more finger room there) |
+| Edges | Finger-side long edges R 3, outside long edges R 2, pedestal corners R 6 to R 12, rear plate corners R 4 |
+| Riser to plate | Solid 24 mm wide gusset up to z = 8 replaces the two thin ribs of v8 |
+| Screw access | Pad screws: two Ø6.5 tunnels straight through to the underside. Lower rear-mount screws: two Ø6.5 key tunnels through the gusset. Upper rear-mount screws are in the open |
+
+Kept as in v8: rear plate 36 × 55 × 5 with four Ø3.4 holes and Ø6.5 × 3 head bores, tie beam, clamp ring with split tabs and Ø3.4 clamp hole.
+
+Checks run:
+- Timeline: 30 features, none unhealthy. One solid body, 129.7 cm³ (v8: 126.7 cm³), so the printed mass estimate stays at about 90 g (**unverified** until sliced).
+- Point test along all six screw axes (2 pad, 4 rear mount): free from the screw seat to the outside.
+- `ASM real-path` (refreshed in memory, not saved): no interference with the gripper STEP bodies or sleeve A; 0.30 mm to the sleeve front half (designed gap); 0.0 mm to the cable flange block (plate seat); 0.1 mm ring to motor barrel (as in v7).
+- Stiffness: section is the same 24 × 22 mm class as v8, so the v8 hand estimate carries over (not recomputed, not FEA, not measured).
+
+Sleeve (controller-grip v21): left unchanged. The boss already ends 1 mm from the pommel-side sleeve rim and the little finger sits directly in front of it, so the screw spacing cannot grow in either direction without touching what the v21 tests validated (A2 catch, grip size, LED coverage).
+
+Known leftovers:
+- The pedestal (24 mm, centred on x = 0) is wider than the sleeve boss (14 mm, centred on x = −2.4), so a step remains across the width. Removing it means widening the boss in controller-grip.
+- The wall between the front pad-screw tunnel and the pedestal front face is 0.75 mm (two extrusion lines).
+- Printing on its side puts one set of the R 2 / R 3 edge rounds on the bed; expect a slightly rough first layers there.
+
+Images: project files `cad-snapshots/2026-11-12-asm-real-path-adapter-v9-side.png`, `…-v9-underside.png`, `2026-11-12-real-adapter-v9.png`.
