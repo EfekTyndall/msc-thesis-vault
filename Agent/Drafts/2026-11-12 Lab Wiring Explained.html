@@ -1,0 +1,384 @@
+<title>Lab Wiring Explained</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Layout: one calm column. The map of the lab comes first (two scenarios), then the "letters vs phone call" timing demo,
+     then the choice of computer, dropped ideas and the Monday questions.
+     Colour encodes link type: blue = network data, violet = Wi-Fi, teal = USB / RS-485 cable, amber = power. */
+  :root {
+    --bg: #f4f6f8;
+    --surface: #ffffff;
+    --ink: #121820;
+    --muted: #5b6676;
+    --line: #d9dee6;
+    --zone-station: #eaf3ef;
+    --zone-far: #eef0f7;
+    --net: #2f6bd8;
+    --wifi: #8a4fd0;
+    --cable: #0d8a72;
+    --power: #c7850a;
+    --bad: #c8372d;
+    --good: #1d8a4a;
+    --font-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-head: "Space Grotesk", "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1318; --surface: #171d24; --ink: #e8ecf1; --muted: #9aa5b3; --line: #2a323d;
+      --zone-station: #13251f; --zone-far: #181c2b;
+      --net: #6f9cf0; --wifi: #b58af0; --cable: #3cc4a6; --power: #f0b440; --bad: #ff7a6e; --good: #5fd08c;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1318; --surface: #171d24; --ink: #e8ecf1; --muted: #9aa5b3; --line: #2a323d;
+    --zone-station: #13251f; --zone-far: #181c2b;
+    --net: #6f9cf0; --wifi: #b58af0; --cable: #3cc4a6; --power: #f0b440; --bad: #ff7a6e; --good: #5fd08c;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 16px; line-height: 1.55;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 64px;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+  h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; margin: 0; text-wrap: balance; }
+  h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.01em; }
+  h2 { font-size: 1.5rem; font-weight: 600; }
+  h3 { font-size: 1.05rem; font-weight: 600; }
+  p { margin: 0; max-width: 68ch; }
+  ul, ol { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; max-width: 70ch; }
+  code { font-family: var(--font-mono); font-size: 0.88em; background: var(--zone-far); padding: 1px 5px; border-radius: 4px; }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .lead { font-size: 1.12rem; }
+  .muted { color: var(--muted); }
+  section, header { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; min-width: 0; }
+
+  /* summary */
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .fact { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .fact b { font-family: var(--font-head); font-size: 1rem; }
+  .fact span { font-size: 0.9rem; color: var(--muted); }
+
+  /* map */
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tab { font: inherit; font-weight: 600; font-size: 0.92rem; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--surface); color: var(--ink); cursor: pointer; }
+  .tab[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .tab:focus-visible, .node:focus-visible, input:focus-visible { outline: 3px solid var(--net); outline-offset: 2px; }
+  .map-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  @media (max-width: 820px) { .map-grid { grid-template-columns: minmax(0, 1fr); } }
+  .svg-scroll { overflow-x: auto; }
+  .svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--muted); }
+  .key { display: inline-flex; align-items: center; gap: 8px; }
+  .key i { width: 26px; height: 0; border-top: 3px solid; display: inline-block; }
+  .key i.dash { border-top-style: dashed; }
+  .info { display: flex; flex-direction: column; gap: 10px; }
+  .info .where { font-size: 0.82rem; color: var(--muted); }
+  .info ul { font-size: 0.93rem; }
+  .story { font-size: 0.95rem; }
+  .story ol { gap: 8px; }
+
+  svg text { font-family: var(--font-text); }
+  .node { cursor: pointer; }
+  .node rect { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; transition: stroke 0.15s; }
+  .node:hover rect, .node.sel rect { stroke: var(--ink); stroke-width: 2.5; }
+  .node.dim { opacity: 0.35; }
+  .node .t1 { font-weight: 600; font-size: 14px; fill: var(--ink); }
+  .node .t2 { font-size: 11.5px; fill: var(--muted); }
+  .zone-label { font-family: var(--font-head); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; fill: var(--muted); }
+  .link { fill: none; stroke-width: 3; }
+  .link.net { stroke: var(--net); }
+  .link.wifi { stroke: var(--wifi); stroke-dasharray: 7 6; }
+  .link.cable { stroke: var(--cable); }
+  .link.power { stroke: var(--power); }
+  .link-label { font-size: 11px; fill: var(--muted); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+  .dot { r: 4.5; }
+  .dot.net { fill: var(--net); } .dot.wifi { fill: var(--wifi); } .dot.cable { fill: var(--cable); }
+
+  /* timing demo */
+  .demo { display: flex; flex-direction: column; gap: 16px; }
+  .slider-row { display: flex; flex-direction: column; gap: 6px; }
+  .slider-row label { font-weight: 600; }
+  input[type=range] { width: 100%; accent-color: var(--net); height: 28px; }
+  .lanes { display: flex; flex-direction: column; gap: 14px; }
+  .lane { display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 1fr) 96px; gap: 12px; align-items: center; }
+  @media (max-width: 640px) { .lane { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+  .lane-name { font-size: 0.9rem; font-weight: 600; }
+  .lane-name small { display: block; font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+  .bar { position: relative; height: 26px; background: var(--zone-far); border-radius: 6px; overflow: hidden; }
+  .bar .fill { position: absolute; inset: 0 auto 0 0; border-radius: 6px; }
+  .bar .deadline { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--ink); }
+  .verdict { font-weight: 600; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  .verdict.ok { color: var(--good); } .verdict.no { color: var(--bad); }
+  .scale { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .note { font-size: 0.85rem; color: var(--muted); }
+
+  /* tables */
+  .tbl { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: var(--font-head); font-weight: 600; font-size: 0.85rem; color: var(--muted); }
+  .q { display: flex; flex-direction: column; gap: 12px; }
+  .q li b { font-family: var(--font-head); }
+  @media (prefers-reduced-motion: reduce) { .dot { display: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Handheld for the Dex1-1 · lab setup · 12 Nov 2026</div>
+    <h1>How the lab computers, robot and grippers connect</h1>
+    <p class="lead">Today a small Raspberry Pi at the robot station passes gripper and camera data to a far-away computer. The handheld can use the same idea, with one change: for the Dex1-1, the Pi has to run Unitree's gripper program itself instead of only passing messages on.</p>
+    <div class="facts">
+      <div class="fact"><b>Pi at the station</b><span>A messenger. It sits there because USB and gripper cables can't reach the far computers.</span></div>
+      <div class="fact"><b>Jetson and fractal-pc</b><span>Both far away. Either one can run XRoboToolkit for the PICO headset.</span></div>
+      <div class="fact"><b>Robotiq vs Dex1-1</b><span>The Robotiq can be forwarded over the network. The Dex1-1 needs a reply every 2 ms, so its program runs at the station.</span></div>
+      <div class="fact"><b>Proposal</b><span>Handheld → Pi at the station → wired network → fractal-pc.</span></div>
+    </div>
+  </header>
+
+  <section aria-labelledby="map-h">
+    <h2 id="map-h">The map</h2>
+    <p class="muted">Switch between today's setup and the proposed handheld setup. Click any box to see what it does.</p>
+    <div class="tabs" role="group" aria-label="Scenario">
+      <button class="tab" id="tab-today" aria-pressed="true" type="button">Today: VR teleop with the Robotiq</button>
+      <button class="tab" id="tab-hand" aria-pressed="false" type="button">Proposed: handheld with the Dex1-1</button>
+    </div>
+    <div class="legend">
+      <span class="key"><i style="border-color:var(--net)"></i>wired network</span>
+      <span class="key"><i class="dash" style="border-color:var(--wifi)"></i>Wi-Fi</span>
+      <span class="key"><i style="border-color:var(--cable)"></i>cable (USB or RS-485)</span>
+      <span class="key"><i style="border-color:var(--power)"></i>24 V power</span>
+    </div>
+    <div class="map-grid">
+      <div class="panel svg-scroll"><svg id="map" viewBox="0 0 960 560" role="img" aria-label="Lab connection map"></svg></div>
+      <div class="panel info" id="info" aria-live="polite"></div>
+    </div>
+    <div class="panel story" id="story"></div>
+  </section>
+
+  <section aria-labelledby="timing-h">
+    <h2 id="timing-h">Why the Dex1-1 can't simply be forwarded</h2>
+    <p>Think of the Robotiq as <b>letters</b> and the Dex1-1 as <b>a phone call with no pauses</b>. The Robotiq gets a short message and answers it, up to about 200 times a second, and a few milliseconds of travel don't matter. Unitree's program talks to the Dex1-1 motor <b>every 2 ms</b> and waits for the answer each time. If the Pi only forwarded these messages, every exchange would go across the network and back, and it would have to fit inside those 2 ms.</p>
+    <div class="panel demo">
+      <div class="slider-row">
+        <label for="rtt">Network round trip (station ↔ far computer): <span id="rtt-val">3.0</span> ms</label>
+        <input type="range" id="rtt" min="0.5" max="15" step="0.5" value="3">
+        <div class="scale"><span>0.5 ms</span><span>15 ms</span></div>
+      </div>
+      <div class="lanes" id="lanes"></div>
+      <p class="note">Illustration only: the round-trip time in this lab has not been measured, and real networks also have occasional spikes. The 2 ms loop and the brake when commands stop come from Unitree's code (<code>dex1_1_service</code>). The bar is the time one exchange takes; the black line is the 2 ms the Dex1-1 motor allows. The Robotiq has no such limit: a slower network only means fewer updates per second (its usual rate is about 200/s).</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="pc-h">
+    <h2 id="pc-h">fractal-pc or the Jetson?</h2>
+    <p>Both stand far from the station, and both can run XRoboToolkit. For the handheld they would do exactly the same job, so the choice comes down to practical reasons.</p>
+    <div class="tbl panel">
+      <table>
+        <thead><tr><th></th><th>fractal-pc</th><th>Jetson Orin</th></tr></thead>
+        <tbody>
+          <tr><td>XRoboToolkit + PICO</td><td>Works already (tested 9 Nov)</td><td>Works already (supervisor's teleop)</td></tr>
+          <tr><td>Set up for you</td><td>Own account, repo copy, VS Code from the Mac</td><td>Supervisor's machine</td></tr>
+          <tr><td>Risk to existing teleop</td><td>None</td><td>Changes her working setup</td></tr>
+          <tr><td>One pipeline for both data sources</td><td>No, but the same data format is possible</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>Proposal: fractal-pc,</b> unless the supervisor prefers one pipeline on her Jetson.</p>
+  </section>
+
+  <section aria-labelledby="drop-h">
+    <h2 id="drop-h">Ideas looked at and dropped</h2>
+    <div class="tbl panel">
+      <table>
+        <thead><tr><th>Idea</th><th>Why not</th></tr></thead>
+        <tbody>
+          <tr><td>Plug the handheld straight into fractal-pc</td><td>The PC is too far from the station for USB and gripper cables.</td></tr>
+          <tr><td>Forward the Dex1-1 through the Pi like the Robotiq</td><td>The 2 ms motor loop can't cross the network (see above).</td></tr>
+          <tr><td>Power and drive the Dex1-1 through the UR10e wrist connector</td><td>The wrist gives 12/24 V at 2 A and RS-485 up to 5 Mbit/s. The Dex1-1 needs 24–64 V, 3.5 A peak and 6 Mbit/s.</td></tr>
+          <tr><td>A Pi replaces fractal-pc entirely</td><td>No hardware video encoder, no GPU for training, and XRoboToolkit is untested on a Pi.</td></tr>
+          <tr><td>A carried computer (Jetson in a backpack)</td><td>Possible on paper, but out of the thesis scope (dropped 12 Nov).</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="q-h">
+    <h2 id="q-h">Questions for Monday</h2>
+    <ol class="q">
+      <li><b>Which Pi?</b> Can Unitree's gripper program go on the existing station Pi, or should a second Pi be set up next to it? The existing one has 2 GB of memory and Ubuntu 25.10 (untested by Unitree), and it serves her Robotiq teleop.</li>
+      <li><b>Power.</b> What are the voltage and current rating of the supply under the station? The Dex1-1 needs 24–64 V and up to 3.5 A peak; the Robotiq needs 24 V and at most 1.7 A.</li>
+      <li><b>Computer.</b> Is it fine to run the handheld on fractal-pc instead of her Jetson?</li>
+      <li><b>Optional.</b> How does the Jetson move the UR10e arm (RTDE or the ROS 2 driver)?</li>
+    </ol>
+    <h3>Still to test (nothing tested yet)</h3>
+    <ol>
+      <li>Build Unitree's gripper program on a Pi 5 and start it. It should run and say "no motor found". This can happen before the gripper arrives.</li>
+      <li>With the gripper: check that the 2 ms loop holds on the Pi, and that fractal-pc can command it over the network.</li>
+      <li>Check camera time stamps against fractal-pc's clock, as the supervisor's setup already does with chrony.</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+(function () {
+  const NODES = {
+    pico:   { x: 30,  y: 40,  w: 200, h: 62, t1: "PICO 4 Ultra", t2: { today: "headset + controllers", hand: "headset + controller in sleeve" } },
+    grip:   { x: 30,  y: 200, w: 200, h: 62, t1: { today: "UR10e + Robotiq", hand: "Handheld Dex1-1" }, t2: { today: "gripper on the robot wrist", hand: "gripper + its RS-485 adapter" } },
+    cam:    { x: 30,  y: 340, w: 200, h: 62, t1: { today: "RealSense D435i", hand: "Dex1-1 camera" }, t2: { today: "camera on the robot wrist", hand: "camera on the gripper" } },
+    supply: { x: 30,  y: 470, w: 200, h: 56, t1: "24 V supply", t2: "under the station" },
+    pi:     { x: 300, y: 270, w: 190, h: 70, t1: "Raspberry Pi 5", t2: { today: "forwards (ser2net) + camera", hand: "runs Dex1-1 program + camera" } },
+    sw:     { x: 300, y: 430, w: 190, h: 56, t1: "Network switch", t2: "wired lab network" },
+    jetson: { x: 690, y: 120, w: 230, h: 66, t1: "Jetson Orin", t2: { today: "XRoboToolkit, controls gripper", hand: "not used (supervisor's)" } },
+    pc:     { x: 690, y: 370, w: 230, h: 66, t1: "fractal-pc", t2: { today: "not used for teleop", hand: "XRoboToolkit, commands, recording" } }
+  };
+  const INFO = {
+    pico: { where: "With the operator", what: "VR headset and hand controllers.", today: ["Sends hand pose and trigger over Wi-Fi to the Jetson, which runs XRoboToolkit."], hand: ["The controller sits in the printed sleeve on the handheld.", "Sends hand pose and trigger over Wi-Fi to fractal-pc (worked on 9 Nov)."] },
+    grip: { where: "At the station", what: "", today: ["UR10e arm with the Robotiq 2F-85 gripper.", "The gripper gets 24 V from the supply; its RS-485 data goes through an adapter to the Pi.", "Speaks Modbus, a simple message format at 115 kbit/s."], hand: ["The Dex1-1 on the handheld, held by the operator.", "One cable carries 24 V and RS-485. The RS-485 adapter turns it into USB for the Pi.", "Its motor exchanges a message every 2 ms at 6 Mbit/s."] },
+    cam: { where: "At the station", what: "", today: ["RealSense D435i on the robot wrist, plugged into the Pi by USB.", "The Pi takes 30 pictures/s (848 × 480), compresses them to JPEG, stamps the capture time and sends them on."], hand: ["The Dex1-1's own RGB camera on the handheld, plugged into the Pi by USB.", "The same stream method as today can be reused (whether this camera supports the same mode is unverified)."] },
+    supply: { where: "Under the station", what: "Power unit.", today: ["Powers the Robotiq: 24 V, at most 1.7 A."], hand: ["Would power the Dex1-1: it needs 24–64 V and up to 3.5 A peak. Its rating still has to be checked (Monday question)."] },
+    pi: { where: "At the station · Raspberry Pi 5, 2 GB, Ubuntu 25.10", what: "Small Linux computer. It sits at the station only because USB and RS-485 cables can't reach the far computers.", today: ["Runs ser2net: passes the Robotiq's bytes unchanged to network port 4001. Decides nothing.", "Runs the camera stream.", "Keeps its clock in step with another lab computer (chrony, about 1 ms)."], hand: ["Runs Unitree's gripper program (dex1_1_service). The fast 2 ms loop stays here.", "Offers fractal-pc a simple interface: 'go to this opening', 'here is my position'.", "Runs the camera stream, as today.", "Existing Pi or a second one: Monday question."] },
+    sw: { where: "At the station", what: "The box all network cables plug into. Connects the station to the far computers.", today: ["Carries gripper messages and pictures between the Pi and the Jetson."], hand: ["Carries gripper commands, gripper position and pictures between the Pi and fractal-pc. Only slow traffic."] },
+    jetson: { where: "Far from the station", what: "NVIDIA computer with an ARM processor and GPU. The supervisor's teleop computer.", today: ["Runs XRoboToolkit and receives the PICO.", "Sends gripper commands to the Pi and receives the camera pictures (turns them into a ROS 2 stream).", "Probably the clock server (10.36.1.108; unverified)."], hand: ["Not needed for the handheld. It could do fractal-pc's job, but it is the supervisor's machine."] },
+    pc: { where: "Far from the station · shared lab PC, Ubuntu 22.04", what: "Your lab Linux PC, reached from the Mac with ssh fractal-pc.", today: ["Not part of the teleop. Used for your trigger test on 9 Nov."], hand: ["Runs XRoboToolkit with the PICO.", "Turns the trigger into gripper commands and sends them to the Pi.", "Records hand pose, gripper position and pictures with time stamps.", "Later: training (GPU)."] }
+  };
+  const LINKS = {
+    today: [
+      { a: "pico", b: "jetson", type: "wifi", label: "pose + trigger" },
+      { a: "grip", b: "pi", type: "cable", label: "RS-485 → USB" },
+      { a: "cam", b: "pi", type: "cable", label: "USB" },
+      { a: "supply", b: "grip", type: "power", label: "24 V", side: true },
+      { a: "pi", b: "sw", type: "net", label: "" },
+      { a: "sw", b: "jetson", type: "net", label: "gripper bytes + pictures" }
+    ],
+    hand: [
+      { a: "pico", b: "pc", type: "wifi", label: "pose + trigger" },
+      { a: "grip", b: "pi", type: "cable", label: "RS-485 → USB" },
+      { a: "cam", b: "pi", type: "cable", label: "USB" },
+      { a: "supply", b: "grip", type: "power", label: "24 V", side: true },
+      { a: "pi", b: "sw", type: "net", label: "" },
+      { a: "sw", b: "pc", type: "net", label: "commands, position, pictures" }
+    ]
+  };
+  const DIM = { today: ["pc"], hand: ["jetson"] };
+  const STORY = {
+    today: ["The operator moves the PICO controller. Hand pose and trigger go over Wi-Fi to the <b>Jetson</b>, where XRoboToolkit receives them.",
+            "The Jetson decides what the gripper should do and sends a short Modbus message over the wired network to the <b>Pi</b>.",
+            "The Pi passes the bytes unchanged to the <b>Robotiq</b> and passes the answer back. The Pi decides nothing.",
+            "The <b>camera</b> sends pictures to the Pi. The Pi stamps each one with its capture time and sends it to the Jetson.",
+            "The Pi's clock is kept within about 1 ms of the far computer's clock, so the time stamps line up."],
+    hand: ["The operator holds the handheld: the PICO controller in the sleeve, the <b>Dex1-1</b> and its camera.",
+           "Hand pose and trigger go over Wi-Fi to <b>fractal-pc</b>, where XRoboToolkit runs (as in your 9 Nov test).",
+           "fractal-pc turns the trigger into 'go to this opening' and sends it over the network to the <b>Pi</b>, 30–90 times a second.",
+           "On the Pi, <b>Unitree's gripper program</b> runs the fast motor loop (every 2 ms) and reports the gripper position back.",
+           "The camera stream runs as today. fractal-pc records pose, gripper position and pictures with time stamps."]
+  };
+  const ZONES = [
+    { x: 12, y: 12, w: 268, h: 536, label: "STATION · handheld side", fill: "var(--zone-station)" },
+    { x: 282, y: 12, w: 226, h: 536, label: "STATION · under the table", fill: "var(--zone-station)" },
+    { x: 670, y: 12, w: 278, h: 536, label: "FAR AWAY", fill: "var(--zone-far)" }
+  ];
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.getElementById("map");
+  const info = document.getElementById("info");
+  const story = document.getElementById("story");
+  let scen = "today", sel = "pi";
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+  function val(v) { return typeof v === "object" ? v[scen] : v; }
+  function anchor(n, toward) {
+    const N = NODES[n], T = NODES[toward];
+    const cx = N.x + N.w / 2, cy = N.y + N.h / 2, tx = T.x + T.w / 2;
+    if (Math.abs(tx - cx) < 10) return [cx, T.y > N.y ? N.y + N.h : N.y];
+    return [tx > cx ? N.x + N.w : N.x, cy];
+  }
+  function draw() {
+    svg.innerHTML = "";
+    ZONES.forEach(z => {
+      el("rect", { x: z.x, y: z.y, width: z.w, height: z.h, rx: 14, fill: z.fill }, svg);
+      const t = el("text", { x: z.x + 12, y: z.y + 24, class: "zone-label" }, svg); t.textContent = z.label;
+    });
+    const mid = el("text", { x: 589, y: 290, class: "zone-label", "text-anchor": "middle" }, svg); mid.textContent = "· · ·";
+    LINKS[scen].forEach((L, i) => {
+      let d;
+      if (L.side) {
+        const A = NODES[L.a], B = NODES[L.b];
+        const x = A.x + 18; d = `M${x},${A.y} L${x},${B.y + B.h}`;
+      } else {
+        const [x1, y1] = anchor(L.a, L.b), [x2, y2] = anchor(L.b, L.a);
+        const mx = (x1 + x2) / 2;
+        d = (Math.abs(x1 - x2) < 4) ? `M${x1},${y1} L${x2},${y2}` : `M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`;
+      }
+      const p = el("path", { d, class: "link " + L.type, id: "lk" + i }, svg);
+      if (L.label) {
+        const len = p.getTotalLength(), pt = p.getPointAtLength(len / 2);
+        const t = el("text", { x: pt.x, y: pt.y - 8, class: "link-label", "text-anchor": "middle" }, svg); t.textContent = L.label;
+      }
+      if (!reduce && L.type !== "power") {
+        const c = el("circle", { class: "dot " + L.type, r: 4.5 }, svg);
+        const m = el("animateMotion", { dur: (L.type === "cable" ? 1.6 : 2.4) + "s", repeatCount: "indefinite", begin: (i * 0.3) + "s" }, c);
+        el("mpath", { href: "#lk" + i }, m);
+      }
+    });
+    Object.keys(NODES).forEach(k => {
+      const N = NODES[k];
+      const g = el("g", { class: "node" + (k === sel ? " sel" : "") + (DIM[scen].includes(k) ? " dim" : ""), tabindex: 0, role: "button", "aria-label": val(N.t1) }, svg);
+      el("rect", { x: N.x, y: N.y, width: N.w, height: N.h, rx: 10 }, g);
+      const a = el("text", { x: N.x + 14, y: N.y + 26, class: "t1" }, g); a.textContent = val(N.t1);
+      const b = el("text", { x: N.x + 14, y: N.y + 46, class: "t2" }, g); b.textContent = val(N.t2);
+      g.addEventListener("click", () => { sel = k; render(); });
+      g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sel = k; render(); } });
+    });
+  }
+  function renderInfo() {
+    const I = INFO[sel], N = NODES[sel];
+    const items = I[scen].map(s => `<li>${s}</li>`).join("");
+    info.innerHTML = `<div class="eyebrow">${scen === "today" ? "Today" : "Proposed"}</div><h3>${val(N.t1)}</h3><div class="where">${I.where}</div>${I.what ? `<p>${I.what}</p>` : ""}<ul>${items}</ul>`;
+  }
+  function renderStory() {
+    story.innerHTML = `<h3>${scen === "today" ? "Today, step by step" : "Proposed handheld, step by step"}</h3><ol>${STORY[scen].map(s => `<li>${s}</li>`).join("")}</ol>`;
+  }
+  function render() { draw(); renderInfo(); renderStory(); }
+  document.getElementById("tab-today").addEventListener("click", () => { scen = "today"; setTabs(); render(); });
+  document.getElementById("tab-hand").addEventListener("click", () => { scen = "hand"; setTabs(); render(); });
+  function setTabs() {
+    document.getElementById("tab-today").setAttribute("aria-pressed", scen === "today");
+    document.getElementById("tab-hand").setAttribute("aria-pressed", scen === "hand");
+  }
+  render();
+
+  /* timing demo */
+  const lanes = document.getElementById("lanes"), rtt = document.getElementById("rtt"), rttVal = document.getElementById("rtt-val");
+  const LANES = [
+    { name: "Robotiq, forwarded", sub: "no hard deadline: the far computer just waits", budget: null, travel: true },
+    { name: "Dex1-1, forwarded", sub: "500 exchanges/s → 2 ms each, brakes if late", budget: 2, travel: true },
+    { name: "Dex1-1, program on the Pi", sub: "fast loop stays at the station", budget: 2, travel: false }
+  ];
+  const MAXMS = 16;
+  function renderLanes() {
+    const r = parseFloat(rtt.value); rttVal.textContent = r.toFixed(1);
+    lanes.innerHTML = LANES.map(L => {
+      const need = L.travel ? r + 0.3 : 0.3; /* 0.3 ms: rough local handling, illustrative */
+      let ok, verdict, dl = "";
+      if (L.budget === null) {
+        ok = true; verdict = "fine, " + Math.min(200, Math.round(1000 / need)) + "/s";
+      } else {
+        ok = need <= L.budget; verdict = ok ? "fits" : "too slow";
+        dl = `<div class="deadline" style="left:${(L.budget / MAXMS) * 100}%"></div>`;
+      }
+      const pct = Math.min(need / MAXMS, 1) * 100;
+      return `<div class="lane"><div class="lane-name">${L.name}<small>${L.sub}</small></div>
+        <div class="bar" aria-hidden="true"><div class="fill" style="width:${pct}%;background:${ok ? "var(--good)" : "var(--bad)"}"></div>${dl}</div>
+        <div class="verdict ${ok ? "ok" : "no"}">${verdict}</div></div>`;
+    }).join("");
+  }
+  rtt.addEventListener("input", renderLanes);
+  renderLanes();
+})();
+</script>
