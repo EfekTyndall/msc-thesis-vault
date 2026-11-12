@@ -51,6 +51,7 @@ flowchart LR
 2. **Clone done 2026-11-11:** `~/dex1-1-handheld` on the PC (`git clone github-dex1:EfekTyndall/dex1-1-handheld.git`). Open: point the trigger sender at the repo copy instead of `~/xr_trigger`.
 3. **Done 2026-11-11:** Remote-SSH extension on the Mac, connected to `fractal-pc`, folder `~/dex1-1-handheld`, interpreter `~/anaconda3/envs/xrobotoolkit/bin/python`. Edits stay on the Mac (PC key is read-only).
 4. **Claude in VS Code (Martyn, 2026-11-11):** Claude Code panel only in the Mac window (`~/dex1-1-handheld` local); it reaches the PC with `ssh fractal-pc …`. The Remote-SSH window to the PC has no Claude: in a remote window the extension most likely runs on the PC itself ([VS Code remote extensions](https://code.visualstudio.com/api/advanced-topics/remote-extensions); not covered by the [Claude Code VS Code docs](https://code.claude.com/docs/en/vs-code); unverified), which is the open Claude-on-PC question.
+5. **Claude rules in VS Code (2026-11-12, tested by Martyn):** `~/dex1-1-handheld/CLAUDE.local.md` imports the project-instructions copy and both CLAUDE.md files; `.claude/settings.local.json` gives read access to `~/msc-thesis` and `~/msc-thesis-vault`; both hidden with `.git/info/exclude`. Master copies and install steps: `msc-thesis/docs/setup/claude-project/dex1-1-handheld-local/`. The project-instructions copy is updated whenever the instructions change.
 
 ## Open
 
