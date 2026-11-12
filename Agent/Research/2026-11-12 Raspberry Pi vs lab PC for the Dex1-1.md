@@ -14,7 +14,7 @@ Method: source of Unitree `dex1_1_service` ([commit ced3216](https://github.com/
 2. **The operating system is the main snag.** Ubuntu 22.04 (what Unitree and XRoboToolkit build for) is not supported on the Pi 5; Pi 5 support starts at Ubuntu 24.04. So a Pi means a different OS from the tested one.
 3. **A Pi does not remove the cable to the handheld.** The gripper needs 24–64 V at up to 3.5 A, so a power cable (or a large battery) goes to the handheld whatever computer drives it.
 4. **A Pi cannot replace the whole PC**: no hardware video encoder, and the PC is also the planned training machine (GPU).
-5. **Most defensible use of a Pi:** a dedicated "gripper box" that runs only `dex1_1_service` and starts it at boot, talking to the PC over Ethernet. This copies Unitree's own split (service on PC2, user code elsewhere over DDS). It costs a second clock to synchronise.
+5. **Most defensible use of a Pi:** a dedicated gripper computer that runs only `dex1_1_service` and starts it at boot, talking to the PC over Ethernet. This copies Unitree's own split (service on PC2, user code elsewhere over DDS). It costs a second clock to synchronise.
 
 ## Facts
 
@@ -97,7 +97,7 @@ With everything on one worn computer there is still **one clock**, so the D06 si
 
 Mobile handheld collection looks **possible**, with a **backpack** computer rather than one on the handheld (ActiveUMI pattern; ViTaMIn-B's weight argument). The handheld keeps a short cable (USB + 24 V) to the backpack; the backpack holds the computer, a battery for the gripper, and the PICO's Wi-Fi link (a portable access point or the computer's own hotspot, unverified).
 
-A **Jetson Orin NX** fits better than a Pi 5: it is the platform both Unitree (`dex1_1_service`) and XRoboToolkit build for, and NVIDIA lists a hardware video encoder for it. A Pi 5 would need an untested OS for both and has no hardware encoder; a Pi is only a fit for the gripper-box option B. An Orin **Nano** lacks the encoder.
+A **Jetson Orin NX** fits better than a Pi 5: it is the platform both Unitree (`dex1_1_service`) and XRoboToolkit build for, and NVIDIA lists a hardware video encoder for it. A Pi 5 would need an untested OS for both and has no hardware encoder; a Pi is only a fit for the gripper-computer option B. An Orin **Nano** lacks the encoder.
 
 This matches the fallback already in [[D06 Recording and synchronisation]] ("onboard or backpack computer"). Note: `msc-thesis/docs/thesis-plan.md` lists "Onboard computer build" as **out of scope**, so building it would need a plan change. It is not a decision.
 
@@ -229,13 +229,13 @@ H1 is the simpler and already-recorded first choice; H2 is worth it only if the 
 
 fractal-pc is physically far from the robot station, and handheld collection happens at the station, so layout H1 (handheld straight into fractal-pc) is dropped. The station has a wired network switch. The existing VR-teleop setup (built by the supervisor): the **XRoboToolkit service runs on a Jetson Orin**; the **station Pi** is the I/O node the gripper and camera connect to (ser2net, ZMQ camera stream, chrony).
 
-Consequence: the handheld can mirror this proven split. Jetson = brain (XRoboToolkit, gripper commands, recording); a station box = gripper and camera I/O. Because the Dex1-1 loop cannot go through ser2net, `dex1_1_service` must run on whichever computer the RS-485 adapter is plugged into: the Jetson (if at the station and reachable by cable; Unitree's reference platform) or a second Pi 5 (untested). Using the same Jetson stack for handheld and VR teleop also keeps both conditions on one pipeline.
+Consequence: the handheld can mirror this proven split. Jetson = brain (XRoboToolkit, gripper commands, recording); a station computer = gripper and camera I/O. Because the Dex1-1 loop cannot go through ser2net, `dex1_1_service` must run on whichever computer the RS-485 adapter is plugged into: the Jetson (if at the station and reachable by cable; Unitree's reference platform) or a second Pi 5 (untested). Using the same Jetson stack for handheld and VR teleop also keeps both conditions on one pipeline.
 
 ### Correction (Martyn, 2026-11-12, 15:44)
 
-Both fractal-pc and the teleop Jetson are far from the station. The only computer at the station is the Pi. So `dex1_1_service` must run on a **station computer that does not exist yet for the Dex1-1**: a second Pi 5 (the existing one stays untouched) or a lab AGX Orin moved to the station. The Jetson keeps XRoboToolkit and sends gripper commands over the wired network (DDS), exactly like the Robotiq setup but with the gripper loop local on the station box.
+Both fractal-pc and the teleop Jetson are far from the station. The only computer at the station is the Pi. So `dex1_1_service` must run on a **station computer that does not exist yet for the Dex1-1**: a second Pi 5 (the existing one stays untouched) or a lab AGX Orin moved to the station. The Jetson keeps XRoboToolkit and sends gripper commands over the wired network (DDS), exactly like the Robotiq setup but with the gripper loop local on the station computer.
 
-Cheapest decisive test (before the gripper arrives): build `unitree_sdk2` + `dex1_1_service` on a Pi 5 with Ubuntu 24.04 and start the service (it should run and report no motor found). Pass → Pi 5 station box. Fail → AGX Orin at the station (Unitree's reference platform). Both are then checked with the gripper (500 Hz loop, commands from the Jetson over the network).
+Cheapest decisive test (before the gripper arrives): build `unitree_sdk2` + `dex1_1_service` on a Pi 5 with Ubuntu 24.04 and start the service (it should run and report no motor found). Pass → Pi 5 as the station computer. Fail → AGX Orin at the station (Unitree's reference platform). Both are then checked with the gripper (500 Hz loop, commands from the Jetson over the network).
 
 ## Open
 
