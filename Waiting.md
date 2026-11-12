@@ -9,7 +9,7 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 - [ ] Decide [[D01 Handheld gripper body]] after she has seen the mind map. Proposed rule: real Dex1-1 if the RS-485 check passes, otherwise the printed copy. Brief and map sent by email 2026-11-06; waiting for her reply. (since 2026-11-03)
 - [ ] Claude Code on fractal-pc: give the install go once Yanmei confirms that a company PC may run a cloud AI agent on thesis code and data ([[2026-11-09 Lab workstation Claude Code plan]]; `msc-thesis/docs/setup/SETUP.md` §6 step 4). (since 2026-11-09)
 
-- [ ] Station computer for the Dex1-1 ([[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]]): ask at the Monday talk where the teleop Jetson stands (at the station?), whether it is one of the two AGX Orin 64GB units, and whether `dex1_1_service` may run on it with the RS-485 adapter plugged in. If not: a second Pi 5 at the station needs a build test (the existing station Pi stays untouched). (since 2026-11-12)
+- [ ] Station computer for the Dex1-1 ([[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]]): fractal-pc and the teleop Jetson are both far from the station (Martyn, 2026-11-12), so `dex1_1_service` must run on a computer at the station. Ask at the Monday talk: may a second Pi 5 be set up at the station next to the existing one (build test needed, Ubuntu 24.04+), or may one of the two AGX Orin 64GB units be placed there? Is the teleop Jetson one of those two? (since 2026-11-12)
 
 ## Dex1-1 delivery (date unknown)
 - [ ] RS-485 check: the station computer (Jetson or Pi, see Supervisor) commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld. (since 2026-11-03)

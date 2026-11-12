@@ -231,6 +231,12 @@ fractal-pc is physically far from the robot station, and handheld collection hap
 
 Consequence: the handheld can mirror this proven split. Jetson = brain (XRoboToolkit, gripper commands, recording); a station box = gripper and camera I/O. Because the Dex1-1 loop cannot go through ser2net, `dex1_1_service` must run on whichever computer the RS-485 adapter is plugged into: the Jetson (if at the station and reachable by cable; Unitree's reference platform) or a second Pi 5 (untested). Using the same Jetson stack for handheld and VR teleop also keeps both conditions on one pipeline.
 
+### Correction (Martyn, 2026-11-12, 15:44)
+
+Both fractal-pc and the teleop Jetson are far from the station. The only computer at the station is the Pi. So `dex1_1_service` must run on a **station computer that does not exist yet for the Dex1-1**: a second Pi 5 (the existing one stays untouched) or a lab AGX Orin moved to the station. The Jetson keeps XRoboToolkit and sends gripper commands over the wired network (DDS), exactly like the Robotiq setup but with the gripper loop local on the station box.
+
+Cheapest decisive test (before the gripper arrives): build `unitree_sdk2` + `dex1_1_service` on a Pi 5 with Ubuntu 24.04 and start the service (it should run and report no motor found). Pass → Pi 5 station box. Fail → AGX Orin at the station (Unitree's reference platform). Both are then checked with the gripper (500 Hz loop, commands from the Jetson over the network).
+
 ## Open
 
 - Where the Jetson stands (at the station?), whether it is one of the two AGX Orin 64GB units, and whether it may be shared (supervisor, Monday).
