@@ -133,7 +133,11 @@ Fact (Martyn, 2026-11-12): the lab has two **Jetson AGX Orin 64GB Developer Kits
 | Power for battery use | 15–60 W, heaviest of the three | low (not checked) | depends |
 | Precedent | Unitree PC2 (Orin NX) for the gripper | Grabette (no motor) | RDT2 onboard Intel PC; UMI-FT laptop tether |
 
-Argument for the supervisor: the AGX Orin is the **only option that needs no purchase** and it is the **platform family both software stacks were built for** (Unitree's gripper service on an Orin NX, XRoboToolkit's ARM build on an Orin), with a hardware video encoder. A Pi 5 would need a purchase and an OS neither stack was tested on. The AGX is larger and draws more than a final mobile unit needs. If the tests pass on it, the same JetPack software runs on a smaller Orin (NX/Nano) later (unverified for the specific versions). An x86 Ubuntu laptop would be the lowest software risk (same binaries as the lab PC) but must be bought or borrowed.
+Argument for the supervisor: the AGX Orin is the **only option that needs no purchase** and it is the **platform family both software stacks were built for** (Unitree's gripper service on an Orin NX, XRoboToolkit's ARM build on an Orin), with a hardware video encoder (minor point, see below). A Pi 5 would need a purchase and an OS neither stack was tested on. The AGX is larger and draws more than a final mobile unit needs. If the tests pass on it, the same JetPack software runs on a smaller Orin (NX/Nano) later (unverified for the specific versions). An x86 Ubuntu laptop would be the lowest software risk (same binaries as the lab PC) but must be bought or borrowed.
+
+### How much the video encoder matters (2026-11-12)
+
+Minor. The encoder only compresses camera video while recording. Uncompressed 1080p RGB at 30 Hz is 1920 × 1080 × 3 B × 30 ≈ 187 MB/s ≈ 670 GB/h (computed here), which a worn computer cannot store for long, so some compression is needed. It can come without a hardware encoder: many USB cameras deliver MJPEG frames that can be stored as-is (whether the Dex1-1 camera does: unverified), resolution can be reduced at capture, and the H.264/AV1 MP4 files of the LeRobot layout can be encoded afterwards on the lab PC. Grabette records on a Raspberry Pi, which has no hardware encoder. The encoder is therefore not a reason to prefer the AGX Orin over a Pi; the arguments that hold are no purchase and the Orin being the platform both software stacks were built for.
 
 ### Limiting the risk: gates with a time box
 
