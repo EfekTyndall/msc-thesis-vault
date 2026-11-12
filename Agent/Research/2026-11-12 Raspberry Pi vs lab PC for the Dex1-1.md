@@ -60,6 +60,52 @@ Method: source of Unitree `dex1_1_service` ([commit ced3216](https://github.com/
 3. Clock sync PC ↔ Pi (chrony) and its residual against the ~10 ms target in D06.
 4. Whether the company allows a separate Linux box on the lab network (unknown).
 
+## Mobile collection without the lab PC (added 2026-11-12)
+
+Motivation (Martyn, 2026-11-12): not a requirement; the question is whether handheld collection can be made mobile, not tied to a big PC, because that makes the solution more attractive.
+
+Scope: only **handheld collection** needs to move. It uses the headset, the handheld (controller, Dex1-1, gripper camera) and a computer. VR teleop and deployment stay at the UR10e anyway.
+
+### What the mobile computer must run
+
+| Job | Pi 5 | Jetson Orin NX | Source |
+| --- | --- | --- | --- |
+| `dex1_1_service` (RS-485) | ARM64 lib fits; OS not Unitree's (Ubuntu 24.04 only on Pi 5); unverified | Unitree's own reference host | `dex1_1_service` README; [Ubuntu Pi page](https://ubuntu.com/hardware/docs/boards/how-to/ubuntu_supported/raspberry-pi) |
+| XRoboToolkit PC Service (PICO link) | "Linux aarch64" supported, but built for Orin / Ubuntu 22.04; untested on Pi | ARM build instructions use an Orin | [PC-Service README](https://github.com/XR-Robotics/XRoboToolkit-PC-Service) |
+| Video recording (gripper camera) | no hardware H.264 encoder | Orin NX: encoder listed in NVIDIA's spec table (table read with low confidence; unverified). Orin **Nano** has none: "does not have the NVENC engine" | [RPi white paper](https://pip-assets.raspberrypi.com/categories/685-app-notes-guides-whitepapers/documents/RP-010033-WP-1-H.264%20encoding%20performance%20on%20Raspberry%20Pi%205_series%20computers.pdf); [NVIDIA Orin Nano](https://docs.nvidia.com/jetson/archives/r36.3/DeveloperGuide/SD/Multimedia/SoftwareEncodeInOrinNano.html); [NVIDIA Jetson Orin](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/) |
+| Power draw | not checked | Orin NX "configurable between 10W and 25W" | [NVIDIA Jetson Orin](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/) |
+
+With everything on one worn computer there is still **one clock**, so the D06 single-clock argument holds.
+
+### Power
+
+- Dex1-1: 24–64 V, 0.03 A static, 3.5 A peak ([Unitree](https://unitree.com/Dex1-1)). Average draw during collection: unmeasured.
+- A common 6S Li-ion/LiPo pack (about 3.0–4.2 V per cell, i.e. 18–25 V) falls below 24 V for most of its discharge, so a 7S or larger pack, or a boost converter to 24 V, would be needed (cell voltages are general Li-ion figures, unverified for a specific pack).
+- Rough budget, unverified: Jetson up to 25 W plus the gripper average (unmeasured) plus losses; a 100 Wh pack would last a few hours. To be measured.
+
+### Precedent
+
+- **ActiveUMI** (`zeng2025`): closest match. VR controllers (Quest 3s) with a motorised gripper on the controller, plus "a portable backpack that holds a battery and a PC for self-contained operation". Computer model, battery size and runtime are not stated.
+- **HuMI** (`nai2026`): "the entire setup fits into a single backpack"; compute not stated in the part read.
+- **Grabette** (not in bib): Raspberry Pi on the handheld, no motor to power.
+- **ViTaMIn-B** (`li2025`): went the other way, "removing onboard computing (e.g., Raspberry Pi) and interfacing all sensors directly with the host computer" for ergonomics and weight.
+- No published system found that runs a Dex1-1 or XRoboToolkit from a worn computer.
+
+### Answer
+
+Mobile handheld collection looks **possible**, with a **backpack** computer rather than one on the handheld (ActiveUMI pattern; ViTaMIn-B's weight argument). The handheld keeps a short cable (USB + 24 V) to the backpack; the backpack holds the computer, a battery for the gripper, and the PICO's Wi-Fi link (a portable access point or the computer's own hotspot, unverified).
+
+A **Jetson Orin NX** fits better than a Pi 5: it is the platform both Unitree (`dex1_1_service`) and XRoboToolkit build for, and NVIDIA lists a hardware video encoder for it. A Pi 5 would need an untested OS for both and has no hardware encoder; a Pi is only a fit for the gripper-box option B. An Orin **Nano** lacks the encoder.
+
+This matches the fallback already in [[D06 Recording and synchronisation]] ("onboard or backpack computer"). Note: `msc-thesis/docs/thesis-plan.md` lists "Onboard computer build" as **out of scope**, so building it would need a plan change. It is not a decision.
+
+### What would prove it (no purchase made)
+
+1. Run `dex1_1_service` and the XRoboToolkit service on an ARM64 Linux box (a Jetson, if the lab has one) with the PICO and Dex1-1; check the 500 Hz loop and trigger-to-gripper latency.
+2. Measure the gripper's average current during a collection session to size the battery.
+3. Record the gripper camera on that box at 30 Hz and check dropped frames.
+
 ## Open
 
-- What drives the question (Martyn): independence from the shared PC, portability on the handheld, or a setup for the company later. The answer picks between A and B.
+- Whether the lab or company already has a Jetson to borrow (unknown).
+- Company acceptance of a battery pack and a portable access point on the lab network (unknown).
