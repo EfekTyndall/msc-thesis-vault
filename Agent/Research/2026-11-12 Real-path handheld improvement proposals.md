@@ -168,3 +168,28 @@ Ranked by expected effect. "Keeps" lists what stays untouched, since the current
 - Official Bambu H2S specification page and the HT-PLA modulus rows were not readable; both are marked unverified above.
 - A wider search (deep research) could look for stiffness or flex figures in handheld data-collection devices and for wrist-moment limits; not run, waits for Martyn's go.
 - Fusion: `ASM real-path` v14 was opened for reading and left open, unmodified.
+
+## Stage 2: real-adapter v8 (Fusion, 2026-11-12)
+
+Modelled after Martyn's go; saved as a new Fusion version, v7 remains in the version history. Controller-grip and the assemblies were not changed (`ASM real-path` was only refreshed in memory for the check and not saved).
+
+| Change | Detail | Check |
+| --- | --- | --- |
+| Bow section (P1) | 24 mm wide (x ±12), 22 mm deep. The finger-side faces are the v7 faces, so the finger room is unchanged; all added depth is on the outside | Fusion face planes reused for the profile |
+| Heel block | The bow root behind and below the pad is now 24 mm wide and runs back to y = −170 | No contact with the sleeve (see below) |
+| Pad screw access (new finding) | In v7 neither pad screw could be inserted: the rear Ø3.4 hole was blind after 13 mm, and the front screw had 9 mm of free space below the pad for a 13 mm long screw. v8 has two Ø6.5 tunnels along the screw axes from the pad underside through the bow | Point test along both axes: 5 mm of pad, then free to the outside |
+| Plate onto riser (P2A) | Not done as proposed. The thicker riser now reaches the rear plate by itself (1.5 mm short of it at the plate foot), so the 18 mm horizontal piece is absorbed. Moving the gripper back further would mean moving the controller in controller-grip, which was out of scope | – |
+| Plate ribs (P4) | Two ribs, 3.5 mm thick at \|x\| = 8.5–12, from the riser top up the plate to z = 8; they leave the screw heads at x = ±5 accessible | Fusion |
+| Under-head thickness (P4) | Left at 2.0 mm. Raising it to 3 mm costs 1 mm of the 6 mm thread engagement of the M3 × 25 screws, and the load per screw is a few newtons (computed) | – |
+| Finger-side edges | R 2.5 mm on the edges facing the fingers | Fillet feature healthy |
+
+Checks run:
+- Timeline: 93 features, none unhealthy. One solid body.
+- Interference of the adapter against all visible bodies in `ASM real-path` (gripper STEP parts, sleeve A halves): none.
+- Minimum distance to the sleeve front half: 0.30 mm (the designed pad-to-boss gap); to the back half 29.2 mm.
+- Volume 126.7 cm³ (v7: 48.6 cm³). This is the solid volume; printed with 6 walls and 15 % infill the bow is roughly half full, so the printed adapter is estimated at about 90 g against about 62 g for v7 (**unverified** until sliced). The handheld total rises to about 870 g.
+- Stiffness estimate for this section (same beam model): droop about 0.7 mm and sideways about 1.1 mm per 1 g, first wobble about 15–19 Hz, against about 8 mm and 5.5 Hz for a solid v7. Not FEA, not measured.
+
+Not done: STL export and print-queue text (dex1-1-handheld, by pull request), P3 (sleeve joint), P6 (hang eye).
+
+Images: project files `cad-snapshots/2026-11-12-asm-real-path-adapter-v8-side.png`, `…-iso.png`, `2026-11-12-real-adapter-v8.png`.
