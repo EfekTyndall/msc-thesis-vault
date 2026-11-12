@@ -186,6 +186,17 @@ Manual: [Robotiq 2F-85/2F-140 e-Series manual](https://assets.robotiq.com/websit
 
 These overlap the intern questions in `Meetings/2026-11-03 Intern VR teleop.md` (software stack, gripper command, data path).
 
+## Handheld side: two layouts (added 2026-11-12)
+
+The station Pi serves the robot side. On the handheld side (real path, [[D01 Handheld gripper body]]) the operator holds the PICO controller in the sleeve with a Dex1-1 and its camera. Signals: controller pose and trigger reach the XRoboToolkit service on the PC over Wi-Fi; the Dex1-1 cable carries 24 V and RS-485; the camera has its own USB cable. Only one gripper is driven per phase (2026-11-04).
+
+| Layout | Handheld cables go to | Gripper command path | Clocks | Source / precedent |
+| --- | --- | --- | --- | --- |
+| H1. Straight to the lab PC | RS-485 adapter and camera on the PC's USB; 24 V from a bench supply | PC: trigger → `dex1_1_service` on the same PC | one (PC) | [[D06 Recording and synchronisation]] first option; ViTaMIn-B (`li2025`) host PC |
+| H2. Mirror of the robot station | RS-485 adapter and camera on a Pi (same build as the station Pi) at the collection table; 24 V from a bench supply | PC (XRoboToolkit) → network → Pi → gripper | two (PC, Pi), as on the robot side today | existing station (Martyn, 2026-11-12); Unitree PC2 split |
+
+H1 is the simpler and already-recorded first choice; H2 is worth it only if the station Pi software turns out reusable, so both conditions run the same gripper node. Cable length from handheld to PC or Pi: D06 suggests 3–5 m over a balancer (unmeasured for this lab).
+
 ## Open
 
 - Station Pi model, OS and software (above); access to it.
