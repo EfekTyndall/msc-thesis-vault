@@ -4,6 +4,8 @@ tags: [report, dex1-1, compute, explainer]
 ---
 # Lab computers and gripper connections
 
+> **Status: working picture, not confirmed.** Everything here was pieced together on 2026-11-12 from a read-only look at the station Pi and a talk with the intern. Each point below is to be confirmed with Yanmei at the Monday meeting (2026-11-16). The table "How sure is each point" lists what was seen, what was told and what was assumed.
+
 Plain-language explanation of how the lab pieces connect today (VR teleop with the Robotiq gripper) and how the handheld with the Dex1-1 would connect. Written for reading on 2026-11-13. Visual version: `Agent/Drafts/2026-11-12 Lab Wiring Explained.html` (same content, interactive). Sources and details: [[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]] and [[2026-11-12 Dex1-1 on the UR10e integration]].
 
 ## The short version
@@ -13,6 +15,22 @@ Plain-language explanation of how the lab pieces connect today (VR teleop with t
 - **fractal-pc** (also far away) can do exactly the same job as the Jetson. For the handheld it is the better choice because it already runs XRoboToolkit with the PICO (tested 2026-11-09) and it does not touch the supervisor's setup.
 - The **Dex1-1 cannot be forwarded like the Robotiq.** Its motor needs a message and an answer every 2 ms. So the Pi at the station must **run Unitree's gripper program itself**, and only the slow commands ("open to 40 mm") travel over the network.
 - Proposed handheld layout: handheld gripper and camera → **Pi at the station** (runs the Dex1-1 program + camera stream) → wired network → **fractal-pc** (XRoboToolkit, PICO, recording).
+
+## How sure is each point
+
+| Statement | Where it comes from | Status |
+| --- | --- | --- |
+| Station Pi: Pi 5, 2 GB, Ubuntu 25.10; Robotiq adapter and D435i on its USB | Read on the Pi over SSH (read-only, 12 Nov) | Seen |
+| Pi forwards the Robotiq to network port 4001 (ser2net) | Pi config file | Seen; that the Jetson is the one using it is assumed |
+| Two camera programs on the Pi; the ZMQ/JPEG one (wrist/) is the current one | File names and code on the Pi | Assumed from the files |
+| Pi clock synced to 10.36.1.108, and that is the Jetson | chrony status on the Pi; which machine .108 is was guessed | Partly assumed |
+| XRoboToolkit runs on the Jetson; gripper and camera go to the Pi | Intern (12 Nov) | Ask Yanmei to confirm |
+| Jetson moves the UR10e arm directly over the network | Intern / Martyn (12 Nov) | Ask Yanmei to confirm, and which interface |
+| Jetson and fractal-pc are far from the station; wired switch at the station | Martyn's own observation | Known |
+| Supply under the station is sized for the Robotiq | Robotiq needs 24 V, max 1.7 A (retailer); supply rating not read | Ask Yanmei |
+| The Dex1-1 can't be forwarded like the Robotiq (2 ms loop) | Reading Unitree's code; nothing measured | Assumption until tested |
+| A Pi 5 can run Unitree's gripper program | Not tried; Unitree tested Jetson / Ubuntu 22.04 | Test needed |
+| Use fractal-pc rather than the Jetson for the handheld | Claude's proposal | Decide with Yanmei |
 
 ## The pieces
 
@@ -105,6 +123,7 @@ When a Dex1-1 replaces the Robotiq on the UR10e, the same pattern applies: its a
 
 ## Questions for the supervisor (Monday)
 
+0. **Confirm the picture:** go through the table "How sure is each point" with Yanmei and correct anything that is wrong.
 1. **Which Pi?** May the Unitree gripper program go on the existing station Pi, or should a second Pi be set up next to it? The existing one has 2 GB memory and Ubuntu 25.10, neither tested by Unitree, and it serves her Robotiq teleop.
 2. **Power:** what are the voltage and current of the supply under the station? The Dex1-1 needs 24–64 V and up to 3.5 A peak; the Robotiq needs 24 V and at most 1.7 A (retailer listing).
 3. **Computer:** is it fine to run the handheld on fractal-pc instead of her Jetson?
