@@ -186,6 +186,24 @@ Manual: [Robotiq 2F-85/2F-140 e-Series manual](https://assets.robotiq.com/websit
 
 These overlap the intern questions in `Meetings/2026-11-03 Intern VR teleop.md` (software stack, gripper command, data path).
 
+### Station Pi inspected (Martyn, 2026-11-12, read-only over SSH)
+
+| Item | Result |
+| --- | --- |
+| Model | Raspberry Pi 5 Model B Rev 1.0, 2 GB RAM (1.9 GiB total, 1.2 GiB available) |
+| CPU / OS | `aarch64`; Ubuntu 25.10 desktop (GNOME); 57 GB SD card, 24 % used |
+| Serial | `/dev/ttyUSB0` = FTDI `0403:6015` USB-UART bridge (the Robotiq converter, inferred) |
+| Camera | RealSense D435i (`8086:0b3a`) on a USB 3 bus |
+| Services | `ser2net` ("Serial port to network proxy"), `chrony` (NTP); no ROS in `/opt/ros`; no gripper or camera program running at the time |
+| Home folder | `realsense_pi_setup/`, `wrist/` (contents not read) |
+
+Reading (inferred, not confirmed with whoever built it): the Pi is a **thin bridge**. `ser2net` exposes the Robotiq serial port over the network, so the gripper logic (Modbus RTU) runs on another computer; the camera is presumably streamed by the scripts in `realsense_pi_setup/` or `wrist/`. Chrony suggests its clock is synced over NTP.
+
+Consequences for the Dex1-1:
+- **ser2net does not carry over.** Unitree's closed library opens a local `/dev/tty*` and exchanges a frame every 2 ms at 6 Mbit/s; tunnelling that through the network would put network delay inside the 500 Hz loop (likely to break it; unverified). The Dex1-1 would need `dex1_1_service` running on the Pi itself, with commands over DDS (option B).
+- **Architecture OK, OS untested:** `aarch64` matches the ARM64 library; Ubuntu 25.10 is not Unitree's tested OS (22.04). Ubuntu interim releases get 9 months of support, so 25.10 is likely past end of life (general Ubuntu release policy, not checked for this release; unverified). `unattended-upgrades` is active.
+- **2 GB RAM** with a desktop session leaves little room; whether it is enough for building and running `unitree_sdk2` is unverified.
+
 ## Handheld side: two layouts (added 2026-11-12)
 
 The station Pi serves the robot side. On the handheld side (real path, [[D01 Handheld gripper body]]) the operator holds the PICO controller in the sleeve with a Dex1-1 and its camera. Signals: controller pose and trigger reach the XRoboToolkit service on the PC over Wi-Fi; the Dex1-1 cable carries 24 V and RS-485; the camera has its own USB cable. Only one gripper is driven per phase (2026-11-04).
