@@ -62,6 +62,8 @@ Method: source of Unitree `dex1_1_service` ([commit ced3216](https://github.com/
 
 ## Mobile collection without the lab PC (added 2026-11-12)
 
+> **Dropped (Martyn, 2026-11-12):** mobile collection feasibility is not pursued; this and the AGX Orin section below are kept for reference only. The thesis plan already lists "Onboard computer build" as out of scope, so no plan change.
+
 Motivation (Martyn, 2026-11-12): not a requirement; the question is whether handheld collection can be made mobile, not tied to a big PC, because that makes the solution more attractive.
 
 Scope: only **handheld collection** needs to move. It uses the headset, the handheld (controller, Dex1-1, gripper camera) and a computer. VR teleop and deployment stay at the UR10e anyway.
@@ -155,7 +157,36 @@ Total about 3.5 working days, spread over the thesis, with the first two decisio
 
 Plan impact: `msc-thesis/docs/thesis-plan.md` lists "Onboard computer build" as out of scope. Moving a "mobile collection feasibility (G0–G4)" item to Stretch would be a plan change and needs Martyn's OK.
 
+## Existing UR10e station: a Raspberry Pi already drives an RS-485 gripper (added 2026-11-12)
+
+Facts (Martyn, 2026-11-12, observed at the station): the UR10e carries a Robotiq 2F-85 and an Intel RealSense D435i on its tool flange. The gripper cable gets 24 V from a supply under the station; its RS-485 data lines go to an RS-485-to-USB converter plugged into a **Raspberry Pi**. The D435i is also on the Pi's USB. This setup was used to collect VR-teleop data and train a π0.5 policy.
+
+### Robotiq 2F-85 vs Dex1-1 on the serial link
+
+| | Robotiq 2F-85 | Dex1-1 |
+| --- | --- | --- |
+| Bus | Modbus RTU over RS-485 ("24V DC supply and Modbus RTU communication over RS-485", manual §1.4) | Unitree motor frames over RS-485, 6 Mbit/s |
+| Baud / rate | 115 200 bit/s; "200 Hz is the usual speed" (manual §4.7.1; read from a summary of the PDF, verify) | 500 Hz service loop (`dex1_1_service` source) |
+| Software | open register protocol; any Modbus library | closed motor library (x86-64 / ARM64 .so) + `unitree_sdk2` DDS |
+| Supply | 24 V, max 1.7 A ([Unchained Robotics](https://unchainedrobotics.de/produkte/end-of-arm-effektor/greifer/finger-greifer/robotiq-2f-85)) | 24–64 V, 3.5 A peak ([Unitree](https://unitree.com/Dex1-1)) |
+
+Manual: [Robotiq 2F-85/2F-140 e-Series manual](https://assets.robotiq.com/website-assets/support_documents/document/2F-85_2F-140_Instruction_Manual_e-Series_PDF_20190206.pdf) (2018 revision).
+
+### What this means
+
+- **In-house precedent for option B.** The station already uses a Pi as a gripper-and-camera node next to the robot, with VR teleop elsewhere. Swapping the Robotiq for the Dex1-1 on the same pattern keeps the station architecture the existing π0.5 pipeline was built on.
+- **The Dex1-1 link is heavier than the Robotiq one** (6 Mbit/s vs 115.2 kbit/s, 500 Hz vs ~200 Hz, closed ARM64 library instead of open Modbus). Whether the station Pi runs it depends on its model and OS: the ARM64 library needs a 64-bit OS; the Pi 5 needs Ubuntu 24.04+ or Raspberry Pi OS (both untested by Unitree). Unverified until the Pi is inspected.
+- **Comparison fairness.** If the VR-teleop and handheld conditions use the same gripper node, the gripper path is the same in both datasets.
+
+### To find out on the station Pi (read-only)
+
+1. Model and OS: `cat /proc/device-tree/model`, `cat /etc/os-release`, `uname -m` (needs `aarch64`).
+2. What runs on it (ROS 2 nodes or custom scripts), how it talks to the teleop PC (network, topics), who maintains it.
+3. Whether it may be reused or a second Pi of the same build is preferred (the existing VR-teleop setup must not break).
+
+These overlap the intern questions in `Meetings/2026-11-03 Intern VR teleop.md` (software stack, gripper command, data path).
+
 ## Open
 
-- Supervisor OK to use one lab AGX Orin; whether the units are in use and may be reflashed.
+- Station Pi model, OS and software (above); access to it.
 - Company acceptance of a battery pack and a portable access point on the lab network (unknown).
