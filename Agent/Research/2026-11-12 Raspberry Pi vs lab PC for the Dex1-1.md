@@ -237,6 +237,10 @@ Both fractal-pc and the teleop Jetson are far from the station. The only compute
 
 Cheapest decisive test (before the gripper arrives): build `unitree_sdk2` + `dex1_1_service` on a Pi 5 with Ubuntu 24.04 and start the service (it should run and report no motor found). Pass → Pi 5 as the station computer. Fail → AGX Orin at the station (Unitree's reference platform). Both are then checked with the gripper (500 Hz loop, commands from the Jetson over the network).
 
+### Martyn's proposed layout and the needed change (2026-11-12, 15:53)
+
+Proposal: handheld Dex1-1 and camera to the station Pi; Dex1-1 powered from the supply under the station; Pi relays to fractal-pc, which runs XRoboToolkit and the PICO. Works for the camera as-is. For the gripper the Pi must **run `dex1_1_service` itself** instead of relaying (ser2net), because the 2 ms request/response loop cannot cross the network (inference from the source, unmeasured); fractal-pc then sends commands at 30–90 Hz over DDS and reads state. Monday questions: (1) existing Pi or a second one (2 GB, Ubuntu 25.10, runs the teleop Robotiq); (2) supply rating: sized for the Robotiq (24 V, max 1.7 A per retailer) vs Dex1-1 24–64 V, 3.5 A peak; (3) handheld on fractal-pc or on the supervisor's Jetson.
+
 ## Open
 
 - Where the Jetson stands (at the station?), whether it is one of the two AGX Orin 64GB units, and whether it may be shared (supervisor, Monday).
