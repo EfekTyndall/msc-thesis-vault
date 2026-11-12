@@ -47,7 +47,7 @@ Method: source of Unitree `dex1_1_service` ([commit ced3216](https://github.com/
 | Option | What runs where | For | Against | Precedent |
 | --- | --- | --- | --- | --- |
 | **A. Lab PC (current)** | PC: XRoboToolkit, `dex1_1_service`, RTDE, recording | One clock ([[D06 Recording and synchronisation]]); x86-64 build shipped by Unitree on the same Ubuntu 22.04 | Shared PC: sudo needs password, other students, services not started at boot | ViTaMIn-B host PC |
-| **B. Pi as gripper box** | Pi: only `dex1_1_service` (systemd). PC: everything else, sends commands over wired Ethernet DDS | Gripper independent of the shared PC; starts at boot; Unitree's own PC2 split | Second clock (needs chrony/PTP, residual unmeasured); Ubuntu 24.04 not Unitree's tested OS; one more box, supply and cable; DDS across machines unmeasured | Unitree PC2 (Jetson, not Pi) |
+| **B. Pi as gripper computer** | Pi: only `dex1_1_service` (systemd). PC: everything else, sends commands over wired Ethernet DDS | Gripper independent of the shared PC; starts at boot; Unitree's own PC2 split | Second clock (needs chrony/PTP, residual unmeasured); Ubuntu 24.04 not Unitree's tested OS; one more box, supply and cable; DDS across machines unmeasured | Unitree PC2 (Jetson, not Pi) |
 | **C. Pi replaces the PC** | Pi: XRoboToolkit, gripper, RTDE, recording | One small dedicated box | XRoboToolkit ARM build is for Orin / Ubuntu 22.04, Pi needs 24.04 (unverified); no hardware video encoder; training still needs the GPU PC | None found |
 | **D. Pi on the handheld** | Pi carried on the handheld or belt | Untethered data link | 24 V power cable stays anyway (or a battery for 3.5 A peak); weight; extra clock; D06 already ranks it last | Grabette (no motor), ViTaMIn-B moved away |
 
