@@ -9,7 +9,7 @@ Plain-language explanation of how the lab pieces connect today (VR teleop with t
 ## The short version
 
 - Today a **Raspberry Pi sits at the robot station** only because gripper and camera cables cannot reach the far-away computers. It is a messenger: it forwards gripper messages and camera pictures over the wired network.
-- The **Jetson Orin** (far away) is the brain of today's VR teleop: it runs XRoboToolkit, talks to the PICO headset, and controls the gripper through the Pi.
+- The **Jetson Orin** (far away) is the brain of today's VR teleop: it runs XRoboToolkit, talks to the PICO headset, moves the UR10e arm directly over the network, and controls the gripper through the Pi.
 - **fractal-pc** (also far away) can do exactly the same job as the Jetson. For the handheld it is the better choice because it already runs XRoboToolkit with the PICO (tested 2026-11-09) and it does not touch the supervisor's setup.
 - The **Dex1-1 cannot be forwarded like the Robotiq.** Its motor needs a message and an answer every 2 ms. So the Pi at the station must **run Unitree's gripper program itself**, and only the slow commands ("open to 40 mm") travel over the network.
 - Proposed handheld layout: handheld gripper and camera → **Pi at the station** (runs the Dex1-1 program + camera stream) → wired network → **fractal-pc** (XRoboToolkit, PICO, recording).
@@ -18,7 +18,7 @@ Plain-language explanation of how the lab pieces connect today (VR teleop with t
 
 | Piece | What it is | Where it stands | Today's job |
 | --- | --- | --- | --- |
-| UR10e | the robot arm | station | moves during VR teleop |
+| UR10e | the robot arm (its control box is on the network) | station | moved directly by the Jetson during VR teleop |
 | Robotiq 2F-85 | today's gripper on the UR10e | on the robot's wrist | opens/closes on command |
 | RealSense D435i | today's wrist camera (colour + depth) | on the robot's wrist | gives the policy its view |
 | 24 V supply | power unit under the station | station | powers the Robotiq |
@@ -41,13 +41,14 @@ Terms used below:
 Checked on the Pi on 2026-11-12 (read-only) and confirmed with the intern.
 
 1. The operator wears the PICO. The headset sends hand pose and trigger over **Wi-Fi** to the **Jetson**, where XRoboToolkit receives them.
+1. The Jetson moves the **UR10e arm directly over the wired network**. The arm does **not** go through the Pi; only the gripper and the camera do (Martyn, 2026-11-12).
 2. The Jetson decides what the gripper should do and sends a **Modbus** message (Robotiq's simple message format) over the **wired network** to the Pi, on network port 4001.
 3. The **Pi forwards** those bytes unchanged through the RS-485 adapter to the Robotiq, and the answer back the same way. The Pi does not decide anything.
 4. The **camera** plugs into the Pi by USB. A Python script on the Pi takes 30 pictures per second (848 × 480), compresses each to JPEG, stamps it with the moment it was taken, and sends it to the Jetson. The Jetson turns it into a ROS 2 stream (ROS 2 = the common robot-software message system) for the teleop and π0.5 pipeline.
 5. The Pi keeps its clock in step with another lab computer (10.36.1.108, probably the Jetson) to about 1 ms, so picture time stamps match the Jetson's time.
 6. Power: the Robotiq gets 24 V from the supply under the station; only its data goes through the Pi.
 
-Not yet known: how the Jetson moves the UR10e arm itself (most likely over the network with UR's RTDE interface; unverified).
+Not yet known: which interface the Jetson uses for the arm (UR's RTDE or the UR ROS 2 driver).
 
 ## Why the Robotiq can be forwarded but the Dex1-1 cannot
 

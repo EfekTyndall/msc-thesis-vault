@@ -132,7 +132,7 @@
   <header>
     <div class="eyebrow">Handheld for the Dex1-1 · lab setup · 12 Nov 2026</div>
     <h1>How the lab computers, robot and grippers connect</h1>
-    <p class="lead">Today a small Raspberry Pi at the robot station passes gripper and camera data to a far-away computer. The handheld can use the same idea, with one change: for the Dex1-1, the Pi has to run Unitree's gripper program itself instead of only passing messages on.</p>
+    <p class="lead">Today the far-away Jetson moves the UR10e arm directly over the network, and a small Raspberry Pi at the robot station passes only the gripper and camera data. The handheld can use the same idea, with one change: for the Dex1-1, the Pi has to run Unitree's gripper program itself instead of only passing messages on.</p>
     <div class="facts">
       <div class="fact"><b>Pi at the station</b><span>A messenger. It sits there because USB and gripper cables can't reach the far computers.</span></div>
       <div class="fact"><b>Jetson and fractal-pc</b><span>Both far away. Either one can run XRoboToolkit for the PICO headset.</span></div>
@@ -229,7 +229,8 @@
 (function () {
   const NODES = {
     pico:   { x: 30,  y: 40,  w: 200, h: 62, t1: "PICO 4 Ultra", t2: { today: "headset + controllers", hand: "headset + controller in sleeve" } },
-    grip:   { x: 30,  y: 200, w: 200, h: 62, t1: { today: "UR10e + Robotiq", hand: "Handheld Dex1-1" }, t2: { today: "gripper on the robot wrist", hand: "gripper + its RS-485 adapter" } },
+    grip:   { x: 30,  y: 200, w: 200, h: 62, t1: { today: "Robotiq gripper", hand: "Handheld Dex1-1" }, t2: { today: "on the UR10e wrist", hand: "gripper + its RS-485 adapter" } },
+    ur:     { x: 300, y: 110, w: 190, h: 62, t1: "UR10e arm", t2: { today: "moved by the Jetson", hand: "stays still (handheld only)" } },
     cam:    { x: 30,  y: 340, w: 200, h: 62, t1: { today: "RealSense D435i", hand: "Dex1-1 camera" }, t2: { today: "camera on the robot wrist", hand: "camera on the gripper" } },
     supply: { x: 30,  y: 470, w: 200, h: 56, t1: "24 V supply", t2: "under the station" },
     pi:     { x: 300, y: 270, w: 190, h: 70, t1: "Raspberry Pi 5", t2: { today: "forwards (ser2net) + camera", hand: "runs Dex1-1 program + camera" } },
@@ -239,17 +240,19 @@
   };
   const INFO = {
     pico: { where: "With the operator", what: "VR headset and hand controllers.", today: ["Sends hand pose and trigger over Wi-Fi to the Jetson, which runs XRoboToolkit."], hand: ["The controller sits in the printed sleeve on the handheld.", "Sends hand pose and trigger over Wi-Fi to fractal-pc (worked on 9 Nov)."] },
-    grip: { where: "At the station", what: "", today: ["UR10e arm with the Robotiq 2F-85 gripper.", "The gripper gets 24 V from the supply; its RS-485 data goes through an adapter to the Pi.", "Speaks Modbus, a simple message format at 115 kbit/s."], hand: ["The Dex1-1 on the handheld, held by the operator.", "One cable carries 24 V and RS-485. The RS-485 adapter turns it into USB for the Pi.", "Its motor exchanges a message every 2 ms at 6 Mbit/s."] },
+    ur: { where: "At the station", what: "The robot arm. Its control box is on the wired network.", today: ["The Jetson (XRoboToolkit side) commands the arm directly over the network; this does not go through the Pi (Martyn, 12 Nov).", "Which interface the Jetson uses (RTDE or the ROS 2 driver) is still unknown."], hand: ["Not used during handheld collection: the operator moves the handheld by hand. The arm only comes back for VR teleop and for running the trained policy."] },
+    grip: { where: "At the station", what: "", today: ["Robotiq 2F-85 gripper on the UR10e wrist.", "The gripper gets 24 V from the supply; its RS-485 data goes through an adapter to the Pi.", "Speaks Modbus, a simple message format at 115 kbit/s."], hand: ["The Dex1-1 on the handheld, held by the operator.", "One cable carries 24 V and RS-485. The RS-485 adapter turns it into USB for the Pi.", "Its motor exchanges a message every 2 ms at 6 Mbit/s."] },
     cam: { where: "At the station", what: "", today: ["RealSense D435i on the robot wrist, plugged into the Pi by USB.", "The Pi takes 30 pictures/s (848 × 480), compresses them to JPEG, stamps the capture time and sends them on."], hand: ["The Dex1-1's own RGB camera on the handheld, plugged into the Pi by USB.", "The same stream method as today can be reused (whether this camera supports the same mode is unverified)."] },
     supply: { where: "Under the station", what: "Power unit.", today: ["Powers the Robotiq: 24 V, at most 1.7 A."], hand: ["Would power the Dex1-1: it needs 24–64 V and up to 3.5 A peak. Its rating still has to be checked (Monday question)."] },
     pi: { where: "At the station · Raspberry Pi 5, 2 GB, Ubuntu 25.10", what: "Small Linux computer. It sits at the station only because USB and RS-485 cables can't reach the far computers.", today: ["Runs ser2net: passes the Robotiq's bytes unchanged to network port 4001. Decides nothing.", "Runs the camera stream.", "Keeps its clock in step with another lab computer (chrony, about 1 ms)."], hand: ["Runs Unitree's gripper program (dex1_1_service). The fast 2 ms loop stays here.", "Offers fractal-pc a simple interface: 'go to this opening', 'here is my position'.", "Runs the camera stream, as today.", "Existing Pi or a second one: Monday question."] },
     sw: { where: "At the station", what: "The box all network cables plug into. Connects the station to the far computers.", today: ["Carries gripper messages and pictures between the Pi and the Jetson."], hand: ["Carries gripper commands, gripper position and pictures between the Pi and fractal-pc. Only slow traffic."] },
-    jetson: { where: "Far from the station", what: "NVIDIA computer with an ARM processor and GPU. The supervisor's teleop computer.", today: ["Runs XRoboToolkit and receives the PICO.", "Sends gripper commands to the Pi and receives the camera pictures (turns them into a ROS 2 stream).", "Probably the clock server (10.36.1.108; unverified)."], hand: ["Not needed for the handheld. It could do fractal-pc's job, but it is the supervisor's machine."] },
+    jetson: { where: "Far from the station", what: "NVIDIA computer with an ARM processor and GPU. The supervisor's teleop computer.", today: ["Runs XRoboToolkit and receives the PICO.", "Moves the UR10e arm directly over the network.", "Sends gripper commands to the Pi and receives the camera pictures (turns them into a ROS 2 stream).", "Probably the clock server (10.36.1.108; unverified)."], hand: ["Not needed for the handheld. It could do fractal-pc's job, but it is the supervisor's machine."] },
     pc: { where: "Far from the station · shared lab PC, Ubuntu 22.04", what: "Your lab Linux PC, reached from the Mac with ssh fractal-pc.", today: ["Not part of the teleop. Used for your trigger test on 9 Nov."], hand: ["Runs XRoboToolkit with the PICO.", "Turns the trigger into gripper commands and sends them to the Pi.", "Records hand pose, gripper position and pictures with time stamps.", "Later: training (GPU)."] }
   };
   const LINKS = {
     today: [
       { a: "pico", b: "jetson", type: "wifi", label: "pose + trigger" },
+      { a: "jetson", b: "ur", type: "net", label: "arm commands" },
       { a: "grip", b: "pi", type: "cable", label: "RS-485 → USB" },
       { a: "cam", b: "pi", type: "cable", label: "USB" },
       { a: "supply", b: "grip", type: "power", label: "24 V", side: true },
@@ -265,9 +268,10 @@
       { a: "sw", b: "pc", type: "net", label: "commands, position, pictures" }
     ]
   };
-  const DIM = { today: ["pc"], hand: ["jetson"] };
+  const DIM = { today: ["pc"], hand: ["jetson", "ur"] };
   const STORY = {
     today: ["The operator moves the PICO controller. Hand pose and trigger go over Wi-Fi to the <b>Jetson</b>, where XRoboToolkit receives them.",
+            "The Jetson moves the <b>UR10e arm</b> directly over the wired network. The arm does not go through the Pi.",
             "The Jetson decides what the gripper should do and sends a short Modbus message over the wired network to the <b>Pi</b>.",
             "The Pi passes the bytes unchanged to the <b>Robotiq</b> and passes the answer back. The Pi decides nothing.",
             "The <b>camera</b> sends pictures to the Pi. The Pi stamps each one with its capture time and sends it to the Jetson.",
