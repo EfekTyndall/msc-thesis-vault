@@ -206,6 +206,14 @@ Consequences for the Dex1-1:
 - **Architecture OK, OS untested:** `aarch64` matches the ARM64 library; Ubuntu 25.10 is not Unitree's tested OS (22.04). Ubuntu interim releases get 9 months of support, so 25.10 is likely past end of life (general Ubuntu release policy, not checked for this release; unverified). `unattended-upgrades` is active.
 - **2 GB RAM** with a desktop session leaves little room; whether it is enough for building and running `unitree_sdk2` is unverified.
 
+### Station Pi camera and clock setup (read 2026-11-12, read-only)
+
+- **Older pipeline (`realsense_pi_setup/`):** D435i colour over V4L2, H.264 encoded on the Pi with libx264 (the hardware path `h264_v4l2m2m` was avoided because of green frames), sent over UDP to 10.36.1.100:5002; frame times (V4L2 buffer time, Pi clock) over UDP :5003 and to CSV. README cites ~43 ms delivery latency (not a sensor offset) and warns frame IDs and video are not guaranteed to match. config.env says 640×480 @ 60 fps, README says 30 fps (mismatch).
+- **Newer pipeline (`wrist/`):** pyrealsense2, 848×480 @ 30 fps, JPEG q90 over ZMQ PUB `tcp://*:5555`, each message = [epoch ns, JPEG] using librealsense global-time capture stamp. A `republisher.py` on an **Orin** turns it into a ROS 2 topic (per docstring). `stamp_check.py` measures stamp vs exposure middle; no stored results found.
+- **Clock:** chrony syncs to 10.36.1.108 (stratum 10), RMS offset 1.18 ms. Whether .108 is the Orin: unverified.
+
+Relevance: the existing teleop pipeline already uses a Jetson Orin on the robot side and solved camera timestamping (capture-time stamps + chrony), a method the handheld recorder can reuse ([[D06 Recording and synchronisation]]).
+
 ## Handheld side: two layouts (added 2026-11-12)
 
 The station Pi serves the robot side. On the handheld side (real path, [[D01 Handheld gripper body]]) the operator holds the PICO controller in the sleeve with a Dex1-1 and its camera. Signals: controller pose and trigger reach the XRoboToolkit service on the PC over Wi-Fi; the Dex1-1 cable carries 24 V and RS-485; the camera has its own USB cable. Only one gripper is driven per phase (2026-11-04).
