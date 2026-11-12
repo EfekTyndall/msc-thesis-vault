@@ -90,11 +90,22 @@ The model masses disagree. The URDF in `dex1_1_service` sums to about 0.19 kg ([
 
 No reports were found of overheating, wear or grip-force shortfall, and none from a non-Unitree arm. The user base is small and Chinese forums were not searchable, so this absence is weak evidence. The closest relative of this thesis is Orboh's Dex1-1 UMI handheld, but it uses the Dex1-1 unpowered, as a cutter: it records no gripper width, and its policy cannot command the gripper ([`umi_dex1.yaml` L1-4](https://github.com/Orboh/Dex1-1hand_UMI/blob/3a6b282e16ffb6378aebe5d8af9810bbe869ba78/diffusion_policy/config/task/umi_dex1.yaml); [`umi_diffusion_bridge.py` L17-39](https://github.com/Orboh/DimOS_base_G1-TOYOTA-BODY-RESEARCH/blob/d170b170a85245ccd906ce85174a38b4b3e5942a/dimos/robot/unitree/g1/act/umi_diffusion_bridge.py#L17-L39)). Its deployment target is a G1, not a UR. Correction to one research note: LieSpline-DP does have a project page and an MIT code repo (commit `6ec4677`); only the hardware-side program is unpublished ([[2026-11-12 LieSpline-DP review for Dex1-1 on the UR10e]]).
 
+## Existing UR10e station (Martyn, 2026-11-12)
+
+Martyn's description of the current station: a Robotiq 2F-85 and an Intel RealSense D435i are on the tool flange. The 2F-85 uses RS-485. Its cable goes to a power supply under the station, and its data lines go through an RS-485-to-USB converter into a Raspberry Pi. The D435i is also connected to the Pi by USB. The setup was used to train a π0.5 policy on VR-teleop data.
+
+This has four consequences (all inference, not checked on the station):
+- The station already uses the topology this note recommends for the Dex1-1: an external supply, plus RS-485 to USB to a host computer, outside the UR tool connector. The existing cable route along the arm and the mounting point for the supply can probably be reused.
+- The existing supply and cable may not fit the Dex1-1 as they are. The Dex1-1 needs 24–64 V at up to 3.5 A peak and RS-485 at 6 Mbit/s. The station's supply rating and the cable's type and length are not known here, so check both before reuse.
+- The Dex1-1 adapter replaces the 2F-85 mount, so it must also hold the D435i or keep its current mount clear.
+- Which computer runs `dex1_1_service` (the Pi or the lab PC) is decided separately in [[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]].
+
 ## Integration checklist (to measure or decide)
 
 - [ ] Dex1-1 base bolt pattern, thread size and pilot: read from the official STEP in Fusion, then check on the delivered part.
 - [ ] UR flange centring bore, dowel position and tolerance: take from UR's flange drawing or CAD; choose screw lengths so engagement stays ≤ 8 mm.
 - [ ] Adapter: material (metal bonds the housing to UR GND) and camera clearance; check continuity between housing and supply negative.
+- [ ] Existing station supply (under the UR10e) and 2F-85 cable route: read the rating and cable type; reuse if they meet 24–64 V / 3.5 A and 6 Mbit/s RS-485.
 - [ ] Supply: 24 V or 48 V, rated ≥ 3.5 A plus margin; measure actual peak supply current at max grip. Decide whether the UR safety I/O or e-stop switches it.
 - [ ] Cable: length of the supplied cable; extension on the power/RS-485 leg or the USB leg; strain relief, service loop and wrist-3 limits.
 - [ ] Gripper motor ID (0 = `right`) and `/dev/ttyUSB*` udev rule (no `chmod 777`).
