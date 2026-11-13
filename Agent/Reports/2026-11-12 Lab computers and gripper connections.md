@@ -18,19 +18,19 @@ Plain-language explanation of how the lab pieces connect today (VR teleop with t
 
 ## How sure is each point
 
-| Statement | Where it comes from | Status |
-| --- | --- | --- |
-| Station Pi: Pi 5, 2 GB, Ubuntu 25.10; Robotiq adapter and D435i on its USB | Read on the Pi over SSH (read-only, 12 Nov) | Seen |
-| Pi forwards the Robotiq to network port 4001 (ser2net) | Pi config file | Seen; that the Jetson is the one using it is assumed |
-| Two camera programs on the Pi; the ZMQ/JPEG one (wrist/) is the current one | File names and code on the Pi | Assumed from the files |
-| Pi clock synced to 10.36.1.108, and that is the Jetson | chrony status on the Pi; which machine .108 is was guessed | Partly assumed |
-| XRoboToolkit runs on the Jetson; gripper and camera go to the Pi | Intern (12 Nov) | Ask Yanmei to confirm |
-| Jetson moves the UR10e arm directly over the network | Intern / Martyn (12 Nov) | Ask Yanmei to confirm, and which interface |
-| Jetson and fractal-pc are far from the station; wired switch at the station | Martyn's own observation | Known |
-| Supply under the station is sized for the Robotiq | Robotiq needs 24 V, max 1.7 A (retailer); supply rating not read | Ask Yanmei |
-| The Dex1-1 can't be forwarded like the Robotiq (2 ms loop) | Reading Unitree's code; nothing measured | Assumption until tested |
-| A Pi 5 can run Unitree's gripper program | Not tried; Unitree tested Jetson / Ubuntu 22.04 | Test needed |
-| Use fractal-pc rather than the Jetson for the handheld | Claude's proposal | Decide with Yanmei |
+| Statement                                                                   | Where it comes from                                              | Status                                               |
+| --------------------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------- |
+| Station Pi: Pi 5, 2 GB, Ubuntu 25.10; Robotiq adapter and D435i on its USB  | Read on the Pi over SSH (read-only, 12 Nov)                      | Seen                                                 |
+| Pi forwards the Robotiq to network port 4001 (ser2net)                      | Pi config file                                                   | Seen; that the Jetson is the one using it is assumed |
+| Two camera programs on the Pi; the ZMQ/JPEG one (wrist/) is the current one | File names and code on the Pi                                    | Assumed from the files                               |
+| Pi clock synced to 10.36.1.108, and that is the Jetson                      | chrony status on the Pi; which machine .108 is was guessed       | Partly assumed                                       |
+| XRoboToolkit runs on the Jetson; gripper and camera go to the Pi            | Intern (12 Nov)                                                  | Ask Yanmei to confirm                                |
+| Jetson moves the UR10e arm directly over the network                        | Intern / Martyn (12 Nov)                                         | Ask Yanmei to confirm, and which interface           |
+| Jetson and fractal-pc are far from the station; wired switch at the station | Martyn's own observation                                         | Known                                                |
+| Supply under the station is sized for the Robotiq                           | Robotiq needs 24 V, max 1.7 A (retailer); supply rating not read | Ask Yanmei                                           |
+| The Dex1-1 can't be forwarded like the Robotiq (2 ms loop)                  | Reading Unitree's code; nothing measured                         | Assumption until tested                              |
+| A Pi 5 can run Unitree's gripper program                                    | Not tried; Unitree tested Jetson / Ubuntu 22.04                  | Test needed                                          |
+| Use fractal-pc rather than the Jetson for the handheld                      | Claude's proposal                                                | Decide with Yanmei                                   |
 
 ## The pieces
 
