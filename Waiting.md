@@ -34,7 +34,7 @@ Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orde
 - [ ] 3–5 m sleeved cable and an overhead cable balancer: not in the lab; length depends on where the cables leave the gripper. (since 2026-11-11)
 
 **Only if needed**
-- [ ] Private Wi-Fi access point: only if measurements show the shared lab network is too slow (it worked end to end on 2026-11-09); IT rules question for Yanmei first (on the Monday agenda). (since 2026-11-11)
+- [ ] Private Wi-Fi access point: only if measurements show the shared lab network is too slow (it worked end to end on 2026-11-09); IT rules question for Yanmei first (not on the 2026-11-16 agenda, Martyn 2026-11-13). (since 2026-11-11)
 - Vive Tracker 3.0 + base stations: fallback only, not a concern for now (Martyn, 2026-11-11).
 
 ## Company IT access (internal Storefront)
