@@ -39,8 +39,10 @@ The Robotiq gripper uses short request–answer messages at 115.2 kbit/s ([Robot
 ## Operating-system requirements of the gripper service
 
 From the source code and its prebuilt libraries ([dex1_1_service](https://github.com/unitreerobotics/dex1_1_service), [unitree_sdk2](https://github.com/unitreerobotics/unitree_sdk2)):
+
 - 64-bit Linux on ARM (aarch64) or x86-64; Unitree ships the closed motor library for both.
 - The prebuilt libraries need C library version 2.17 or newer and the C++ runtime of gcc 9 or newer. The SDK was prebuilt on Ubuntu 20.04.
+
 - Raspberry Pi 5: Ubuntu 22.04 is not available for it; Ubuntu 24.04 LTS is supported ([Ubuntu Raspberry Pi support](https://ubuntu.com/hardware/docs/boards/how-to/ubuntu_supported/raspberry-pi/)). Its library versions meet the requirement, but the build and the 500 Hz loop on a Pi 5 are **untested**.
 - Not usable: the original Jetson Nano, which stays on Ubuntu 18.04 with an older C++ runtime.
 
@@ -64,13 +66,17 @@ Build the gripper service on the chosen computer and start it without the grippe
 ## References
 
 **Papers**
+
 - Zhao et al., 2025. XRoboToolkit: A Cross-Platform Framework for Robot Teleoperation. https://arxiv.org/abs/2508.00097
 - Zeng et al., 2025. ActiveUMI: Robotic Manipulation with Active Perception from Robot-Free Human Demonstrations. https://arxiv.org/abs/2510.01607
 
 **Documentation / code**
+
 - Unitree dex1_1_service: https://github.com/unitreerobotics/dex1_1_service
 - Unitree unitree_sdk2: https://github.com/unitreerobotics/unitree_sdk2
+
 - Unitree teleimager: https://github.com/unitreerobotics/teleimager
 - Unitree Dex1-1 product page: https://unitree.com/Dex1-1
+
 - Ubuntu on Raspberry Pi, supported boards: https://ubuntu.com/hardware/docs/boards/how-to/ubuntu_supported/raspberry-pi/
 - Robotiq 2F-85/2F-140 instruction manual (e-Series): https://assets.robotiq.com/website-assets/support_documents/document/2F-85_2F-140_Instruction_Manual_e-Series_PDF_20190206.pdf
