@@ -9,6 +9,7 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 Talk in the lab on Monday 2026-11-16: questions in [[2026-11-16 Yanmei]].
 - [ ] Decide [[D01 Handheld gripper body]] after she has seen the mind map. Proposed rule: real Dex1-1 if the RS-485 check passes, otherwise the printed copy. Brief and map sent by email 2026-11-06; waiting for her reply. (since 2026-11-03)
 - [ ] Station computer for the Dex1-1 ([[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]]). Proposed layout: Pi at the station runs the Dex1-1 program and camera stream; fractal-pc runs XRoboToolkit, PICO and recording. Ask at the Monday talk: (1) existing station Pi or a second Pi 5 (build test needed)? (2) does the 24 V supply under the station cover the Dex1-1 (24–64 V, 3.5 A peak; sized for the Robotiq)? (3) OK to run the handheld on fractal-pc instead of her Jetson? On the Monday agenda. (since 2026-11-12)
+- [ ] Borrowed Jetson (Seeed reComputer J1020 v2 = Jetson Nano 4 GB, JetPack 4.6 / Ubuntu 18.04, on loan until February 2027): test paused 2026-11-13; not usable as is (GLIBCXX 3.4.25 < 3.4.26 needed by the Unitree motor library). Resume only if the Monday talk makes it relevant; an Ubuntu 20.04 Docker container is an unverified workaround and needs Martyn's OK (colleague's board). (since 2026-11-13)
 
 ## Dex1-1 delivery (date unknown)
 - [ ] RS-485 check: the station computer (Jetson or Pi, see Supervisor) commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld. (since 2026-11-03)
@@ -23,7 +24,7 @@ Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orde
 
 **Before the gripper arrives**
 - [ ] Second Raspberry Pi 5 for the station (Path 1 of the handheld connections): manager agreed it may be bought (2026-11-13); order only after the Yanmei talk on 2026-11-16 ([[2026-11-16 Yanmei]] A3). (since 2026-11-13)
-- [ ] M3 heat-set inserts: ruthex set GE-KASTEN-001 (100 × RX-M3x5.7, same dims as the CNC Kitchen M3 × 5.7 picked 2026-11-06, [[2026-11-06 M3 heat-set inserts for the adapter boss]]); ordered 2026-11-11 via the Storefront, delivery 1 day per the Storefront, but not arrived by 2026-11-12, date unknown. On arrival: hole-size coupon (3.9 / 4.0 / 4.1 mm) and pull-out check (`PRINT-TEST-QUEUE.md` §3); iron 10–15 °C above the PETG print temperature, max 300 °C; first insert on the coupon. (since 2026-11-04)
+- [ ] M3 heat-set inserts: ruthex set GE-KASTEN-001 (100 × RX-M3x5.7, same dims as the CNC Kitchen M3 × 5.7 picked 2026-11-06, [[2026-11-06 M3 heat-set inserts for the adapter boss]]); ordered 2026-11-11 via the Storefront, delivery 1 day per the Storefront, but not arrived by 2026-11-13, date unknown. On arrival: hole-size coupon (3.9 / 4.0 / 4.1 mm) and pull-out check (`PRINT-TEST-QUEUE.md` §3); iron 10–15 °C above the PETG print temperature, max 300 °C; first insert on the coupon. (since 2026-11-04)
 - [ ] M3 screw assortment on Amazon (Martyn orders; A2-70 DIN 912, M3 × 6–40 incl. 20 × M3 × 25 and 20 × M3 × 16, 220 nuts): postponed by Martyn 2026-11-12 until the real-adapter redesign (v9, Fable 5.2 test) is final, since it may change the screws. (since 2026-11-11)
 - [ ] Digital scale: Martyn borrows one from a friend; tells Claude when it is there. (since 2026-11-11)
 - Ballast for the dummy: spare lab screws and nuts, nothing to buy.
