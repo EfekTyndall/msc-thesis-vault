@@ -6,9 +6,9 @@ tags: [report, dex1-1, compute, station]
 
 Documentation of where the handheld's computer and gripper connection stand on 2026-11-13, before the talk with Yanmei on 2026-11-16 ([[2026-11-16 Yanmei]], block A). Builds on [[2026-11-12 Lab computers and gripper connections]], [[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]] and [[2026-11-13 dex1_1_service code and Pi 5 fit]]. Nothing here is tested on hardware.
 
-![[2026-11-13 handheld connection paths.png]]
+![[2026-11-13 handheld connection paths.drawio.png]]
 
-Figure: (a) current VR teleop at the UR10e station (working picture, to be confirmed), (b) Path 1, (c) Path 2. Editable source (draw.io): `Agent/Reports/figures/2026-11-13 handheld connection paths.drawio`; PDF export: `Agent/Reports/figures/2026-11-13 handheld connection paths.pdf`.
+Figure: (a) current VR teleop at the UR10e station (working picture, to be confirmed), (b) Path 1, (c) Path 2. Editable source (draw.io): `Agent/Reports/figures/2026-11-13 handheld connection paths.drawio`; PNG export from draw.io: `Agent/Reports/figures/2026-11-13 handheld connection paths.drawio.png`.
 
 ## State of the question
 
