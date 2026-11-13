@@ -8,7 +8,7 @@ Documentation of where the handheld's computer and gripper connection stand on 2
 
 ![[2026-11-13 handheld connection paths.png]]
 
-Figure: (a) current VR teleop at the UR10e station (working picture, to be confirmed), (b) Path 1, (c) Path 2. PDF: `Agent/Reports/figures/2026-11-13 handheld connection paths.pdf`.
+Figure: (a) current VR teleop at the UR10e station (working picture, to be confirmed), (b) Path 1, (c) Path 2. Editable source (draw.io): `Agent/Reports/figures/2026-11-13 handheld connection paths.drawio`; PDF export: `Agent/Reports/figures/2026-11-13 handheld connection paths.pdf`.
 
 ## State of the question
 
