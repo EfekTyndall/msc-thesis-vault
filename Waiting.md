@@ -6,13 +6,15 @@ tags: [waiting]
 Long-running items that cannot be done in a single session, grouped by what unblocks them. Each item lives in one place only: here while it waits, or in a daily note's `## TODO` once it can be worked on. When a blocker clears, move (cut, not copy) its items into that day's TODO. Tests to run on printed parts stay in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md`; this note only points to them.
 
 ## Supervisor (on leave until early 2027, email only)
-Talk in the lab on Monday 2026-11-16: questions in [[2026-11-16 Yanmei]].
-- [ ] Decide [[D01 Handheld gripper body]] after she has seen the mind map. Proposed rule: real Dex1-1 if the RS-485 check passes, otherwise the printed copy. Brief and map sent by email 2026-11-06; waiting for her reply. (since 2026-11-03)
-- [ ] Station computer for the Dex1-1 ([[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]]). Proposed layout: Pi at the station runs the Dex1-1 program and camera stream; fractal-pc runs XRoboToolkit, PICO and recording. Ask at the Monday talk: (1) existing station Pi or a second Pi 5 (build test needed)? (2) does the 24 V supply under the station cover the Dex1-1 (24–64 V, 3.5 A peak; sized for the Robotiq)? (3) OK to run the handheld on fractal-pc instead of her Jetson? On the Monday agenda. (since 2026-11-12)
-- [ ] Borrowed Jetson (Seeed reComputer J1020 v2 = Jetson Nano 4 GB, JetPack 4.6 / Ubuntu 18.04, on loan until February 2027): test paused 2026-11-13; not usable as is (GLIBCXX 3.4.25 < 3.4.26 needed by the Unitree motor library). Resume only if the Monday talk makes it relevant; an Ubuntu 20.04 Docker container is an unverified workaround and needs Martyn's OK (colleague's board). (since 2026-11-13)
+Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 real Dex1-1, Path 2 station computer, D08 confirmed).
+- [ ] Borrowed Jetson (Seeed reComputer J1020 v2 = Jetson Nano 4 GB, JetPack 4.6 / Ubuntu 18.04, on loan until February 2027): test paused 2026-11-13; not usable as is (GLIBCXX 3.4.25 < 3.4.26 needed by the Unitree motor library). The 2026-11-16 talk chose Path 2 on another Jetson (10.36.1.124), so this board is not needed for the handheld; whether to drop the test and return it early: Martyn decides. An Ubuntu 20.04 Docker container is an unverified workaround and needs Martyn's OK (colleague's board). (since 2026-11-13)
+- [ ] How her VR-teleop stack commands the UR10e (RTDE / ROS 2 driver): not asked at the 2026-11-16 talk; not needed until VR teleop is set up on the handheld Jetson. (since 2026-11-16)
+
+## Colleague (station supply)
+- [ ] Validate with the colleague responsible for the station whether the 24 V supply under the UR10e station covers the Dex1-1 (24–64 V, about 3.5 A peak; sized for the Robotiq 2F-85). Agreed at the 2026-11-16 talk ([[2026-11-16 Yanmei]]); colleague's name not recorded. (since 2026-11-16)
 
 ## Dex1-1 delivery (date unknown)
-- [ ] RS-485 check: the station computer (Jetson or Pi, see Supervisor) commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld. (since 2026-11-03)
+- [ ] RS-485 check: the station Jetson (Path 2, [[D06 Recording and synchronisation]]) commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld. (since 2026-11-03)
 - [ ] Test proportional and binary trigger behaviour. (since 2026-11-04)
 - [ ] Measure the finger stroke (official STEP/URDF about 82 mm vs product page 90 mm); check version and accessories (RS-485 board in the box?); check whether the fingers back-drive when unpowered. (since 2026-11-03)
 - [ ] Measure trigger-to-finger latency, the rad → width curve, `tau_est` against a force gauge, the cable length, and the undocumented items: mass as delivered, power draw, motor ID of each unit ([[2026-11-03 Dex1-1 technical note]]). (since 2026-11-04)
@@ -43,14 +45,12 @@ As of 2026-11-10 the Storefront can be browsed but not ordered from; orders go t
 
 ## Intern (no date yet)
 - [ ] Hold the meeting, then fill in Notes, Agreed actions and the intern's name in [[2026-11-03 Intern VR teleop]]. (since 2026-11-03)
-- [ ] Ask which trigger-to-gripper mapping the VR stack uses (gap G2, [[2026-11-10 Research gaps from the PICO sim test]]). (since 2026-11-10)
 
-## After D01 is settled
-- [ ] Update D01, D05 and D10 with the record-decision skill; OK the matching thesis-plan changes.
+## Printed-copy fallback (only if the real path fails)
+D01 settled 2026-11-16 on the real Dex1-1; these items wait on the copy being resumed (RS-485 check fails or delivery slips).
 - [ ] Buy 2 MGN9C blocks and 2 MGN9 rails (75 mm) only if the printed copy stays (on hold since 2026-11-04).
-- [ ] Drop the unused Fusion assembly and parts.
 - [ ] Copy path, only if resumed: print tests in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md` §2 (lever force over the stroke, friction and lock, ArUco / AS5600 width error against calipers). Copy path frozen since 2026-11-05. (since 2026-11-04)
-- [ ] Revisit PICO Motion Trackers as an optional addition ([[2026-11-06 PICO Motion Tracker uses]]): use one in the UR10e accuracy test next to the controller; forearm trackers for the H2 elbow (only if H2 is the deployment robot) or as an objective effort metric need a thesis-plan change and the supervisor's OK. First bench test: arm trackers and both controllers tracked together through XRoboToolkit. (since 2026-11-06)
 
 ## Later stages
 - [ ] 20 rollouts per condition is underpowered: keep, or change the protocol ([[2026-11-02 Research gaps]]). Flagged 2026-11-04.
+- [ ] Revisit PICO Motion Trackers as an optional addition ([[2026-11-06 PICO Motion Tracker uses]]): use one in the UR10e accuracy test next to the controller; forearm trackers for the H2 elbow (H2 confirmed as second deployment robot 2026-11-16, [[D08 Deployment]]) or as an objective effort metric need a thesis-plan change and the supervisor's OK. First bench test: arm trackers and both controllers tracked together through XRoboToolkit. (since 2026-11-06)

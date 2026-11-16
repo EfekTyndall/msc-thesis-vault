@@ -22,6 +22,7 @@ Row labels: **New** = not in the 2026-11-02 note; **Extends** = adds evidence to
 | G6 | **Link reliability over a full session is unknown.** 0 of 425 lost covers 14 s. The headset-to-PC leg is Wi-Fi; stalls or loss over 1 to 2 hours are unmeasured. The simulation holds the last value when messages stop, which would hide a stall in a recording and is unsafe on a real gripper | Review section 4 (hold-last-value) | Extends A6 (dropouts, episode rejection) | No | Log gaps in timestamps and receive times in every session; define a timeout behaviour and a rejection rule for episodes with gaps |
 | G7 | **Simulation checks arm motion, not the gripper channel.** HiFi-UMI validates data by simulation replay (ai2026 abstract); the 2026-11-02 note records that it leaves the gripper channel out (A9). Our simulation has collisions off, because the finger models overlap | `dex1_1_mujoco.py` header | Extends A7 (feasibility) and A9 | No | Optional: a contact-enabled Dex1-1 model to test that recorded width profiles are executable. Feasibility unverified; the finger geometry needs fixing first |
 | G8 | **Squeezing may move the controller.** On the real path the index finger works the trigger; any hand force on the trigger may shift the controller pose, which is the tracked pose. Not tested (the test had no pose). Hypothesis, no source | none | New (hypothesis) | No | Cheap check once the sleeve exists: log pose while squeezing the trigger with the controller held still on a table or the UR10e |
+| G9 | **Force limiting when the part resists the fingers.** Raised by a colleague at the 2026-11-16 talk: if the fingers cannot close because the part resists, the gripper should not keep forcing them closed; some force feedback or force limit is needed. Applies to the real Dex1-1 on the handheld and on the robot. Not researched yet | Question at [[2026-11-16 Yanmei]] | New (added 2026-11-16) | No | Open research item: how prior work and the Dex1-1 interface handle it; research only after Martyn's go |
 
 ## Where each could go
 
@@ -37,4 +38,5 @@ Whether any of these enters the thesis plan is for you to decide; I have not cha
 ## Open
 
 - Run a deep-research pass for G1 to G3 outside the bib? Needs your go. (Moved 2026-11-10 to the TODO in [[2026-11-11]], with the G2 mapping decision.)
-- Ask the intern which gripper mapping the VR stack uses (G2). (Moved 2026-11-10 to [[Waiting]], Intern.)
+- Ask the intern which gripper mapping the VR stack uses (G2). (Moved 2026-11-10 to [[Waiting]], Intern.) Answered 2026-11-16 by the supervisor ([[2026-11-16 Yanmei]]): her stack is open/close only; since the handheld runs on a separate Jetson, the mapping for handheld and VR baseline is Martyn's choice.
+- G9 (force limiting) added 2026-11-16 as an open item; not researched.
