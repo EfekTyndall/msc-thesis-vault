@@ -46,7 +46,7 @@ Shrinkage: no PETG shrinkage figure in either Spectrum TDS; not assessed.
 ## Questions for Martyn
 
 1. (Answered earlier: label temperatures, see Sources.)
-2. (Answered 2026-11-16, Martyn: spool new, not dried. Moisture therefore less likely, not excluded: Bambu gives 2–12 h at about 55 % RH for dried filament to degrade, and the plate ran about 4 h; whether the bag was sealed with desiccant is unknown. Temperature and the untuned profile become the leading stringing causes.)
+2. (Answered 2026-11-16, Martyn: spool new, not dried. Moisture therefore less likely, not excluded: Bambu gives 2–12 h at about 55 % RH for dried filament to degrade, and the plate ran about 4 h; the spool was opened and loaded into the AMS just before the print (Martyn), so exposure was only the print time. Moisture is unlikely; a factory-wet spool cannot be excluded (unverified). Temperature and the untuned profile become the leading stringing causes.)
 3. Snap: do the halves **not go together** (stop before the click), or **click but fall apart**? Is it the same along the whole seam or worst at the pommel end?
 4. Calipers, if possible: tongue thickness and groove width at mid-height on the PETG halves (and the same on the PLA v21 halves for comparison).
 
