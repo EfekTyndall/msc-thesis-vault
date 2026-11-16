@@ -7,7 +7,6 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 
 ## Supervisor (on leave until early 2027, email only)
 Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 real Dex1-1, Path 2 station computer, D08 confirmed).
-- [ ] Borrowed Jetson (Seeed reComputer J1020 v2 = Jetson Nano 4 GB, JetPack 4.6 / Ubuntu 18.04, on loan until February 2027): test paused 2026-11-13; not usable as is (GLIBCXX 3.4.25 < 3.4.26 needed by the Unitree motor library). The 2026-11-16 talk chose Path 2 on another Jetson (10.36.1.124), so this board is not needed for the handheld; whether to drop the test and return it early: Martyn decides. An Ubuntu 20.04 Docker container is an unverified workaround and needs Martyn's OK (colleague's board). (since 2026-11-13)
 - [ ] How her VR-teleop stack commands the UR10e (RTDE / ROS 2 driver): not asked at the 2026-11-16 talk; not needed until VR teleop is set up on the handheld Jetson. (since 2026-11-16)
 
 ## Colleague (station supply)

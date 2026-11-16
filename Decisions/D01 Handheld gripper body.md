@@ -17,7 +17,7 @@ What the operator holds: how the handheld reproduces the Dex1-1 so that handheld
 
 ## Decision
 
-The real Dex1-1 is the handheld gripper body (driven over RS-485 by the station computer, trigger as command), mounted on the PICO controller grip sleeve through the real-adapter ([[D10 Handheld mechanism]]). The 3D-printed passive copy stays the documented fallback, frozen at its 2026-11-05 state; its use is considered unlikely (supervisor, 2026-11-16).
+The real Dex1-1 is the handheld gripper body (driven over RS-485 by the station computer, trigger as command), mounted on the PICO controller grip sleeve through the real-adapter ([[D10 Handheld mechanism]]). The 3D-printed passive copy stays the documented fallback for the worst case, frozen at its 2026-11-05 state; its use is considered unlikely (supervisor and Martyn, 2026-11-16).
 
 ## Evidence
 

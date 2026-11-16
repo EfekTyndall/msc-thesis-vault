@@ -16,11 +16,11 @@ On which robot the handheld data is validated first. Source: `msc-thesis/docs/pr
 
 ## Decision
 
-Validation on the UR10e first, then the H2, with demonstrations the robot cannot execute filtered out.
+Validation on the UR10e first (core), then the H2 only if time remains (stretch), with demonstrations the robot cannot execute filtered out. Bimanual collection and deployment are tested only on the H2.
 
 ## Evidence
 
-Confirmed by the supervisor on 2026-11-16 ([[2026-11-16 Yanmei]]): UR10e first, then bimanual manipulation on the H2.
+Confirmed by the supervisor on 2026-11-16 ([[2026-11-16 Yanmei]]): UR10e first, then the H2. Scope set by Martyn on 2026-11-16: the H2 only if time remains (stretch); bimanual is tested only on the H2.
 
 A fixed-base arm separates data-quality problems from humanoid-control problems, and [HuMI](https://arxiv.org/html/2602.06643v2) shows that humanoid deployment needs extra care with reach and posture.
 
@@ -32,3 +32,4 @@ A fixed-base arm separates data-quality problems from humanoid-control problems,
 
 - 2026-10-19: accepted (proposal approved)
 - 2026-11-16: confirmed by the supervisor: UR10e first, then bimanual manipulation on the H2 (2026-11-16 talk, [[2026-11-16 Yanmei]]; reported by Martyn). `msc-thesis/docs/thesis-plan.md` §2 still lists bimanual and H2 deployment as stretch goals; not changed
+- 2026-11-16: scope: H2 only if time remains after the UR10e; bimanual only on the H2 (Martyn). `msc-thesis/docs/thesis-plan.md` §2 updated to match
