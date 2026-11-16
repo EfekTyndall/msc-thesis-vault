@@ -13,7 +13,7 @@ Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 real Dex1-1, Path 2 
 - [ ] Validate with the colleague responsible for the station whether the 24 V supply under the UR10e station covers the Dex1-1 (24–64 V, about 3.5 A peak; sized for the Robotiq 2F-85). Agreed at the 2026-11-16 talk ([[2026-11-16 Yanmei]]); colleague's name not recorded. (since 2026-11-16)
 
 ## Dex1-1 delivery (date unknown)
-- [ ] RS-485 check: the station Jetson (Path 2, [[D06 Recording and synchronisation]]) commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld. (since 2026-11-03)
+- [ ] RS-485 check: the station Jetson (Path 2, [[D06 Recording and synchronisation]]; board and OS fit, [[2026-11-16 Station Jetson check]]) commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld. (since 2026-11-03)
 - [ ] Test proportional and binary trigger behaviour. (since 2026-11-04)
 - [ ] Measure the finger stroke (official STEP/URDF about 82 mm vs product page 90 mm); check version and accessories (RS-485 board in the box?); check whether the fingers back-drive when unpowered. (since 2026-11-03)
 - [ ] Measure trigger-to-finger latency, the rad → width curve, `tau_est` against a force gauge, the cable length, and the undocumented items: mass as delivered, power draw, motor ID of each unit ([[2026-11-03 Dex1-1 technical note]]). (since 2026-11-04)
