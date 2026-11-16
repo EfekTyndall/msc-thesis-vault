@@ -27,3 +27,5 @@ The board fits: AGX Orin, L4T R36, Ubuntu 22.04, aarch64, GLIBCXX up to 3.4.30. 
 2. Own account with `sudo`, `dialout`, `video` (and `docker` if used); created by the intern or the board's owner.
 3. Storage for recordings: 31 GB free on eMMC; measure recording size per episode, then decide (external drive or copy off after each session).
 4. Install plan (XRoboToolkit PC Service arm64, `dex1_1_service` dependencies, `unitree_sdk2`) shown to Martyn before anything is installed (new dependencies).
+
+Status 2026-11-16 (day close): items 1–4 moved into the ordered Jetson setup checklist in [[2026-11-17]] TODO (steps 1–7).
