@@ -4,7 +4,7 @@ tags: [report, handheld, grip-sleeve, print-test, petg]
 ---
 # PETG plate 1: stringing and sleeve snap fit
 
-Plate 1 (sleeve A v22 front/back, dummy rear section, insert coupon 4.0/4.1/4.2) was printed on the lab Bambu Lab H2S in Spectrum PETG, Generic PETG filament profile, 255 °C nozzle, 70 °C textured PEI, Arachne, 4 walls, tree supports (`dex1-1-handheld/hardware/controller-grip/print-files/plate1-sleeveA-v22-PETG.3mf`; baseline `dex1-1-handheld/hardware/SLICER-SETTINGS.md`). Martyn reports heavy stringing and that the halves do not snap together (photo in the project thread). This note gives the likely causes with sources, fixes, and how each fix is checked. Nothing in Fusion or the slicer was changed.
+Plate 1 (sleeve A v22 front/back, dummy rear section, insert coupon 4.0/4.1/4.2) was printed on the lab Bambu Lab H2S in Spectrum PETG, Generic PETG filament profile, 255 °C nozzle, 70 °C textured PEI, Arachne, 4 walls, avoid crossing walls on, 8 mm brim, tree supports (`dex1-1-handheld/hardware/controller-grip/print-files/plate1-sleeveA-v22-PETG.3mf`; baseline `dex1-1-handheld/hardware/SLICER-SETTINGS.md`). Martyn reports heavy stringing and that the halves do not snap together (photo in the project thread). This note gives the likely causes with sources, fixes, and how each fix is checked. Nothing in Fusion or the slicer was changed.
 
 ## Observed (photo, Martyn 2026-11-16)
 
@@ -20,16 +20,16 @@ Plate 1 (sleeve A v22 front/back, dummy rear section, insert coupon 4.0/4.1/4.2)
 | Spectrum, PET-G Premium High Speed TDS ([PDF](https://spectrumfilaments.com/wp-content/uploads/2024/11/en_tds_spectrum_petg_premium_high_speed.pdf), prepared 2024-10-05) | Nozzle 240–265 °C (standard speed), bed 60–80 °C, fan 75–100 %. Drying if wet: at least 4 h at 60 °C. Elongation at yield 6 %, tensile modulus 2990 MPa (table mapping inferred from the PDF text). |
 | Bambu Lab wiki, drying filament ([page](https://wiki.bambulab.com/en/filament-acc/filament/dry-filament)) | PETG: 60–70 °C for 8 h in a forced-air oven, or 75–85 °C bed for 12 h on X1/P1. Moisture causes "stringing, lack of material, holes, rough surfaces, and reduced strength". At about 55 % RH, dried filament degrades within about 2–12 h. |
 | [[2026-11-09 Grip sleeve snap-fit closure]] | A2 seam: 2 mm tongue, 0.45 mm catch, 45° lead, 60° return, tuned on PLA rings. Tongue/groove clearance in v19 was 0.14–0.15 mm per side. Ultimaker TDS: printed PETG E = 1939 MPa, PLA E = 3250 MPa (XY). Features about one line wide print coarse. |
-| `SLICER-SETTINGS.md` | Baseline: Avoid crossing wall ☐, travel 1000 mm/s, elephant foot compensation 0.15 mm, outer wall 200 mm/s. Filament profile (retraction, flow ratio, fan) not captured. |
+| Spool label (Martyn, 2026-11-16, slicing thread) | Standard speed 230–270 °C, high speed 250–270 °C, bed 60–80 °C. These ranges match neither TDS exactly, so the grade is uncertain. |
+| `SLICER-SETTINGS.md`, plate-1 slice | Travel 1000 mm/s, elephant foot compensation 0.15 mm, outer wall 200 mm/s. Plate 1 had avoid crossing walls on (v21 process). Filament profile (retraction, flow ratio, fan) not captured. |
 
 The Bambu stringing page and PETG HF page could not be read (fetch refused); no Bambu statement on PETG retraction or fan was found.
 
 ## Stringing: likely causes
 
 1. **Moisture** (most likely if the spool was not dried). Bambu names stringing as the first moisture symptom; PETG is dried at 60–70 °C (Bambu) or ≥ 4 h at 60 °C (Spectrum HS). Whether the lab spool was dried or how long it was open is unknown.
-2. **Nozzle temperature.** 255 °C is the top of the Premium range (230–255 °C) and mid-range for the High Speed grade (240–265 °C). Which grade is on the spool is unknown. Spectrum printed its Premium test bars at 240 °C. Higher temperature lowers viscosity and favours oozing (general FDM reasoning, no source read).
-3. **Travel over open space.** Avoid crossing walls is off in the baseline; the plate has four separate parts and two open half-shells, so many travels cross air. The earlier PLA slice note already suggested turning it on (vault memory 2026-11-10; no measured effect).
-4. **Retraction / flow from the Generic PETG profile.** Not captured, so not assessable. Generic profiles are not tuned to this filament (assumption).
+2. **Nozzle temperature.** 255 °C lies in the upper half of the label's standard-speed range (230–270 °C) and at the low end of its high-speed range (250–270 °C). Plate 1 is not a high-speed print in Spectrum's sense (outer wall 200 mm/s), so the standard range applies (assumption). Spectrum printed its Premium test bars at 240 °C. Higher temperature lowers viscosity and favours oozing (general FDM reasoning, no source read).
+3. **Retraction / flow from the Generic PETG profile.** Not captured, so not assessable. Generic profiles are not tuned to this filament (assumption).
 
 ## Snap fit: likely causes
 
@@ -45,7 +45,7 @@ Shrinkage: no PETG shrinkage figure in either Spectrum TDS; not assessed.
 
 ## Questions for Martyn
 
-1. Spool label: is it **PET-G Premium** or **PET-G Premium High Speed** (or another Spectrum PETG), and what temperatures does it print?
+1. (Answered earlier: label temperatures, see Sources.)
 2. Was the spool dried, and how long has it been open / sitting in the AMS?
 3. Snap: do the halves **not go together** (stop before the click), or **click but fall apart**? Is it the same along the whole seam or worst at the pommel end?
 4. Calipers, if possible: tongue thickness and groove width at mid-height on the PETG halves (and the same on the PLA v21 halves for comparison).
@@ -56,8 +56,8 @@ Shrinkage: no PETG shrinkage figure in either Spectrum TDS; not assessed.
 | --- | --- | --- |
 | 1 | Clean the plate-1 halves: heat gun pass for strings, knife along groove and tongue, trim elephant foot at the base. Try the snap again. | If it now clicks and holds, the cause was print artefacts, not geometry or material. |
 | 2 | Dry the spool (60–70 °C, 8 h, Bambu) before the next PETG print; keep it in a dry box/AMS with desiccant. | Strings on the next print visibly fewer at the same settings. |
-| 3 | Nozzle temperature to the label value; if Premium, start at 240 °C (Spectrum test-bar value). Optionally a temperature tower 230–255 °C. | Strings and bead shape on a 10 mm A2 seam ring. |
-| 4 | Turn on Avoid crossing walls; keep Z-hop; if still stringy, raise retraction in the filament profile in small steps. | Same ring or a stringing test with two towers. |
+| 3 | Nozzle temperature lower within the label's standard range: start at 240 °C (Spectrum test-bar value). Optionally a temperature tower 230–255 °C. | Strings and bead shape on a 10 mm A2 seam ring. |
+| 4 | Avoid crossing walls is already on; if still stringy after 2–3, raise retraction in the filament profile in small steps. | Same ring or a stringing test with two towers. |
 | 5 | Flow-rate calibration for this PETG in Bambu Studio (Calibration > Flow rate) and save a Spectrum PETG filament profile. | Tongue and groove widths within about 0.05 mm of CAD by calipers (tolerance chosen, no source). |
 | 6 | Only if the halves engage cleanly but do not hold after 1–5: PETG seam rings with a larger catch (e.g. 0.45 / 0.60 / 0.75 mm), same method as the 2026-11-09 PLA rings. | Ring pass criteria from 2026-11-09: clicks shut by hand, holds when shaken, opens without cracking. |
 
