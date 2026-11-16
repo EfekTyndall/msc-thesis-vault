@@ -222,3 +222,28 @@ Known leftovers:
 - Printing on its side puts one set of the R 2 / R 3 edge rounds on the bed; expect a slightly rough first layers there.
 
 Images: project files `cad-snapshots/2026-11-12-asm-real-path-adapter-v9-side.png`, `…-v9-underside.png`, `2026-11-12-real-adapter-v9.png`.
+
+## Stage 3: real-adapter v10, two printed parts (Fusion, 2026-11-16)
+
+Reason: the one-piece v9 cannot lie flat on the bed. Clamp ring (x ±28.6) and rear plate (x ±18) are wider than the bow (x ±12), so on its side the bow floats about 17 mm above the bed on supports (Bambu Studio, 2026-11-14: 242.8 × 107.3 × 57.6 mm). Martyn proposed splitting at the rear face of the plate and, in three steps of discussion, the joint below.
+
+| Item | v10 |
+| --- | --- |
+| Bodies | `adapter-rod` (bow, gusset, flange; 114.3 cm³) and `adapter-clamp` (plate, tie beam, clamp ring; 20.2 cm³), split at the plate rear face y = −16.94 |
+| Joint | Flat clamped face. The rod ends in a flange 24 mm wide that covers the plate rear up to z = 22; all four rear-mount screws pass through rod and plate into the gripper |
+| Screw seats | Moved from the plate to the rod: Ø3.4 through 7.0 mm of rod, Ø6.5 head bores behind. Seat is 10.0 mm further back than in v9, so the four screws change from M3 × 25 to **M3 × 35** with the same 6 mm thread engagement (arithmetic on the v9 stack; holes on the real gripper still unverified) |
+| Location | Tongue on the rod, 5 mm wide at the root, 1.5 mm high, 45° flanks, z −30…5; groove in the plate 5.2 mm wide, 1.7 mm deep, open at the bottom, closed at z = 5 (stop). Lateral gap 0.10 mm per side at half height (measured on the bodies) |
+| Dropped | The two Ø6.5 key tunnels through the gusset and the head bores in the plate |
+| Added rounds | Flange finger-side edges R 3, top edges R 2; tie beam root at the plate R 3 |
+
+Joint choice and sources:
+- Sliding dovetail (first idea): rejected. A sliding fit needs clearance, and clearance is play between controller and gripper. Protolabs Network lists 0.5 mm for interlocking FDM parts (https://www.hubs.com/knowledge-base/how-design-interlocking-joints-fastening-3d-printed-parts/, not in bib).
+- Bolted flat face with a locating feature (chosen): Markforged recommends alignment features before bolting, close fits of 0.05–0.10 mm and test prints for the fit (https://markforged.com/learn/composites-3d-printing-design-tips, not in bib). No handheld data-collection device with this exact joint was found; the load reasoning (four screws on a 10 × 30 mm pattern against the nodding moment) is this note's own.
+
+Print orientation (from geometry, not sliced yet):
+- Rod: flat on its side, all within x ±12, no supports expected; tongue flanks are 45° for that reason.
+- Clamp part: standing on the plate rear face, ring on top with layers around the hoop; tree supports under ring and tabs; the tie beam prints across its layers (weak direction, low load).
+
+Checks run: timeline 40 features, none unhealthy; two solid bodies; no interference between them, contact distance 0.0 mm; seat test at all four screws (5.0 mm plate, 7.0 mm rod, then free); screw axes free. Not checked: fit in `ASM real-path` (the assembly had unsaved changes by Martyn and was left alone), insertion path of the 38 mm long lower screws past the controller.
+
+Exports: `dex1-1-handheld/hardware/real-adapter/files/real-adapter-v10-rod.stl`, `…-clamp.stl`, `real-adapter-v10.step` (untracked). Images: project files `cad-snapshots/2026-11-16-real-adapter-v10-rear.png`, `…-underside.png`.
