@@ -72,3 +72,8 @@ The evidence does not yet question PETG as the final sleeve material ([[D10 Hand
 - Answers to the four questions above.
 - Bambu's own PETG stringing and fan guidance (page not readable today).
 - PETG–PETG friction coefficient (still none found).
+
+## Update 2026-11-16 evening
+
+- AMS 2 Pro (closed, desiccant inside) read 30 % humidity at 21:17 (Martyn, screen photo). Bambu's drying page gives 2–7 days of good quality at 20 % RH and 2–12 h at about 55 %.
+- Plan agreed in the thread: dry the PETG spool overnight in the AMS 2 Pro (PETG preset or 65 °C, 8 h, per Bambu's 60–70 °C / 8 h; PLA spools removed first). Then print A2 seam rings at 240 °C and 255 °C from the dried spool, so temperature is the only variable. AMS drying steps and maximum temperature not checked against Bambu's manual.
