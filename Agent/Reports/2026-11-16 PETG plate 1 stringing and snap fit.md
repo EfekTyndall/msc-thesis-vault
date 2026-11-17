@@ -102,3 +102,4 @@ Next:
 2. Seam rings at 240 °C and 255 °C from the dried spool (stringing test, unchanged).
 3. Flow-rate calibration for this PETG; re-measure tongue and groove on a ring. If the tongue is still ≥ 0.2 mm over CAD, consider widening the groove in CAD (Fusion change, waits on Martyn's go).
 4. PETG cycle test (20 open/close cycles) and repeatability, as planned in `PRINT-TEST-QUEUE.md` §1.
+- 2026-11-17 10:39 (Martyn): tongue measured on the flat part, not over the bead. So the PETG tongue is ≈ 1.30 mm against ≈ 1.0 mm in CAD (+0.3 mm, v19 value, v22 not re-read), while the groove (≈ 1.30 vs 1.27 mm) is near size. The tight fit comes from the thick tongue. First fix: flow-rate calibration (step 3); CAD clearance change only if the calibrated tongue stays ≥ 0.2 mm over.
