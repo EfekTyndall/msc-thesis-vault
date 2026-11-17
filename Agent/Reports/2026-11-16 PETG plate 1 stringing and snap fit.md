@@ -161,3 +161,13 @@ Next (proposed, slicer changes wait on Martyn's go):
 1. Photo of the ring residue to confirm brim vs support.
 2. If brim: keep brim off the seam ends (painted brim ears away from the seams, or a larger brim-object gap) for the next sleeve.
 3. Run the planned 20-cycle open/close and repeatability test on the existing plate-1 PETG sleeve now; reprint (dried, 255 °C, flow 1.00, brim fixed) only if it fails.
+
+## Cycle test (Martyn, 2026-11-17 13:46)
+
+Plate-1 PETG sleeve A v22: 20 open/close cycles, still holds afterwards (Martyn, by hand, not measured). This is the check named in D10 "Revisit if" (A2 cracks or loosens in the PETG cycle test): passed, so the evidence supports PETG for the final sleeve. Still open: repeatability (pencil mark, `PRINT-TEST-QUEUE.md` §1); painted brim away from the seams for the next sleeve print (waits on Martyn's go); flow ratio 1.00 preset for later prints.
+
+## Summary
+
+- Stringing: moisture; fixed by drying (AMS 2 Pro, 8 h); 255 °C kept.
+- Hard snap: zero running clearance (tongue prints ≈ 1.35–1.45 vs 1.00 mm CAD in PLA and PETG, not explained by flow) plus brim residue at the seam ends; the sleeve engages after a few cycles and then holds.
+- PETG sleeve passes the 20-cycle test; D10 not questioned.
