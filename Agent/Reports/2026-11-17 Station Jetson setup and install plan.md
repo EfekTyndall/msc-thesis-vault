@@ -96,8 +96,15 @@ Rules for all items: own account `martyn`; source code in `~/src/`; nothing auto
 - **Recording storage:** measure the size of one recorded episode first; then decide between the 31 GB eMMC, the SD card (owner first; SD write speed to be measured) and an external SSD.
 - **ROS 2 / Docker:** present, not used by Path 2.
 
+## C. Installed after the go (2026-11-17, Martyn: "go B1 B2")
+
+| Item | Result | How checked |
+| --- | --- | --- |
+| B1 PC Service | `XRoboToolkit-PC-Service-headless_1.0.0.0_arm64.deb` (38,477,318 bytes, matches the release asset; sha256 `532c605dfa1a02b05b7c285b856c91771c78623cded30ef5b16ea371de49ed5f`, no published hash). Package `roboticsservice` 1.0.0.0, `Depends` empty, installs to `/opt/apps/roboticsservice` (incl. `runService.sh`, own Qt 6.6.2 libs); maintainer scripts only refresh icon/menu caches. Files came with numeric owner uid 1000 (= `saad` here); fixed with `sudo chown -R root:root /opt/apps/roboticsservice`. Headless package: `RobotDemoQt`/`RobotDataRecorder` lack Qt6 Gui/Qml (not needed). Started as on fractal-pc (`nohup setsid bash runService.sh > /tmp/xrsvc.log`), no autostart; listens TCP *:63901 and 127.0.0.1:60061. Stop: `pkill -f RoboticsServiceProcess`. | `dpkg -I/-c`, `ldd`, `ss -ltnup`, log |
+| B2 Python SDK | venv `~/venvs/xrobotoolkit`, `xrobotoolkit-sdk` 1.1.0 (aarch64 wheel, no extra dependencies). | import test |
+| Headset → Jetson | Headset app connected to 10.36.1.124, status WORKING (headset at 10.36.1.128). SDK read both triggers as analog 0–1 values (e.g. 0.212, 0.502, 0.596) and the right controller position live, 2 Hz print over 20 s. For ≈6.5 s after `init()` all values and the timestamp read 0 until "device found": a recording script must wait for a non-zero timestamp. | 20 s SDK loop while Martyn squeezed the triggers |
+
 ## Open
 
 - Owner and contents of the 256 GB SD card (ask the intern).
-- Headless PC Service package contents (checked with `dpkg -c` in B1).
 - fractal-pc clock is ≈1 h 44 min fast with NTP inactive (`timedatectl`, 2026-11-17); not ours to fix, worth telling its admin.
