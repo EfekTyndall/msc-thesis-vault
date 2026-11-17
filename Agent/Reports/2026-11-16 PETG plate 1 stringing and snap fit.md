@@ -171,3 +171,7 @@ Plate-1 PETG sleeve A v22: 20 open/close cycles, still holds afterwards (Martyn,
 - Stringing: moisture; fixed by drying (AMS 2 Pro, 8 h); 255 °C kept.
 - Hard snap: zero running clearance (tongue prints ≈ 1.35–1.45 vs 1.00 mm CAD in PLA and PETG, not explained by flow) plus brim residue at the seam ends; the sleeve engages after a few cycles and then holds.
 - PETG sleeve passes the 20-cycle test; D10 not questioned.
+
+## Repeatability (Martyn, 2026-11-17 14:14)
+
+PETG v22 with pencil marks: the controller does not self-locate in the sleeve; because of the slight play it must be shifted to the marks by hand at each mounting, and it then holds there. Martyn will show in the data-collection tests whether it stays. Open risk (reasoning): a hand-aligned mount can shift the controller-to-gripper offset between sessions, so the offset should be checked per session (calibration, D09) until the tests show it is stable.
