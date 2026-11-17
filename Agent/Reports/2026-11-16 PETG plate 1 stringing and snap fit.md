@@ -77,3 +77,28 @@ The evidence does not yet question PETG as the final sleeve material ([[D10 Hand
 
 - AMS 2 Pro (closed, desiccant inside) read 30 % humidity at 21:17 (Martyn, screen photo). Bambu's drying page gives 2–7 days of good quality at 20 % RH and 2–12 h at about 55 %.
 - Plan agreed in the thread: dry the PETG spool overnight in the AMS 2 Pro (AMS 2 Pro PETG preset shortened from its 12 h to 8 h by Martyn, matching the Bambu wiki 60–70 °C / 8 h; PLA spools removed first). Then print A2 seam rings at 240 °C and 255 °C from the dried spool, so temperature is the only variable. AMS drying steps and maximum temperature not checked against Bambu's manual.
+
+## Update 2026-11-17 morning (Martyn)
+
+- AMS humidity after 8 h PETG drying: 14 % (was 30 % before).
+- Snap: the PETG v22 halves **do** engage and hold, but needed several tries; on 2026-11-16 they were hard to snap, on 2026-11-17 they snap well. So the failure mode was "hard to engage", not "won't hold".
+- Calipers ("around", position along the seam and whether over the bead not recorded):
+
+| Print | Groove width | Tongue thickness |
+| --- | --- | --- |
+| v22 PETG | ≈ 1.30 mm | ≈ 1.30 mm |
+| v21 PLA | 1.20–1.50 mm, varies | 1.40–1.50 mm, varies |
+
+- CAD reference: last read in v19 (2026-11-09) as tongue 0.98 mm in a 1.27 mm groove, 0.14–0.15 mm clearance per side; the A2 rework lengthened the tongue (1.0 → 2.0 mm) and deepened the groove but is assumed to keep these widths (not re-read in v22).
+
+Reading (reasoning, not measured further):
+- The PETG tongue measures as wide as the groove, i.e. no running clearance where CAD has about 0.29 mm total. If the tongue reading excludes the bead, the tongue is about 0.3 mm over CAD, which points to over-extrusion or swelling of the thin feature (Generic PETG profile, flow not calibrated). If it includes the bead, the PETG bead is lower than the PLA one.
+- Hard first engagement that eased after a few cycles fits a zero-clearance fit plus strings or edge burrs that were worn off by the first attempts.
+- The PLA values scatter by up to 0.3 mm, the same order as the catch (0.45 mm) and the clearance; repeatability of these thin features is the limiting factor in both materials.
+- PETG holds once engaged, so the lower-modulus concern (step 6, larger catch) is not needed for now, and the result supports D10 (PETG final sleeve).
+
+Next:
+1. Martyn: say where the calipers sat (over the bead or on the flat tongue, and at which height).
+2. Seam rings at 240 °C and 255 °C from the dried spool (stringing test, unchanged).
+3. Flow-rate calibration for this PETG; re-measure tongue and groove on a ring. If the tongue is still ≥ 0.2 mm over CAD, consider widening the groove in CAD (Fusion change, waits on Martyn's go).
+4. PETG cycle test (20 open/close cycles) and repeatability, as planned in `PRINT-TEST-QUEUE.md` §1.
