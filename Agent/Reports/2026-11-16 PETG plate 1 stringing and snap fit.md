@@ -123,7 +123,7 @@ Reading:
 
 ## CAD reference from the v22 STLs (2026-11-17, read only)
 
-Fusion did not answer (connector timeout), so the widths were read from `controller-grip/files/sleeve-A-{front,back}-v22.stl` (exported 2026-11-16 13:15) by horizontal sections in print orientation (z = 8, 20, 29, 40, 50 mm; own numpy script, nothing changed):
+**Provisional:** Fusion did not answer (connector timeout), so the widths were read from `controller-grip/files/sleeve-A-{front,back}-v22.stl` (exported 2026-11-16 13:15) by horizontal sections in print orientation (z = 8, 20, 29, 40, 50 mm; own numpy script, nothing changed):
 
 | Feature (v22 CAD) | Short seam | Long seam |
 | --- | --- | --- |
@@ -131,7 +131,7 @@ Fusion did not answer (connector timeout), so the widths were read from `control
 | Tongue thickness (back half) | 1.00–1.03 mm | 1.00 mm |
 | Tongue length / bead | ≈ 1.95 mm / bead 0.60 mm proud near the tip | same |
 
-Both seams are the same in CAD: 0.15 mm clearance per side, constant over the height. So the short/long difference Martyn measured is a print (or measuring) effect, not a design difference.
+Re-read in Fusion once it is reachable (Martyn's rule 2026-11-17: no STL fallback). Provisionally, both seams are the same in CAD: 0.15 mm clearance per side, constant over the height. So the short/long difference Martyn measured is a print (or measuring) effect, not a design difference.
 
 Against the calipers: grooves print close to size (PETG 1.34–1.36, PLA 1.36–1.46 mm), tongues print 0.35–0.45 mm thick in both materials (PETG 1.35–1.45, PLA 1.38–1.40 mm). An oversize this large in both PLA and PETG is more than flow error would explain (reasoning); possible contributors are the 0.60 mm bead and the base of the 1.95 mm tongue being caught by the caliper jaws, or the wall generator on a 1.0 mm feature (not checked in the G-code).
 
