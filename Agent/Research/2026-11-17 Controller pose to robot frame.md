@@ -98,7 +98,7 @@ flowchart TB
 **Relative / clutch** ([dual_arm_ur_controller.py L170–262](https://github.com/XR-Robotics/XRoboToolkit-Teleop-Sample-Python/blob/79e5cb8a56e3455515ce1b476e993c764ec58739/xrobotoolkit_teleop/hardware/dual_arm_ur_controller.py#L170-L262), zhao2025 Sec. II-C.1):
 - Holding the grip button (> 0.9) activates; at the press, the controller pose and the robot's current TCP pose are stored.
 - Position: `target = E0 + scale · R_axis · (C − C0)`; scale 0.8 for the UR example ([L42](https://github.com/XR-Robotics/XRoboToolkit-Teleop-Sample-Python/blob/79e5cb8a56e3455515ce1b476e993c764ec58739/xrobotoolkit_teleop/hardware/dual_arm_ur_controller.py#L42)), 1.0 in others.
-- Orientation: the controller's rotation since the press, applied to the start orientation of the TCP ([geometry.py `apply_delta_pose`](https://github.com/XR-Robotics/XRoboToolkit-Teleop-Sample-Python/blob/79e5cb8a56e3455515ce1b476e993c764ec58739/xrobotoolkit_teleop/utils/geometry.py#L76-L127)); orientation is not scaled.
+- Orientation: the controller's rotation since the press, applied to the start orientation of the TCP ([geometry.py `apply_delta_pose`](https://github.com/XR-Robotics/XRoboToolkit-Teleop-Sample-Python/blob/79e5cb8a56e3455515ce1b476e993c764ec58739/xrobotoolkit_teleop/utils/geometry.py#L76-L126)); orientation is not scaled.
 - Then inverse kinematics (IK: from TCP pose to joint angles, PlaCo QP solver) and joint servo commands to the UR.
 - Why it suits teleop: the room origin's position never enters (it cancels in `C − C0`), so neither recentering nor the headset's placement matters, only the heading. Releasing the grip lets the operator re-grip comfortably ("clutch").
 
