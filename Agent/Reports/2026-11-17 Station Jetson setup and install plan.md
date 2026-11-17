@@ -106,5 +106,6 @@ Rules for all items: own account `martyn`; source code in `~/src/`; nothing auto
 
 ## Open
 
-- Owner and contents of the 256 GB SD card (ask the intern).
+- Owner and contents of the 256 GB SD card (ask the intern). Superseded 2026-11-17 by [[2026-11-17 Station Jetson SD card check]] (empty, left unused).
+- B3–B5 wait on Martyn's go; moved to [[2026-11-18]] TODO (2026-11-17). XRoboToolkit service stopped at day end 2026-11-17.
 - fractal-pc clock is ≈1 h 44 min fast with NTP inactive (`timedatectl`, 2026-11-17); not ours to fix, worth telling its admin.

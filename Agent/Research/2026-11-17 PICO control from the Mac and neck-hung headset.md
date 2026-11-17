@@ -48,9 +48,9 @@ Pass if: the headset stays awake for 10 min on the neck and the sim follows the 
 **Fallback if the neck test fails:** wear the headset on the forehead (visor up) or on the head, and use only the scrcpy window for app control. Step 1 to 4 are useful either way.
 
 ## Open
-- Clicks into the XRoboToolkit VR panel via scrcpy: unverified until Step 3.
-- Proximity-sensor sleep on the neck and any disable option: unverified; PICO Business device management (Enterprise headset) may offer more settings, not checked.
-- Effect of a neck-hung headset on pose quality and on comparability with worn VR teleop: to discuss before using it for recordings.
+- Clicks into the XRoboToolkit VR panel via scrcpy: unverified until Step 3. Resolved 2026-11-17: mouse clicks do not press the VR buttons; the controller is used, scrcpy only to watch (Step 3 results below).
+- Proximity-sensor sleep on the neck and any disable option: unverified; PICO Business device management (Enterprise headset) may offer more settings, not checked. Resolved 2026-11-17: tape over the sensor keeps the headset awake (results below).
+- Effect of a neck-hung headset on pose quality and on comparability with worn VR teleop: to discuss before using it for recordings. Moved 2026-11-17 to [[D04 Pose tracking]]: tracking is tested with the headset worn and neck-hung; placement follows from the results.
 
 ## Results 2026-11-17 evening (Steps 1 to 3)
 - Step 1: Homebrew installed scrcpy 5.0.1 and adb 1.0.41 (platform-tools 37.0.1) on the Mac.
