@@ -175,3 +175,9 @@ Plate-1 PETG sleeve A v22: 20 open/close cycles, still holds afterwards (Martyn,
 ## Repeatability (Martyn, 2026-11-17 14:14)
 
 PETG v22 with pencil marks: the controller does not self-locate in the sleeve; because of the slight play it must be shifted to the marks by hand at each mounting, and it then holds there. Martyn will show in the data-collection tests whether it stays. Open risk (reasoning): a hand-aligned mount can shift the controller-to-gripper offset between sessions, so the offset should be checked per session (calibration, D09) until the tests show it is stable.
+
+## Update 2026-11-17 afternoon: repeatability, preset, plate 2, brim
+
+- Repeatability (pencil marks, PETG v22): the controller does not return to the marks by itself because of the slight play; it is shifted to the marks by hand at each mounting and then stays (Martyn). Whether it stays during use is checked in the data-collection tests; until then, check the controller-to-gripper offset at the start of each session.
+- Flow ratio 1.00 saved as Bambu Studio user preset "Spectrum PETG @BBL H2S" (255 °C, 70 °C bed) and used for plate 2.
+- Plate 2 (real-adapter v13) split into 2a rod (PETG only) and 2b clamp (grid supports in PETG with 2 PLA contact layers, top Z distance 0, interface spacing 0; Bambu values for PETG with PLA support, set by hand since the H2S is not listed). 2a printed with an 8 mm brim at 0.3 mm gap: the brim did not break off easily (Martyn), so later prints go without brim. 2b checked without brim and ready to print; result open.
