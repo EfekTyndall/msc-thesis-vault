@@ -29,3 +29,5 @@ There is no direct evidence. `/media/saad` exists on the Jetson, and that is the
 - Ask Saad whether the card is his and whether it may be used for recordings.
 - If yes: run a read/write speed test that writes one new test file and then deletes it. This shows whether the card can hold recordings (SD cards are slower than an SSD; the required rate per episode is not measured yet).
 - Whether the card was unmounted at the end of the check is unconfirmed (Martyn was asked to run `sudo umount /mnt/sdcard-check`).
+- Saad said the OS is on the SD card. This does not match the check: the card has no files and was not mounted, and root runs from the eMMC ([[2026-11-16 Station Jetson check]]). Confirm with `findmnt /`.
+- The card is not needed for now. Leave it untouched until a first test episode's size is measured; then decide between this card (after Saad's OK and a speed test) and a USB SSD.
