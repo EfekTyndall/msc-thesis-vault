@@ -51,3 +51,10 @@ Pass if: the headset stays awake for 10 min on the neck and the sim follows the 
 - Clicks into the XRoboToolkit VR panel via scrcpy: unverified until Step 3.
 - Proximity-sensor sleep on the neck and any disable option: unverified; PICO Business device management (Enterprise headset) may offer more settings, not checked.
 - Effect of a neck-hung headset on pose quality and on comparability with worn VR teleop: to discuss before using it for recordings.
+
+## Results 2026-11-17 evening (Steps 1 to 3)
+- Step 1: Homebrew installed scrcpy 5.0.1 and adb 1.0.41 (platform-tools 37.0.1) on the Mac.
+- Step 2: PICO listed by `adb devices` over USB (model A9210, Android 14, PICO OS build 5.15.7). Screen 4320×2160, both eyes side by side; `--crop=2160:2160:0:0` shows the left eye. The picture shows in the Mac window.
+- Picture goes black after a while with the headset off the head. Read-only readings: `screen_off_timeout` 60000 ms; `dumpsys power` shows a PICO "PvrManagerProximityPowerPolicyController" taking wake locks; props `persist.psensor.sleepmode=2`, `persist.pvr.sleep_by_static=1`. Likely PICO's proximity/static sleep (unverified). `--stay-awake` set `stay_on_while_plugged_in=7` (reset by scrcpy on exit); effect on the blackout not yet confirmed.
+- Step 3 fails: mouse clicks in the scrcpy window do not press XRoboToolkit buttons (Martyn, 19:04).
+- XRoboToolkit app ([README](https://github.com/XR-Robotics/XRoboToolkit-Unity-Client)): package `com.xrobotoolkit.client`; can be launched with `adb shell monkey -p <package> -c android.intent.category.LAUNCHER 1`; "Data & Control remembers the last valid IPv4 confirmed for PC Service" but "never persists ... an automatic-connect instruction". No intent extras or remote command for Tracking/Send found. Source folder not readable (robots.txt).
