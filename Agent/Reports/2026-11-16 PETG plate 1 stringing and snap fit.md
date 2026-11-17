@@ -136,3 +136,9 @@ Re-read in Fusion once it is reachable (Martyn's rule 2026-11-17: no STL fallbac
 Against the calipers: grooves print close to size (PETG 1.34–1.36, PLA 1.36–1.46 mm), tongues print 0.35–0.45 mm thick in both materials (PETG 1.35–1.45, PLA 1.38–1.40 mm). An oversize this large in both PLA and PETG is more than flow error would explain (reasoning); possible contributors are the 0.60 mm bead and the base of the 1.95 mm tongue being caught by the caliper jaws, or the wall generator on a 1.0 mm feature (not checked in the G-code).
 
 Martyn (2026-11-17): a thinner tongue will not help because small details do not print. Agreed for tweaks of a tenth of a millimetre: the 0.15 mm clearance is already below what these prints hold. Decision on any CAD change waits for the flow-calibrated ring test.
+
+Fusion check (2026-11-17 10:45, Fusion reachable, controller-grip v22, component `sleeve-A barbed tongue`, read-only pointContainment scans at y = 42 mm): short seam at z = −1.5 mm, groove 9.18–10.50 mm → 1.30 mm, tongue 9.34–10.32 mm → 1.00 mm (0.02 mm steps); long seam at z = −1.3/−1.8 mm, groove ≈ 1.36 mm, tongue ≈ 0.96 mm (0.08 mm steps, coarse). This confirms the STL values above (no longer provisional at y = 42; other heights only from the STLs).
+
+## Flow calibration pass 1 (2026-11-17 11:50, Martyn photos)
+
+Bambu Studio flow calibration could not go past pass 1 ("please update Bambu Studio"). Pass-1 blocks −20 … +20 (Generic PETG @BBL H2S, dried spool), judged from photos: +20/+15/+10 rough and ridged (over-extruded), −10/−15/−20 with visible line gaps (under-extruded), 0 and +5 smoothest (+5 slightly glossier in the photos; to confirm by touch). So the profile flow is correct or at most 5 % low: **over-extrusion does not explain the ≈ 0.4 mm thick tongue**. Rings are printed with the unchanged flow (files as sliced).
