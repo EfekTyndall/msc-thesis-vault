@@ -103,3 +103,20 @@ Next:
 3. Flow-rate calibration for this PETG; re-measure tongue and groove on a ring. If the tongue is still ≥ 0.2 mm over CAD, consider widening the groove in CAD (Fusion change, waits on Martyn's go).
 4. PETG cycle test (20 open/close cycles) and repeatability, as planned in `PRINT-TEST-QUEUE.md` §1.
 - 2026-11-17 10:39 (Martyn): tongue measured on the flat part, not over the bead. So the PETG tongue is ≈ 1.30 mm against ≈ 1.0 mm in CAD (+0.3 mm, v19 value, v22 not re-read), while the groove (≈ 1.30 vs 1.27 mm) is near size. The tight fit comes from the thick tongue. First fix: flow-rate calibration (step 3); CAD clearance change only if the calibrated tongue stays ≥ 0.2 mm over.
+
+## Calipers per seam (Martyn, 2026-11-17 11:33; tongue on the flat part, three readings each)
+
+| Print, seam | Tongue (mean, range) | Groove (mean, range) | Groove − tongue |
+| --- | --- | --- | --- |
+| v21 PLA, short (+x) | 1.38 (1.36–1.40) | 1.36 (1.34–1.38) | −0.01 |
+| v21 PLA, long (−x) | 1.40 (1.37–1.44) | 1.46 (1.22–1.75) | +0.05 |
+| v22 PETG, short (+x) | 1.35 (1.30–1.42) | 1.34 (1.30–1.41) | −0.01 |
+| v22 PETG, long (−x) | 1.45 (1.41–1.50) | 1.36 (1.31–1.42) | −0.09 |
+
+Means computed from the three readings. Caliper jaws in a narrow groove read less reliably than over a tongue (assumption).
+
+Reading:
+- In **both** materials the tongue prints about as wide as the groove; the CAD running clearance (≈ 0.29 mm total in v19, v22 not re-read) is gone. Since PLA shows the same, this is mainly a geometry/printing effect of the thin seam features, not a PETG flow problem. Flow calibration may trim it but is unlikely to recover 0.3 mm alone (reasoning).
+- The PETG **long seam** is the tightest (tongue ≈ 0.09 mm over the groove), so the hard first engagement most likely came from that side.
+- The PLA long groove scatters 1.22–1.75 mm, which may be why PLA v21 still went together (and later loosened).
+- Next: read the v22 tongue and groove widths of both seams in Fusion (read only, needs Martyn's go) to get the true CAD reference; then decide a CAD clearance change (e.g. thinner tongue) together with the flow-calibrated ring test.
