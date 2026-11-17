@@ -155,7 +155,7 @@ Bambu Studio flow calibration could not go past pass 1 ("please update Bambu Stu
 Reading:
 - **Stringing came from moisture, not temperature.** After drying (AMS 30 % → 14 %), 255 °C gives no strings, so 255 °C (label range 230–270 °C) stays. The temperature hypothesis is dropped.
 - **Hold:** a 10 mm ring has about 1/6 of the 58 mm sleeve's seam length, so a weak ring hold is expected; the plate-1 PETG sleeve holds once snapped (Martyn, 2026-11-17 morning).
-- **Residue:** the ring files were sliced with supports off (slice check 2026-11-17 10:05), so the material on the tongue and groove ends is most likely the 8 mm outer brim (brim-object gap 0.1 mm), which hugs the thin seam features at the bed and bonds harder at 255 °C (unverified, photo requested). The full sleeve prints with the same brim, so the same residue may sit at the bed end of each seam and add to the hard first engagement.
+- **Residue:** the ring files were sliced with supports off (slice check 2026-11-17 10:05), so the material on the tongue and groove ends is the 8 mm outer brim (confirmed by Martyn 2026-11-17 13:41; brim-object gap 0.1 mm), which hugs the thin seam features at the bed and bonds harder at 255 °C. The full sleeve prints with the same brim, so the same residue may sit at the bed end of each seam and add to the hard first engagement.
 
 Next (proposed, slicer changes wait on Martyn's go):
 1. Photo of the ring residue to confirm brim vs support.
