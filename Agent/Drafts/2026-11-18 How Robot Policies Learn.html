@@ -1,0 +1,469 @@
+<title>How Robot Policies Learn</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Archivo:wght@600;700;800&display=swap">
+<style>
+  /* Layout: one reading column (~720px). Each section = short text + one picture or demo.
+     Colour carries meaning everywhere: violet = headset room frame, teal = robot base frame, orange = gripper / actions. */
+  :root {
+    --bg: #f4f5f7;
+    --surface: #ffffff;
+    --ink: #151a22;
+    --muted: #5b6575;
+    --line: #dce0e7;
+    --room: #6a4fc2;
+    --room-tint: #ece7fa;
+    --base: #0b8070;
+    --base-tint: #dcf0ec;
+    --grip: #d2560e;
+    --grip-tint: #fbe7da;
+    --code-bg: #eef0f4;
+    --font-text: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-head: "Archivo", "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1217; --surface: #171c24; --ink: #e8ebf0; --muted: #9aa4b3; --line: #2a313c;
+      --room: #a892f0; --room-tint: #251f3b; --base: #3cc6b0; --base-tint: #11302b;
+      --grip: #ff8b4a; --grip-tint: #3a2416; --code-bg: #1e242e; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1217; --surface: #171c24; --ink: #e8ebf0; --muted: #9aa4b3; --line: #2a313c;
+    --room: #a892f0; --room-tint: #251f3b; --base: #3cc6b0; --base-tint: #11302b;
+    --grip: #ff8b4a; --grip-tint: #3a2416; --code-bg: #1e242e; color-scheme: dark;
+  }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 16px; line-height: 1.6; }
+  .wrap { max-width: 760px; margin: 0 auto; padding-block: 40px 80px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; line-height: 1.2; margin: 0; }
+  h1 { font-size: clamp(30px, 6vw, 44px); font-weight: 800; letter-spacing: -0.01em; }
+  h2 { font-size: 24px; font-weight: 700; margin-top: 8px; }
+  h3 { font-size: 17px; font-weight: 700; }
+  p { margin: 0; }
+  .lead { color: var(--muted); font-size: 18px; max-width: 62ch; }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  section { display: flex; flex-direction: column; gap: 14px; padding-block: 36px; border-top: 1px solid var(--line); }
+  header { display: flex; flex-direction: column; gap: 14px; padding-bottom: 28px; }
+  .text { max-width: 66ch; display: flex; flex-direction: column; gap: 12px; }
+  .term { font-weight: 600; }
+  .def { color: var(--muted); }
+  code, .mono { font-family: var(--font-mono); font-size: 0.9em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+  a { color: var(--base); }
+  .room { color: var(--room); font-weight: 600; } .base { color: var(--base); font-weight: 600; } .grip { color: var(--grip); font-weight: 600; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .note { font-size: 14px; color: var(--muted); }
+  .src { font-size: 13px; color: var(--muted); }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc a { font-size: 14px; text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 4px 10px; border-radius: 999px; color: var(--ink); }
+  .toc a:hover, .toc a:focus-visible { border-color: var(--grip); outline: none; }
+
+  /* Policy box */
+  .policy { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; }
+  .io { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .chip { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 14px; background: var(--surface); }
+  .chip b { display: block; font-size: 13px; }
+  .chip.in { border-left: 4px solid var(--muted); }
+  .chip.out { border-left: 4px solid var(--grip); }
+  .brain { background: var(--ink); color: var(--bg); border-radius: 12px; padding: 18px 14px; text-align: center; font-family: var(--font-head); font-weight: 700; min-width: 110px; }
+  .brain small { display: block; font-family: var(--font-text); font-weight: 400; font-size: 12px; opacity: 0.8; margin-top: 4px; }
+  @media (max-width: 560px) { .policy { grid-template-columns: 1fr; } .brain { justify-self: center; } }
+
+  /* Episode timeline */
+  .timeline { overflow-x: auto; }
+  .tl { display: grid; grid-template-columns: 90px repeat(6, minmax(64px, 1fr)); gap: 4px; min-width: 520px; font-size: 13px; }
+  .tl div { padding: 6px; border-radius: 6px; text-align: center; }
+  .tl .lab { text-align: left; font-weight: 600; background: none; padding-left: 0; }
+  .tl .img { background: var(--code-bg); }
+  .tl .st { background: var(--base-tint); }
+  .tl .act { background: var(--grip-tint); }
+  .tl .hd { color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+
+  /* Pipelines */
+  .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 6px; }
+  .step { flex: 1 1 130px; border: 1px solid var(--line); border-radius: 8px; padding: 10px; font-size: 14px; background: var(--surface); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .step b { font-size: 13px; font-family: var(--font-head); }
+  .step.r { border-top: 3px solid var(--room); }
+  .step.b { border-top: 3px solid var(--base); }
+  .step.g { border-top: 3px solid var(--grip); }
+  .step.n { border-top: 3px solid var(--muted); }
+  .arrow { align-self: center; color: var(--muted); font-size: 18px; }
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .twocol { grid-template-columns: 1fr; } .arrow { transform: rotate(90deg); width: 100%; text-align: center; } }
+
+  /* Demo */
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+  .seg button { font: inherit; font-size: 14px; border: 0; background: var(--surface); color: var(--ink); padding: 7px 12px; cursor: pointer; border-right: 1px solid var(--line); }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .seg button:focus-visible, .btn:focus-visible { outline: 2px solid var(--grip); outline-offset: 2px; }
+  .btn { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 12px; border-radius: 8px; cursor: pointer; }
+  .btn[aria-pressed="true"] { border-color: var(--grip); background: var(--grip-tint); }
+  .canvasbox { width: 100%; max-width: 100%; aspect-ratio: 16 / 10; background: var(--bg); border-radius: 8px; border: 1px solid var(--line); }
+  .canvasbox svg { width: 100%; height: 100%; display: block; }
+  .tablebox { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  td.num { font-family: var(--font-mono); }
+  .changed { color: var(--room); }
+  .same { color: var(--base); }
+  .kinds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .kind { border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; font-size: 14px; min-width: 0; }
+  .kind h3 { font-size: 16px; }
+  .kind .f { font-family: var(--font-mono); font-size: 13px; background: var(--code-bg); padding: 4px 6px; border-radius: 4px; overflow-x: auto; }
+  @media (max-width: 640px) { .kinds { grid-template-columns: 1fr; } }
+
+  /* Loop stepper */
+  .loop { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .loop .step { cursor: pointer; transition: border-color .2s, background .2s; }
+  .loop .step[aria-current="true"] { border-color: var(--grip); background: var(--grip-tint); }
+  @media (max-width: 640px) { .loop { grid-template-columns: 1fr; } }
+  .loopdetail { min-height: 4.5em; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  .cmp { overflow-x: auto; }
+  .cmp table td { white-space: normal; min-width: 120px; vertical-align: top; }
+  ul.tight { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Explainer · MSc thesis · 18 Nov 2026</span>
+  <h1>How robot policies learn from demonstrations</h1>
+  <p class="lead">A refresher on the building blocks: what a policy is, what data trains it, how VR teleop and handheld (UMI-style) data reach training, what absolute, delta and relative actions mean, and how the robot turns a prediction into motion in its own frame.</p>
+  <nav class="toc" aria-label="Sections">
+    <a href="#policy">1 Policy</a><a href="#data">2 Training data</a><a href="#pipelines">3 Teleop vs handheld</a>
+    <a href="#frames">4 Frames</a><a href="#actions">5 Absolute · delta · relative</a><a href="#deploy">6 Deployment</a>
+    <a href="#servo">7 Visual servoing</a><a href="#thesis">8 This thesis</a><a href="#sources">Sources</a>
+  </nav>
+</header>
+
+<section id="policy">
+  <span class="eyebrow">1 · The policy</span>
+  <h2>A policy is a function: what the robot sees → what the gripper should do next</h2>
+  <div class="text">
+    <p><span class="term">Policy</span> <span class="def">= a neural network that maps an observation to actions.</span> It runs in a loop on the robot computer, several times per second.</p>
+    <p><span class="term">Observation</span> <span class="def">= what goes in:</span> camera images, the gripper width, often the gripper pose (called <span class="term">state</span> or proprioception), and for the large models a text instruction.</p>
+    <p><span class="term">Action chunk</span> <span class="def">= what comes out:</span> not one command, but the next ~1 s of gripper poses plus gripper width. The robot executes part of it, then asks the policy again.</p>
+  </div>
+  <div class="panel">
+    <div class="policy">
+      <div class="io">
+        <div class="chip in"><b>Camera image</b>wrist camera on the Dex1-1</div>
+        <div class="chip in"><b>Gripper width</b>metres</div>
+        <div class="chip in"><b>Gripper pose (state)</b>optional; relative or left out in this thesis</div>
+        <div class="chip in"><b>Instruction</b>"put the sleeve on the bushing"</div>
+      </div>
+      <div class="brain">Policy<small>π0.5 or GR00T N1.7</small></div>
+      <div class="io">
+        <div class="chip out"><b>Action chunk</b>next ~30 gripper poses (1 s at 30 Hz)</div>
+        <div class="chip out"><b>Gripper width</b>for each of those steps</div>
+      </div>
+    </div>
+    <p class="note">Model families: Diffusion Policy (used by UMI, chi2024), and the large vision-language-action models (VLA) π0.5 and GR00T N1.7 used in this thesis. A VLA is a pretrained model that already knows images and language; it is <span class="term">fine-tuned</span> (trained further) on the thesis demonstrations.</p>
+  </div>
+  <div class="text">
+    <h3>How training works: imitation</h3>
+    <p><span class="term">Imitation learning</span> (also called behaviour cloning) <span class="def">= the policy is shown many demonstrations and learns to output what the human did.</span> For each time step in each demo, the network gets the observation and is corrected towards the action that actually followed. After many passes over the data, it produces similar actions for similar observations, also in situations it has not seen exactly.</p>
+    <p>The policy never learns joint angles or "how a UR10e works". It learns <b>where the gripper should go next, given what the camera sees</b>. How to drive the joints there is solved separately by the robot (section 6).</p>
+  </div>
+</section>
+
+<section id="data">
+  <span class="eyebrow">2 · Training data</span>
+  <h2>A dataset is a stack of episodes, each a timeline at 30 Hz</h2>
+  <div class="text">
+    <p><span class="term">Episode</span> <span class="def">= one demonstration from start to end</span> (e.g. one pick-and-place). Every 1/30 s one row is stored: the image, the state and the action. Format: <span class="term">LeRobot</span> layout (v2 for GR00T), described in decision D07.</p>
+  </div>
+  <div class="panel timeline">
+    <div class="tl" role="table" aria-label="Episode timeline example">
+      <div class="lab hd">time</div><div class="hd">0.00 s</div><div class="hd">0.03 s</div><div class="hd">0.07 s</div><div class="hd">0.10 s</div><div class="hd">…</div><div class="hd">8.40 s</div>
+      <div class="lab">image</div><div class="img">frame 0</div><div class="img">frame 1</div><div class="img">frame 2</div><div class="img">frame 3</div><div class="img">…</div><div class="img">frame 252</div>
+      <div class="lab">state</div><div class="st">pose, width</div><div class="st">pose, width</div><div class="st">pose, width</div><div class="st">pose, width</div><div class="st">…</div><div class="st">pose, width</div>
+      <div class="lab">action</div><div class="act">next poses</div><div class="act">next poses</div><div class="act">next poses</div><div class="act">next poses</div><div class="act">…</div><div class="act">next poses</div>
+    </div>
+  </div>
+  <p class="note">In this thesis the export stores <b>absolute</b> poses (position + 6D rotation + gripper width). The training code of GR00T and openpi turns them into <b>relative</b> actions itself (section 5).</p>
+</section>
+
+<section id="pipelines">
+  <span class="eyebrow">3 · Two ways to collect the same kind of data</span>
+  <h2>VR teleop moves the robot; the handheld moves only the human</h2>
+  <div class="twocol">
+    <div class="panel">
+      <h3>VR teleoperation</h3>
+      <div class="flow">
+        <div class="step r"><b>Operator</b>moves the PICO controller, grip button held</div>
+        <div class="step r"><b>Headset</b>controller pose in the <span class="room">room frame</span>, 90 Hz</div>
+        <div class="step n"><b>Clutch mapping</b>change since press × scale, axis swap</div>
+        <div class="step b"><b>UR10e</b>IK → joints; moves the real gripper</div>
+        <div class="step b"><b>Recorder</b>robot camera, joint states, gripper pose in <span class="base">base frame</span>, width</div>
+      </div>
+      <p class="note">Everything stored comes from the robot itself, so it is already in the robot base frame. Joint states are recorded too, but the thesis trains on gripper poses (D07), the same as the handheld.</p>
+    </div>
+    <div class="panel">
+      <h3>Handheld (UMI-style)</h3>
+      <div class="flow">
+        <div class="step g"><b>Operator</b>holds the Dex1-1 handheld with the controller as grip</div>
+        <div class="step r"><b>Headset</b>controller pose in the <span class="room">room frame</span>, 90 Hz</div>
+        <div class="step n"><b>Offset</b>controller → gripper tip (D09 hand-eye)</div>
+        <div class="step g"><b>Recorder</b>wrist camera, gripper-tip pose in <span class="room">room frame</span>, width</div>
+        <div class="step n"><b>Export</b>absolute; training makes it relative</div>
+      </div>
+      <p class="note">No robot is involved, so there are no joint states. The poses are in the headset's room frame. Section 4 and 5 show why that is fine with relative actions.</p>
+    </div>
+  </div>
+  <div class="text">
+    <p>Both paths produce the same episode rows: <b>image + gripper pose + width</b>. That is what makes the comparison possible. The image must also match: the same camera at the same place relative to the fingers, which is why UMI insists on an identical gripper and camera on the handheld and the robot (chi2024).</p>
+  </div>
+</section>
+
+<section id="frames">
+  <span class="eyebrow">4 · Frames</span>
+  <h2>Where the numbers are measured from</h2>
+  <div class="text">
+    <p><span class="term">Frame</span> <span class="def">= a reference point plus three axes.</span> A pose (position + orientation) only means something together with its frame.</p>
+    <ul class="tight">
+      <li><span class="room">Room frame</span> (headset): set when the XRoboToolkit app starts. Origin = headset position at that moment, up = against gravity, forward = headset heading (zhao2025; OpenXR LOCAL space). Holding the Home button or restarting the app makes a new one. The headset's cameras keep it fixed to the room while the headset moves, so a worn, neck-hung or fixed headset gives poses in the same kind of frame.</li>
+      <li><span class="base">Robot base frame</span>: fixed to the UR10e's foot. The robot always knows its gripper pose in this frame from its joint encoders (forward kinematics).</li>
+      <li><span class="grip">Gripper frame</span>: attached to the gripper tip and moves with it. "Forward" here means "where the fingers point".</li>
+    </ul>
+    <p>The handheld records in the <span class="room">room frame</span>, the robot works in the <span class="base">base frame</span>. The demo below shows how relative actions bridge that gap without calibrating one frame to the other.</p>
+  </div>
+</section>
+
+<section id="actions">
+  <span class="eyebrow">5 · Action types</span>
+  <h2>Absolute, delta and relative: the same motion, three ways of writing it</h2>
+  <div class="kinds">
+    <div class="kind"><h3>Absolute</h3><p>Each future pose as coordinates in a fixed frame.</p><div class="f">target_k = T_k</div><p class="note">Depends on where the frame is. Needs the room → base link.</p></div>
+    <div class="kind"><h3>Delta</h3><p>Each step as the change from the step before.</p><div class="f">Δ_k = T_k − T_(k−1)</div><p class="note">Small numbers, but errors add up over steps (UMI, chi2024).</p></div>
+    <div class="kind"><h3>Relative</h3><p>Each future pose seen from the gripper's current pose.</p><div class="f">rel_k = T_0⁻¹ · T_k</div><p class="note">Frame cancels out. Used by UMI, ViTaMIn-B, HiFi-UMI, GR00T N1.7.</p></div>
+  </div>
+  <p class="note">Names differ between papers and code. In openpi, "delta actions" means <code>action − state</code> per number, i.e. relative to the chunk start but still along the frame's axes. GR00T N1.7 calls the gripper-frame version "RELATIVE" and has DELTA and ABSOLUTE as separate options.</p>
+
+  <div class="panel" id="demo">
+    <h3>Try it: one demonstration, seen from different frames</h3>
+    <p class="note">Top view. The orange path is one handheld demonstration (6 gripper poses). Pick the frame the numbers are written in, and a step to read. Watch which numbers change.</p>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Frame">
+        <button type="button" id="f-base" aria-pressed="true">Robot base</button>
+        <button type="button" id="f-room1" aria-pressed="false">Headset room, session 1</button>
+        <button type="button" id="f-room2" aria-pressed="false">Headset room, session 2</button>
+      </div>
+      <div class="seg" role="group" aria-label="Step">
+        <button type="button" data-k="1" aria-pressed="false">step 1</button>
+        <button type="button" data-k="2" aria-pressed="false">2</button>
+        <button type="button" data-k="3" aria-pressed="true">3</button>
+        <button type="button" data-k="4" aria-pressed="false">4</button>
+        <button type="button" data-k="5" aria-pressed="false">5</button>
+      </div>
+      <button type="button" class="btn" id="replay" aria-pressed="false">Replay on robot from another start</button>
+    </div>
+    <div class="canvasbox"><svg id="svg" viewBox="0 0 640 400" role="img" aria-label="Top view of a gripper path and reference frames"></svg></div>
+    <div class="tablebox">
+      <table>
+        <thead><tr><th>Step <span id="kk">3</span> written as</th><th>x (m)</th><th>y (m)</th><th>angle (°)</th><th>after frame change</th></tr></thead>
+        <tbody id="tb"></tbody>
+      </table>
+    </div>
+    <p class="note" id="replaynote">Absolute numbers change with every frame; delta numbers change when the frame is rotated; relative numbers never change. That is why relative actions need no room → base calibration. Turn on "Replay on robot" to see the same relative actions applied from a different robot start pose.</p>
+  </div>
+</section>
+
+<section id="deploy">
+  <span class="eyebrow">6 · Deployment</span>
+  <h2>How the robot moves the gripper in its own frame</h2>
+  <div class="text">
+    <p>The key: the robot always knows <b>its own current gripper pose in the base frame</b>, from its joint encoders. The policy only says how to move from there. Click through the loop.</p>
+  </div>
+  <div class="panel">
+    <div class="loop" role="tablist" aria-label="Deployment loop">
+      <div class="step g" role="tab" tabindex="0" data-s="0" aria-current="true"><b>1 Observe</b>wrist image + width</div>
+      <div class="step n" role="tab" tabindex="0" data-s="1" aria-current="false"><b>2 Predict</b>policy → relative chunk</div>
+      <div class="step b" role="tab" tabindex="0" data-s="2" aria-current="false"><b>3 Anchor</b>current pose from encoders</div>
+      <div class="step b" role="tab" tabindex="0" data-s="3" aria-current="false"><b>4 Target</b>current × relative</div>
+      <div class="step b" role="tab" tabindex="0" data-s="4" aria-current="false"><b>5 Move</b>IK → joints → servo</div>
+    </div>
+    <p class="loopdetail" id="loopdetail" aria-live="polite"></p>
+  </div>
+  <div class="text">
+    <p><span class="term">Forward kinematics (FK)</span> <span class="def">= joint angles → gripper pose.</span> <span class="term">Inverse kinematics (IK)</span> <span class="def">= gripper pose → joint angles.</span> Both are pure geometry of the arm; the UR10e controller does both, so neither has to be learned. The XRoboToolkit teleop examples use the same pattern for teleop: target = start pose + controller change, then IK (zhao2025).</p>
+  </div>
+</section>
+
+<section id="servo">
+  <span class="eyebrow">7 · Visual servoing</span>
+  <h2>Yes, it is related: both close the loop through the camera</h2>
+  <div class="cmp panel">
+    <table>
+      <thead><tr><th></th><th>Visual servoing (classic)</th><th>Learned policy (this thesis)</th></tr></thead>
+      <tbody>
+        <tr><td>Loop</td><td>Camera → error → motion, repeated</td><td>Camera → policy → motion chunk, repeated</td></tr>
+        <tr><td>Camera</td><td>Often on the gripper ("eye-in-hand")</td><td>Wrist camera on the Dex1-1 (eye-in-hand)</td></tr>
+        <tr><td>Goal</td><td>Given explicitly: target image features or target pose</td><td>Implicit: learned from demonstrations and the instruction</td></tr>
+        <tr><td>Rule</td><td>Hand-designed control law from image error to gripper velocity</td><td>Neural network trained by imitation</td></tr>
+        <tr><td>Output</td><td>Gripper velocity, in the gripper or camera frame</td><td>Future gripper poses, relative to the current pose</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Both work in the gripper's own frame from what the wrist camera sees, which is why neither needs to know where the room is. A relative-action policy can be seen as a learned, multi-step visual servo. Classic reference: Chaumette and Hutchinson, "Visual servo control, Part I", IEEE Robotics &amp; Automation Magazine 2006 (not in bib).</p>
+  </div>
+</section>
+
+<section id="thesis">
+  <span class="eyebrow">8 · In this thesis</span>
+  <h2>What was decided and what still has to match</h2>
+  <ul class="tight">
+    <li><b>Decided (D07, 18 Nov):</b> relative gripper actions + absolute gripper width; the pose input to the model is relative or left out. GR00T N1.7 has an <code>exclude_state</code> setting for that; for π0.5 an own input transform is needed.</li>
+    <li><b>Needed anyway (D09):</b> the controller → gripper-tip offset, from a hand-eye calibration on the UR10e (about 10 poses, ViTaMIn-B method, li2025). Without it the recorded motion is the controller's, not the fingers'.</li>
+    <li><b>Not needed for training:</b> a room → robot-base calibration per session. It is still used once for the accuracy test of the PICO tracking (D04).</li>
+    <li><b>Must match:</b> camera and its position relative to the fingers on handheld and robot; same action form for handheld and teleop data.</li>
+    <li><b>Handheld-only risks:</b> tracking errors go straight into the data (controller out of camera view drifts, no "lost" flag in the stream); a human can make moves the UR10e cannot reach.</li>
+  </ul>
+</section>
+
+<section id="sources">
+  <span class="eyebrow">Sources</span>
+  <ul class="tight src">
+    <li>chi2024, UMI: relative trajectory actions, relative proprioception, no camera-robot-world calibration, Diffusion Policy. <a href="https://arxiv.org/abs/2402.10329">arXiv 2402.10329</a></li>
+    <li>zhao2025, XRoboToolkit: room frame at app start, grip-gated relative teleop, IK. <a href="https://arxiv.org/abs/2508.00097">arXiv 2508.00097</a>; teleop code <a href="https://github.com/XR-Robotics/XRoboToolkit-Teleop-Sample-Python/tree/79e5cb8a56e3455515ce1b476e993c764ec58739">XRoboToolkit-Teleop-Sample-Python @ 79e5cb8</a></li>
+    <li>li2025, ViTaMIn-B: Quest controller, hand-eye with ~10 poses, relative actions. <a href="https://arxiv.org/abs/2511.05858">arXiv 2511.05858</a></li>
+    <li>ai2026, HiFi-UMI: relative actions with π0.5. <a href="https://arxiv.org/abs/2607.25895">arXiv 2607.25895</a>. zeng2025, ActiveUMI: absolute world frame, π0. <a href="https://arxiv.org/abs/2510.01607">arXiv 2510.01607</a></li>
+    <li>GR00T N1.7: relative EEF actions, <code>exclude_state</code>. <a href="https://github.com/NVIDIA/Isaac-GR00T/tree/708617f">Isaac-GR00T @ 708617f</a> (not in bib)</li>
+    <li>openpi (π0.5): delta actions = action − state, gripper absolute. <a href="https://github.com/Physical-Intelligence/openpi/tree/215abfb">openpi @ 215abfb</a> (not in bib)</li>
+    <li>OpenXR LOCAL space definition. <a href="https://github.com/KhronosGroup/OpenXR-Docs/blob/18ebc0374da23c020ef4c949f9b144ffae6160ef/specification/sources/chapters/spaces.adoc#L189-L222">OpenXR spec, spaces.adoc</a> (not in bib)</li>
+    <li>Details: vault notes Agent/Research/2026-11-17 Controller pose to robot frame, 2026-11-18 GR00T and pi0.5 action format, 2026-11-18 UMI variants; decisions D04, D07, D09.</li>
+  </ul>
+  <p class="note">Demo numbers are invented for illustration (a 2D top view; the real data are 3D with 6D rotation).</p>
+</section>
+</div>
+
+<script>
+(function () {
+  // ---- 2D pose helpers: pose = [x, y, theta(rad)] ----
+  const compose = (a, b) => [a[0] + Math.cos(a[2]) * b[0] - Math.sin(a[2]) * b[1],
+                             a[1] + Math.sin(a[2]) * b[0] + Math.cos(a[2]) * b[1], a[2] + b[2]];
+  const inv = (a) => [-Math.cos(a[2]) * a[0] - Math.sin(a[2]) * a[1],
+                       Math.sin(a[2]) * a[0] - Math.cos(a[2]) * a[1], -a[2]];
+  const deg = (r) => r * 180 / Math.PI;
+  const rad = (d) => d * Math.PI / 180;
+  const wrap = (d) => { let x = ((d + 180) % 360 + 360) % 360 - 180; return Math.abs(x) < 0.05 ? 0 : x; };
+
+  // Demonstration in world metres (world = robot base frame for drawing)
+  const demo = [[0.30, 0.10, rad(20)], [0.40, 0.15, rad(28)], [0.50, 0.22, rad(40)],
+                [0.58, 0.32, rad(55)], [0.62, 0.44, rad(70)], [0.63, 0.55, rad(85)]];
+  const frames = {
+    base:  { pose: [0, 0, 0], name: "Robot base", cls: "base" },
+    room1: { pose: [0.85, 0.05, rad(120)], name: "Headset room, session 1", cls: "room" },
+    room2: { pose: [0.15, 0.62, rad(-35)], name: "Headset room, session 2", cls: "room" }
+  };
+  const robotStart = [0.80, 0.18, rad(110)];
+  let cur = "base", k = 3, replay = false;
+
+  // world (m) -> svg px
+  const S = 520, OX = 40, OY = 370;
+  const px = (p) => [OX + p[0] * S, OY - p[1] * S];
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const svg = document.getElementById("svg");
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); (parent || svg).appendChild(e); return e; };
+
+  function axes(pose, color, label, len) {
+    const o = px(pose), L = len || 0.12;
+    const xe = px(compose(pose, [L, 0, 0])), ye = px(compose(pose, [0, L, 0]));
+    el("line", { x1: o[0], y1: o[1], x2: xe[0], y2: xe[1], stroke: color, "stroke-width": 3 });
+    el("line", { x1: o[0], y1: o[1], x2: ye[0], y2: ye[1], stroke: color, "stroke-width": 3, "stroke-dasharray": "5 3" });
+    el("circle", { cx: o[0], cy: o[1], r: 5, fill: color });
+    const t = el("text", { x: o[0] + 8, y: o[1] + 18, fill: color, "font-size": 13, "font-family": "IBM Plex Sans, sans-serif", "font-weight": 600 });
+    t.textContent = label;
+    const tx = el("text", { x: xe[0] + 3, y: xe[1] + 4, fill: color, "font-size": 11, "font-family": "IBM Plex Mono, monospace" }); tx.textContent = "x";
+    const ty = el("text", { x: ye[0] + 3, y: ye[1] + 4, fill: color, "font-size": 11, "font-family": "IBM Plex Mono, monospace" }); ty.textContent = "y";
+  }
+  function gripper(pose, color, opacity, bold) {
+    const a = px(pose), b = px(compose(pose, [0.045, 0, 0]));
+    const l = px(compose(pose, [0.045, 0.018, 0])), r = px(compose(pose, [0.045, -0.018, 0]));
+    const g = el("g", { opacity: opacity });
+    el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: color, "stroke-width": bold ? 4 : 2.5, "stroke-linecap": "round" }, g);
+    el("line", { x1: l[0], y1: l[1], x2: r[0], y2: r[1], stroke: color, "stroke-width": bold ? 4 : 2.5, "stroke-linecap": "round" }, g);
+    el("circle", { cx: a[0], cy: a[1], r: bold ? 5 : 3.5, fill: color }, g);
+  }
+
+  function draw() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const grip = css("--grip"), room = css("--room"), base = css("--base"), muted = css("--muted"), line = css("--line");
+    for (let i = 0; i <= 12; i++) el("line", { x1: 0, y1: i * 34, x2: 640, y2: i * 34, stroke: line, "stroke-width": 1 });
+    for (let i = 0; i <= 19; i++) el("line", { x1: i * 34, y1: 0, x2: i * 34, y2: 400, stroke: line, "stroke-width": 1 });
+    // frames
+    axes(frames.base.pose, base, "robot base", 0.1);
+    if (cur !== "base") axes(frames[cur].pose, room, "room frame", 0.1);
+    // path
+    const pts = demo.map(px).map(p => p.join(",")).join(" ");
+    el("polyline", { points: pts, fill: "none", stroke: grip, "stroke-width": 2, "stroke-dasharray": "4 4", opacity: 0.7 });
+    demo.forEach((p, i) => gripper(p, grip, i === k || i === 0 ? 1 : 0.45, i === k));
+    const s0 = px(demo[0]); const t0 = el("text", { x: s0[0] - 10, y: s0[1] + 24, fill: grip, "font-size": 12, "font-family": "IBM Plex Sans, sans-serif" }); t0.textContent = "start (T₀)";
+    // relative vector from start to step k, drawn in gripper colour
+    const sk = px(demo[k]);
+    el("line", { x1: s0[0], y1: s0[1], x2: sk[0], y2: sk[1], stroke: grip, "stroke-width": 1.5 });
+    // replay on robot from another start
+    if (replay) {
+      const rp = demo.map(T => compose(robotStart, compose(inv(demo[0]), T)));
+      el("polyline", { points: rp.map(px).map(p => p.join(",")).join(" "), fill: "none", stroke: base, "stroke-width": 2, "stroke-dasharray": "4 4" });
+      rp.forEach((p, i) => gripper(p, base, i === k || i === 0 ? 1 : 0.45, i === k));
+      const r0 = px(rp[0]); const tr = el("text", { x: r0[0] - 40, y: r0[1] + 22, fill: base, "font-size": 12, "font-family": "IBM Plex Sans, sans-serif" }); tr.textContent = "robot start";
+    }
+  }
+
+  function fmt(v, d) { return (Math.abs(v) < 0.0005 ? 0 : v).toFixed(d === undefined ? 3 : d); }
+  function rows() {
+    const F = frames[cur].pose;
+    const inF = (T) => compose(inv(F), T);
+    const abs = inF(demo[k]);
+    const dw = [demo[k][0] - demo[k - 1][0], demo[k][1] - demo[k - 1][1]];
+    const c = Math.cos(-F[2]), s = Math.sin(-F[2]);
+    const del = [c * dw[0] - s * dw[1], s * dw[0] + c * dw[1], demo[k][2] - demo[k - 1][2]];
+    const rel = compose(inv(demo[0]), demo[k]);
+    const tag = (changes) => changes ? '<span class="changed">changes</span>' : '<span class="same">stays the same</span>';
+    const rotated = cur !== "base";
+    document.getElementById("tb").innerHTML =
+      `<tr><td><b>Absolute</b> in ${frames[cur].name}</td><td class="num">${fmt(abs[0])}</td><td class="num">${fmt(abs[1])}</td><td class="num">${fmt(wrap(deg(abs[2])), 1)}</td><td>${tag(true)}</td></tr>` +
+      `<tr><td><b>Delta</b> from step ${k - 1}</td><td class="num">${fmt(del[0])}</td><td class="num">${fmt(del[1])}</td><td class="num">${fmt(wrap(deg(del[2])), 1)}</td><td>${tag(true)}${rotated ? "" : " (if the frame rotates)"}</td></tr>` +
+      `<tr><td><b>Relative</b> to start (T₀)</td><td class="num">${fmt(rel[0])}</td><td class="num">${fmt(rel[1])}</td><td class="num">${fmt(wrap(deg(rel[2])), 1)}</td><td>${tag(false)}</td></tr>`;
+    document.getElementById("kk").textContent = k;
+  }
+  function update() { draw(); rows(); }
+
+  const fb = { base: "f-base", room1: "f-room1", room2: "f-room2" };
+  Object.keys(fb).forEach(key => document.getElementById(fb[key]).addEventListener("click", () => {
+    cur = key; Object.keys(fb).forEach(o => document.getElementById(fb[o]).setAttribute("aria-pressed", String(o === key))); update();
+  }));
+  document.querySelectorAll("[data-k]").forEach(b => b.addEventListener("click", () => {
+    k = +b.dataset.k; document.querySelectorAll("[data-k]").forEach(o => o.setAttribute("aria-pressed", String(o === b))); update();
+  }));
+  const rb = document.getElementById("replay");
+  rb.addEventListener("click", () => {
+    replay = !replay; rb.setAttribute("aria-pressed", String(replay));
+    document.getElementById("replaynote").innerHTML = replay
+      ? "Teal path: the robot starts somewhere else, reads its own start pose from its encoders, and applies the same relative steps (start × relative). The path has the same shape seen from the gripper, without ever knowing where the headset room frame was."
+      : "Absolute numbers change with every frame; delta numbers change when the frame is rotated; relative numbers never change. That is why relative actions need no room → base calibration. Turn on \"Replay on robot\" to see the same relative actions applied from a different robot start pose.";
+    update();
+  });
+  try { window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw); } catch (e) {}
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  update();
+
+  // ---- deployment loop stepper ----
+  const texts = [
+    "1 Observe: the wrist camera on the Dex1-1 takes an image; the gripper width is read. If state is used, it is given relative (or left out), so no frame enters here.",
+    "2 Predict: the policy outputs an action chunk, e.g. 30 future gripper poses, each relative to the current gripper pose: \"forward 3 cm along the fingers, turn 10° about them\", plus a width for each step.",
+    "3 Anchor: the UR10e reads its joint encoders and computes its current gripper pose in the robot base frame (forward kinematics). This is the only place the base frame enters, and the robot knows it exactly.",
+    "4 Target: target_k = current pose × relative_k. Now each predicted pose is written in the robot base frame.",
+    "5 Move: inverse kinematics turns each target into joint angles; the UR10e follows them (servo). After part of the chunk, the loop starts again at step 1 with a new image."
+  ];
+  const steps = document.querySelectorAll(".loop .step");
+  const det = document.getElementById("loopdetail");
+  function setStep(i) { steps.forEach((s, j) => s.setAttribute("aria-current", String(i === j))); det.textContent = texts[i]; }
+  steps.forEach((s, i) => { s.addEventListener("click", () => setStep(i)); s.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setStep(i); } }); });
+  setStep(0);
+})();
+</script>
