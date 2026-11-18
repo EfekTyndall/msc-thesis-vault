@@ -77,3 +77,11 @@ Open, not urgent (Martyn: fine for the prototype). Candidates to check later: su
 - Tape in **both** halves is too much: the sleeve no longer snaps shut.
 - So the cause is the gap (option A confirmed); the halves opening is not the main effect. Computed back-half gap: median 0.39 mm at y 12–44, 0.89 mm at y 44–65, 0.32 mm at y 65–70; the tape took one tape thickness off all of these. Tape thickness not yet measured.
 - Next (waits on Martyn's go): in CAD, offset only the back-half inner surface inward by the measured tape thickness, which copies the tested state; front half unchanged so the snap still closes.
+
+## v24 variants (2026-11-18, 16:30–16:45)
+
+- Martyn chose to print both offsets as full sleeves.
+- Fusion controller-grip v24 (saved by Martyn): user parameter `back_inner_offset` (0.3 mm in the saved file) drives "v24 back inner offset", an offset of the back half's 4 inner faces towards the controller. The front half is unchanged. Back-half volume 11.430 → 12.377 cm³ (12.068 at 0.2 mm).
+- Check against the scan at 0.3 mm: median gap 0.15 mm at y 12–44, 0.58 mm at y 44–65, 0.14 mm at y 65–70, with a few spots up to about 0.1 mm into the scan (similar to the tape).
+- Prints: `sleeve-A-back-v24-offset0.2.stl` and `…0.3.stl` with `sleeve-A-front-v23.stl`. Project `plate3-sleeveA-v24-offset-0.2-0.3-PETG.3mf` uses the plate 1 settings with the Spectrum PETG preset, no brim and no prime tower. Print queue: dex1-1-handheld PR #10.
+- Open: test both without tape (snap, removal, no slip under the adapter), then carry the better offset into controller-grip. The decision is to be recorded in D10 once chosen.
