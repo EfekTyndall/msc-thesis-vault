@@ -118,9 +118,11 @@ Rules for all items: own account `martyn`; source code in `~/src/`; nothing auto
 
 Undo B5: `sudo rm -rf /opt/unitree_robotics`; `rm -rf ~/src/unitree_sdk2`.
 
+**Trigger → Mac sim from the Jetson (2026-11-18, ≈16:00 CET, run by Martyn):** PC Service started on the Jetson (`runService.sh`, no autostart), headset app connected to 10.36.1.124, sender `~/venvs/xrobotoolkit/bin/python -u ~/dex1-1-handheld/software/xr/trigger_udp.py --host 10.36.1.125` from the clone (5ddc8d3), Mac sim `run_dex1_1.sh --udp 5005`. Result from both terminal outputs: sender reached seq ≈1560 (≈52 s at 30 Hz); the Mac counted **1558 received, 3 lost (0.19 %)**; one gap of 0.66 s around packet 459 (2 of the 3 losses). Trigger values covered 0.000 to 1.000 (e.g. 0.161, 0.541, 0.788, 1.000) and reached the sim (its printed `trigger` follows the sender). Whether the viewer fingers visibly followed was not stated; the printed command value did. Cause of the gap and losses unknown (Wi-Fi headset link or LAN; not measured). Same path as on fractal-pc 2026-11-09 (0 lost of 425), now with the Jetson as PC. Service stopped afterwards.
+
 ## Open
 
 - Owner and contents of the 256 GB SD card (ask the intern). Superseded 2026-11-17 by [[2026-11-17 Station Jetson SD card check]] (empty, left unused).
 - B3–B5 wait on Martyn's go; moved to [[2026-11-18]] TODO (2026-11-17). XRoboToolkit service stopped at day end 2026-11-17. Done 2026-11-18 (§D).
-- `trigger_udp.py` from the clone → Mac sim test on the Jetson (daily 7e) not run yet.
+- `trigger_udp.py` from the clone → Mac sim test on the Jetson: done 2026-11-18 (§D).
 - fractal-pc clock is ≈1 h 44 min fast with NTP inactive (`timedatectl`, 2026-11-17); not ours to fix, worth telling its admin.
