@@ -19,14 +19,19 @@ How handheld episodes are recorded and exported so they match the VR teleop data
 
 A new recorder that writes episodes directly in the same format as the VR teleop pipeline, using the action representation of [UMI](https://arxiv.org/pdf/2402.10329).
 
+Actions and state (2026-11-18): end-effector actions relative to the current gripper pose plus absolute gripper width, and the policy's pose (state) input also relative (to the current pose or episode start) or left out. Handheld poses are then never needed in the robot base frame, so no per-session room-to-robot-base calibration is needed for training data. The export layer still stores absolute poses (raw tracker frame kept); the controller-to-gripper-tip transform from [[D09 Calibration]] is still applied. Same representation for handheld and VR teleop data.
+
 ## Evidence
 
 One format for handheld and teleop data is what makes the comparison possible, and the [UMI code](https://github.com/real-stanford/universal_manipulation_interface) is tied to the GoPro and SLAM, which this design does not use.
 
+Relative state and actions (2026-11-18): [UMI](https://arxiv.org/pdf/2402.10329) uses relative actions and relative proprioception and needs no camera-robot-world calibration; its absolute-action baseline did worse, blamed on SLAM-to-robot calibration error. [HiFi-UMI](https://arxiv.org/pdf/2607.25895) trains π0.5 on relative pose increments with absolute gripper. The PICO room frame is re-made at each app start or recentre, so absolute handheld poses would need a calibration every session. GR00T N1.7 and openpi convert absolute exports to relative actions themselves but feed the absolute pose as state by default; support for relative or no state is not yet checked (unverified). Details: [[2026-11-17 Controller pose to robot frame]], [[2026-11-18 GR00T and pi0.5 action format for handheld data]], [[2026-11-18 UMI variants pose tracking and policy actions]], [[2026-11-18 Relative vs absolute actions decision draft]].
+
 ## Revisit if
 
-–
+GR00T N1.7 or openpi cannot train with relative or no end-effector state → transform handheld poses into the robot base with a per-session room-to-base calibration (option A of the draft).
 
 ## History
 
 - 2026-10-19: accepted (proposal approved)
+- 2026-11-18: actions and state made relative (relative EE actions + absolute width; relative or no pose state), so no per-session room-to-base calibration (Martyn; PICO room frame changes every session, UMI calibration-free and better than its absolute baseline)
