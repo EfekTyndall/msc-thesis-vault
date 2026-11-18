@@ -70,3 +70,10 @@ Open, not urgent (Martyn: fine for the prototype). Candidates to check later: su
 - Martyn's choice of option; any CAD change only after his go, in a tab he has open.
 - Real gripper weight on the adapter; screwed joints once screws and inserts arrive.
 - Support-face finish fix for later prints.
+
+## Tape test (Martyn, 2026-11-18 16:21)
+
+- One layer of tape lining the inside of the **back half** stops the sliding and twisting.
+- Tape in **both** halves is too much: the sleeve no longer snaps shut.
+- So the cause is the gap (option A confirmed); the halves opening is not the main effect. Computed back-half gap: median 0.39 mm at y 12–44, 0.89 mm at y 44–65, 0.32 mm at y 65–70; the tape took one tape thickness off all of these. Tape thickness not yet measured.
+- Next (waits on Martyn's go): in CAD, offset only the back-half inner surface inward by the measured tape thickness, which copies the tested state; front half unchanged so the snap still closes.
