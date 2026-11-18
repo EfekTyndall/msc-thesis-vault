@@ -50,3 +50,16 @@ Plate 2b is the clamp part of real-adapter v13: the rear plate, the tie beam (ta
 
 - Martyn's go on the split and orientation, then the CAD change (Fusion real-adapter v14) and the export and print queue (dex1-1-handheld PR).
 - The fan and cooling effect on PETG layer strength is unverified. If the reoriented print still feels brittle, run a short layer-strength coupon test.
+
+## Outcome (2026-11-18)
+
+- Martyn gave the go. Fusion real-adapter v14 was saved by Martyn (ASM real-path v18).
+  - The ring is split at z = 0 with a 0.5 mm gap into two bodies: clamp base (16.8 cm³) and cap (4.7 cm³).
+  - Side lugs at x 24 to 35.5 mm, 4.5 mm thick on each half, with Ø3.4 holes at x = ±31.5 along z.
+  - Fillets: R2 at the ring-to-tab junction, R1.5 at the lug roots.
+  - The old top lug, slot and hole are suppressed.
+  - Screws: 2 × M3 × 16 with nuts.
+- Clearance in ASM real-path: no overlap; the housing is at 0.1 mm and the cable cover at 2.4 mm.
+- STL and STEP were exported to `dex1-1-handheld/hardware/real-adapter/files/` (local). The print queue is updated in dex1-1-handheld PR #8.
+- Mishap: the first v14 build went into the reference copy of the part that Fusion loads for the assembly. That copy gave no save prompt and was lost on close. It was rebuilt in a tab Martyn had opened.
+- Open: the reprint (base on its z = −33 face, cap flat) and the fit test.
