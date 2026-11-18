@@ -48,7 +48,7 @@ Plate 2b is the clamp part of real-adapter v13: the rear plate, the tie beam (ta
 
 ## Open
 
-- Martyn's go on the split and orientation, then the CAD change (Fusion real-adapter v14) and the export and print queue (dex1-1-handheld PR).
+- Martyn's go on the split and orientation, then the CAD change (Fusion real-adapter v14) and the export and print queue (dex1-1-handheld PR). Resolved 2026-11-18 (Outcome below; PR #8 merged).
 - The fan and cooling effect on PETG layer strength is unverified. If the reoriented print still feels brittle, run a short layer-strength coupon test.
 
 ## Outcome (2026-11-18)
@@ -62,4 +62,4 @@ Plate 2b is the clamp part of real-adapter v13: the rear plate, the tie beam (ta
 - Clearance in ASM real-path: no overlap; the housing is at 0.1 mm and the cable cover at 2.4 mm.
 - STL and STEP were exported to `dex1-1-handheld/hardware/real-adapter/files/` (local). The print queue is updated in dex1-1-handheld PR #8.
 - Mishap: the first v14 build went into the reference copy of the part that Fusion loads for the assembly. That copy gave no save prompt and was lost on close. It was rebuilt in a tab Martyn had opened.
-- Open: the reprint (base on its z = −33 face, cap flat) and the fit test.
+- Open: the reprint (base on its z = −33 face, cap flat) and the fit test. Resolved 2026-11-18: plate 2c printed without breaks, assembled with glue ([[2026-11-18 Plate 2c fit and sleeve slip diagnosis]]); screwed fit moved to [[Waiting]].

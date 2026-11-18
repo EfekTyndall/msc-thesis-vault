@@ -67,9 +67,9 @@ Open, not urgent (Martyn: fine for the prototype). Candidates to check later: su
 
 ## Open
 
-- Martyn's choice of option; any CAD change only after his go, in a tab he has open.
-- Real gripper weight on the adapter; screwed joints once screws and inserts arrive.
-- Support-face finish fix for later prints.
+- Martyn's choice of option; any CAD change only after his go, in a tab he has open. Resolved 2026-11-18: tape test, then v24 variants (below).
+- Real gripper weight on the adapter; screwed joints once screws and inserts arrive. Moved 2026-11-18 to [[Waiting]] (Dex1-1 delivery; Purchases).
+- Support-face finish fix for later prints. Moved 2026-11-18 to [[2026-11-19]] TODO.
 
 ## Tape test (Martyn, 2026-11-18 16:21)
 
@@ -84,4 +84,4 @@ Open, not urgent (Martyn: fine for the prototype). Candidates to check later: su
 - Fusion controller-grip v24 (saved by Martyn): user parameter `back_inner_offset` (0.3 mm in the saved file) drives "v24 back inner offset", an offset of the back half's 4 inner faces towards the controller. The front half is unchanged. Back-half volume 11.430 → 12.377 cm³ (12.068 at 0.2 mm).
 - Check against the scan at 0.3 mm: median gap 0.15 mm at y 12–44, 0.58 mm at y 44–65, 0.14 mm at y 65–70, with a few spots up to about 0.1 mm into the scan (similar to the tape).
 - Prints: `sleeve-A-back-v24-offset0.2.stl` and `…0.3.stl` with `sleeve-A-front-v23.stl`. Project `plate3-sleeveA-v24-offset-0.2-0.3-PETG.3mf` uses the plate 1 settings with the Spectrum PETG preset, no brim and no prime tower. Print queue: dex1-1-handheld PR #10.
-- Open: test both without tape (snap, removal, no slip under the adapter), then carry the better offset into controller-grip. The decision is to be recorded in D10 once chosen.
+- Open: test both without tape (snap, removal, no slip under the adapter), then carry the better offset into controller-grip. The decision is to be recorded in D10 once chosen. Moved 2026-11-18 to [[2026-11-19]] TODO.
