@@ -104,8 +104,23 @@ Rules for all items: own account `martyn`; source code in `~/src/`; nothing auto
 | B2 Python SDK | venv `~/venvs/xrobotoolkit`, `xrobotoolkit-sdk` 1.1.0 (aarch64 wheel, no extra dependencies). | import test |
 | Headset → Jetson | Headset app connected to 10.36.1.124, status WORKING (headset at 10.36.1.128). SDK read both triggers as analog 0–1 values (e.g. 0.212, 0.502, 0.596) and the right controller position live, 2 Hz print over 20 s. For ≈6.5 s after `init()` all values and the timestamp read 0 until "device found": a recording script must wait for a non-zero timestamp. | 20 s SDK loop while Martyn squeezed the triggers |
 
+## D. Installed after the go (2026-11-18, Martyn: "Go with B3 and B4", then "Go B5")
+
+| Item | Result | How checked |
+| --- | --- | --- |
+| B3 clone | New key `~/.ssh/dex1_1_handheld_deploy` (ed25519, `SHA256:vnEPzGYhij/PhKYA+xF644oCs9xU7SvJF/273gi8L+o`), added by Martyn as read-only deploy key `station-jetson`. Alias `github-dex1` in `~/.ssh/config`; GitHub host key matches the published ED25519 fingerprint `SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU`. Clone `~/dex1-1-handheld` at 1ac22d3. | `git pull` ok; `git push --dry-run` refused |
+| B4 packages | `libserialport-dev` 0.1.1-4, `libboost-all-dev` 1.74.0.3ubuntu7 (installed by Martyn with sudo). apt dry run beforehand: 89 new packages, 17.4 MB download, ≈146 MiB installed, nothing upgraded or removed. | `apt-get install -s`, `dpkg-query` |
+| B4 needs B5 | **Plan error:** `dex1_1_service` does not build without `unitree_sdk2` (`unitree/idl/go2/MotorCmds_.hpp: No such file`; its CMakeLists links `unitree_sdk2 ddsc ddscxx`, README troubleshooting says install the SDK first). B5 was therefore installed too (Martyn's go). | `make` log |
+| B5 `unitree_sdk2` | `~/src/unitree_sdk2` at aaf69cb (2026-11-09), built with `-DCMAKE_INSTALL_PREFIX=/opt/unitree_robotics`; `sudo make install` run by Martyn. `/opt/unitree_robotics`: `include/` (incl. `ddscxx`), `lib/` (`libunitree_sdk2.a`, `libddsc.so`, `libddscxx.so`), owner root. 45 MB. | `ls`, `du` |
+| B4 build | `~/src/dex1_1_service` at ced3216 (2026-09-16), source unchanged. Its CMakeLists hard-codes `/usr/local/include/ddscxx`, so the SDK paths are passed as flags: `cmake .. -DCMAKE_CXX_FLAGS="-I/opt/unitree_robotics/include -I/opt/unitree_robotics/include/ddscxx" -DCMAKE_EXE_LINKER_FLAGS="-L/opt/unitree_robotics/lib -Wl,-rpath,/opt/unitree_robotics/lib:/home/martyn/src/dex1_1_service/lib"`. Binaries in `~/src/dex1_1_service/bin/` (`dex1_1_gripper_server`, two test programs). | `make` rc 0, `ldd` (all libraries resolved) |
+| B4 check | `./dex1_1_gripper_server --network eno1` as user `martyn` (no sudo; `martyn` is in `dialout`): `[warning] No ttyUSB serial ports found.`, then exits by itself (rc 0). Whether it needs sudo with the gripper attached is unverified. No systemd unit, no autostart. | run with 8 s timeout, `pgrep`, `systemctl list-unit-files` |
+| Disk | `/` free before 32,090,128,384 B, after 31,399,714,816 B (−0.69 GB). Sizes: `~/src/unitree_sdk2` 440 MB (incl. build), `~/src/dex1_1_service` 22 MB, `~/dex1-1-handheld` 5.8 MB, `/opt/unitree_robotics` 45 MB; rest apt packages. | `df -B1 /`, `du -sh` |
+
+Undo B5: `sudo rm -rf /opt/unitree_robotics`; `rm -rf ~/src/unitree_sdk2`.
+
 ## Open
 
 - Owner and contents of the 256 GB SD card (ask the intern). Superseded 2026-11-17 by [[2026-11-17 Station Jetson SD card check]] (empty, left unused).
-- B3–B5 wait on Martyn's go; moved to [[2026-11-18]] TODO (2026-11-17). XRoboToolkit service stopped at day end 2026-11-17.
+- B3–B5 wait on Martyn's go; moved to [[2026-11-18]] TODO (2026-11-17). XRoboToolkit service stopped at day end 2026-11-17. Done 2026-11-18 (§D).
+- `trigger_udp.py` from the clone → Mac sim test on the Jetson (daily 7e) not run yet.
 - fractal-pc clock is ≈1 h 44 min fast with NTP inactive (`timedatectl`, 2026-11-17); not ours to fix, worth telling its admin.
