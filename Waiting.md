@@ -20,6 +20,7 @@ Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 real Dex1-1, Path 2 
 - [ ] G9 force-limit tests ([[2026-11-16 Dex1-1 force limiting on contact]], Open 1–4): squeeze force vs `kp · Δ` and `tau` with a force gauge, `tau_est` vs gauge, 60 s stall on a rigid part, holding behaviour when commands stop (BRAKE). (since 2026-11-16)
 - [ ] Real path: cable clip for power and RS-485 on real-adapter, once it is known where the cables leave the gripper. (since 2026-11-04)
 - [ ] Real-adapter checks on the gripper (rear-mount 4×M3, clamp ring): see `PRINT-TEST-QUEUE.md` §3. (since 2026-11-04)
+- [ ] Bow flex check under the real gripper's weight, with screwed joints (needs screws and inserts too); the result decides the adapter material ([[D10 Handheld mechanism]], Revisit if). 2026-11-19: by hand the rod flexes little (Martyn). (since 2026-11-19)
 
 ## Purchases
 Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orders need the manager's approval and a colleague to place them.
