@@ -85,3 +85,12 @@ Open, not urgent (Martyn: fine for the prototype). Candidates to check later: su
 - Check against the scan at 0.3 mm: median gap 0.15 mm at y 12–44, 0.58 mm at y 44–65, 0.14 mm at y 65–70, with a few spots up to about 0.1 mm into the scan (similar to the tape).
 - Prints: `sleeve-A-back-v24-offset0.2.stl` and `…0.3.stl` with `sleeve-A-front-v23.stl`. Project `plate3-sleeveA-v24-offset-0.2-0.3-PETG.3mf` uses the plate 1 settings with the Spectrum PETG preset, no brim and no prime tower. Print queue: dex1-1-handheld PR #10.
 - Open: test both without tape (snap, removal, no slip under the adapter), then carry the better offset into controller-grip. The decision is to be recorded in D10 once chosen. Moved 2026-11-18 to [[2026-11-19]] TODO.
+
+## v24 test (Martyn, 2026-11-19 ≈10:45)
+
+- Neither offset variant (0.2 or 0.3 mm, each with front v23) snaps shut. When forced, both broke at the seam, and a thin strip split off along the seam edge (photo: `figures/2026-11-19 sleeve v24 broken seam.jpg`).
+- The 0.2 mm back half with an earlier front half does snap shut, with minimal slide and twist (Martyn; which front version is still to be confirmed).
+- Martyn's view: electrical tape in the back half is still the best fix. The friction material matters, since PETG slides on the controller shell and the tape does not.
+- Inference (not measured): the tape (2026-11-18, 0.29–0.30 mm) is soft and can compress at the tight spots, while a rigid PETG offset of the same size cannot. The 0.3 mm scan check already showed spots about 0.1 mm into the scan. The seam tongue also prints about 0.4 mm over CAD (1.35–1.45 vs 1.00 mm, PLA v21 and PETG v22; [[D10 Handheld mechanism]]), so the seam has no running clearance left.
+- Tongue consistency: two prints (PLA v21, PETG v22) measured the same oversize. The v24 tongues were not measured, so whether it repeats on every print is unverified.
+- Open: choose the fix (tape or another friction liner on the existing sleeve, or a CAD change) and record it in D10.
