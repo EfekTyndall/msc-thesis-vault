@@ -62,3 +62,11 @@ Method: arXiv text of the bib papers chi2024 (UMI, plus its [GitHub README](http
 6. **Rejection rules written before collection, the same for handheld and teleop**: timestamp gaps (G6), pose jumps (FastUMI III-B), robot reachability (UMI HD6). No paper reports its rejected share, so reporting it is a contribution (gap A6).
 7. **Calibration**: controller → gripper tip by hand-eye, controller on the robot, about 10 poses (ViTaMIn-B IV-D); width from the Dex1-1 rad → width curve measured with calipers (UMI calibrates its width range by open/close cycles [S]).
 8. **Training**: π0.5 with openpi first (thesis plan default; ActiveUMI fine-tuned π0 for 50k iterations, 4.1); plan 100–300 demos per task (UMI 250–305 [S], ViTaMIn-B 123–345, DM-UMI 100–290 [S]); a GPU with ≥ 24 GB (UMI README RTX 3090; openpi LoRA > 22.5 GB).
+
+## MCAP vs HDF5 for raw recording (2026-11-19, Martyn asked why not HDF5)
+
+- Multi-rate streams: MCAP holds many channels per file, each message with `log_time` and `publish_time` in uint64 ns ([MCAP spec](https://mcap.dev/spec)); HDF5 needs an own layout; FastUMI resamples to 20 Hz at record time (III-A), losing raw timing.
+- Unclean shutdown: MCAP is "append-only ... to reduce the risk of data corruption during unclean shutdowns" ([mcap.dev](https://mcap.dev/)); partly written files recoverable ([Foxglove blog](https://foxglove.dev/blog/introducing-the-mcap-file-format)). HDF5: no official guarantee for an unclosed file; crash corruption reported ([HDF forum 3481](https://forum.hdfgroup.org/t/file-state-after-flush-and-crash/3481)); SWMR cannot append variable-length data ([HDF Group SWMR intro](https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/intro_SWMR.html)).
+- Tools: MCAP is "the default log format in ROS 2" (mcap.dev; release not confirmed); Foxglove replays recordings.
+- For HDF5: more papers (FastUMI, RoboManipBaselines). Training reads LeRobot either way.
+- Recommendation: MCAP raw + LeRobot export. Waits on Martyn.
