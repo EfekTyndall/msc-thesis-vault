@@ -25,11 +25,11 @@ Method: read `msc-thesis/docs/thesis-plan.md` (§4 error budget, §5 schedule, �
 | 11 | **PICO controller accuracy test prep**: printed mount of the controller (in its sleeve) on the UR10e flange, replay script, robot pose as ground truth | Thesis plan §4 measures the controller, not the gripper; needs robot time (item 6) and a mount design (Fusion work, Martyn's go) | M + robot time | thesis-plan §4; gaps A3, B1 |
 | 12 | **VR-teleop baseline arm control**: XRoboToolkit → UR10e without the Dex1-1; ask how the supervisor's stack commands the UR10e | Arm control does not need the gripper. The supervisor's answer is in [[Waiting]] ("not needed until VR teleop is set up"), so it can be asked now by email | M + robot time | [[Waiting]] (Supervisor); [[2026-11-03 Intern VR teleop]] |
 | 13 | **D09 calibration procedure written down** (controller-to-gripper-tip transform from the CAD chain as a prior; re-seat check after opening the sleeve, gap B2) | Procedure and CAD prior need no parts; the measurement itself waits on the gripper | S–M | [[D09 Calibration]]; gaps B2, B3 |
-| 14 | **Small chores**: printer firmware update at day end, then flow calibration pass 2; optional ufw rule removal on fractal-pc; update `PRINT-TEST-QUEUE.md` §1 and §3 with today's comfort, finger-room and tracking results (dex1-1-handheld PR) | No parts needed | S | Daily TODO |
+| 14 | **Small chores**: ~~printer firmware update at day end, then flow calibration pass 2~~ (dropped 2026-11-19, Martyn); optional ufw rule removal on fractal-pc; update `PRINT-TEST-QUEUE.md` §1 and §3 with today's comfort, finger-room and tracking results (dex1-1-handheld PR) | No parts needed | S | Daily TODO |
 
 ## Recommended order
 
-1. Today at day end: printer firmware update (14).
+1. ~~Today at day end: printer firmware update (14).~~ Dropped 2026-11-19 (update failed, internet error; Martyn).
 2. Give one go for the long-lead messages (6), so replies arrive while the rest runs.
 3. G1 measurement and the G2 mapping decision (1): the mapping feeds the recorder and the gripper program.
 4. Camera stack (2) → recorder skeleton (3) with G4–G6, plus the quick G8 check (8): this is the November gate.
@@ -60,5 +60,5 @@ Martyn's answers: GPU approval exists, but fractal-pc (RTX 3080 Ti, 12 GB) is be
 | 6 | Task definition from scratch | Martyn describes, Claude writes it up | M |
 | 7 | VR-teleop baseline: XRoboToolkit → UR10e arm control | Claude + Martyn at the robot | M |
 | 8 | Calibration procedure written down (old 13), from the survey | Claude | S–M |
-| 9 | Chores: firmware (running), optional ufw rule removal on fractal-pc; print queue update done in PR #13 | Martyn | S |
+| 9 | Chores: ~~firmware (running)~~ dropped 2026-11-19 (update failed, internet error; Martyn), optional ufw rule removal on fractal-pc; print queue update done in PR #13 | Martyn | S |
 | Later | LeRobot export and training setup (after the survey and a larger GPU); sync and latency test (after the Dex1-1 camera); thesis writing (low priority) | | |

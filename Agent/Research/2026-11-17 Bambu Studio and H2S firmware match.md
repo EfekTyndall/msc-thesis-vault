@@ -67,5 +67,5 @@ Step one is to read both versions (below); that tells which case applies.
 
 ## Open
 
-- Read the actual printer firmware and Studio version on the Mac/printer to tell which cause applies.
-- AMS 2 Pro installed firmware vs 05.00.22.22.
+- ~~Read the actual printer firmware and Studio version on the Mac/printer to tell which cause applies.~~ Dropped 2026-11-19 (Martyn): the firmware update failed with an internet connection error; the firmware update and the flow calibration pass 2 retry are dropped completely.
+- ~~AMS 2 Pro installed firmware vs 05.00.22.22.~~ Dropped 2026-11-19 (same reason).

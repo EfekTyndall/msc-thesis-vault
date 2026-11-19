@@ -48,9 +48,9 @@ Method: arXiv text of the bib papers chi2024 (UMI, plus its [GitHub README](http
 
 ## Open
 
-- [S] items (UMI appendix, DM-UMI tables, FastUMI V-A to V-C, RAPID appendices): check in the PDFs before citing numbers.
-- No paper reports the residual sync error or the share of rejected demos (already gaps A5, A6 in [[2026-11-02 Research gaps]]).
-- Demo start/stop method and rejection criteria need a decision; the raw format (MCAP) is in the approved proposal.
+- [S] items (UMI appendix, DM-UMI tables, FastUMI V-A to V-C, RAPID appendices): check in the PDFs before citing numbers. Moved 2026-11-19 to [[2026-11-20]] TODO.
+- No paper reports the residual sync error or the share of rejected demos (already gaps A5, A6 in [[2026-11-02 Research gaps]]). 2026-11-19: stays a gap to state in Chapter 2 and fill in Chapter 6 (thesis plan §4).
+- Demo start/stop method and rejection criteria need a decision; the raw format (MCAP) is in the approved proposal. Moved 2026-11-19 to [[2026-11-20]] TODO (press test for start/stop; rejection rules; MCAP OK; D09 calibration OK).
 
 ## Recommendation (2026-11-19, for Martyn's decision)
 

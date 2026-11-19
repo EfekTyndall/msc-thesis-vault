@@ -52,9 +52,6 @@ D01 settled 2026-11-16 on the real Dex1-1; these items wait on the copy being re
 - [ ] Buy 2 MGN9C blocks and 2 MGN9 rails (75 mm) only if the printed copy stays (on hold since 2026-11-04).
 - [ ] Copy path, only if resumed: print tests in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md` §2 (lever force over the stroke, friction and lock, ArUco / AS5600 width error against calipers). Copy path frozen since 2026-11-05. (since 2026-11-04)
 
-## Training GPU
-- [ ] Ask whether a more powerful team PC can be used for fine-tuning: fractal-pc (RTX 3080 Ti, 12 GB) is below the README minimums for π0.5 LoRA (> 22.5 GB) and GR00T (40 GB+ recommended) ([[2026-11-19]], Measured). Martyn asks (2026-11-19). (since 2026-11-19)
-
 ## Thesis end (Daimler handover)
 - [ ] Clean `dex1-1-handheld` before it is shared with the company: checklist and check commands in [[Handover]]. (since 2026-11-19)
 
