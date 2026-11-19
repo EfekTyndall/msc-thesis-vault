@@ -15,7 +15,7 @@ How the transforms, latencies and width mappings the data depends on are calibra
 | Encoder angle → fingertip width | \~10 caliper-measured gaps; lookup table or polynomial; per unit ([UMI](https://github.com/real-stanford/universal_manipulation_interface/blob/main/scripts/calibrate_gripper_range.py) recalibrates its range per session) | Once per build; zero/open check every session |
 | Dex1-1 command → fingertip width | Command sweep on the real gripper, measured gaps, inverted at deployment ([Dex1-1](https://unitree.com/Dex1-1): 90 mm stroke, 0.1 mm resolution) | Once per robot gripper |
 | Latency table | Time-coded marker on a monitor (camera), headset timestamps plus clock-offset estimate (PICO), cross-correlation or LED (encoder); see section 6 | Once per build; clock-offset check every session |
-| Visual match of printed copy vs real gripper | Images at equal widths; finger-mask overlap and camera pose offset | Once per build; after finger or mount reprint |
+| Visual match of printed copy vs real gripper (only if the printed-copy fallback of [[D01 Handheld gripper body]] is resumed) | Images at equal widths; finger-mask overlap and camera pose offset | Once per build; after finger or mount reprint |
 | Tracking accuracy and jitter | Controller pose vs UR10e TCP pose after hand-eye; RMSE and static jitter (method of [arXiv 2412.06116](https://arxiv.org/html/2412.06116v1)) | Once per build; short static log every session |
 
 ## Decision
@@ -33,3 +33,4 @@ Treat calibration as its own subsystem that produces versioned files, with three
 ## History
 
 - 2026-10-19: accepted (proposal approved)
+- 2026-11-19: visual-match calibration applies only if the printed-copy fallback is resumed (real Dex1-1 chosen in [[D01 Handheld gripper body]], 2026-11-16); thesis-plan §3–4 aligned in msc-thesis PR #38 (consistency audit, [[2026-11-19 Three-repo consistency audit]])
