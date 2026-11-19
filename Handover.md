@@ -35,14 +35,15 @@ Internal values:
 - [ ] Personal names in test notes ("Martyn", e.g. `PRINT-TEST-QUEUE.md`, `SLICER-SETTINGS.md`): keep or neutralise (company's choice)
 
 Git history and GitHub:
-- [ ] 34 commits authored by `Claude <noreply@anthropic.com>` and 55 `Co-Authored-By: Claude` lines (count of 2026-11-19; re-count with step 1)
-- [ ] PR history: PRs #1–#11 came from `claude/…` and similar branches; PR titles and bodies stay on GitHub
+- [ ] 34 commits authored by `Claude <noreply@anthropic.com>` and 55 `Co-Authored-By: Claude` lines on `main`; 57 co-author lines counting the open PR #12 branch (count of 2026-11-19, weekly audit; re-count with step 1)
+- [ ] PR history: PRs #1–#12 came from `claude/…` and similar branches; PR titles and bodies stay on GitHub
 - [ ] Decide: rewrite history (`git filter-repo` for authors and message lines) or hand over a fresh repository with one initial commit. A fresh repository drops both the history and the PR list
 
 Local-only files on the Mac (never in Git, never in a zip of the folder):
 - [ ] `CLAUDE.local.md`, `.claude/` (excluded via `.git/info/exclude`)
 
 CAD and print files (not in Git while in development):
+- [ ] `hardware/real-adapter/files/real-adapter-v9.f3d` and `real-adapter-v9.step` are tracked on `main` (added in b8ae783, 2026-11-16); PR #12 removes them, but they stay in the Git history. The step 1 grep reports "Binary file …real-adapter-v9.f3d matches" (compressed data, strings "D28" and "d05"; no real reference)
 - [ ] Export only the latest version of each part (STEP, plus STL if wanted); no earlier versions
 - [ ] Licences: Unitree STEP/URDF derivatives (dummy, dummy shell) have no stated licence: internal use only, not shared; PICO controller scan (CC BY) needs the author credit; Glock shell (CC BY 4.0) the same
 
