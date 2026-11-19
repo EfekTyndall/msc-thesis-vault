@@ -89,8 +89,12 @@ Open, not urgent (Martyn: fine for the prototype). Candidates to check later: su
 ## v24 test (Martyn, 2026-11-19 ≈10:45)
 
 - Neither offset variant (0.2 or 0.3 mm, each with front v23) snaps shut. When forced, both broke at the seam, and a thin strip split off along the seam edge (photo: `figures/2026-11-19 sleeve v24 broken seam.jpg`).
-- The 0.2 mm back half with an earlier front half does snap shut, with minimal slide and twist (Martyn; which front version is still to be confirmed).
+- The 0.2 mm back half with the v22 front half from plate 1 does snap shut, with minimal slide and twist (Martyn).
+- The strip that broke off is a groove wall (Martyn).
 - Martyn's view: electrical tape in the back half is still the best fix. The friction material matters, since PETG slides on the controller shell and the tape does not.
 - Inference (not measured): the tape (2026-11-18, 0.29–0.30 mm) is soft and can compress at the tight spots, while a rigid PETG offset of the same size cannot. The 0.3 mm scan check already showed spots about 0.1 mm into the scan. The seam tongue also prints about 0.4 mm over CAD (1.35–1.45 vs 1.00 mm, PLA v21 and PETG v22; [[D10 Handheld mechanism]]), so the seam has no running clearance left.
 - Tongue consistency: two prints (PLA v21, PETG v22) measured the same oversize. The v24 tongues were not measured, so whether it repeats on every print is unverified.
+- Front v23 and v22 have the same seam geometry (v23 only changed the boss holes to Ø4.1; 99.5 % vertex match, `PRINT-TEST-QUEUE.md` §3). So the 0.2 back half snaps on the plate 1 front but not on the plate 3 front because of how the parts were printed or used, not because of the CAD.
+- Slicer projects compared (project_settings.config in the .3mf files on the Mac): plate 1 `plate1-sleeveA-v22-PETG.3mf` used Generic PETG @BBL H2S with flow ratio 0.95 and an outer brim. Plate 3 `plate3-sleeveA-v24-offset-0.2-0.3-PETG.3mf` used Spectrum PETG @BBL H2S with flow ratio 1.00 and no brim. Temperature, Arachne, 4 walls, line widths, 0.2 mm layers and XY compensation 0 are the same. So plate 3 laid down about 5 % more material. Its effect on tongue and groove size was not measured. The plate 1 front has also been through 20+ open/close cycles, which may have loosened its seam (unverified).
+- Martyn (2026-11-19) is not confident that the tongue and groove gives the same fit on every print. Fact so far: with a running clearance of 0.15 mm per side in CAD, which the prints have already used up, the fit depends on slicer settings at the 0.05–0.1 mm level.
 - Open: choose the fix (tape or another friction liner on the existing sleeve, or a CAD change) and record it in D10.
