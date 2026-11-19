@@ -262,3 +262,16 @@ All of these need Martyn's go before any change: CLAUDE.md, the project instruct
 - Findings 16, 17 and 32 change the thesis plan or a CLAUDE.md, so Martyn's go is needed first.
 - Findings 26–29 change decision notes, so they go through record-decision.
 - Not checked: the Fusion state (excluded on purpose), the content of `docs/research-notes.md` and `docs/proposal.md` (the approved baseline, historical by design), daily notes before 2026-11-18, and the Agent/Research notes beyond the paths they are cited from.
+
+## Status after fixes (2026-11-19, Martyn's go)
+
+- **Done in the vault (main):** [[Handover]] note plus the "Thesis end" group in [[Waiting]] (2, 3, 13, 14); D06, D10, D02 and D09 History and text fixes (16, 26, 27, 28, 33); vault CLAUDE.md (32, 42, 49); record-decision skill step for derived files (45); [[2026-11-19]] TODOs (30); [[Waiting]] items (31); local branches and dead worktree (39, 40). The vault edits were pushed in the Obsidian Git commit "vault backup: 2026-11-19 11:47:07" and in 61fefde.
+- **dex1-1-handheld PR #12:** 4–12. v9 CAD untracked (backup in `hardware/real-adapter/files/v9-backup/`); duplicate lines in `.git/info/exclude` removed (14).
+- **msc-thesis PR #38:** 15–21, 43 (copy), 46, 48. The local `msc-thesis/hardware/` was deleted (18).
+- **Branches:** 12 merged msc-thesis remote branches and `print-queue-dummy-rear-section` were deleted (37, 38).
+- **Still open for Martyn:**
+  - finding 1, whether v23 uses the brim;
+  - the live project instructions (43);
+  - the account skills `external-report` and `end-day` (44, 47), which are synced from claude.ai and are not editable here;
+  - D05/D10 copy-path wording (29), which is already in the [[2026-11-19]] TODO;
+  - the handover method (3), which is in [[Handover]].
