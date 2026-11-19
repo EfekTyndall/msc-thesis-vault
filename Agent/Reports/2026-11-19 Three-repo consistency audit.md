@@ -211,6 +211,50 @@ Read-only audit of `msc-thesis`, `msc-thesis-vault` and `dex1-1-handheld`. It co
     - **Remove:** `git worktree prune`, then delete the branch, unless the 2026-11-11 regrouping is still wanted.
 41. **`.DS_Store` files are ignored in all three repos, and `.obsidian/workspace.json` is ignored.** **Keep** (correctly ignored).
 
+## Rules, skills, memory and setup files
+
+Added on 2026-11-19 at Martyn's request. These files were checked:
+- `msc-thesis/CLAUDE.md` and `msc-thesis-vault/CLAUDE.md`;
+- the project instructions and their copy;
+- the vault skill `record-decision`;
+- the account skills `start-day`, `end-day` and `external-report`;
+- the project memory (4 entries);
+- `msc-thesis/docs/setup/` (SETUP.md, the Obsidian template copies and the dex1-1-handheld-local copies).
+
+All of these need Martyn's go before any change: CLAUDE.md, the project instructions and skills are his to change.
+
+### Medium
+
+42. **Vault `CLAUDE.md` puts code and CAD in the wrong repo.** The intro says "the sibling repo `msc-thesis` holds code, CAD, LaTeX, data index and `docs/`". Code and CAD moved to `dex1-1-handheld` (see `msc-thesis/CLAUDE.md` Layout), and the vault CLAUDE.md never names `dex1-1-handheld`. **Update:** "msc-thesis holds LaTeX, analysis, data index and `docs/`; dex1-1-handheld holds code and CAD."
+43. **The project instructions conflict with the "No hardware files in Git" memory.**
+    - The instructions (and their copy, `msc-thesis/docs/setup/claude-project/project-instructions.md`) describe dex1-1-handheld as "code, CAD exports, print files". They also say "Code, CAD and print-file changes go to dex1-1-handheld via pull request".
+    - The project memory "No hardware files in Git" (Martyn, 2026-11-16) says CAD and print files are never committed. The `.gitignore` and the tracked v9 CAD (finding 4) are a third variant.
+    - **Update** both texts once the rule from finding 4 is settled. Then refresh the copy, which matches the instructions word for word today.
+44. **The `external-report` skill has two stale rules.**
+    - It sends the output "via pull request". Vault work goes straight to main (project instructions, 2026-11-11). The skill also notes that the vault auto-commits, so stray files land on main anyway.
+    - It lists `msc-thesis` `hardware/` READMEs as an input. These now live in `dex1-1-handheld/hardware/`.
+    - **Update** both.
+45. **The `record-decision` skill has no step for the documents that repeat decision values.** It updates only the D-note and thesis-plan §7. Findings 5–9 and 15 (hardware-specs, part READMEs, print queue, slicer settings) went stale because nothing prompts a check there after a decision changes a value.
+    - **Update:** add a step such as "search `msc-thesis/docs/hardware-specs.md`, `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md` and the affected part READMEs for the changed values; fix or list them".
+    - Step 4 also writes the §7 row into the thesis plan. `CLAUDE.md` (both repos) says to ask before changing the thesis plan, and in practice log rows have gone in through msc-thesis PRs. Say that explicitly in the skill: "add the row on a branch and open an msc-thesis PR".
+46. **The Obsidian template copies in `msc-thesis/docs/setup/obsidian-templates/` are older than the vault's `Templates/`.** `diff -r` finds three differences:
+    - `Daily.md` lacks the Templater rename line and the `## TODO` and `## Next step` sections.
+    - `Chapter.md` lacks `status: not started`.
+    - `Literature (Zotero Integration).md` lacks the `## Q&A` block and separators.
+
+    `docs/setup/SETUP.md` step 3 tells the reader to copy these files into `Templates/`, so a fresh setup would get the old templates. **Update** the copies from the vault's `Templates/`. Do not edit `Templates/`.
+
+### Low
+
+47. **The `end-day` skill description is out of date.** It says "audit … both repos … open PRs for msc-thesis". The body covers all three repos and opens PRs for dex1-1-handheld too. **Update** the description.
+48. **The handover rule in `msc-thesis/CLAUDE.md` misses the commit authors.** Layout says "Claude commit lines are removed at handover". That does not cover the 34 commits *authored* by `Claude` (finding 3) or the PR history on GitHub. **Update** the wording when the handover method is chosen.
+49. **The vault `CLAUDE.md` Layout omits `Agent/External/`.** This is finding 32, listed again here for completeness. **Update.**
+50. **The other files in this group are consistent.** **Keep.**
+    - The `start-day` skill matches the current setup.
+    - The memory entries "Vault: direct to main", "Fusion MCP access" and "Model use for design work".
+    - `dex1-1-handheld-local/` (identical to the installed files).
+    - `docs/setup/pico-trigger-sim.md` (already uses `~/dex1-1-handheld` paths).
+
 ## Open
 
 - Finding 1 needs Martyn's answer: is the v23 print with or without the brim?
