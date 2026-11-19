@@ -45,3 +45,20 @@ Screws and inserts: screwed adapter joints, insert fit and pull-out, v23 sleeve 
 ## Open
 
 - None of the tasks above has been started; Martyn picks which to start.
+
+## Revised list (2026-11-19, 15:58, after Martyn's answers)
+
+Martyn's answers: GPU approval exists, but fractal-pc (RTX 3080 Ti, 12 GB) is below the openpi and GR00T README minimums for fine-tuning, so he asks for a larger team PC; the UR10e is always free; no supplier contact (the gripper was ordered through the neighbouring company's CTO, asked in person); intern meeting dropped; the task definition (sleeve into bushing) is wrong and is redone from scratch; the D435i moves from the team Pi to the station Jetson for camera tests; recorder, training and export follow UMI and UMI-style papers; controller accuracy test on the robot (old 11): no; thesis writing: low priority; sync test (old 7): after the Dex1-1 camera arrives.
+
+| Order | Task | Who | Size |
+| --- | --- | --- | --- |
+| 1 | G1 trigger run (dex1-1-handheld PR #13 logger, caliper steps), then G2 mapping decision | Martyn runs, Claude analyses | S–M |
+| 2 | G8: does squeezing move the controller (pose logged, handheld still on the table) | Claude adds pose logging, Martyn runs | S |
+| 3 | Survey: how UMI and UMI-style papers record, synchronise, store, calibrate, export and train (bib papers + public code) | Claude | M |
+| 4 | Camera software install plan for the station Jetson with the D435i (libjpeg-turbo ≥ 3.0 vs 2.1.2; RealSense on aarch64), then camera test | Claude plans, Martyn OKs | M |
+| 5 | Recorder skeleton: D435i + controller pose + trigger + stand-in width, one clock, raw MCAP | Claude | M–L |
+| 6 | Task definition from scratch | Martyn describes, Claude writes it up | M |
+| 7 | VR-teleop baseline: XRoboToolkit → UR10e arm control | Claude + Martyn at the robot | M |
+| 8 | Calibration procedure written down (old 13), from the survey | Claude | S–M |
+| 9 | Chores: firmware (running), optional ufw rule removal on fractal-pc; print queue update done in PR #13 | Martyn | S |
+| Later | LeRobot export and training setup (after the survey and a larger GPU); sync and latency test (after the Dex1-1 camera); thesis writing (low priority) | | |
