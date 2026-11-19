@@ -5,6 +5,8 @@ tags: [handover]
 
 **When:** at the end of the thesis or of the Daimler contract, before `dex1-1-handheld` is shared with the company. It is listed in [[Waiting]] under "Thesis end".
 
+**Kept current by:** the weekly cloud audit (Sundays), which runs the check below and adds new hits to section 2.
+
 **Rule until then:** no new vault IDs, vault paths, thesis-repo paths or Claude mentions go into `dex1-1-handheld`. If one is unavoidable, add it to the list below.
 
 ## 1. Re-run the check (finds everything, also items added later)
