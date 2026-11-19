@@ -11,6 +11,7 @@ Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 real Dex1-1, Path 2 
 
 ## Colleague (station supply)
 - [ ] Validate with the colleague responsible for the station whether the 24 V supply under the UR10e station covers the Dex1-1 (24–64 V, about 3.5 A peak; sized for the Robotiq 2F-85). Agreed at the 2026-11-16 talk ([[2026-11-16 Yanmei]]); colleague's name not recorded. (since 2026-11-16)
+	- 2026-11-19 (Martyn, photo of the label): Phoenix Contact QUINT POWER, Ord. No. 2904601, output DC 24 V 10 A, adjustable 24–29.5 V, input AC 100–240 V. Rated current is about 2.9 × the Dex1-1 peak (3.5 A), so it fits if the other loads on it stay below about 6.5 A (not measured; the load LEDs >50 % / >75 % / >100 % show the share in use). 24 V sits at the bottom of the Dex1-1 range, so check the voltage at the gripper end of the cable once it is wired. An RS-485-to-USB adapter (label "USB-485-1") already sits in the station cabinet; what it serves is unknown.
 
 ## Dex1-1 delivery (date unknown)
 - [ ] RS-485 check: the station Jetson (Path 2, [[D06 Recording and synchronisation]]; board and OS fit, [[2026-11-16 Station Jetson check]]) commands the gripper at the needed rate; supply, cable and mass acceptable on a tethered handheld. (since 2026-11-03)
