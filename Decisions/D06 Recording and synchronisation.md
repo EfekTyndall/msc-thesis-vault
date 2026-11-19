@@ -20,13 +20,13 @@ Where data is recorded and how all streams share one time base. Source: `msc-the
 
 No onboard computer as the first option. Each handheld connects by one cable to a single PC, which is the only clock; every sensor's latency is measured and compensated to a residual of about 10 ms or less. Whether the industrial use case is one fixed station or a moving operator is still open, so an onboard or backpack computer remains the fallback.
 
-Station computer (2026-11-16, Path 2 of [[2026-11-13 Handheld computer and gripper connection]]): the single computer is a Jetson at the UR10e station (approved unit 10.36.1.124, model and location not yet checked; Path 2 assumes an Orin). It runs `dex1_1_service` (RS-485 adapter plugged in there), the camera stream, the XRoboToolkit service and recording. The Pi 5 + lab PC split (Path 1) is not used for the handheld.
+Station computer (2026-11-16, Path 2 of [[2026-11-13 Handheld computer and gripper connection]]): the single computer is a Jetson at the UR10e station (approved unit 10.36.1.124: Jetson AGX Orin Developer Kit, Ubuntu 22.04, GLIBCXX to 3.4.30, read over SSH 2026-11-16, [[2026-11-16 Station Jetson check]]; not yet moved to the station). It runs `dex1_1_service` (RS-485 adapter plugged in there), the camera stream, the XRoboToolkit service and recording. The Pi 5 + lab PC split (Path 1) is not used for the handheld.
 
 ## Evidence
 
 [ViTaMIn-B](https://arxiv.org/html/2511.05858v1) removed its onboard Raspberry Pi in favour of a host PC for "improved ergonomics and reduced weight", one PC gives one clock, and latency compensation raised ViTaMIn-B's final-step success from 20% to 70%.
 
-Station computer: `dex1_1_service` runs a 500 Hz serial loop and brakes when commands stop, so it must run on the computer the RS-485 adapter plugs into, at the station ([dex1_1_service @ ced3216](https://github.com/unitreerobotics/dex1_1_service/tree/ced3216290bb22dae356213993786beeaa7143ab), `main.cpp`); Jetson Orin NX is Unitree's tested platform and the supervisor's VR-teleop stack already runs XRoboToolkit on a Jetson ([[2026-11-13 Handheld computer and gripper connection]]). Approved by the supervisor on 2026-11-16 ([[2026-11-16 Yanmei]]). Build and 500 Hz loop on the approved unit: untested.
+Station computer: `dex1_1_service` runs a 500 Hz serial loop and brakes when commands stop, so it must run on the computer the RS-485 adapter plugs into, at the station ([dex1_1_service @ ced3216](https://github.com/unitreerobotics/dex1_1_service/tree/ced3216290bb22dae356213993786beeaa7143ab), `main.cpp`); Jetson Orin NX is Unitree's tested platform and the supervisor's VR-teleop stack already runs XRoboToolkit on a Jetson ([[2026-11-13 Handheld computer and gripper connection]]). Approved by the supervisor on 2026-11-16 ([[2026-11-16 Yanmei]]). `unitree_sdk2` and `dex1_1_service` built and started on the approved unit without a gripper on 2026-11-18 ([[2026-11-17 Station Jetson setup and install plan]] §D); the 500 Hz loop with a gripper is untested.
 
 ## Revisit if
 
@@ -36,3 +36,4 @@ Collection must span several stations, or cables are not allowed. Station comput
 
 - 2026-10-19: accepted (proposal approved)
 - 2026-11-16: station computer: one Jetson at the UR10e station runs gripper program, camera, XRoboToolkit and recording (Path 2); supervisor approved a second Jetson (10.36.1.124) for this; the Pi 5 is ordered for the team, not for the handheld (2026-11-16 talk, [[2026-11-16 Yanmei]]; reported by Martyn)
+- 2026-11-19: station Jetson facts updated: model checked (AGX Orin, 2026-11-16), `dex1_1_service` built and started without a gripper (2026-11-18); decision unchanged (consistency audit, [[2026-11-19 Three-repo consistency audit]])

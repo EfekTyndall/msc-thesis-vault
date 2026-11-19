@@ -1,6 +1,6 @@
 # MSc thesis vault: notes and decisions
 
-Obsidian vault for the MSc thesis (handheld vs VR-teleop demonstrations for GR00T / π0.5). This vault holds the thinking; the sibling repo `msc-thesis` holds code, CAD, LaTeX, data index and `docs/` (proposal, research notes, thesis plan). `Home.md` is the dashboard.
+Obsidian vault for the MSc thesis (handheld vs VR-teleop demonstrations for GR00T / π0.5). This vault holds the thinking; the sibling repo `msc-thesis` holds LaTeX, analysis, data index and `docs/` (proposal, research notes, thesis plan, hardware specs); `dex1-1-handheld` holds code and CAD documentation (shared with the company at the end, so no vault IDs, vault paths or Claude files there; handover list in `Handover.md`). `Home.md` is the dashboard.
 
 ## Layout
 - `Literature/@<citekey>.md` from Zotero Integration; citekey = Better BibTeX key in `msc-thesis/thesis/literature.bib`
@@ -9,7 +9,7 @@ Obsidian vault for the MSc thesis (handheld vs VR-teleop demonstrations for GR00
 - `Experiments/` one note per experiment, linked to `msc-thesis/experiments/<YYYY-MM-DD>-<name>/`
 - `Chapters/NN <Title>.md` hub per thesis chapter (`status`: not started / drafting / done)
 - `Meetings/YYYY-MM-DD <who>.md`
-- `Agent/` machine zone: `Research/`, `Reports/`, `Drafts/`, files named `YYYY-MM-DD <topic>.md`
+- `Agent/` machine zone: `Research/`, `Reports/`, `Drafts/`, `External/` (reports for supervisors, external-report skill), files named `YYYY-MM-DD <topic>.md`
 - `Templates/` Templater syntax (`<% tp.date.now("YYYY-MM-DD") %>`); Literature template is Zotero Integration (Nunjucks)
 
 ## Zones
