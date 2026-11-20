@@ -184,7 +184,7 @@
       <div class="lab">action</div><div class="act">next poses</div><div class="act">next poses</div><div class="act">next poses</div><div class="act">next poses</div><div class="act">…</div><div class="act">next poses</div>
     </div>
   </div>
-  <p class="note">In this thesis the export stores <b>absolute</b> poses (position + 6D rotation + gripper width). The training code of GR00T and openpi turns them into <b>relative</b> actions itself (section 5).</p>
+  <p class="note">In this thesis the export <b>stores absolute</b> poses (position + 6D rotation + gripper width, in the frame they were measured in), but the policy is <b>trained on relative</b> actions. The training code of GR00T and openpi computes relative = current⁻¹ × future from the stored absolute poses (section 5). Storing absolute keeps every option open: relative can always be computed from absolute, but not the other way round, and both frameworks expect absolute input for this conversion.</p>
 </section>
 
 <section id="pipelines">
