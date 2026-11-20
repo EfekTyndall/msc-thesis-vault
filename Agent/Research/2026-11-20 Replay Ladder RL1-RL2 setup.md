@@ -36,10 +36,33 @@ Method: official sources read on 2026-11-20: MuJoCo Menagerie README and `univer
 
 RL1 (replay in MuJoCo on the Mac) also checks the fixed half-turn between operator and robot (operator faces the robot from the table side) and the motion scale before any robot software is involved.
 
+## Team VR-teleop stack (read 2026-11-20)
+
+Source: two repositories from the team GitHub, downloaded as ZIP by Martyn to `~/smart-automation-github` on the Mac, read only (no code copied): `xr_teleoperate-main` (a fork of Unitree's `xr_teleoperate`, Apache-2.0, extended by the team for the UR10e) and `xrobotoolkit-pc-service-setup-main` (setup scripts for the XRoboToolkit PC service). Martyn OK'd a summary in the vault and msc-thesis (2026-11-20); dex1-1-handheld handling is open.
+
+| Item | What the team's code does | Where |
+| --- | --- | --- |
+| Arm command | `ur_rtde` (`rtde_control`, `rtde_receive`), `servoJ` joint targets at 125 Hz; joint speed limited (`velocity_limit=0.3` rad/s in teleop); UR in Remote Control mode; a protective stop latches a fault until the session ends | `teleop/robot_control/robot_arm.py` `UR10e_ArmController`; `teleop/teleop_hand_and_arm.py`; `run_ur10e_teleop_real.sh` |
+| Pose → joints (IK) | Pinocchio + CasADi on `assets/ur10e/ur10e.urdf`; TCP 0.174 m along tool0 z (Robotiq TCP from PolyScope); `HOME_Q` (tool down, TCP ~0.25 m above the table); `BASE_YAW = π/2` = direction the operator faces in the UR base frame | `teleop/robot_control/robot_arm_ik.py` `UR10e_ArmIK` |
+| Gripper | Modbus RTU over TCP to the Pi's `ser2net` (port 4001), slave ID 10; command **binary** (1 open, 0 close; closed = 215/255); state 0.0 open … 1.0 closed | `teleop/robot_control/robotiq_2f85_node.py` |
+| Messaging and recording | Unitree DDS channels (`rt/ur10e/*`, `rt/robotiq_2f85/*`); ROS 2 (`rclpy`) bag recorder: joint states, joint commands, gripper command/state, wrist camera (compressed) | `teleop/bag_recorder/ur10e.yaml` |
+| Simulation | None for the UR10e: `--sim` covers Unitree robots only; `--arm UR10e` needs `--ur-ip` | `teleop_hand_and_arm.py` |
+| XRoboToolkit service | Vendor .deb on x86_64, or a source build on a Jetson Orin (JetPack 6, Qt 6.6.3 build 3–4 h); headless run script (gRPC :60061, TCP :63901) | `xrobotoolkit-pc-service-setup-main/` |
+
+What this changes for the Replay Ladder (proposal):
+
+- **RL2 URSim / RL3 real UR10e:** reuse the team's UR10e arm controller and IK as the robot plug; pointing `--ur-ip` at URSim should run their UR10e path unchanged (inferred, untested).
+- **RL1 MuJoCo on the Mac:** their IK can drive the Menagerie UR10e (check joint names and zero positions).
+- **RL4 gripping:** their Robotiq node drives the 2F-85 through the existing Pi bridge.
+- **G2 trigger-to-gripper mapping:** the VR baseline commands open/close only.
+- **Fairness (thesis plan §3):** the baseline records joint states in ROS 2 bags, not end-effector poses; both conditions need the same export (D07). Open.
+- **Station Jetson (Path 2):** the setup repo builds the XRoboToolkit service on an Orin.
+- New dependencies for reuse: `ur_rtde`, Pinocchio, CasADi (Martyn's go).
+
 ## Open
 
-- How the team's VR-teleop stack commands the UR10e (RTDE, ROS 2 driver or other); Martyn shares the stack when he has access. If it already uses a method that works, copy it instead of adding `ur_rtde`.
+- Team stack: read 2026-11-20 (section above). Open: do the ZIP copies match what runs at the station; how dex1-1-handheld uses team code cleanly.
 - fractal-pc: Docker installed and usable by Martyn's account? `ur10e_ws` contents? (read-only check, needs Martyn's OK; shared PC)
 - MacBook chip (Apple silicon or Intel): only matters if URSim or `ur_rtde` is ever wanted on the Mac.
-- IK for RL1: pick a method with a source before writing the script.
+- IK for RL1: candidate = the team's UR10e IK (above).
 - The station Jetson is the planned recording computer (Path 2), but `ur_rtde` has no arm64 wheel: decide later whether RL3 (replay on the real UR10e, controller only) and later phases command the robot from the Jetson (source build) or fractal-pc.
