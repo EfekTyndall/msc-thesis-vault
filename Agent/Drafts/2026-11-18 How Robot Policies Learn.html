@@ -107,6 +107,9 @@
   th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
   th { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
   td.num { font-family: var(--font-mono); }
+  table.fixed { table-layout: fixed; min-width: 560px; }
+  table.fixed td.num, table.fixed th.num { text-align: right; padding-right: 18px; }
+  table.fixed td, table.fixed th { overflow: hidden; text-overflow: ellipsis; }
   .changed { color: var(--room); }
   .same { color: var(--base); }
   .kinds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -264,8 +267,9 @@
     </div>
     <div class="canvasbox"><svg id="svg" viewBox="0 0 640 400" role="img" aria-label="Top view of a gripper path and reference frames"></svg></div>
     <div class="tablebox">
-      <table>
-        <thead><tr><th>Step <span id="kk">3</span> written as</th><th>x (m)</th><th>y (m)</th><th>angle (°)</th><th>after frame change</th></tr></thead>
+      <table class="fixed">
+        <colgroup><col style="width:34%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:27%"></colgroup>
+        <thead><tr><th>Step <span id="kk">3</span> written as</th><th class="num">x (m)</th><th class="num">y (m)</th><th class="num">angle (°)</th><th>after frame change</th></tr></thead>
         <tbody id="tb"></tbody>
       </table>
     </div>
@@ -443,8 +447,8 @@
     const tag = (changes) => changes ? '<span class="changed">changes</span>' : '<span class="same">stays the same</span>';
     const rotated = cur !== "base";
     document.getElementById("tb").innerHTML =
-      `<tr><td><b>Absolute</b> in ${frames[cur].name}</td><td class="num">${fmt(abs[0])}</td><td class="num">${fmt(abs[1])}</td><td class="num">${fmt(wrap(deg(abs[2])), 1)}</td><td>${tag(true)}</td></tr>` +
-      `<tr><td><b>Delta</b> from step ${k - 1}</td><td class="num">${fmt(del[0])}</td><td class="num">${fmt(del[1])}</td><td class="num">${fmt(wrap(deg(del[2])), 1)}</td><td>${tag(true)}${rotated ? "" : " (if the frame rotates)"}</td></tr>` +
+      `<tr><td><b>Absolute</b> in selected frame</td><td class="num">${fmt(abs[0])}</td><td class="num">${fmt(abs[1])}</td><td class="num">${fmt(wrap(deg(abs[2])), 1)}</td><td>${tag(true)}</td></tr>` +
+      `<tr><td><b>Delta</b> from step ${k - 1}</td><td class="num">${fmt(del[0])}</td><td class="num">${fmt(del[1])}</td><td class="num">${fmt(wrap(deg(del[2])), 1)}</td><td>${rotated ? tag(true) : '<span class="changed">changes when frame rotates</span>'}</td></tr>` +
       `<tr><td><b>Relative</b> to start (T₀)</td><td class="num">${fmt(rel[0])}</td><td class="num">${fmt(rel[1])}</td><td class="num">${fmt(wrap(deg(rel[2])), 1)}</td><td>${tag(false)}</td></tr>`;
     document.getElementById("kk").textContent = k;
   }
