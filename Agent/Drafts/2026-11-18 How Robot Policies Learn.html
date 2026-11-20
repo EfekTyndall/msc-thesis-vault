@@ -214,6 +214,7 @@
       <p class="note">No robot is involved, so there are no joint states. The poses are in the headset's room frame. Section 4 and 5 show why that is fine with relative actions.</p>
     </div>
   </div>
+  <p class="note"><span class="room">Room frame</span> = the fixed coordinate system the PICO headset sets up when the XRoboToolkit app starts. Origin: where the headset is at that moment (eye level, not the floor). Axes: +Y straight up (from gravity), −Z the direction the headset faces (levelled), +X to the right; units metres (zhao2025; OpenXR LOCAL space). The headset's cameras keep it fixed to the room while the headset moves, so the controller pose does not change when only the head moves. Holding the Home button (recentre) or restarting the app makes a new room frame at the headset's current place and heading. <span class="base">Base frame</span> = the UR10e's own coordinate system, fixed to its foot. More in section 4.</p>
   <div class="text">
     <p>Both paths produce the same episode rows: <b>image + gripper pose + width</b>. That is what makes the comparison possible. The image must also match: the same camera at the same place relative to the fingers, which is why UMI insists on an identical gripper and camera on the handheld and the robot (chi2024).</p>
   </div>
