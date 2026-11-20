@@ -12,7 +12,7 @@ tags: [handover]
 ## 1. Re-run the check (finds everything, also items added later)
 
 ```
-cd ~/dex1-1-handheld
+cd ~/thesis/dex1-1-handheld
 git grep -nEi '\bD[0-9]{2}\b|vault|Agent/|msc-thesis|thesis plan|thesis-plan|daily note|design notes|research gaps|PR #|claude|anthropic|experiments/' -- . ':!*.STL' ':!*.urdf'
 git log --format='%h %an <%ae> | %s' | grep -i claude          # authored by Claude
 git log --format='%h %B' | grep -i 'co-authored-by: claude'    # co-author lines
