@@ -22,12 +22,12 @@ git ls-files -o --exclude-standard; git status --ignored --short # local-only fi
 ## 2. Known items (snapshot 2026-11-19, from [[2026-11-19 Three-repo consistency audit]])
 
 Vault and thesis references in tracked files:
-- [ ] `hardware/controller-grip/README.md:3`: "(vault: D10)"
-- [ ] `hardware/dex1-1-reference/README.md:3`: "(vault: D01, D02, D10)"; `:7` "(daily note 2026-11-03)"; `:8` "measurements in vault D10"
-- [ ] `hardware/dex1-1-reference/from-unitree-ros/README.md:3`: "(vault: D01, `Agent/Reports/…`, step 2)"
-- [ ] `hardware/pico-4-ultra-glock-shell/README.md:3`: "(vault: D10)"
-- [ ] `hardware/pico-4-ultra-scan/README.md:3`: "(vault: D04, D10)"
-- [ ] `software/xr/trigger_udp.py:8`: "(vault: D04, research gaps B7)"
+- [ ] `hardware/controller-grip/README.md:3`: "(vault: D10 Handheld mechanism)"
+- [ ] `hardware/dex1-1-reference/README.md:3`: "(vault: D01 Handheld gripper body, D02 Policy camera, D10 Handheld mechanism)"; `:7` "(daily note 2026-11-03)"; `:8` "measurements in vault D10 Handheld mechanism"
+- [ ] `hardware/dex1-1-reference/from-unitree-ros/README.md:3`: "(vault: D01 Handheld gripper body, `Agent/Reports/…`, step 2)"
+- [ ] `hardware/pico-4-ultra-glock-shell/README.md:3`: "(vault: D10 Handheld mechanism)"
+- [ ] `hardware/pico-4-ultra-scan/README.md:3`: "(vault: D04 Pose tracking, D10 Handheld mechanism)"
+- [ ] `software/xr/trigger_udp.py:8`: "(vault: D04 Pose tracking, research gap B7 time sync)"
 - [ ] `hardware/PRINT-TEST-QUEUE.md`: the vault note path in the v19 result; "`docs/thesis-plan.md` §7" (§2 intro); "full note in the design notes" (plate 2b); "(vault PR #31)" (joint item); "(thesis plan, handheld design start plan step 3)" (§4); "`experiments/<YYYY-MM-DD>-<name>/`" (intro)
 
 Internal values:

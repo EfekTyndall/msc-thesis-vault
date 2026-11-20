@@ -37,10 +37,10 @@ Method: arXiv text of the bib papers chi2024 (UMI, plus its [GitHub README](http
 | --- | --- | --- | --- |
 | Recording computer | Station Jetson by cable ([[D06 Recording and synchronisation]]) | ViTaMIn-B (wired host, Pi removed) | Matches |
 | Raw format | MCAP with all original timestamps (`msc-thesis/docs/proposal.md`) | RAPID (MCAP, ns timestamps); HDF5 in FastUMI and RoboManipBaselines | MCAP has one precedent; HDF5 is the more common choice |
-| Alignment | One clock; latency measured and compensated to about 10 ms (D06) | UMI and ViTaMIn-B interpolate poses onto camera frame times; ViTaMIn-B's on-screen ArUco method | Adopt UMI/ViTaMIn-B interpolation at frame times |
+| Alignment | One clock; latency measured and compensated to about 10 ms (D06: recording and synchronisation) | UMI and ViTaMIn-B interpolate poses onto camera frame times; ViTaMIn-B's on-screen ArUco method | Adopt UMI/ViTaMIn-B interpolation at frame times |
 | Export rate | 30 Hz (`msc-thesis/CLAUDE.md`) | ActiveUMI 30 Hz with π0; FastUMI 20 Hz; UMI policy 10–20 Hz **[S]** | 30 Hz has a π0-family precedent |
 | Demo start/stop | Not decided | Foot pedal (ViTaMIn-B) | A controller button is also possible; no precedent found for it as start/stop |
-| Rejection criteria (gap A6) | Not defined | UMI (reachability), FastUMI (pose jumps, low confidence), RAPID (masks) | Write them before collection; G6 timestamp gaps fit FastUMI-style checks |
+| Rejection criteria (gap A6: dropouts and episode rejection) | Not defined | UMI (reachability), FastUMI (pose jumps, low confidence), RAPID (masks) | Write them before collection; G6 (link reliability over a session) timestamp gaps fit FastUMI-style checks |
 | Calibration | [[D09 Calibration]]: versioned files, three cadences | ViTaMIn-B hand-eye (controller on the arm, 10 poses); UMI width range from open/close cycles | Width: the Dex1-1 rad → width curve replaces UMI's marker range |
 | Actions | Relative EE + absolute width ([[D07 Software and data format]]) | UMI, ViTaMIn-B, DM-UMI **[S]** | Matches |
 | Demos per task | Thesis plan: N not fixed | 100–345 per task in UMI, ViTaMIn-B, DM-UMI | Sets the scale of collection time |
@@ -49,17 +49,17 @@ Method: arXiv text of the bib papers chi2024 (UMI, plus its [GitHub README](http
 ## Open
 
 - [S] items (UMI appendix, DM-UMI tables, FastUMI V-A to V-C, RAPID appendices): check in the PDFs before citing numbers. Moved 2026-11-19 to [[2026-11-20]] TODO.
-- No paper reports the residual sync error or the share of rejected demos (already gaps A5, A6 in [[2026-11-02 Research gaps]]). 2026-11-19: stays a gap to state in Chapter 2 and fill in Chapter 6 (thesis plan §4).
+- No paper reports the residual sync error or the share of rejected demos (already gaps A5 (residual sync error) and A6 (episode rejection) in [[2026-11-02 Research gaps]]). 2026-11-19: stays a gap to state in Chapter 2 and fill in Chapter 6 (thesis plan §4).
 - Demo start/stop method and rejection criteria need a decision; the raw format (MCAP) is in the approved proposal. Moved 2026-11-19 to [[2026-11-20]] TODO (press test for start/stop; rejection rules; MCAP OK; D09 calibration OK).
 
 ## Recommendation (2026-11-19, for Martyn's decision)
 
 1. **Record on the station Jetson by cable, one clock.** ViTaMIn-B moved from an onboard Pi to a wired host (IV-A) and reached a valid rate of 1.0 with the VR controller (Tab. IV). Already [[D06 Recording and synchronisation]].
 2. **Keep every stream raw with its original timestamp, in MCAP.** RAPID records MCAP with nanosecond timestamps (App. D [S]); FastUMI and RoboManipBaselines use HDF5, the more common choice, but they store already-aligned data. Raw per-stream storage lets alignment be redone when latencies are re-measured (the Dex1-1 camera replaces the D435i later). Evidence is one precedent plus this property; in the approved proposal.
-3. **Align on the camera frames**: subtract each stream's measured delay, then interpolate pose and width at each frame time (UMI PD1.1; ViTaMIn-B IV-B). Proof: ViTaMIn-B latency compensation raised final-step success from 20 % to 70 % (D06 evidence); UMI tossing 0.875 with latency matching vs 0.575 without (Fig. 8).
+3. **Align on the camera frames**: subtract each stream's measured delay, then interpolate pose and width at each frame time (UMI PD1.1; ViTaMIn-B IV-B). Proof: ViTaMIn-B latency compensation raised final-step success from 20 % to 70 % (D06 (recording and synchronisation) evidence); UMI tossing 0.875 with latency matching vs 0.575 without (Fig. 8).
 4. **Export 30 Hz, LeRobot, relative EE actions + absolute width** ([[D07 Software and data format]]). UMI and ViTaMIn-B use relative actions; UMI's absolute baseline did worse (Sec. V-A [S]); ActiveUMI records at 30 Hz for π0 (4.1).
-5. **Start/stop with a foot pedal.** ViTaMIn-B (IV-A). Keeps hands free and the tracked controller untouched (links to G8). A controller button has no precedent found. A pedal is a purchase (ask first).
-6. **Rejection rules written before collection, the same for handheld and teleop**: timestamp gaps (G6), pose jumps (FastUMI III-B), robot reachability (UMI HD6). No paper reports its rejected share, so reporting it is a contribution (gap A6).
+5. **Start/stop with a foot pedal.** ViTaMIn-B (IV-A). Keeps hands free and the tracked controller untouched (links to G8: does pressing move the controller). A controller button has no precedent found. A pedal is a purchase (ask first).
+6. **Rejection rules written before collection, the same for handheld and teleop**: timestamp gaps (G6: link reliability over a session), pose jumps (FastUMI III-B), robot reachability (UMI HD6). No paper reports its rejected share, so reporting it is a contribution (gap A6: dropouts and episode rejection).
 7. **Calibration**: controller → gripper tip by hand-eye, controller on the robot, about 10 poses (ViTaMIn-B IV-D); width from the Dex1-1 rad → width curve measured with calipers (UMI calibrates its width range by open/close cycles [S]).
 8. **Training**: π0.5 with openpi first (thesis plan default; ActiveUMI fine-tuned π0 for 50k iterations, 4.1); plan 100–300 demos per task (UMI 250–305 [S], ViTaMIn-B 123–345, DM-UMI 100–290 [S]); a GPU with ≥ 24 GB (UMI README RTX 3090; openpi LoRA > 22.5 GB).
 

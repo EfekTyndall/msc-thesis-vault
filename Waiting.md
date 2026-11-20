@@ -6,7 +6,7 @@ tags: [waiting]
 Long-running items that cannot be done in a single session, grouped by what unblocks them. Each item lives in one place only: here while it waits, or in a daily note's `## TODO` once it can be worked on. When a blocker clears, move (cut, not copy) its items into that day's TODO. Tests to run on printed parts stay in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md`; this note only points to them.
 
 ## Supervisor (on leave until early 2027, email only)
-Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 real Dex1-1, Path 2 station computer, D08 confirmed).
+Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 (handheld gripper body) real Dex1-1, Path 2 station computer, D08 (deployment) confirmed).
 - [ ] How her VR-teleop stack commands the UR10e (RTDE / ROS 2 driver): not asked at the 2026-11-16 talk; not needed until VR teleop is set up on the handheld Jetson. (since 2026-11-16)
 
 ## Colleague (station supply)
@@ -45,10 +45,10 @@ Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orde
 
 ## Company IT access (internal Storefront)
 As of 2026-11-10 the Storefront can be browsed but not ordered from; orders go through the manager's approval and a colleague (2026-11-11).
-- [ ] Prices for the D01 side-by-side (Dex1-1, MGN9C blocks and MGN9 rails, 24/48 V supply, cables), from the company's suppliers; not needed for the mind map ([[2026-11-05 D01 real vs copy side-by-side]]). (since 2026-11-05)
+- [ ] Prices for the D01 (handheld gripper body) side-by-side (Dex1-1, MGN9C blocks and MGN9 rails, 24/48 V supply, cables), from the company's suppliers; not needed for the mind map ([[2026-11-05 D01 real vs copy side-by-side]]). (since 2026-11-05)
 
 ## Printed-copy fallback (only if the real path fails)
-D01 settled 2026-11-16 on the real Dex1-1; these items wait on the copy being resumed (RS-485 check fails or delivery slips).
+D01 (handheld gripper body) settled 2026-11-16 on the real Dex1-1; these items wait on the copy being resumed (RS-485 check fails or delivery slips).
 - [ ] Buy 2 MGN9C blocks and 2 MGN9 rails (75 mm) only if the printed copy stays (on hold since 2026-11-04).
 - [ ] Copy path, only if resumed: print tests in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md` §2 (lever force over the stroke, friction and lock, ArUco / AS5600 width error against calipers). Copy path frozen since 2026-11-05. (since 2026-11-04)
 

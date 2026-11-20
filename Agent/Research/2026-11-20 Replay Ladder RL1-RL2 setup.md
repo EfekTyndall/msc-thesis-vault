@@ -34,7 +34,7 @@ Method: official sources read on 2026-11-20: MuJoCo Menagerie README and `univer
 | RL2 | fractal-pc | Docker + `universalrobots/ursim_e-series` with `ROBOT_MODEL=UR10`; replay script with `ur_rtde` | Docker on fractal-pc (installed or not: unchecked); the URSim image; `ur_rtde` in a conda env |
 | RL3 | fractal-pc or the station Jetson | Same script, address of the real UR10e; robot in remote control mode | – on fractal-pc; source build of `ur_rtde` on the Jetson (arm64) |
 
-RL1 also checks the fixed half-turn between operator and robot (operator faces the robot from the table side) and the motion scale before any robot software is involved.
+RL1 (replay in MuJoCo on the Mac) also checks the fixed half-turn between operator and robot (operator faces the robot from the table side) and the motion scale before any robot software is involved.
 
 ## Open
 
@@ -42,4 +42,4 @@ RL1 also checks the fixed half-turn between operator and robot (operator faces t
 - fractal-pc: Docker installed and usable by Martyn's account? `ur10e_ws` contents? (read-only check, needs Martyn's OK; shared PC)
 - MacBook chip (Apple silicon or Intel): only matters if URSim or `ur_rtde` is ever wanted on the Mac.
 - IK for RL1: pick a method with a source before writing the script.
-- The station Jetson is the planned recording computer (Path 2), but `ur_rtde` has no arm64 wheel: decide later whether RL3+ commands the robot from the Jetson (source build) or fractal-pc.
+- The station Jetson is the planned recording computer (Path 2), but `ur_rtde` has no arm64 wheel: decide later whether RL3 (replay on the real UR10e, controller only) and later phases command the robot from the Jetson (source build) or fractal-pc.
