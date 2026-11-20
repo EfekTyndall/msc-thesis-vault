@@ -84,6 +84,8 @@ Option B, split into small phases. Each phase feeds the final framework (recorde
 
 Gate: if the Dex1-1 has not passed the RS-485 check by mid-January 2027, propose option D (2F-85 for the core) to the supervisor. The operator stands at the table in front of the robot (only accessible side); recordings start from a fixed start mark (relative actions, [[D07 Software and data format]]; ActiveUMI docking jig, zeng2025 Sec. 3.3). The team's VR-teleop stack is read once Martyn has access, to copy how it commands the UR10e. ROS 2 is not required (RTDE needs none); fractal-pc has a `ur10e_ws` workspace, contents unchecked.
 
+Table layout for RL4 (gripping with the 2F-85) onward (agreed with Martyn 2026-11-20): recording and replay use the same table and the same marks, one after the other. **Start mark**: the handheld's fingertip point starts here when recording; the robot's gripper tip starts here (home) before replay. **Pick spot** and **place spot**: outlines for the object, used by both; the object is put back on its pick outline before each replay. All marks must be within the operator's reach from the table side and within the UR10e's reach (check with the teach pendant). For RL1–RL3 (movements in the air) a fixed robot home pose is enough. Motion scale 1:1 (XRoboToolkit's teleop example uses 0.8 for the UR; not used for replay).
+
 Research still to do before RL1/RL2: UR10e model for MuJoCo; URSim on fractal-pc; ROS 2 on macOS; the team stack's UR command method.
 
 ## Open
