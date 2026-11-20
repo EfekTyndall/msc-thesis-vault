@@ -195,8 +195,8 @@
       <h3>VR teleoperation</h3>
       <div class="flow">
         <div class="step r"><b>Operator</b>moves the PICO controller, grip button held</div>
-        <div class="step r"><b>Headset</b>controller pose in the <span class="room">room frame</span>, 90 Hz</div>
-        <div class="step n"><b>Clutch mapping</b>change since press × scale, axis swap</div>
+        <div class="step r"><b>Headset</b>absolute controller pose in the <span class="room">room frame</span>, 90 Hz</div>
+        <div class="step n"><b>Clutch mapping</b>change since grip press × scale, axis swap; added to the robot pose at the press</div>
         <div class="step b"><b>UR10e</b>IK → joints; moves the real gripper</div>
         <div class="step b"><b>Recorder</b>robot camera, joint states, gripper pose in <span class="base">base frame</span>, width</div>
       </div>
@@ -206,7 +206,7 @@
       <h3>Handheld (UMI-style)</h3>
       <div class="flow">
         <div class="step g"><b>Operator</b>holds the Dex1-1 handheld with the controller as grip</div>
-        <div class="step r"><b>Headset</b>controller pose in the <span class="room">room frame</span>, 90 Hz</div>
+        <div class="step r"><b>Headset</b>absolute controller pose in the <span class="room">room frame</span>, 90 Hz</div>
         <div class="step n"><b>Offset</b>controller → gripper tip (D09 hand-eye)</div>
         <div class="step g"><b>Recorder</b>wrist camera, gripper-tip pose in <span class="room">room frame</span>, width</div>
         <div class="step n"><b>Export</b>absolute; training makes it relative</div>
