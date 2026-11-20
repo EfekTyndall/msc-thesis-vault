@@ -433,7 +433,7 @@
     // delta legs: from step k-1 to step k, measured along the SELECTED frame's x and y axes
     const V = vals(cur), lab = (pt, txt, col) => { const t = el("text", { x: pt[0] + 4, y: pt[1] - 4, fill: col, "font-size": 11, "font-family": "IBM Plex Mono, monospace", "font-weight": 600 }); t.textContent = txt; };
     // label placer: each label tries candidate spots in order and takes the first one that does not overlap a label already placed
-    const placed = [];
+    const placed = [...svg.querySelectorAll("text")].filter(t => !t.getAttribute("transform")).map(t => { const b = t.getBBox(); return [b.x, b.y, b.x + b.width, b.y + b.height]; });
     const put = (txt, col, cands, opts) => {
       const t = el("text", Object.assign({ x: 0, y: 0, fill: col, "font-size": 11, "font-family": "IBM Plex Mono, monospace", "font-weight": 600, "text-anchor": "middle" }, opts || {})); t.textContent = txt;
       const b = t.getBBox(), hit = (x, y) => placed.some(r => x + b.x - 3 < r[2] && x + b.x + b.width + 3 > r[0] && y + b.y - 2 < r[3] && y + b.y + b.height + 2 > r[1]);
@@ -474,13 +474,14 @@
     // pose names last, so they move out of the way of the leg labels
     ptLab(px(demo[k]), "T" + k, grip, true);
     demo.forEach((p, i) => { if (i > 0 && i !== k) ptLab(px(p), "T" + i, grip, false); });
-    put("start (T₀)", grip, [[s0[0] + 10, s0[1] + 24], [s0[0] - 10, s0[1] + 24], [s0[0] - 10, s0[1] - 14]], { "font-weight": 400, "font-family": "IBM Plex Sans, sans-serif", "font-size": 12 });
+    const inF = P => { const a = compose(inv(frames[cur].pose), P); return `(${fmt(a[0], 1)}, ${fmt(a[1], 1)}, ${fmt(wrap(a[2]) * 180 / Math.PI, 0)}°)`; };
+    put("start T₀ " + inF(demo[0]), grip, [[s0[0] + 10, s0[1] + 24], [s0[0] - 10, s0[1] + 24], [s0[0] - 10, s0[1] - 14]], { "font-weight": 400, "font-family": "IBM Plex Sans, sans-serif", "font-size": 12 });
     // replay on robot from another start
     if (replay) {
       const rp = demo.map(T => compose(robotStart, compose(inv(demo[0]), T)));
       el("polyline", { points: rp.map(px).map(p => p.join(",")).join(" "), fill: "none", stroke: base, "stroke-width": 2, "stroke-dasharray": "4 4" });
       rp.forEach((p, i) => gripper(p, base, i === k || i === 0 ? 1 : 0.45, i === k));
-      const r0 = px(rp[0]); const tr = el("text", { x: r0[0] - 40, y: r0[1] + 22, fill: base, "font-size": 12, "font-family": "IBM Plex Sans, sans-serif" }); tr.textContent = "robot start";
+      const r0 = px(rp[0]); const tr = el("text", { x: r0[0] - 40, y: r0[1] + 22, fill: base, "font-size": 12, "font-family": "IBM Plex Sans, sans-serif" }); tr.textContent = "robot start " + inF(robotStart);
     }
   }
 
@@ -518,7 +519,7 @@
   rb.addEventListener("click", () => {
     replay = !replay; rb.setAttribute("aria-pressed", String(replay));
     document.getElementById("replaynote").innerHTML = replay
-      ? "Teal path: the robot starts somewhere else, reads its own start pose from its encoders, and applies the same relative steps (start × relative). The path has the same shape seen from the gripper, without ever knowing where the headset room frame was."
+      ? "Teal path: the robot's gripper starts somewhere else (robot start, x 0.9 m, y 0.4 m, 90° in the robot base frame; not the base itself). The robot reads this start pose from its joint encoders, and applies the same relative steps (start × relative). The path has the same shape seen from the gripper, without ever knowing where the headset room frame was."
       : "Absolute numbers differ in every frame. Delta numbers (thick Δx, Δy legs) are the same arrow from the previous step, but measured along the selected frame's axes, so they differ when the frame is rotated (both room frames here). Relative numbers (dotted rel legs) are measured along the gripper's own axes at T₀, so they are the same in every frame. That is why relative actions need no room → base calibration. Turn on \"Replay on robot\" to see the same relative actions applied from a different robot start pose.";
     update();
   });
