@@ -8,7 +8,7 @@ Question (Martyn, 2026-11-20): the manager now expects the Dex1-1 grippers and t
 
 Method: lab hardware and plan from `msc-thesis/docs/thesis-plan.md` (§3–§6), `msc-thesis/docs/hardware-specs.md`, [[D01 Handheld gripper body]], [[D02 Policy camera]], [[D03 Depth sensing]], [[Waiting]], [[2026-11-19 Work not blocked by parts]], [[2026-11-12 Lab computers and gripper connections]]. Hardware facts of prior work read from the arXiv text of the bib papers chi2024 (UMI), zhaxizhuoma2025 (FastUMI), liu2026 (RDT2), yin2026 (RAPID), zeng2025 (ActiveUMI), murooka2026, cheng2026 (TacUMI), li2025 (ViTaMIn-B), ai2026 (HiFi-UMI) and xue2026 (fisheye study, arXiv 2603.02139), plus the Robotiq 2F-85 manual, on 2026-11-20. Items marked **[S]** came from a model summary of the paper's later part and are unverified until checked in the PDF. Nothing was decided; no decision note was changed.
 
-**Decided 2026-11-20 (Martyn):** option B now; option D only as the last resort if the Dex1-1 arrives too late (gate mid-January 2027). Recorded in [[D01 Handheld gripper body]] History.
+**Decided 2026-11-20 (Martyn):** option B now, run as the **Replay Ladder** (RL1–RL6, below); option D only as the last resort if the Dex1-1 arrives too late (gate mid-January 2027). Recorded in [[D01 Handheld gripper body]] History.
 
 ## In short
 
@@ -68,6 +68,23 @@ Consequence for every option: **data from two different gripper/camera sets cann
 6. **Gate:** if the Dex1-1 has not passed the RS-485 check by mid-January 2027 (thesis plan §5 rule "if replay does not succeed by mid-January"), propose option D to the supervisor with this brief, including a wide USB camera on both sides (D02 fallback) instead of the D435i.
 
 Why B over C: C's matched fingers and passive handheld only make the *pilot* data more realistic and are thrown away when the Dex1-1 arrives. B already gives everything the December gate needs. Why not E: it rebuilds the frozen copy path with a motor added, and it would be ready at about the same time as the real gripper.
+
+## Replay Ladder (locked 2026-11-20, Martyn)
+
+Option B, split into small phases. Each phase feeds the final framework (recorder, replay, calibration), so none is a dead end. Topic name: **Replay Ladder**; phases **RL1–RL6**. Recordings in every phase are pilot data only and never enter C1–C4.
+
+| Phase | What | Where | Pass check | Needs |
+| --- | --- | --- | --- | --- |
+| RL1 | Replay recorded PICO controller movements (small, slow; controller only) on a simulated UR10e in MuJoCo | MacBook (MuJoCo already used there) | Simulated tool path follows the recorded controller path; directions right (operator faces the robot: fixed half-turn about the vertical axis) | Controller pose log (dex1-1-handheld PR #13 logger); a UR10e MuJoCo model (MuJoCo Menagerie, unverified); a replay script |
+| RL2 | Same replay program against URSim, the official UR controller simulator | fractal-pc (Linux; install plan first, shared PC) | Program runs unchanged against URSim; path matches | URSim on fractal-pc (unverified); UR command interface (RTDE or the team's stack) |
+| RL3 | Same program on the real UR10e, controller only, small slow moves in the air | Station | Robot TCP path vs recorded path within a few millimetres; reduced speed, small allowed box, person at the emergency stop | Robot time (UR10e always free); start mark on the table |
+| RL4 | Trigger → Robotiq 2F-85 open/close during replay; then one simple pick-and-place of a light, soft object | Station | Robot picks and places the part where the operator did | Existing prototype (sleeve + adapter + dummy Dex1-1); dummy fingertip ↔ 2F-85 fingertip offset (D09 CAD offset) |
+| RL5 | Add the D435i and the recorder: images, pose and trigger with timestamps, raw MCAP | Station Jetson | Images and movements line up in time | D435i plan C1–C3; recorder skeleton |
+| RL6 | Dex1-1 arrives: swap gripper program and camera, repeat RL4–RL5 | Station | As RL4–RL5 on the final hardware | Dex1-1, RS-485 check |
+
+Gate: if the Dex1-1 has not passed the RS-485 check by mid-January 2027, propose option D (2F-85 for the core) to the supervisor. The operator stands at the table in front of the robot (only accessible side); recordings start from a fixed start mark (relative actions, [[D07 Software and data format]]; ActiveUMI docking jig, zeng2025 Sec. 3.3). The team's VR-teleop stack is read once Martyn has access, to copy how it commands the UR10e. ROS 2 is not required (RTDE needs none); fractal-pc has a `ur10e_ws` workspace, contents unchecked.
+
+Research still to do before RL1/RL2: UR10e model for MuJoCo; URSim on fractal-pc; ROS 2 on macOS; the team stack's UR command method.
 
 ## Open
 
