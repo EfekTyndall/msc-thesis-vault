@@ -246,7 +246,7 @@
 
   <div class="panel" id="demo">
     <h3>Try it: one demonstration, seen from different frames</h3>
-    <p class="note">Top view. The orange path is one handheld demonstration (6 gripper poses). Pick the frame the numbers are written in, and a step to read. Watch which numbers change.</p>
+    <p class="note">Top view. The orange path is one handheld demonstration: 6 gripper poses T₀ to T₅, each on a grid point. The grid is 0.1 m and follows the selected frame, so the absolute numbers in the table can be read straight off the grid labels. Pick a frame and a step and watch which numbers change.</p>
     <div class="controls">
       <div class="seg" role="group" aria-label="Frame">
         <button type="button" id="f-base" aria-pressed="true">Robot base</button>
@@ -352,18 +352,18 @@
   const wrap = (d) => { let x = ((d + 180) % 360 + 360) % 360 - 180; return Math.abs(x) < 0.05 ? 0 : x; };
 
   // Demonstration in world metres (world = robot base frame for drawing)
-  const demo = [[0.30, 0.10, rad(20)], [0.40, 0.15, rad(28)], [0.50, 0.22, rad(40)],
-                [0.58, 0.32, rad(55)], [0.62, 0.44, rad(70)], [0.63, 0.55, rad(85)]];
+  const demo = [[0.2, 0.1, rad(0)], [0.3, 0.1, rad(0)], [0.4, 0.2, rad(45)],
+                [0.5, 0.3, rad(45)], [0.5, 0.4, rad(90)], [0.5, 0.5, rad(90)]];
   const frames = {
     base:  { pose: [0, 0, 0], name: "Robot base", cls: "base" },
-    room1: { pose: [0.85, 0.05, rad(120)], name: "Headset room, session 1", cls: "room" },
-    room2: { pose: [0.15, 0.62, rad(-35)], name: "Headset room, session 2", cls: "room" }
+    room1: { pose: [0.8, 0.1, rad(90)], name: "Headset room, session 1", cls: "room" },
+    room2: { pose: [0.1, 0.6, rad(180)], name: "Headset room, session 2", cls: "room" }
   };
-  const robotStart = [0.80, 0.18, rad(110)];
+  const robotStart = [0.9, 0.4, rad(90)];
   let cur = "base", k = 3, replay = false;
 
   // world (m) -> svg px
-  const S = 520, OX = 40, OY = 370;
+  const S = 500, OX = 40, OY = 380;
   const px = (p) => [OX + p[0] * S, OY - p[1] * S];
   const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   const svg = document.getElementById("svg");
@@ -393,15 +393,31 @@
   function draw() {
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     const grip = css("--grip"), room = css("--room"), base = css("--base"), muted = css("--muted"), line = css("--line");
-    for (let i = 0; i <= 12; i++) el("line", { x1: 0, y1: i * 34, x2: 640, y2: i * 34, stroke: line, "stroke-width": 1 });
-    for (let i = 0; i <= 19; i++) el("line", { x1: i * 34, y1: 0, x2: i * 34, y2: 400, stroke: line, "stroke-width": 1 });
+    // metric grid (0.1 m) aligned with the selected frame, with tick labels in that frame
+    const G = frames[cur].pose, gcol = cur === "base" ? base : room;
+    for (let i = -20; i <= 20; i++) {
+      const a = px(compose(G, [i * 0.1, -3, 0])), b = px(compose(G, [i * 0.1, 3, 0]));
+      el("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: line, "stroke-width": i === 0 ? 2 : 1 });
+      const c = px(compose(G, [-3, i * 0.1, 0])), d = px(compose(G, [3, i * 0.1, 0]));
+      el("line", { x1: c[0], y1: c[1], x2: d[0], y2: d[1], stroke: line, "stroke-width": i === 0 ? 2 : 1 });
+    }
+    for (let i = -20; i <= 20; i++) {
+      if (i === 0) continue;
+      const v = (i / 10).toFixed(1);
+      const tx = px(compose(G, [i * 0.1, 0, 0])), ty = px(compose(G, [0, i * 0.1, 0]));
+      const a1 = el("text", { x: tx[0] + 2, y: tx[1] + 12, fill: gcol, "font-size": 10, "font-family": "IBM Plex Mono, monospace", opacity: 0.85, "font-weight": i === 1 ? 600 : 400 }); a1.textContent = (i === 1 ? "x " : "") + v;
+      const a2 = el("text", { x: ty[0] + 3, y: ty[1] - 3, fill: gcol, "font-size": 10, "font-family": "IBM Plex Mono, monospace", opacity: 0.85, "font-weight": i === 1 ? 600 : 400 }); a2.textContent = (i === 1 ? "y " : "") + v;
+    }
     // frames
     axes(frames.base.pose, base, "robot base", 0.1);
     if (cur !== "base") axes(frames[cur].pose, room, "room frame", 0.1);
     // path
     const pts = demo.map(px).map(p => p.join(",")).join(" ");
     el("polyline", { points: pts, fill: "none", stroke: grip, "stroke-width": 2, "stroke-dasharray": "4 4", opacity: 0.7 });
-    demo.forEach((p, i) => gripper(p, grip, i === k || i === 0 ? 1 : 0.45, i === k));
+    demo.forEach((p, i) => {
+      gripper(p, grip, i === k || i === 0 ? 1 : 0.45, i === k);
+      if (i > 0) { const q = px(p); const t = el("text", { x: q[0] - 22, y: q[1] - 6, fill: grip, "font-size": 11, "font-family": "IBM Plex Mono, monospace", "font-weight": i === k ? 600 : 400 }); t.textContent = "T" + i; }
+    });
     const s0 = px(demo[0]); const t0 = el("text", { x: s0[0] - 10, y: s0[1] + 24, fill: grip, "font-size": 12, "font-family": "IBM Plex Sans, sans-serif" }); t0.textContent = "start (T₀)";
     // relative vector from start to step k, drawn in gripper colour
     const sk = px(demo[k]);
