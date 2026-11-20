@@ -61,8 +61,8 @@ What this changes for the Replay Ladder (proposal):
 
 ## Open
 
-- Team stack: read 2026-11-20 (section above). Open: do the ZIP copies match what runs at the station; how dex1-1-handheld uses team code cleanly.
+- Team stack: read 2026-11-20 (section above). Open: do the ZIP copies match what runs at the station (moved 2026-11-20 to [[2026-11-23]] TODO, check after the clone). How dex1-1-handheld uses team code: resolved 2026-11-20 (Replay Ladder thread): clone next to it (Mac `~/thesis/team/xr_teleoperate`), pinned commit recorded in the README, no copied code, no submodule.
 - fractal-pc: Docker installed and usable by Martyn's account? `ur10e_ws` contents? (read-only check, needs Martyn's OK; shared PC)
 - MacBook chip (Apple silicon or Intel): only matters if URSim or `ur_rtde` is ever wanted on the Mac.
-- IK for RL1: candidate = the team's UR10e IK (above).
+- IK for RL1: candidate = the team's UR10e IK (above). Moved 2026-11-20 to the RL1 item in [[2026-11-23]].
 - The station Jetson is the planned recording computer (Path 2), but `ur_rtde` has no arm64 wheel: decide later whether RL3 (replay on the real UR10e, controller only) and later phases command the robot from the Jetson (source build) or fractal-pc.

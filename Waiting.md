@@ -7,7 +7,7 @@ Long-running items that cannot be done in a single session, grouped by what unbl
 
 ## Supervisor (on leave until early 2027, email only)
 Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 (handheld gripper body) real Dex1-1, Path 2 station computer, D08 (deployment) confirmed).
-- [ ] How her VR-teleop stack commands the UR10e (RTDE / ROS 2 driver): not asked at the 2026-11-16 talk; not needed until VR teleop is set up on the handheld Jetson. (since 2026-11-16)
+- [x] How her VR-teleop stack commands the UR10e (RTDE / ROS 2 driver): not asked at the 2026-11-16 talk; not needed until VR teleop is set up on the handheld Jetson. (since 2026-11-16) Answered 2026-11-20 from the team code: `ur_rtde` `servoJ` joint targets at 125 Hz ([[2026-11-20 Replay Ladder RL1-RL2 setup]], Team VR-teleop stack).
 
 ## Colleague (station supply)
 - [ ] Validate with the colleague responsible for the station whether the 24 V supply under the UR10e station covers the Dex1-1 (24–64 V, about 3.5 A peak; sized for the Robotiq 2F-85). Agreed at the 2026-11-16 talk ([[2026-11-16 Yanmei]]); colleague's name not recorded. (since 2026-11-16)
