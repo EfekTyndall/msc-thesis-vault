@@ -27,7 +27,7 @@ Real gripper (2026-11-16): the supervisor accepted the real-Dex1-1 path at the 2
 
 ## Revisit if
 
-The RS-485 check on the delivered Dex1-1 fails, the delivery slips too far, or the handheld proves too heavy in use: then resume the printed copy (fallback).
+The RS-485 check on the delivered Dex1-1 fails or the handheld proves too heavy in use: then resume the printed copy (fallback). The Dex1-1 has not passed the RS-485 check by mid-January 2027: then propose to the supervisor the lab Robotiq 2F-85 for the whole core study, with the Dex1-1 only for the H2 stretch (last resort, option D in [[2026-11-20 Interim hardware while the Dex1-1 is delayed]]).
 
 ## History
 
@@ -37,3 +37,4 @@ The RS-485 check on the delivered Dex1-1 fails, the delivery slips too far, or t
 - 2026-11-04: still open in practice, decision kept until the supervisor decides: the real Dex1-1 as handheld is worked on in parallel with the printed copy; the printed copy is the test rig until delivery, or the full fallback; two grippers are ordered (one pair = two grippers); delivery date unknown, so the RS-485 check waits (Martyn; supervisor on leave until early 2027, email only)
 - 2026-11-05: work order changed, decision itself kept until the supervisor decides: the real Dex1-1 path becomes the main line before delivery (dummy gripper printed from the official STEP for fit, balance and LED check; trigger software against a mock gripper); the printed copy is frozen at its current state (link A modelled, bracket not started, see [[D10 Handheld mechanism]]) as the documented fallback if delivery slips or the RS-485 check fails (Martyn; the copy path kept adding open parts)
 - 2026-11-16: decided: real Dex1-1 as the handheld, printed copy as fallback (unlikely to be used); delivery date still unknown (supervisor at the 2026-11-16 talk, [[2026-11-16 Yanmei]]; reported by Martyn)
+- 2026-11-20: work order while the Dex1-1 and its cameras are delayed (manager's estimate 40 days to 5–6 weeks, about late Dec 2026 – early Jan 2027, unconfirmed): pipeline rig until delivery (team D435i as a test camera on the existing prototype, open-loop replay on the UR10e with the lab Robotiq 2F-85, VR baseline on the existing 2F-85 stack; recordings are pilot data only and never enter C1–C4); the Robotiq 2F-85 for the whole core is the last resort if the Dex1-1 arrives too late, gate mid-January 2027; decision itself unchanged (Martyn; aim: get as close as possible to the final framework by the end of 2026, delivered or not; [[2026-11-20 Interim hardware while the Dex1-1 is delayed]])

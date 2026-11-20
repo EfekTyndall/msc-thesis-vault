@@ -8,6 +8,8 @@ Question (Martyn, 2026-11-20): the manager now expects the Dex1-1 grippers and t
 
 Method: lab hardware and plan from `msc-thesis/docs/thesis-plan.md` (§3–§6), `msc-thesis/docs/hardware-specs.md`, [[D01 Handheld gripper body]], [[D02 Policy camera]], [[D03 Depth sensing]], [[Waiting]], [[2026-11-19 Work not blocked by parts]], [[2026-11-12 Lab computers and gripper connections]]. Hardware facts of prior work read from the arXiv text of the bib papers chi2024 (UMI), zhaxizhuoma2025 (FastUMI), liu2026 (RDT2), yin2026 (RAPID), zeng2025 (ActiveUMI), murooka2026, cheng2026 (TacUMI), li2025 (ViTaMIn-B), ai2026 (HiFi-UMI) and xue2026 (fisheye study, arXiv 2603.02139), plus the Robotiq 2F-85 manual, on 2026-11-20. Items marked **[S]** came from a model summary of the paper's later part and are unverified until checked in the PDF. Nothing was decided; no decision note was changed.
 
+**Decided 2026-11-20 (Martyn):** option B now; option D only as the last resort if the Dex1-1 arrives too late (gate mid-January 2027). Recorded in [[D01 Handheld gripper body]] History.
+
 ## In short
 
 - **Recommended: option B, a "pipeline rig".** Mount the team D435i on the existing handheld prototype, use the lab's Robotiq 2F-85 on the UR10e for replay, and build recorder → export → open-loop replay now. All of it carries over to the Dex1-1 unchanged except the gripper driver and the camera. Data from it are **pilot data only**.
