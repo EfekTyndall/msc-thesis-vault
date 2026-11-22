@@ -66,7 +66,6 @@ The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the 
 
 ## History
 
-- 2026-11-20: prototype sleeve is now the plate 4 v23 front half (Ø4.1 insert holes) with the plate 1 v22 back half and one tape layer; survey of other closures deferred (plate 4 v23 + v22 snapped inconsistently against the plate 1 halves, so the snap cannot be tuned further by print settings; the v23 front is needed for the inserts; Martyn)
 - 2026-10-28: passive trigger kept (no motor), squeeze to close with spring return (Martyn)
 - 2026-11-01: accepted: copy of the Dex1-1 rack-and-pinion on MGN9 rails; finger geometry from the official meshes until the physical gripper is measured (mesh analysis above; Martyn)
 - 2026-11-01: handle: the PICO controller is the grip (gun hold, gripper as barrel), with an index-finger lever in front of the controller trigger (Martyn; no separate pistol grip)
@@ -94,3 +93,4 @@ The physical Dex1-1 differs from the meshes (rail size, pinion, module), or the 
 - 2026-11-19: Context and Decision split into the real-Dex1-1 path (main, sleeve and real-adapter) and the printed-copy fallback (mechanism, trigger, transmission); no design change (D01 (handheld gripper body) settled on the real Dex1-1 on 2026-11-16; Martyn, audit board finding 29)
 - 2026-11-19: next sleeve print specified: v23 front + v22 back half, plate 1 settings (Generic PETG @BBL H2S, flow 0.95) but without brim, plus one tape layer; check "Z hop when retract" in the slicer against nozzle strikes on the tall halves (plate 1 had an 8 mm outer brim whose residue hindered the snap; plate 3 printed the same halves without brim; Martyn)
 - 2026-11-19: evidence added: comfort, trigger-finger room to the rod and tracking (worn and neck-hung) good on v22 + tape with the glued adapter; rod flexes little by hand; formal flex check and adapter material wait on screws, inserts and the Dex1-1; decision unchanged (Martyn)
+- 2026-11-20: prototype sleeve is now the plate 4 v23 front half (Ø4.1 insert holes) with the plate 1 v22 back half and one tape layer; survey of other closures deferred (plate 4 v23 + v22 snapped inconsistently against the plate 1 halves, so the snap cannot be tuned further by print settings; the v23 front is needed for the inserts; Martyn)

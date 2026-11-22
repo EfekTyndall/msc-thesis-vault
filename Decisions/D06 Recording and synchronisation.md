@@ -20,7 +20,7 @@ Where data is recorded and how all streams share one time base. Source: `msc-the
 
 No onboard computer as the first option. Each handheld connects by one cable to a single PC, which is the only clock; every sensor's latency is measured and compensated to a residual of about 10 ms or less. Whether the industrial use case is one fixed station or a moving operator is still open, so an onboard or backpack computer remains the fallback.
 
-Station computer (2026-11-16, Path 2 of [[2026-11-13 Handheld computer and gripper connection]]): the single computer is a Jetson at the UR10e station (approved unit 10.36.1.124: Jetson AGX Orin Developer Kit, Ubuntu 22.04, GLIBCXX to 3.4.30, read over SSH 2026-11-16, [[2026-11-16 Station Jetson check]]; not yet moved to the station). It runs `dex1_1_service` (RS-485 adapter plugged in there), the camera stream, the XRoboToolkit service and recording. The Pi 5 + lab PC split (Path 1) is not used for the handheld.
+Station computer (2026-11-16, Path 2 of [[2026-11-13 Handheld computer and gripper connection]]): the single computer is a Jetson at the UR10e station (approved unit 10.36.1.124: Jetson AGX Orin Developer Kit, Ubuntu 22.04, GLIBCXX to 3.4.30, read over SSH 2026-11-16, [[2026-11-16 Station Jetson check]]; moved to the station 2026-11-17 with its own account, XRoboToolkit PC Service and SDK installed 2026-11-17, [[2026-11-17 Station Jetson setup and install plan]]). It runs `dex1_1_service` (RS-485 adapter plugged in there), the camera stream, the XRoboToolkit service and recording. The Pi 5 + lab PC split (Path 1) is not used for the handheld.
 
 ## Evidence
 
@@ -30,10 +30,11 @@ Station computer: `dex1_1_service` runs a 500 Hz serial loop and brakes when com
 
 ## Revisit if
 
-Collection must span several stations, or cables are not allowed. Station computer: the approved Jetson turns out not to be an Orin (JetPack 4 lacks GLIBCXX 3.4.26), cannot stand at the station, or cannot hold the 500 Hz gripper loop → Path 1 (Pi 5 at the station + lab PC).
+Collection must span several stations, or cables are not allowed. Station computer: the station Jetson cannot hold the 500 Hz gripper loop → Path 1 (Pi 5 at the station + lab PC). (The earlier conditions are settled: it is an AGX Orin, checked 2026-11-16, and it stands at the station since 2026-11-17.)
 
 ## History
 
 - 2026-10-19: accepted (proposal approved)
 - 2026-11-16: station computer: one Jetson at the UR10e station runs gripper program, camera, XRoboToolkit and recording (Path 2); supervisor approved a second Jetson (10.36.1.124) for this; the Pi 5 is ordered for the team, not for the handheld (2026-11-16 talk, [[2026-11-16 Yanmei]]; reported by Martyn)
 - 2026-11-19: station Jetson facts updated: model checked (AGX Orin, 2026-11-16), `dex1_1_service` built and started without a gripper (2026-11-18); decision unchanged (consistency audit, [[2026-11-19 Three-repo consistency audit]])
+- 2026-11-22: Decision text: Jetson moved to the station (2026-11-17, own account, XRoboToolkit installed); Revisit if: settled conditions (not an Orin, cannot stand at the station) removed; decision unchanged (weekly consistency audit 2026-11-22, Martyn's board choice)
