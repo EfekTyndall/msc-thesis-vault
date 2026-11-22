@@ -35,15 +35,16 @@ Internal values:
 - [ ] Personal names in test notes ("Martyn", e.g. `PRINT-TEST-QUEUE.md`, `SLICER-SETTINGS.md`): keep or neutralise (company's choice)
 
 Git history and GitHub:
-- [ ] 34 commits authored by `Claude <noreply@anthropic.com>` and 55 `Co-Authored-By: Claude` lines on `main`; 57 co-author lines counting the open PR #12 branch (count of 2026-11-19, weekly audit; re-count with step 1)
-- [ ] PR history: PRs #1–#12 came from `claude/…` and similar branches; PR titles and bodies stay on GitHub
+- [ ] 43 commits authored by `Claude <noreply@anthropic.com>` and 66 `Co-Authored-By: Claude` lines on `main` (count of 2026-11-22, weekly audit; was 34 and 55 on 2026-11-19; re-count with step 1). The step 1 author grep also matches merge subjects naming `claude/…` branches (68 lines in all)
+- [ ] Commit messages with vault or thesis references, e.g. 046fe49 "Name the vault decision codes in reference notes", f32681e "(rules carried over from msc-thesis)", 9ed8bb1 "Thesis plan §7: …", 1887328 "(D01 work order)", e15efe4 "assemblies per D01 path" (found 2026-11-22; dropped with a history rewrite or a fresh repository)
+- [ ] PR history: PRs #1–#15 (count of 2026-11-22) came from `claude/…` and similar branches; PR titles and bodies stay on GitHub
 - [ ] Decide: rewrite history (`git filter-repo` for authors and message lines) or hand over a fresh repository with one initial commit. A fresh repository drops both the history and the PR list
 
 Local-only files on the Mac (never in Git, never in a zip of the folder):
 - [ ] `CLAUDE.local.md`, `.claude/` (excluded via `.git/info/exclude`)
 
 CAD and print files (not in Git while in development):
-- [ ] `hardware/real-adapter/files/real-adapter-v9.f3d` and `real-adapter-v9.step` were tracked on `main` from b8ae783 (2026-11-16) until PR #12 removed them (merged 2026-11-19); they stay in the Git history, so the handover method must drop them. The step 1 grep reports "Binary file …real-adapter-v9.f3d matches" (compressed data, strings "D28" and "d05"; no real reference)
+- [ ] `hardware/real-adapter/files/real-adapter-v9.f3d` and `real-adapter-v9.step` were tracked on `main` from b8ae783 (2026-11-16) until PR #12 removed them (merged 2026-11-19); they stay in the Git history, so the handover method must drop them. The step 1 grep reports "Binary file …real-adapter-v9.f3d matches" (compressed data, strings "D28" and "d05"; no real reference); since PR #12 the file is no longer in the tree, so the grep no longer reports it (2026-11-22)
 - [ ] Export only the latest version of each part (STEP, plus STL if wanted); no earlier versions
 - [ ] Licences: Unitree STEP/URDF derivatives (dummy, dummy shell) have no stated licence: internal use only, not shared; PICO controller scan (CC BY) needs the author credit; Glock shell (CC BY 4.0) the same
 
