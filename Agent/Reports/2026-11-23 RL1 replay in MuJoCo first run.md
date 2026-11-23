@@ -63,13 +63,13 @@ Consequence for RL3 (replay on the real UR10e): slow takes, or a 0.3 rad/s joint
 
 ## Open
 
-- RL1 pass check on a **real** recording: record small slow moves with `trigger_log.py` at the station (procedure in the README), replay, check directions. Two unverified assumptions it tests: the SDK pose is in the OpenXR basis (team code says "VERIFY w/ A/B test"), and the PICO room forward = direction faced at recentre.
+- RL1 pass check on a **real** recording (resolved 2026-11-23: desk take-01 replayed, RL1 passed on Martyn's visual check; RL3 confirmed directions on the robot): record small slow moves with `trigger_log.py` at the station (procedure in the README), replay, check directions. Two unverified assumptions it tests: the SDK pose is in the OpenXR basis (team code says "VERIFY w/ A/B test"), and the PICO room forward = direction faced at recentre.
 - Station check: does UR base +y point away from the operator (table side)?
 - Start pose: the team `HOME_Q` (tool pointing down) is fine for the controller-only test (Martyn, 2026-11-23). Testing with the mounted gripper (tool pointing forward) needs a second home pose and matching orientation mapping.
 - First real recording can be made at a desk, not at the robot: simple moves only, logged on a computer running the XRoboToolkit PC Service (Martyn, 2026-11-23).
 - Controller-to-gripper-tip offset (D09 (calibration)) not applied; RL1 replays the controller origin.
-- The simulated arm has no joint speed limit; the team's real-robot path limits joints to 0.3 rad/s, so fast recordings will lag on the robot (RL2 (replay against URSim) / RL3 (replay on the real UR10e)).
+- The simulated arm has no joint speed limit; the team's real-robot path limits joints to 0.3 rad/s, so fast recordings will lag on the robot (RL2 (replay against URSim) / RL3 (replay on the real UR10e)). Resolved 2026-11-23: 0.3 rad/s limit added (dex1-1-handheld PR #19).
 - Team IK: rare CasADi NaN failure (1 in 2010 here, likely the rotation-error log at zero rotation; cause not proven). Reported, not fixed (team code).
 - H2: standing needs Unitree's simulator bridge (`unitree_sdk2_python`, CycloneDDS) and a balance controller: new dependencies, not installed.
 - Raw MCAP recorder (D07 (software and data format), 2026-11-23): the replay gets an MCAP reader when that recorder exists.
-- dex1-1-handheld PR not opened yet (waiting for Martyn's OK to commit and push).
+- dex1-1-handheld PR not opened yet (waiting for Martyn's OK to commit and push). Resolved 2026-11-23: PRs #17, #18, #19 merged.

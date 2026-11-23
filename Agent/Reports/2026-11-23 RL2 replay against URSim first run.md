@@ -38,6 +38,6 @@ Tracking = target TCP (from the recording) vs actual TCP; the large values on ta
 ## Open
 
 - URSim runs with `--rm`: after a container restart, power-on, brake release and Remote Control must be redone (Remote Control needs the pendant screen). Not checked whether the setting survives.
-- URSim keeps running on fractal-pc (shared PC, ports on localhost only); stop with `docker stop ursim` when not in use.
-- RL3 (replay on the real UR10e): same script with `--robot 10.36.11.3` from fractal-pc or the Jetson (no `ur_rtde` arm64 wheel); slow takes; reduced speed, small allowed area, person at the emergency stop; Remote Control on the real pendant.
+- URSim keeps running on fractal-pc (shared PC, ports on localhost only); stop with `docker stop ursim` when not in use. Resolved 2026-11-23: stopped by Martyn; image kept.
+- RL3 (replay on the real UR10e): same script with `--robot 10.36.11.3` from fractal-pc or the Jetson (no `ur_rtde` arm64 wheel); slow takes; reduced speed, small allowed area, person at the emergency stop; Remote Control on the real pendant. Resolved 2026-11-23: RL3 passed from fractal-pc ([[2026-11-23 RL3 real UR10e replay procedure]]).
 - Team IK speed on fractal-pc (about 20 ms per solve) vs the team's live 125 Hz teleop: how the team loop handles it is not checked.

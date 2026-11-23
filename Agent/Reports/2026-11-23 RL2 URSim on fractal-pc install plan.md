@@ -36,4 +36,4 @@ Martyn's desk take (`take-01.csv`) replays unchanged against URSim: no protectiv
 
 ## Open
 
-- Go for P1–P4 (installs on a shared PC); P5 is code via PR.
+- Go for P1–P4 (installs on a shared PC); P5 is code via PR. Resolved 2026-11-23: P1–P4 installed with Martyn's go; P5 in dex1-1-handheld PR #20 (merged).

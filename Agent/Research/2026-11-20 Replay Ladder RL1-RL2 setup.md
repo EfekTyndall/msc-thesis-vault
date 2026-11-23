@@ -61,7 +61,7 @@ What this changes for the Replay Ladder (proposal):
 
 ## Open
 
-- Team stack: read 2026-11-20 (section above). Open: do the ZIP copies match what runs at the station (moved 2026-11-20 to [[2026-11-23]] TODO, check after the clone). How dex1-1-handheld uses team code: resolved 2026-11-20 (Replay Ladder thread): clone next to it (Mac `~/thesis/team/xr_teleoperate`), pinned commit recorded in the README, no copied code, no submodule.
+- Team stack: read 2026-11-20 (section above). Open: do the ZIP copies match what runs at the station (moved 2026-11-20 to [[2026-11-23]] TODO, check after the clone). Resolved 2026-11-23 as far as possible: ZIP gone, file presence only (last bullet). How dex1-1-handheld uses team code: resolved 2026-11-20 (Replay Ladder thread): clone next to it (Mac `~/thesis/team/xr_teleoperate`), pinned commit recorded in the README, no copied code, no submodule.
 - fractal-pc: Docker installed and usable by Martyn's account? `ur10e_ws` contents? (read-only check, needs Martyn's OK; shared PC) Resolved 2026-11-23: Docker usable without sudo; `ur10e_ws` = one unrelated ROS 2 test package ([[2026-11-23 RL2 URSim on fractal-pc install plan]]).
 - MacBook chip (Apple silicon or Intel): only matters if URSim or `ur_rtde` is ever wanted on the Mac.
 - IK for RL1: candidate = the team's UR10e IK (above). Moved 2026-11-20 to the RL1 item in [[2026-11-23]]. Resolved 2026-11-23: team IK used unchanged (RL1–RL3 passed, [[2026-11-23 RL3 real UR10e replay procedure]]).
