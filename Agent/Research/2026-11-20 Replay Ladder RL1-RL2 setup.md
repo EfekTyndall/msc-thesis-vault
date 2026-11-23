@@ -66,3 +66,4 @@ What this changes for the Replay Ladder (proposal):
 - MacBook chip (Apple silicon or Intel): only matters if URSim or `ur_rtde` is ever wanted on the Mac.
 - IK for RL1: candidate = the team's UR10e IK (above). Moved 2026-11-20 to the RL1 item in [[2026-11-23]].
 - The station Jetson is the planned recording computer (Path 2), but `ur_rtde` has no arm64 wheel: decide later whether RL3 (replay on the real UR10e, controller only) and later phases command the robot from the Jetson (source build) or fractal-pc.
+- 2026-11-23: team repo cloned by Martyn to `~/thesis/team/xr_teleoperate` from the company GitHub Enterprise server (enterprise account). Pinned commit `7e6c754` (2026-10-27, "Added RGB Streamer for headset"). The ZIP copy is no longer on the Mac, so a full diff was not possible; all eight files named above exist in the clone (only path difference: `run_ur10e_teleop_real.sh` is under `teleop/`). File contents not compared.
