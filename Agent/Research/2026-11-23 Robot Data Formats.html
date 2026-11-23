@@ -1,0 +1,438 @@
+<title>Robot Data Formats</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Archivo:wght@600;700;800&display=swap">
+<style>
+  /* Layout: one reading column. Each format = short text + one "inside the file" drawing.
+     Colour carries meaning: amber = recording (log) formats, teal = training (dataset) formats, slate = time / timestamps. */
+  :root {
+    --bg: #f4f5f7;
+    --surface: #ffffff;
+    --ink: #151a22;
+    --muted: #5b6575;
+    --line: #d7dce4;
+    --rec: #b45f06;
+    --rec-tint: #fbeedd;
+    --train: #0b7a6b;
+    --train-tint: #dcf0ec;
+    --time: #3d5a8a;
+    --time-tint: #e3eaf6;
+    --good: #1f7a3a;
+    --bad: #b3261e;
+    --code-bg: #eef0f4;
+    --font-text: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-head: "Archivo", "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1217; --surface: #171c24; --ink: #e8ebf0; --muted: #9aa4b3; --line: #2a313c;
+      --rec: #f0a24a; --rec-tint: #33240f; --train: #3cc6b0; --train-tint: #11302b;
+      --time: #8fb0ea; --time-tint: #1b2538; --good: #6cd08a; --bad: #ff8a80; --code-bg: #1e242e; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1217; --surface: #171c24; --ink: #e8ebf0; --muted: #9aa4b3; --line: #2a313c;
+    --rec: #f0a24a; --rec-tint: #33240f; --train: #3cc6b0; --train-tint: #11302b;
+    --time: #8fb0ea; --time-tint: #1b2538; --good: #6cd08a; --bad: #ff8a80; --code-bg: #1e242e; color-scheme: dark;
+  }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 16px; line-height: 1.6; }
+  .wrap { max-width: 780px; margin: 0 auto; padding-block: 40px 80px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; line-height: 1.2; margin: 0; }
+  h1 { font-size: clamp(30px, 6vw, 44px); font-weight: 800; letter-spacing: -0.01em; }
+  h2 { font-size: 24px; font-weight: 700; }
+  h3 { font-size: 17px; font-weight: 700; }
+  p { margin: 0; }
+  ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+  .lead { color: var(--muted); font-size: 18px; max-width: 62ch; }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  header { display: flex; flex-direction: column; gap: 14px; padding-bottom: 28px; }
+  section { display: flex; flex-direction: column; gap: 14px; padding-block: 36px; border-top: 1px solid var(--line); }
+  .text { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+  .term { font-weight: 600; }
+  .muted { color: var(--muted); }
+  code, .mono { font-family: var(--font-mono); font-size: 0.88em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+  a { color: var(--time); }
+  .rec { color: var(--rec); } .train { color: var(--train); }
+  .tag { display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
+  .tag.rec { background: var(--rec-tint); } .tag.train { background: var(--train-tint); }
+  .figure { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; }
+  .figure svg { display: block; width: 100%; min-width: 560px; height: auto; }
+  .figure figcaption, .cap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  figure { margin: 0; }
+  svg text { font-family: var(--font-mono); font-size: 12px; fill: var(--ink); }
+  svg .t-muted { fill: var(--muted); } svg .t-rec { fill: var(--rec); } svg .t-train { fill: var(--train); } svg .t-time { fill: var(--time); }
+  svg .t-head { font-family: var(--font-head); font-weight: 700; font-size: 13px; }
+  svg .b-rec { fill: var(--rec-tint); stroke: var(--rec); }
+  svg .b-train { fill: var(--train-tint); stroke: var(--train); }
+  svg .b-time { fill: var(--time-tint); stroke: var(--time); }
+  svg .b-plain { fill: var(--surface); stroke: var(--line); }
+  svg .l-muted { stroke: var(--muted); fill: none; }
+  svg .l-time { stroke: var(--time); fill: none; }
+  svg .dot-rec { fill: var(--rec); } svg .dot-train { fill: var(--train); } svg .dot-time { fill: var(--time); }
+  .glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .glossary div { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 14px; min-width: 0; }
+  .pc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pc > div { min-width: 0; font-size: 15px; }
+  .pc h4 { margin: 0 0 4px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .pc .plus h4 { color: var(--good); } .pc .minus h4 { color: var(--bad); }
+  @media (max-width: 560px) { .pc { grid-template-columns: 1fr; } }
+  .who { font-size: 14px; color: var(--muted); }
+  .tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  tr:last-child td { border-bottom: 0; }
+  .yes { color: var(--good); font-weight: 600; } .no { color: var(--bad); font-weight: 600; }
+  ol.steps { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 12px; max-width: 68ch; }
+  .note { font-size: 14px; background: var(--time-tint); border-radius: 8px; padding: 10px 12px; max-width: 68ch; }
+  .src { font-size: 13px; color: var(--muted); }
+  .src li { overflow-wrap: anywhere; }
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Thesis explainer · 2026-11-23 · companion note: Robot data formats.md</p>
+  <h1>Robot Data Formats</h1>
+  <p class="lead">Which file formats robot-learning projects use to store demonstrations, what each one looks like inside, and why this thesis records in MCAP and trains from LeRobot.</p>
+  <p class="cap">Sources are linked in each section. Papers not in the thesis bibliography are marked <em>not in bib</em>. Own arithmetic is marked <em>computed</em>; anything not checked is marked <em>unverified</em>.</p>
+</header>
+
+<section>
+  <p class="eyebrow">Words used on this page</p>
+  <div class="glossary">
+    <div><span class="term">Format</span>: the rule for how bytes are laid out in a file, so another program can read them back.</div>
+    <div><span class="term">Stream</span> (also <span class="term">topic</span> or <span class="term">channel</span>): one sensor's sequence of messages, e.g. camera images.</div>
+    <div><span class="term">Timestamp</span>: the time attached to one message. <span class="mono">ns</span> = nanoseconds.</div>
+    <div><span class="term">Episode</span>: one demonstration, from start to stop.</div>
+    <div><span class="term">Chunk</span>: a block of data stored together, often compressed, that a reader can jump to directly.</div>
+    <div><span class="term">Index</span>: a table in the file that says where each chunk or message sits.</div>
+    <div><span class="term">Schema</span>: the list of a message's fields, with names and types.</div>
+    <div><span class="term">Compression</span>: shrinking data. <em>Lossless</em> gets every bit back; <em>lossy</em> (video) drops some detail.</div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">The big picture</p>
+  <h2>Two jobs, two kinds of format</h2>
+  <div class="text">
+    <p>Demonstration data passes through two stages. <span class="rec term">Recording formats</span> (log formats) write every sensor as it arrives, at its own rate, without losing data if the computer stops. <span class="train term">Training formats</span> (dataset formats) hand a training program episodes already cut into equal time steps, for fast random reading.</p>
+    <p>Between the two sits <span class="term">alignment</span>: each stream's delay is subtracted, and pose and gripper width are interpolated at the camera frame times (UMI, chi2024 PD1.1; ViTaMIn-B, li2025 IV-B).</p>
+  </div>
+  <figure class="figure">
+    <svg viewBox="0 0 720 300" role="img" aria-label="Sensors arrive at different rates into a raw log; alignment resamples them to a 30 Hz grid in a training dataset">
+      <text x="10" y="22" class="t-head t-rec">1 · Raw log (MCAP): each stream at its own rate</text>
+      <text x="10" y="56" class="t-muted">camera 30 Hz</text>
+      <text x="10" y="86" class="t-muted">pose ~90 Hz</text>
+      <text x="10" y="116" class="t-muted">trigger</text>
+      <line x1="120" y1="52" x2="700" y2="52" class="l-muted" stroke-dasharray="2 4"/>
+      <line x1="120" y1="82" x2="700" y2="82" class="l-muted" stroke-dasharray="2 4"/>
+      <line x1="120" y1="112" x2="700" y2="112" class="l-muted" stroke-dasharray="2 4"/>
+      <g class="dot-rec">
+        <rect x="128" y="44" width="10" height="16" rx="2"/><rect x="218" y="44" width="10" height="16" rx="2"/><rect x="311" y="44" width="10" height="16" rx="2"/><rect x="401" y="44" width="10" height="16" rx="2"/><rect x="494" y="44" width="10" height="16" rx="2"/><rect x="585" y="44" width="10" height="16" rx="2"/><rect x="676" y="44" width="10" height="16" rx="2"/>
+      </g>
+      <g class="dot-rec">
+        <circle cx="132" cy="82" r="3.5"/><circle cx="163" cy="82" r="3.5"/><circle cx="191" cy="82" r="3.5"/><circle cx="224" cy="82" r="3.5"/><circle cx="255" cy="82" r="3.5"/><circle cx="283" cy="82" r="3.5"/><circle cx="318" cy="82" r="3.5"/><circle cx="345" cy="82" r="3.5"/><circle cx="378" cy="82" r="3.5"/><circle cx="406" cy="82" r="3.5"/><circle cx="438" cy="82" r="3.5"/><circle cx="469" cy="82" r="3.5"/><circle cx="497" cy="82" r="3.5"/><circle cx="530" cy="82" r="3.5"/><circle cx="560" cy="82" r="3.5"/><circle cx="590" cy="82" r="3.5"/><circle cx="621" cy="82" r="3.5"/><circle cx="651" cy="82" r="3.5"/><circle cx="682" cy="82" r="3.5"/>
+      </g>
+      <g class="dot-rec">
+        <circle cx="150" cy="112" r="3.5"/><circle cx="196" cy="112" r="3.5"/><circle cx="271" cy="112" r="3.5"/><circle cx="350" cy="112" r="3.5"/><circle cx="447" cy="112" r="3.5"/><circle cx="502" cy="112" r="3.5"/><circle cx="611" cy="112" r="3.5"/><circle cx="668" cy="112" r="3.5"/>
+      </g>
+      <text x="10" y="142" class="t-muted">each mark keeps its own original timestamp in ns</text>
+      <path d="M360 152 L360 182" class="l-time" stroke-width="2"/>
+      <path d="M352 174 L360 184 L368 174" class="l-time" stroke-width="2"/>
+      <text x="376" y="174" class="t-time">2 · offline alignment</text>
+      <text x="10" y="208" class="t-head t-train">3 · Training dataset (LeRobot): one row per 1/30 s</text>
+      <g>
+        <rect x="120" y="222" width="80" height="54" rx="4" class="b-train"/><rect x="210" y="222" width="80" height="54" rx="4" class="b-train"/><rect x="300" y="222" width="80" height="54" rx="4" class="b-train"/><rect x="390" y="222" width="80" height="54" rx="4" class="b-train"/><rect x="480" y="222" width="80" height="54" rx="4" class="b-train"/><rect x="570" y="222" width="80" height="54" rx="4" class="b-train"/>
+      </g>
+      <g class="t-train">
+        <text x="130" y="242">frame 0</text><text x="220" y="242">frame 1</text><text x="310" y="242">frame 2</text><text x="400" y="242">frame 3</text><text x="490" y="242">frame 4</text><text x="580" y="242">frame 5</text>
+      </g>
+      <g class="t-muted">
+        <text x="130" y="264">img+pose</text><text x="220" y="264">img+pose</text><text x="310" y="264">img+pose</text><text x="400" y="264">img+pose</text><text x="490" y="264">img+pose</text><text x="580" y="264">img+pose</text>
+      </g>
+      <text x="10" y="250" class="t-muted">aligned</text>
+      <text x="10" y="266" class="t-muted">steps</text>
+      <text x="120" y="294" class="t-muted">→ GR00T / π0.5 read this</text>
+    </svg>
+    <figcaption>Illustration, not measured data. Pose rate: XRoboToolkit sends tracking data at 90 Hz (zhao2025 II-B). Export rate 30 Hz is the thesis convention (msc-thesis CLAUDE.md).</figcaption>
+  </figure>
+  <p class="note">Some projects skip stage 1 and write the training format directly while recording, e.g. FastUMI writes HDF5 from a ROS node, keeping only the nearest pose per frame (zhaxizhuoma2025 III-A). The alignment is then fixed forever.</p>
+</section>
+
+<!-- MCAP -->
+<section id="mcap">
+  <span class="tag rec">Recording format</span>
+  <h2>MCAP <span class="muted mono" style="background:none">.mcap</span></h2>
+  <div class="text">
+    <p>One file, many streams. The file is a list of <span class="term">records</span>: a <span class="term">Schema</span> describes a message type, a <span class="term">Channel</span> names one stream and points to its schema, a <span class="term">Message</span> is one timestamped sample. Messages are packed into compressed <span class="term">chunks</span>; an index at the end lets a reader jump to any time or stream.</p>
+  </div>
+  <figure class="figure">
+    <svg viewBox="0 0 720 250" role="img" aria-label="MCAP file layout: magic, header, data section with chunks of messages, summary with indexes, footer, magic">
+      <rect x="10" y="20" width="60" height="200" rx="4" class="b-plain"/><text x="20" y="124">Magic</text>
+      <rect x="76" y="20" width="62" height="200" rx="4" class="b-plain"/><text x="84" y="124">Header</text>
+      <rect x="144" y="20" width="370" height="200" rx="4" class="b-rec"/>
+      <text x="154" y="40" class="t-head t-rec">Data section</text>
+      <rect x="154" y="50" width="110" height="26" rx="3" class="b-plain"/><text x="162" y="67">Schema: Pose</text>
+      <rect x="272" y="50" width="232" height="26" rx="3" class="b-plain"/><text x="280" y="67">Channel: /controller/pose</text>
+      <rect x="154" y="86" width="350" height="124" rx="4" class="b-plain"/>
+      <text x="164" y="104" class="t-rec">Chunk (compressed: zstd or lz4)</text>
+      <rect x="164" y="114" width="330" height="26" rx="3" class="b-time"/><text x="172" y="131">channel · log_time · publish_time · data</text>
+      <rect x="164" y="146" width="330" height="26" rx="3" class="b-time"/><text x="172" y="163">channel · log_time · publish_time · data</text>
+      <text x="172" y="194" class="t-muted">each blue row = one Message; any stream, any order</text>
+      <rect x="520" y="20" width="120" height="200" rx="4" class="b-plain"/>
+      <text x="530" y="40" class="t-head">Summary</text>
+      <text x="530" y="66" class="t-muted">Chunk Index</text><text x="530" y="88" class="t-muted">Statistics</text><text x="530" y="110" class="t-muted">Schema copies</text><text x="530" y="132" class="t-muted">Channel copies</text>
+      <text x="530" y="160" class="t-muted">optional;</text><text x="530" y="176" class="t-muted">written last</text>
+      <rect x="646" y="20" width="64" height="200" rx="4" class="b-plain"/><text x="652" y="116">Footer</text><text x="652" y="134">Magic</text>
+      <text x="164" y="240" class="t-time">log_time, publish_time = uint64 nanoseconds</text>
+    </svg>
+    <figcaption>Layout from the <a href="https://mcap.dev/spec">MCAP specification</a>: <span class="mono">&lt;Magic&gt;&lt;Header&gt;&lt;Data section&gt;[&lt;Summary&gt;][&lt;Summary Offset&gt;]&lt;Footer&gt;&lt;Magic&gt;</span>. Channel name is an example.</figcaption>
+  </figure>
+  <div class="pc">
+    <div class="plus"><h4>Strengths</h4><ul>
+      <li>Every message keeps two original timestamps, "recorded" and "published", in ns (<a href="https://mcap.dev/spec">spec</a>).</li>
+      <li>"Append-only design to … reduce the risk of data corruption during unclean shutdowns" (<a href="https://mcap.dev/">mcap.dev</a>).</li>
+      <li>Schemas stored in the file, so it stays readable "even as your codebase evolves"; any encoding: Protobuf, ROS, JSON and more (<a href="https://mcap.dev/">mcap.dev</a>).</li>
+      <li>Compressed chunks stay indexed (<a href="https://mcap.dev/spec">spec</a>).</li>
+    </ul></div>
+    <div class="minus"><h4>Weaknesses</h4><ul>
+      <li>No notion of episodes or equal time steps: a conversion step is always needed before training.</li>
+      <li>No direct MCAP reader found in the GR00T, openpi or LeRobot READMEs (unverified beyond those).</li>
+      <li>Fewer robot-learning papers use it than HDF5.</li>
+    </ul></div>
+  </div>
+  <p class="who"><b>Who uses it:</b> ROS 2, where it is "the default log format" (<a href="https://mcap.dev/">mcap.dev</a>), since the Iron release (<a href="https://docs.ros.org/en/rolling/Releases/Release-Iron-Irwini.html">ROS 2 Iron notes</a>). RAPID records MCAP with nanosecond timestamps (yin2026, App. A and D; from a summary, check in the PDF before citing). Viewer: Foxglove.</p>
+</section>
+
+<!-- ROS bags -->
+<section id="rosbag">
+  <span class="tag rec">Recording format</span>
+  <h2>ROS bags <span class="muted mono" style="background:none">.bag · .db3</span></h2>
+  <div class="text">
+    <p><span class="term">ROS</span> (Robot Operating System) is the common robot software framework. Its recorder, <span class="term">rosbag</span>, saves every topic to a "bag". ROS 1 used its own <span class="mono">.bag</span> format with chunks, compression and an index (<a href="http://wiki.ros.org/Bags/Format/2.0">ROS wiki, bag format 2.0</a>). Early ROS 2 stored bags as a <span class="term">SQLite</span> database (<span class="mono">.db3</span>), one table row per message.</p>
+    <p>ROS 2 dropped SQLite as default in the Iron release: "in many cases this was not performant enough and lacked certain features desirable for offline processing", so the new default became MCAP, a format "influenced by the original ROS 1 bag file format" (<a href="https://docs.ros.org/en/rolling/Releases/Release-Iron-Irwini.html">ROS 2 Iron notes</a>). rosbag2's own compression makes files no longer indexable, while MCAP's chunk compression keeps the index (<a href="https://github.com/ros2/rosbag2">rosbag2 README</a>).</p>
+  </div>
+  <figure class="figure">
+    <svg viewBox="0 0 720 120" role="img" aria-label="Timeline: ROS 1 bag, then ROS 2 SQLite db3, then MCAP default from ROS 2 Iron">
+      <line x1="40" y1="60" x2="690" y2="60" class="l-muted" stroke-width="2"/>
+      <circle cx="110" cy="60" r="8" class="dot-rec"/><text x="60" y="38" class="t-head">ROS 1 .bag</text><text x="60" y="92" class="t-muted">own format, v2.0</text>
+      <circle cx="350" cy="60" r="8" class="dot-rec"/><text x="280" y="38" class="t-head">ROS 2 .db3</text><text x="280" y="92" class="t-muted">SQLite, first default</text>
+      <circle cx="590" cy="60" r="8" class="dot-rec"/><text x="530" y="38" class="t-head t-rec">MCAP</text><text x="530" y="92" class="t-muted">default from Iron</text>
+    </svg>
+  </figure>
+  <p class="who"><b>Relevance here:</b> the thesis stack uses no ROS 2 (Replay Ladder plan, 2026-11-20), so bags matter only as background for why MCAP exists.</p>
+</section>
+
+<!-- HDF5 -->
+<section id="hdf5">
+  <span class="tag train">Training format · sometimes recording</span>
+  <h2>HDF5 <span class="muted mono" style="background:none">.hdf5 · .h5</span></h2>
+  <div class="text">
+    <p>A small file system inside one file. <span class="term">Groups</span> act as folders, <span class="term">datasets</span> are arrays of numbers (a table, a stack of images), and <span class="term">attributes</span> are name–value labels on either. Datasets can be chunked and compressed (<a href="https://support.hdfgroup.org/documentation/hdf5/latest/_intro_h_d_f5.html">HDF Group intro</a>). Each project picks its own folder layout; two common ones:</p>
+  </div>
+  <figure class="figure">
+    <svg viewBox="0 0 720 270" role="img" aria-label="Two HDF5 layouts: ACT with one file per episode; robomimic with one file holding all demos">
+      <text x="10" y="20" class="t-head">ACT style: one file per episode</text>
+      <rect x="10" y="30" width="330" height="226" rx="6" class="b-train"/>
+      <text x="22" y="52" class="t-train">episode_0.hdf5</text>
+      <text x="34" y="78">observations/</text>
+      <text x="54" y="100">images/</text>
+      <rect x="74" y="108" width="252" height="24" rx="3" class="b-plain"/><text x="80" y="125">top  (T, 480, 640, 3) uint8</text>
+      <rect x="54" y="140" width="272" height="24" rx="3" class="b-plain"/><text x="60" y="157">qpos (T, 14)   joint angles</text>
+      <rect x="54" y="170" width="272" height="24" rx="3" class="b-plain"/><text x="60" y="187">qvel (T, 14)   joint speeds</text>
+      <rect x="34" y="204" width="292" height="24" rx="3" class="b-plain"/><text x="40" y="221">action (T, 14)</text>
+      <text x="34" y="248" class="t-muted">attribute: sim = True</text>
+      <text x="380" y="20" class="t-head">robomimic style: one file, all demos</text>
+      <rect x="380" y="30" width="330" height="226" rx="6" class="b-train"/>
+      <text x="392" y="52" class="t-train">dataset.hdf5</text>
+      <text x="404" y="78">data/   <tspan class="t-muted">attr: total, env_args</tspan></text>
+      <rect x="424" y="88" width="272" height="24" rx="3" class="b-plain"/><text x="430" y="105">demo_0/  obs/, actions, …</text>
+      <rect x="424" y="118" width="272" height="24" rx="3" class="b-plain"/><text x="430" y="135">demo_1/  obs/, actions, …</text>
+      <text x="430" y="160" class="t-muted">…</text>
+      <text x="404" y="190">mask/   <tspan class="t-muted">filter keys</tspan></text>
+      <rect x="424" y="200" width="272" height="24" rx="3" class="b-plain"/><text x="430" y="217">train · valid  (lists of demos)</text>
+      <text x="404" y="248" class="t-muted">T = number of time steps</text>
+    </svg>
+    <figcaption>Left: from <a href="https://github.com/tonyzhaozh/act/blob/main/record_sim_episodes.py">ACT record_sim_episodes.py</a> (ACT, Zhao et al. 2023, not in bib). Right: from the <a href="https://robomimic.github.io/docs/datasets/overview.html">robomimic dataset docs</a> (not in bib).</figcaption>
+  </figure>
+  <div class="pc">
+    <div class="plus"><h4>Strengths</h4><ul>
+      <li>One file, mature tools, fast slicing of arrays.</li>
+      <li>The most common choice in imitation-learning code (ACT, robomimic; FastUMI and RoboManipBaselines in the bib).</li>
+    </ul></div>
+    <div class="minus"><h4>Weaknesses</h4><ul>
+      <li>No official guarantee that a file left open survives a crash; corruption after crashes is reported (<a href="https://forum.hdfgroup.org/t/file-state-after-flush-and-crash/3481">HDF forum</a>).</li>
+      <li>Live-reading mode (SWMR) cannot append variable-length data (<a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/intro_SWMR.html">HDF Group</a>).</li>
+      <li>Streams at different rates need a self-made layout.</li>
+      <li>Raw images are large: one 640×480 colour frame = 921,600 bytes, ≈ 27.6 MB/s per camera at 30 Hz (computed).</li>
+    </ul></div>
+  </div>
+  <p class="who"><b>Who uses it:</b> FastUMI, written by a ROS storage node at record time (zhaxizhuoma2025 III-A); RoboManipBaselines, HDF5 plus MP4 per episode (murooka2026 IV-B); ACT and robomimic (not in bib).</p>
+</section>
+
+<!-- Zarr -->
+<section id="zarr">
+  <span class="tag train">Training format</span>
+  <h2>Zarr <span class="muted mono" style="background:none">.zarr · .zarr.zip</span></h2>
+  <div class="text">
+    <p>Like HDF5 (groups of arrays), but each array is cut into chunks and every chunk is stored as its own small object: a file in a folder, an entry in a zip, or an object in cloud storage. Zarr is "a powerful library for storage of n-dimensional arrays, supporting chunking, compression, and various backends" (<a href="https://zarr.readthedocs.io/en/stable/">Zarr docs</a>).</p>
+    <p>UMI and Diffusion Policy use it as a <span class="term">replay buffer</span>: all episodes are glued end to end in one long array per field, and a small list, <span class="mono">episode_ends</span>, says where each episode stops.</p>
+  </div>
+  <figure class="figure">
+    <svg viewBox="0 0 720 220" role="img" aria-label="UMI zarr replay buffer: data arrays with all episodes concatenated, meta episode_ends marking boundaries">
+      <text x="10" y="20" class="t-train t-head">dataset.zarr.zip</text>
+      <text x="10" y="50">data/</text>
+      <text x="30" y="80" class="t-muted">camera0_rgb</text>
+      <text x="30" y="112" class="t-muted">robot0_eef_pos</text>
+      <text x="30" y="144" class="t-muted">gripper_width</text>
+      <g>
+        <rect x="170" y="66" width="200" height="22" class="b-train"/><rect x="370" y="66" width="140" height="22" class="b-train"/><rect x="510" y="66" width="190" height="22" class="b-train"/>
+        <rect x="170" y="98" width="200" height="22" class="b-train"/><rect x="370" y="98" width="140" height="22" class="b-train"/><rect x="510" y="98" width="190" height="22" class="b-train"/>
+        <rect x="170" y="130" width="200" height="22" class="b-train"/><rect x="370" y="130" width="140" height="22" class="b-train"/><rect x="510" y="130" width="190" height="22" class="b-train"/>
+      </g>
+      <text x="230" y="82">episode 0</text><text x="400" y="82">episode 1</text><text x="570" y="82">episode 2</text>
+      <text x="10" y="186">meta/</text>
+      <text x="30" y="208" class="t-muted">episode_ends = [</text>
+      <text x="355" y="208">200,</text><text x="495" y="208">340,</text><text x="685" y="208">530 ]</text>
+      <line x1="370" y1="60" x2="370" y2="192" class="l-time" stroke-dasharray="4 3"/>
+      <line x1="510" y1="60" x2="510" y2="192" class="l-time" stroke-dasharray="4 3"/>
+      <line x1="700" y1="60" x2="700" y2="192" class="l-time" stroke-dasharray="4 3"/>
+    </svg>
+    <figcaption>Structure from the UMI <a href="https://github.com/real-stanford/universal_manipulation_interface/blob/main/diffusion_policy/common/replay_buffer.py">replay_buffer.py</a>: groups <span class="mono">data/</span> and <span class="mono">meta/episode_ends</span>, every data array as long as the last episode end. Field names and step counts are examples.</figcaption>
+  </figure>
+  <div class="pc">
+    <div class="plus"><h4>Strengths</h4><ul>
+      <li>Chunks can be read in parallel; storage on disk "as a nested directory … or a zip file" (<a href="https://github.com/real-stanford/diffusion_policy">Diffusion Policy README</a>, not in bib).</li>
+      <li>Very simple layout; whole dataset can sit in memory for fast training.</li>
+    </ul></div>
+    <div class="minus"><h4>Weaknesses</h4><ul>
+      <li>In robotics, tied to the Diffusion Policy and UMI code; GR00T and openpi read LeRobot instead (see below).</li>
+      <li>Holds already-aligned steps; raw timing is gone.</li>
+    </ul></div>
+  </div>
+  <p class="who"><b>Who uses it:</b> UMI (chi2024): its pipeline ends with <span class="mono">07_generate_replay_buffer.py -o dataset.zarr.zip</span> and training reads that file (<a href="https://github.com/real-stanford/universal_manipulation_interface">UMI README</a>). Diffusion Policy (not in bib).</p>
+</section>
+
+<!-- LeRobot -->
+<section id="lerobot">
+  <span class="tag train">Training format · the thesis export</span>
+  <h2>LeRobot dataset <span class="muted mono" style="background:none">Parquet + MP4</span></h2>
+  <div class="text">
+    <p>A folder, not a single file. Numbers per time step (state, action, timestamp) go into <span class="term">Parquet</span> tables, a column-based table format. Camera images go into <span class="term">MP4</span> videos, which are much smaller than raw frames. A <span class="mono">meta/</span> folder describes features, frame rate, tasks and per-episode statistics. When training, frames are decoded from the video "to be synchronous with data from parquet files" (<a href="https://github.com/huggingface/lerobot/blob/main/src/lerobot/datasets/lerobot_dataset.py">LeRobot source</a>).</p>
+  </div>
+  <figure class="figure">
+    <svg viewBox="0 0 720 260" role="img" aria-label="LeRobot v2 layout as used by GR00T: meta folder with info, episodes, tasks, modality; data folder with parquet per episode; videos folder with mp4 per episode and camera">
+      <text x="10" y="20" class="t-head">GR00T flavour of LeRobot v2</text>
+      <rect x="10" y="30" width="220" height="216" rx="6" class="b-plain"/>
+      <text x="22" y="52" class="t-head">meta/</text>
+      <text x="34" y="78">info.json</text><text x="34" y="100">episodes.jsonl</text><text x="34" y="122">tasks.jsonl</text><text x="34" y="144" class="t-train">modality.json</text>
+      <text x="34" y="176" class="t-muted">modality.json is</text><text x="34" y="192" class="t-muted">GR00T-only: splits</text><text x="34" y="208" class="t-muted">arrays into x, y, z,</text><text x="34" y="224" class="t-muted">gripper …</text>
+      <rect x="244" y="30" width="226" height="216" rx="6" class="b-train"/>
+      <text x="256" y="52" class="t-head">data/chunk-000/</text>
+      <text x="256" y="72" class="t-muted">Parquet, one row per step</text>
+      <rect x="256" y="84" width="202" height="22" class="b-plain"/><text x="262" y="99">timestamp│state│action│…</text>
+      <rect x="256" y="106" width="202" height="20" class="b-plain"/><text x="262" y="120" class="t-muted">0.000 │ … │ …</text>
+      <rect x="256" y="126" width="202" height="20" class="b-plain"/><text x="262" y="140" class="t-muted">0.033 │ … │ …</text>
+      <rect x="256" y="146" width="202" height="20" class="b-plain"/><text x="262" y="160" class="t-muted">0.067 │ … │ …</text>
+      <text x="262" y="186" class="t-muted">0.033 s = 1/30 s</text>
+      <rect x="484" y="30" width="226" height="216" rx="6" class="b-time"/>
+      <text x="496" y="52" class="t-head">videos/chunk-000/</text>
+      <text x="496" y="72" class="t-muted">MP4 per camera</text>
+      <g><rect x="500" y="90" width="44" height="34" rx="3" class="b-plain"/><rect x="550" y="90" width="44" height="34" rx="3" class="b-plain"/><rect x="600" y="90" width="44" height="34" rx="3" class="b-plain"/><rect x="650" y="90" width="44" height="34" rx="3" class="b-plain"/></g>
+      <text x="508" y="112">f0</text><text x="558" y="112">f1</text><text x="608" y="112">f2</text><text x="658" y="112">f3</text>
+      <text x="496" y="152" class="t-muted">frame n ↔ Parquet row n</text>
+      <text x="496" y="176" class="t-muted">v2: one file per episode</text>
+      <text x="496" y="196" class="t-muted">v3: many episodes per file</text>
+    </svg>
+    <figcaption>Folder list from the <a href="https://github.com/NVIDIA/Isaac-GR00T">Isaac-GR00T README</a> ("a flavor of the LeRobot v2 dataset format" plus <span class="mono">meta/modality.json</span>). Current LeRobot v3.0 stores "many episodes per Parquet/MP4 file (v2 used one file per episode)" (<a href="https://github.com/huggingface/lerobot/blob/main/docs/source/lerobot-dataset-v3.mdx">LeRobot v3 docs</a>). Row values are examples.</figcaption>
+  </figure>
+  <div class="pc">
+    <div class="plus"><h4>Strengths</h4><ul>
+      <li>Input format of both target models: openpi "Convert your data to a LeRobot dataset (which we use for training)" (<a href="https://github.com/Physical-Intelligence/openpi">openpi README</a>); GR00T as above.</li>
+      <li>Video keeps image data small; Hub hosting, streaming during training and a web viewer (<a href="https://github.com/huggingface/lerobot/blob/main/docs/source/lerobot-dataset-v3.mdx">LeRobot v3 docs</a>).</li>
+    </ul></div>
+    <div class="minus"><h4>Weaknesses</h4><ul>
+      <li>Video compression is lossy, so frames are not bit-exact (codec settings not checked, unverified).</li>
+      <li>Versions change: LeRobot main is v3.0 and ships a v2.1 → v3.0 converter, but GR00T expects v2.</li>
+      <li>Holds aligned steps only; raw timing is gone.</li>
+    </ul></div>
+  </div>
+  <p class="who"><b>Who uses it:</b> openpi (π0, π0.5), Isaac GR00T, Hugging Face LeRobot policies, Grabette: "the output is a standard LeRobot dataset" (<a href="https://huggingface.co/blog/grabette">Grabette blog</a>, not in bib).</p>
+</section>
+
+<!-- RLDS -->
+<section id="rlds">
+  <span class="tag train">Training format</span>
+  <h2>RLDS <span class="muted mono" style="background:none">TFRecord</span></h2>
+  <div class="text">
+    <p>Google's shared layout for robot and reinforcement-learning data, built on TensorFlow Datasets. A dataset is a list of <span class="term">episodes</span>; each episode holds a list of <span class="term">steps</span>; each step holds an observation, an action, a reward and flags that mark the first and last step (<a href="https://github.com/google-research/rlds">RLDS README</a>). On disk these are TFRecord files.</p>
+  </div>
+  <figure class="figure">
+    <svg viewBox="0 0 720 170" role="img" aria-label="RLDS nesting: dataset contains episodes, episode contains steps with observation, action, reward and is_first, is_last, is_terminal flags">
+      <rect x="10" y="20" width="700" height="140" rx="6" class="b-train"/>
+      <text x="22" y="40" class="t-head t-train">dataset</text>
+      <rect x="22" y="50" width="420" height="98" rx="5" class="b-plain"/>
+      <text x="34" y="68" class="t-head">episode  <tspan class="t-muted">episode_id, invalid, …</tspan></text>
+      <rect x="34" y="78" width="125" height="60" rx="4" class="b-time"/><text x="42" y="96">step 0</text><text x="42" y="114" class="t-muted">is_first</text><text x="42" y="130" class="t-muted">obs · action</text>
+      <rect x="166" y="78" width="125" height="60" rx="4" class="b-time"/><text x="174" y="96">step 1</text><text x="174" y="130" class="t-muted">obs · action</text>
+      <rect x="298" y="78" width="132" height="60" rx="4" class="b-time"/><text x="306" y="96">step n</text><text x="306" y="114" class="t-muted">is_last</text><text x="306" y="130" class="t-muted">obs · action</text>
+      <rect x="452" y="50" width="120" height="98" rx="5" class="b-plain"/><text x="464" y="68" class="t-head">episode</text>
+      <rect x="582" y="50" width="116" height="98" rx="5" class="b-plain"/><text x="594" y="68" class="t-head">…</text>
+    </svg>
+    <figcaption>Nesting and field names from the <a href="https://github.com/google-research/rlds">RLDS README</a>.</figcaption>
+  </figure>
+  <div class="pc">
+    <div class="plus"><h4>Strengths</h4><ul>
+      <li>One layout across many labs: Open X-Embodiment pools "1M+ real robot trajectories spanning 22 robot embodiments" (<a href="https://robotics-transformer-x.github.io/">OXE site</a>, not in bib), each "represented using the RLDS episode format" (<a href="https://github.com/google-deepmind/open_x_embodiment">OXE repo</a>).</li>
+    </ul></div>
+    <div class="minus"><h4>Weaknesses</h4><ul>
+      <li>Tied to TensorFlow tools.</li>
+      <li>Not read by the thesis models: openpi's own example takes LIBERO data in RLDS and converts it to LeRobot first (<a href="https://github.com/Physical-Intelligence/openpi">openpi README</a>).</li>
+    </ul></div>
+  </div>
+  <p class="who"><b>Who uses it:</b> Open X-Embodiment and the large shared datasets built on it (not in bib).</p>
+</section>
+
+<section id="compare">
+  <p class="eyebrow">Side by side</p>
+  <h2>Comparison</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Format</th><th>Job</th><th>Keeps each stream's own timestamps</th><th>Safe if recording stops abruptly</th><th>Read by GR00T / openpi</th><th>Precedent in the thesis bib</th></tr></thead>
+      <tbody>
+        <tr><td><b class="rec">MCAP</b></td><td>Recording</td><td class="yes">Yes, ns, two per message</td><td class="yes">Designed for it</td><td class="no">No, convert</td><td>RAPID (yin2026)</td></tr>
+        <tr><td><b class="rec">ROS bag / .db3</b></td><td>Recording</td><td class="yes">Yes</td><td class="muted">.db3 replaced for performance</td><td class="no">No</td><td>–</td></tr>
+        <tr><td><b class="train">HDF5</b></td><td>Training (FastUMI also records)</td><td class="muted">Own layout needed</td><td class="no">No guarantee</td><td class="no">No, convert</td><td>FastUMI, RoboManipBaselines</td></tr>
+        <tr><td><b class="train">Zarr</b></td><td>Training</td><td class="no">No, aligned</td><td class="muted">Written offline</td><td class="no">No</td><td>UMI (chi2024)</td></tr>
+        <tr><td><b class="train">LeRobot</b></td><td>Training</td><td class="no">No, aligned</td><td class="muted">Written offline</td><td class="yes">Yes</td><td>– (Grabette, not in bib)</td></tr>
+        <tr><td><b class="train">RLDS</b></td><td>Training</td><td class="no">No, aligned</td><td class="muted">Written offline</td><td class="no">No, openpi converts</td><td>– (OXE, not in bib)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="choice">
+  <p class="eyebrow">The thesis choice (Martyn, 2026-11-23)</p>
+  <h2>Record MCAP, align offline, export LeRobot</h2>
+  <ol class="steps">
+    <li><b class="rec">Record raw in MCAP.</b> Camera, controller pose, trigger and gripper arrive at different rates and with different delays. MCAP keeps every message with its own ns timestamps (<a href="https://mcap.dev/spec">spec</a>) and is built to survive an abrupt stop (<a href="https://mcap.dev/">mcap.dev</a>). Precedent: RAPID (yin2026). Already in the approved proposal (msc-thesis/docs/proposal.md, sections 6–7).</li>
+    <li><b>Align offline.</b> Stream delays are measured at RL5 (camera and recorder test on the station Jetson) and again at RL6 (Dex1-1 gripper and camera swap). Raw data lets old recordings be re-aligned with the new numbers. Method from UMI (chi2024 PD1.1) and ViTaMIn-B (li2025 IV-B). FastUMI stores only aligned pairs (zhaxizhuoma2025 III-A), so it cannot re-align.</li>
+    <li><b class="train">Export to LeRobot.</b> The one format both target models read: openpi and GR00T (READMEs above). Zarr or RLDS would need a second conversion. Matches D07 (software and data format).</li>
+  </ol>
+  <p class="note"><b>Still open.</b> Which LeRobot version to write: GR00T wants a v2 flavour plus <span class="mono">modality.json</span>, LeRobot main writes v3.0, and the version openpi's pinned LeRobot commit reads is unverified. Video codec loss in the export is unchecked.</p>
+</section>
+
+<section id="sources">
+  <p class="eyebrow">Sources (fetched 2026-11-23)</p>
+  <ul class="src">
+    <li>MCAP: <a href="https://mcap.dev/spec">specification</a>, <a href="https://mcap.dev/">mcap.dev</a></li>
+    <li>ROS: <a href="https://docs.ros.org/en/rolling/Releases/Release-Iron-Irwini.html">ROS 2 Iron release notes</a>, <a href="https://github.com/ros2/rosbag2">rosbag2 README</a>, <a href="http://wiki.ros.org/Bags/Format/2.0">ROS 1 bag format 2.0</a></li>
+    <li>HDF5: <a href="https://support.hdfgroup.org/documentation/hdf5/latest/_intro_h_d_f5.html">HDF Group intro</a>, <a href="https://support.hdfgroup.org/documentation/hdf5-docs/advanced_topics/intro_SWMR.html">SWMR intro</a>, <a href="https://forum.hdfgroup.org/t/file-state-after-flush-and-crash/3481">HDF forum 3481</a>, <a href="https://robomimic.github.io/docs/datasets/overview.html">robomimic datasets</a> (not in bib), <a href="https://github.com/tonyzhaozh/act/blob/main/record_sim_episodes.py">ACT code</a> (not in bib)</li>
+    <li>Zarr: <a href="https://zarr.readthedocs.io/en/stable/">Zarr docs</a>, <a href="https://github.com/real-stanford/universal_manipulation_interface">UMI README</a> and <a href="https://github.com/real-stanford/universal_manipulation_interface/blob/main/diffusion_policy/common/replay_buffer.py">replay_buffer.py</a>, <a href="https://github.com/real-stanford/diffusion_policy">Diffusion Policy README</a> (not in bib)</li>
+    <li>LeRobot: <a href="https://github.com/huggingface/lerobot/blob/main/docs/source/lerobot-dataset-v3.mdx">v3 docs</a>, <a href="https://github.com/huggingface/lerobot/blob/main/src/lerobot/datasets/utils.py">utils.py</a>, <a href="https://github.com/NVIDIA/Isaac-GR00T">Isaac-GR00T README</a>, <a href="https://github.com/Physical-Intelligence/openpi">openpi README</a>, <a href="https://huggingface.co/blog/grabette">Grabette blog</a> (not in bib)</li>
+    <li>RLDS: <a href="https://github.com/google-research/rlds">RLDS README</a>, <a href="https://robotics-transformer-x.github.io/">Open X-Embodiment site</a> and <a href="https://github.com/google-deepmind/open_x_embodiment">repo</a> (not in bib)</li>
+    <li>Bib papers (section numbers as read for the 2026-11-19 pipeline review): chi2024 UMI, li2025 ViTaMIn-B, zhaxizhuoma2025 FastUMI, murooka2026 RoboManipBaselines, yin2026 RAPID, zhao2025 XRoboToolkit.</li>
+  </ul>
+</section>
+</div>
