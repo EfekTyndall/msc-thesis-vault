@@ -22,7 +22,7 @@ Ask (Martyn, 2026-11-23): next step after RL1 (replay in MuJoCo on the Mac, pass
 
 | Step | What | Size / source | Undo |
 | --- | --- | --- | --- |
-| P1 URSim image | `docker pull universalrobots/ursim_e-series:<version>`; `<version>` = the real UR10e's PolyScope version if known (pendant: Settings → About), else 5.26 (newest) | 0.97 GB compressed, amd64 only ([Docker Hub](https://hub.docker.com/r/universalrobots/ursim_e-series), tag API 2026-11-23) | `docker rmi universalrobots/ursim_e-series:<version>` |
+| P1 URSim image | `docker pull universalrobots/ursim_e-series:<version>`; `<version>` = **5.11.11**: the real UR10e runs URSoftware 5.11.7.1010425 (Dec 21 2021; pendant About screen, Martyn 2026-11-23; robot S/N 20185000504, IP 10.36.11.3); 5.11.7 is not published, 5.11.11 is the only 5.11 patch tag (plus `5.11`) | 1.09 GB compressed (5.11.11), amd64 only ([Docker Hub](https://hub.docker.com/r/universalrobots/ursim_e-series), tag API 2026-11-23) | `docker rmi universalrobots/ursim_e-series:<version>` |
 | P2 Run URSim | `docker run --rm -d --name ursim -e ROBOT_MODEL=UR10 -p 127.0.0.1:29999-30004:29999-30004 -p 127.0.0.1:6080:6080 universalrobots/ursim_e-series:<version>`. Ports bound to localhost only, so nothing is exposed on the lab network (shared PC). Pendant screen from the Mac: `ssh -L 6080:localhost:6080 fractal-pc`, then `http://localhost:6080/vnc.html` | Ports from the [UR Client Library URSim guide](https://github.com/UniversalRobots/Universal_Robots_Client_Library/blob/master/doc/setup/ursim_docker.rst) (6080 VNC; robot interfaces 29999–30004; exact list to confirm when starting) | `docker stop ursim` (container removed by `--rm`) |
 | P3 Conda env | `conda create -n ursim-replay python=3.10 -c conda-forge pinocchio casadi numpy`, then `pip install ur_rtde==1.6.6 mujoco` | ur_rtde 1.6.6, MIT, wheel `cp310 manylinux x86_64` ([PyPI](https://pypi.org/project/ur-rtde/)); Pinocchio and CasADi as on the Mac `humanoid` env; MuJoCo only because the replay script imports it | `conda env remove -n ursim-replay` |
 | P4 Team code | Copy the Mac's `~/thesis/team/xr_teleoperate` (commit `7e6c754`) to `~/team/xr_teleoperate` on fractal-pc with `rsync` (read-only use, team machine) | ~ size of the clone | `rm -rf ~/team/xr_teleoperate` |
@@ -36,5 +36,4 @@ Martyn's desk take (`take-01.csv`) replays unchanged against URSim: no protectiv
 
 ## Open
 
-- Real UR10e PolyScope version (sets the URSim tag).
 - Go for P1–P4 (installs on a shared PC); P5 is code via PR.
