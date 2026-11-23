@@ -43,4 +43,4 @@ Robot moves as in the MuJoCo and URSim replays (Martyn's visual check); logged a
 
 "Actual TCP" is computed from the robot's joint encoders with the team's kinematic model: it shows that the robot followed the commands, not where the tool was in the room (no external measurement). Logs: fractal-pc `~/rl2-test/take-02-robot.csv`, Mac `~/Desktop/take-02*.csv` (not in Git).
 
-Lessons: the replay printed nothing during the 80 s target computation and Ctrl-C was caught by the team IK, so Martyn's first attempt looked dead; fixed (progress line, Ctrl-C flag). HOME_Q saved by Martyn as a pendant program (own program, team installation unchanged).
+Lessons: the replay printed nothing during the 80 s target computation and Ctrl-C was caught by the team IK, so Martyn's first attempt looked dead; fixed (progress line, Ctrl-C flag). Saving HOME_Q as an own pendant program (not in the team installation) was suggested; whether it was saved is not confirmed.
