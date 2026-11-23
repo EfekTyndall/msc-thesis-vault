@@ -44,6 +44,21 @@ So with the team's `BASE_YAW = π/2`, operator forward = UR base +y and operator
 
 As the team's VR teleop: XRoboToolkit pose taken as OpenXR basis (team default, no extra change of basis), turned into robot convention (x forward, y left, z up); only motion since the first sample is used, first pose → team `HOME_Q`; `BASE_YAW` for the half-turn between operator and robot; TCP 0.174 m along `tool0`. Details and column table: `dex1-1-handheld/software/sim/README.md`.
 
+## First real take (2026-11-23, ≈13:30 CET, Martyn)
+
+Desk recording with `pose_log.py` on the station Jetson (button start/stop), replayed on the Mac with `ur10e_replay.py --view`. 43.2 s, 3377 samples (78 Hz mean; one 0.78 s gap at 4.4 s, similar to the 0.66 s gap of 18 Nov, cause unknown). Hand path range in the base frame 230 × 232 × 177 mm, up to 81° rotation.
+
+| Check | Result |
+| --- | --- |
+| IK error | RMS 0.8 mm, max 12.9 mm; 0 solver failures in 5525 solves |
+| Sim tracking | RMS 6.8 mm, max 66.1 mm, 0.8 mm at rest at the end; > 20 mm for 0.4 s in total |
+| Max 66 mm (t = 18.9 s) | Fast hand move, about 9 cm in 0.1 s (raw samples smooth, not a tracking jump); servo lag |
+| Joint speed max 4.28 rad/s (t = 40.1 s, wrist 1) | Fast wrist twist, about 20° in 0.1 s (raw samples smooth) |
+| Joint speed > 0.3 rad/s (team real-robot limit) | 11.3 s of 44.2 s |
+| Directions | First move → base +y (forward), later move → +z (up), as intended; visual check by Martyn pending |
+
+Consequence for RL3 (replay on the real UR10e): slow takes, or a 0.3 rad/s joint speed limit in the replay (proposed, not added).
+
 ## Open
 
 - RL1 pass check on a **real** recording: record small slow moves with `trigger_log.py` at the station (procedure in the README), replay, check directions. Two unverified assumptions it tests: the SDK pose is in the OpenXR basis (team code says "VERIFY w/ A/B test"), and the PICO room forward = direction faced at recentre.
