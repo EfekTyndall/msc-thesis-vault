@@ -55,7 +55,9 @@ Desk recording with `pose_log.py` on the station Jetson (button start/stop), rep
 | Max 66 mm (t = 18.9 s) | Fast hand move, about 9 cm in 0.1 s (raw samples smooth, not a tracking jump); servo lag |
 | Joint speed max 4.28 rad/s (t = 40.1 s, wrist 1) | Fast wrist twist, about 20° in 0.1 s (raw samples smooth) |
 | Joint speed > 0.3 rad/s (team real-robot limit) | 11.3 s of 44.2 s |
-| Directions | First move → base +y (forward), later move → +z (up), as intended; visual check by Martyn pending |
+| Directions | First move → base +y (forward), later move → +z (up), as intended; Martyn watched the replay: the simulated movement matches the recorded movement (2026-11-23) |
+
+**RL1 passed (visual check, Martyn, 2026-11-23).** The headset-axis assumptions (SDK pose in the OpenXR basis; forward = direction faced at recentre) hold qualitatively; not measured.
 
 Consequence for RL3 (replay on the real UR10e): slow takes, or a 0.3 rad/s joint speed limit in the replay (proposed, not added).
 
