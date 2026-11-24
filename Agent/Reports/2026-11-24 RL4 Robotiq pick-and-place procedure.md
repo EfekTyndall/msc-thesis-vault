@@ -26,6 +26,18 @@ Read in the team repo at the pinned commit `7e6c754` (`~/thesis/team/xr_teleoper
 
 **Activation stroke:** if the gripper is not yet activated (after a power cycle), connecting makes it close fully and reopen once. Keep hands and objects out of the fingers when the program starts.
 
+## 1b. Where the controller's tracked point is (checked 2026-11-24)
+
+The PICO developer docs ([input mapping](https://developer.picoxr.com/document/unity/input-mapping/), Martyn's link) give buttons only, no coordinate system or origin. The answer is in the PICO Unity SDK code ([PICO-Unity-Integration-SDK](https://github.com/Pico-Developer/PICO-Unity-Integration-SDK), default branch, read 2026-11-24):
+
+| Finding | Evidence |
+| --- | --- |
+| The XRoboToolkit headset app sends the PICO SDK's own controller pose | Unity client `TrackingData.cs`: `PXR_Input.GetControllerPredictPosition/Rotation` (commit `cdc5316`) |
+| The SDK ships a 3D model of the PICO 4 Ultra controller | `Assets/Resources/Controller/PICO 4U/Animation/mesh/o_com_PICO4U_right_01.fbx` (≈ 750 kB) |
+| That model is drawn exactly at the tracked pose: no shift, only a 180° turn about the vertical axis | `PICO 4U R.prefab` (position 0, 0, 0; rotation y = 180°); `PXR_ControllerLoader.cs` places it with no offset |
+
+Consequence: the origin of that model file is the tracked point. Lined up with our controller scan in Fusion, it gives the tracked point inside the controller, and the tip offset follows from CAD (D09 (calibration)). Assumption (unverified): PICO's own model is placed at the same pose the app sends; one pivot take checks it. Licence: the SDK is proprietary PICO material ("reproduction … strictly forbidden" without permission), so the model is used locally for measuring only, never committed to Git or shared.
+
 ## 2. What gets built (dex1-1-handheld PR, before the lab session)
 
 No new dependencies. The team class is imported from the team repo (outside dependency at `7e6c754`, no copied code).
