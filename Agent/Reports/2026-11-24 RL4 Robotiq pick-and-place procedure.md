@@ -40,6 +40,8 @@ Consequence: the origin of that model file is the tracked point. Lined up with o
 
 Done 2026-11-24: model downloaded (SDK commit `c93a59b`) to `~/thesis/local/pico-4u-official/` (outside all repos) and converted to `pico4u_right_official_mm.stl` (mm; origin = tracked point; 2 472 points, 4 731 triangles; FBX in cm). Size check against our scan (main extents): official 137.2 / 68.5 / 61.6 mm, scan 138.2 / 69.3 / 57.6 mm. Automatic shape matching (ICP) did **not** settle the position: best fits leave 3 mm median gaps and two near-equal fits put the tracked point about 10 mm apart. The alignment is therefore done by eye in Fusion on features (tracking ring, trigger, buttons), then checked with one pivot take.
 
+Fusion check (2026-11-24, unsaved "Untitled" document, meshes only): of the two fits, the mirrored one (B) is clearly wrong (button face upside down); fit A matches the handle and the button side, but the head does not coincide everywhere (the scan's ring is only partly captured). Fit A puts the tracked point **inside the controller, about 7.5 mm below the surface**, near the middle of its width and height and 57 mm from one end of the 138 mm length (scan frame: 1.3, −2.3, −1.5 mm). Estimated uncertainty: several mm (by eye, not measured). A pivot take is required before the number is used.
+
 ## 2. What gets built (dex1-1-handheld PR, before the lab session)
 
 No new dependencies. The team class is imported from the team repo (outside dependency at `7e6c754`, no copied code).
