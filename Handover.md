@@ -13,7 +13,7 @@ tags: [handover]
 
 ```
 cd ~/thesis/dex1-1-handheld
-git grep -nEi '\bD[0-9]{2}\b|vault|Agent/|msc-thesis|thesis plan|thesis-plan|daily note|design notes|research gaps|PR #|claude|anthropic|experiments/' -- . ':!*.STL' ':!*.urdf'
+git grep -nEi '\bD[0-9]{2}\b|\bRL[1-6]\b|replay ladder|\bG[0-9]\b|research gap|vault|Agent/|msc-thesis|thesis plan|thesis-plan|daily note|design notes|research gaps|PR #|claude|anthropic|experiments/' -- . ':!*.STL' ':!*.urdf'
 git log --format='%h %an <%ae> | %s' | grep -i claude          # authored by Claude
 git log --format='%h %B' | grep -i 'co-authored-by: claude'    # co-author lines
 git ls-files -o --exclude-standard; git status --ignored --short # local-only files
@@ -29,6 +29,10 @@ Vault and thesis references in tracked files:
 - [ ] `hardware/pico-4-ultra-scan/README.md:3`: "(vault: D04 Pose tracking, D10 Handheld mechanism)"
 - [ ] `software/xr/trigger_udp.py:8`: "(vault: D04 Pose tracking, research gap B7 time sync)"
 - [ ] `hardware/PRINT-TEST-QUEUE.md`: the vault note path in the v19 result; "`docs/thesis-plan.md` §7" (§2 intro); "full note in the design notes" (plate 2b); "(vault PR #31)" (joint item); "(thesis plan, handheld design start plan step 3)" (§4); "`experiments/<YYYY-MM-DD>-<name>/`" (intro)
+
+Internal codes and topic names (found 2026-11-24, Repo Cleanup; not caught by the step 1 grep before then):
+- [ ] "Replay Ladder" and RL1–RL3 (replay in MuJoCo, against URSim, on the real UR10e): `software/sim/README.md:8,10,30,53,55,67,69`, `software/sim/ur10e_replay.py:1,15,22`, `software/sim/ur10e_replay_rtde.py:1,4,9,10,48,50,53`, `software/xr/pose_log.py:3`; replace with plain names (e.g. "replay in simulation") or keep (company's choice)
+- [ ] Research-gap codes G1 (trigger value vs travel) and G8 (does pressing a control move the controller): `software/xr/trigger_log.py:1,10,20`
 
 Internal values:
 - [ ] `software/xr/trigger_udp.py` usage example: Mac IP `10.36.1.125`; replace with a placeholder
