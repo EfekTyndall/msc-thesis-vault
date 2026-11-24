@@ -113,21 +113,20 @@ As written in the Daily TODO of [[2026-11-24]] (station Jetson, `trigger_log.py`
 - The Robotiq position step in mm and the grip force at setting 100 are not checked in the manual (unverified); not needed for open/close.
 - Tip offset file format and version naming follow D09 (calibration); defined in the PR.
 
-## 5. Forward-pointing start pose HOME_FWD (2026-11-24, simulation only)
+## 5. Start pose facing the operator, HOME_FACE (2026-11-24, simulation only)
 
-Reason (Martyn, 2026-11-24): on the handheld the gripper sits in front of the controller and points forward, so the robot must start with the Robotiq pointing the same way: toward the robot base, level, jaws closing left–right. Same orientation at the start keeps the approach to the object the same (relative actions only carry changes from the start, [[D07 Software and data format]]).
+Decision path (2026-11-24): first proposal "gripper points toward the robot base, same direction as the handheld" (HOME_FWD) withdrawn after Martyn's objection: the UR10e should work in front of itself, gripper facing the operator. This is valid under UMI-style relative actions (chi2024; [[D07 Software and data format]]): the recorded motion is applied relative to the robot's gripper, so what has to match is the **layout relative to the gripper**, not the same spot in the room. The robot's work is the operator's demonstration turned by 180° about the vertical axis (a turn, not a mirror image: the operator's left becomes the robot's left). This is also how the team's VR teleop maps motion (`BASE_YAW`), so the robot works in the same area for the VR baseline and the handheld replay. The RL3 observation (push toward the robot → robot moves toward the operator) is consistent with this and is kept.
 
-Computed with the team's UR10e model (`assets/ur10e/ur10e.urdf`, Pinocchio, TCP 0.174 m), fingertip at the same point as at HOME_Q: (−0.174, 0.692, 0.240) m in the pendant's base frame.
+Computed with the team's UR10e model (Pinocchio, TCP 0.174 m), fingertip at the HOME_Q fingertip point (−0.174, 0.692, 0.240) m:
 
 | | Base | Shoulder | Elbow | Wrist 1 | Wrist 2 | Wrist 3 |
 | --- | --- | --- | --- | --- | --- | --- |
 | HOME_Q (team, tool down) | −90.0° | −84.1° | 111.2° | −117.1° | −90.0° | 0.0° |
-| HOME_FWD (proposal) | −90.0° | −41.6° | 65.1° | −23.5° | −90.0° | −180.0° or 90.0° |
+| HOME_FACE (proposal) | −90.0° | −87.3° | 136.7° | −49.3° | 90.0° | 180.0° or 90.0° |
 
-- Tool axis points from the fingertip toward the base (−y of the base frame), level. Wrist 3 decides the jaw direction: which of −180° / 90° gives left–right jaws depends on how the Robotiq is turned on the flange (not known); check by eye on the robot.
-- Reach: all 27 corners and midpoints of a 20 cm cube around the start solved; largest joint change 33° (elbow); no near-singular pose (smallest singular value 0.25).
-- The wrist sits about 0.98 m from the base, 0.29 m closer to the operator than the fingertip, at 0.24–0.36 m height. To be checked against where the operator stands; moving the start 10–15 cm toward the base is possible.
-- **Direction mapping confirmed mirrored (Martyn, 2026-11-24):** in RL3, a hand push toward the robot moved the robot toward the operator. Fix in the RL4 PR: operator direction turned by 180° in our replay code (not in the team code), then a 10 cm forward and 10 cm left check in the air before the pick.
-- **Direction rule (proposed 2026-11-24, after Martyn's question "is mirroring what we want?"):** no mirroring. UMI-style data treats the handheld as the robot's hand and stores motion relative to the gripper itself (chi2024, relative trajectory actions; [[D07 Software and data format]]). The replay therefore applies the recorded motion in the gripper's own frame from a start pose that points the same way as the handheld (HOME_FWD); the operator's standing position and the team's `BASE_YAW` then no longer matter. The team's mirrored mapping suits live VR teleop (operator imagines standing at the base), not replay of recorded data. Check on the robot: tape-cross test (record a move to a cross 10 cm toward the robot, replay in the air, fingertip must pass over the cross).
-- Earlier note, direction mapping: the team code maps the operator's "forward" to base +y (`BASE_YAW = π/2`), i.e. away from the base. If the operator faces the base, forward hand motion would move the robot away. RL3 compared the robot with the simulation, not with the hand, so this was not checked. To be checked before RL4 with a 10 cm push toward the robot.
-- How to set it: on the pendant in Local mode, Move → joint values as above at low speed, look at the jaws, then save as its own program "HOME_FWD". The replay code takes the start pose from the settings file.
+- Gripper level, pointing away from the base toward the operator. Wrist 3 sets the jaw direction (left–right wanted); which of the two values gives that depends on how the Robotiq sits on the flange: check by eye.
+- Wrist stays up (wrist 1 at 0.36 m above the base plane, as at HOME_Q); the other solution (wrist below, 0.12 m) was rejected because it would come close to the table.
+- Reach: all 27 points of a 20 cm cube around the start solved; largest joint change 26°.
+- Layout for RL4b: one start stand under the fingertip. Recording: pick outline 10 cm from the start toward the robot, place outline beside it. Replay: the same outlines turned by 180° about the start point (pick outline 10 cm from the start toward the operator). Tape both sets in different colours.
+- Code: the recorded motion is applied in the gripper frame from HOME_FACE (no change of the team code; start pose from the settings file).
+- Pendant: Local mode, Move → joint values above at low speed, check jaws, save as its own program "HOME_FACE".
