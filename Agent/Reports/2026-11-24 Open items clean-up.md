@@ -78,3 +78,9 @@ After the moves, today's TODO would hold only: RL4 (Robotiq open/close + pick-an
 RL4 item; task definition; team GPU question; inserts + sleeve-boss joint; scale; RS-485 adapter; cables + balancer; real-adapter checks; bow flex check; cable clip; RS-485 check; printed-copy fallback group; handover clean-up; rejection rules (parked until after the Replay Ladder); sleeve closure survey (deferred); 20 rollouts per condition; RL5 sync findings Open; rejection evidence log Open; copy-path Research Opens (dormant with the fallback).
 
 Not found stale: `msc-thesis/docs/thesis-plan.md` §6 delivery risk row already names the Replay Ladder (line 99), so the earlier "stale risk row" note is resolved.
+
+## Agreed in the thread (Martyn, 2026-11-24), for the roadmap
+
+- Gripper tests: everything testable now runs on the Robotiq 2F-85 in RL4 (Robotiq open/close + pick-and-place); anything that needs the Dex1-1 waits for delivery (RL6, swap to the Dex1-1). The team Robotiq driver is open/close only (team stack read 2026-11-20); proportional on the Robotiq would need an own command path (2F-85 position/speed/force settings per the Robotiq manual, unverified here).
+- Gripper program shape: one shared program (trigger reading, G2 (trigger-to-gripper mapping), G9 (force limit on contact), logging) plus one small "plug" per gripper (set width, set force limit, read width) and one settings file per gripper (max width, speed, force cap, connection). Width in metres, force in newtons. Precedent: Unitree xr_teleoperate selects the hand type by a start option (README, not re-checked); UMI keeps the gripper driver separate.
+- Gripping without crushing (G9): cap the squeeze, not the finger travel (Unitree teleop clip 0.18 rad, about 54 N, unverified; UMI firmware force limit 80 N with a separate blocked limit; soft TPU pads). Needed force and damage force: force gauge on the real Dex1-1 (Waiting, G9).
