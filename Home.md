@@ -25,13 +25,15 @@ views:
 ```
 
 ## New from Claude
-Machine side (`Agent/`): read, then copy what you keep into your own notes.
+Machine side (`Agent/`): start with [[Start here]]; read, then copy what you keep into your own notes. Archived notes are left out.
 
 ```base
 filters:
   and:
     - file.inFolder("Agent")
+    - '!file.inFolder("Agent/Archive")'
     - file.name != "README"
+    - file.name != "Start here"
 views:
   - type: table
     name: New from Claude

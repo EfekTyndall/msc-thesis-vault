@@ -5,7 +5,7 @@ tags: [decision]
 ---
 ## Context
 
-How the handheld is built around the PICO controller: the grip sleeve, the grip angle and the gripper attachment for the real-Dex1-1 path, the main path since 2026-11-16 ([[D01 Handheld gripper body]]); and, for the printed-copy fallback, how the passive copy moves its fingers (guide, synchronisation of the two fingers, trigger and return). The proposal (`msc-thesis/docs/proposal.md` §1) says the trigger, return spring and finger linkage start from the open [UMI](https://github.com/real-stanford/universal_manipulation_interface) design and later variants. Design plan: `Agent/Reports/2026-10-28 Handheld design start plan.md`.
+How the handheld is built around the PICO controller: the grip sleeve, the grip angle and the gripper attachment for the real-Dex1-1 path, the main path since 2026-11-16 ([[D01 Handheld gripper body]]); and, for the printed-copy fallback, how the passive copy moves its fingers (guide, synchronisation of the two fingers, trigger and return). The proposal (`msc-thesis/docs/proposal.md` §1) says the trigger, return spring and finger linkage start from the open [UMI](https://github.com/real-stanford/universal_manipulation_interface) design and later variants. Design plan: `Agent/Archive/2026-10-28 Handheld design start plan.md`.
 
 ## Options
 

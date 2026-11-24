@@ -6,7 +6,7 @@ tags: [report, dex1-1, compute, explainer]
 
 > **Status: working picture, not confirmed.** Everything here was pieced together on 2026-11-12 from a read-only look at the station Pi and a talk with the intern. Each point below is to be confirmed with Yanmei at the Monday meeting (2026-11-16). The table "How sure is each point" lists what was seen, what was told and what was assumed.
 
-Plain-language explanation of how the lab pieces connect today (VR teleop with the Robotiq gripper) and how the handheld with the Dex1-1 would connect. Written for reading on 2026-11-13. Visual version: `Agent/Drafts/2026-11-12 Lab Wiring Explained.html` (same content, interactive). Sources and details: [[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]] and [[2026-11-12 Dex1-1 on the UR10e integration]].
+Plain-language explanation of how the lab pieces connect today (VR teleop with the Robotiq gripper) and how the handheld with the Dex1-1 would connect. Written for reading on 2026-11-13. Visual version: `Agent/Explainers/2026-11-12 Lab Wiring Explained.html` (same content, interactive). Sources and details: [[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]] and [[2026-11-12 Dex1-1 on the UR10e integration]].
 
 ## The short version
 
