@@ -63,6 +63,8 @@ D01 (handheld gripper body) settled 2026-11-16 on the real Dex1-1; these items w
 - [ ] Check the [S] items of the survey (UMI appendix, DM-UMI tables, FastUMI V-A to V-C, RAPID appendices incl. RAPID's MCAP detail) in the PDFs before citing their numbers (Claude). (since 2026-11-19; moved from [[2026-11-24]] TODO)
 - [ ] Zotero: add ACT, robomimic, Diffusion Policy, Open X-Embodiment and LeRobot if the thesis text cites them (Martyn; `literature.bib` is never edited by hand). (since 2026-11-23; moved from [[2026-11-24]] TODO)
 
+- [ ] AI rules (h_da flyer): agreement with the examiner on AI-written source code and AI-assisted presentations, ideally in writing (Martyn asks); check whether Daimler has an AI-use guideline that applies (Martyn). Details: [[2026-11-24 AI use register]], Open actions. (since 2026-11-24)
+
 ## Thesis end (Daimler handover)
 - [ ] Clean `dex1-1-handheld` before it is shared with the company: checklist and check commands in [[Handover]]. (since 2026-11-19)
 
