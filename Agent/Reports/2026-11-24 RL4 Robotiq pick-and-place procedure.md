@@ -130,3 +130,15 @@ Computed with the team's UR10e model (Pinocchio, TCP 0.174 m), fingertip at the 
 - Layout for RL4b: one start stand under the fingertip. Recording: pick outline 10 cm from the start toward the robot, place outline beside it. Replay: the same outlines turned by 180° about the start point (pick outline 10 cm from the start toward the operator). Tape both sets in different colours.
 - Code: the recorded motion is applied in the gripper frame from HOME_FACE (no change of the team code; start pose from the settings file).
 - Pendant: Local mode, Move → joint values above at low speed, check jaws, save as its own program "HOME_FACE".
+
+## 6. Fingertip reference on both sides (2026-11-24)
+
+Plan (Martyn, 2026-11-24): record with the full handheld (sleeve + adapter + printed Dex1-1 dummy); the robot keeps the real Robotiq; the replay matches the two fingertips in software (no new adapter).
+
+| Side | Fingertip reference | Value | Status |
+| --- | --- | --- | --- |
+| Handheld | Midpoint between the Dex1-1 dummy pad centres | Tracked point → pads (38.0, 37.4, −232.7) mm in the pose frame (section 1b) | CAD; axis directions from code |
+| Robot | Midpoint between the Robotiq pad centres | From the flange: 16.9 mm coupling + 130.2 mm (open) = **147.1 mm**; 160.7 mm when closed (pads move 13.6 mm forward on closing) | Robotiq STEP files and General manual 2021-06-23, p. 64–65, 68, 78 (via the Robotiq clamp thread) |
+| Robot, pendant TCP | 174.0 mm from the flange (incl. coupling) | Lies 26.9 mm beyond the open pad centre | Manual p. 78; pendant read by Martyn |
+
+The Dex1-1 dummy closes in a straight line (no forward motion); the 2F-85 pads move forward while closing, so a fixed offset matches at one width only. Proposal: use the open pad centre (147.1 mm) as the robot reference, because the robot positions the fingers before closing; the up to 13.6 mm forward shift during closing is taken up by the soft block. (Reasoned only.)
