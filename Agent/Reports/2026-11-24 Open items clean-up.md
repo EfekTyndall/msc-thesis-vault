@@ -69,7 +69,7 @@ After the moves, today's TODO would hold only: RL4 (Robotiq open/close + pick-an
 
 ## 6. Questions for Martyn (yes/no)
 
-1. **24 V supply**: the station supply (Phoenix QUINT, 24 V 10 A) likely covers the Dex1-1 (2026-11-19 label photo), yet Purchases still lists "buy a 24 V supply". Close the colleague question and change the purchase to "only if the station supply's load LEDs or the voltage at the gripper say no"?
+1. **24 V supply**: the station supply (Phoenix QUINT, 24 V 10 A) likely covers the Dex1-1 (2026-11-19 label photo), yet Purchases still lists "buy a 24 V supply". Close the colleague question and change the purchase to "only if the station supply's load LEDs or the voltage at the gripper say no"? **Answer: yes (Martyn, 2026-11-24).**
 2. **G1 / G8 / G2 now**: these trigger tests use the PICO only (no Dex1-1). Run them as part of RL4, since RL4 is the first step where the trigger drives a gripper?
 3. **Purchases header**: shorten the day-by-day insert log (2026-11-20 … 2026-11-24) to one line "inserts expected 23–27 Nov, not arrived 24 Nov"?
 
