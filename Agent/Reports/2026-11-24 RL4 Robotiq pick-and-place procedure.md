@@ -6,7 +6,7 @@ tags: [report, replay-ladder, procedure, safety, robotiq]
 
 RL4 adds the gripper to the replay: the recorded trigger opens and closes the Robotiq 2F-85 while the UR10e replays the controller movement, first in the air, then as one pick-and-place of a light, soft object. Scope agreed 2026-11-24: binary open/close only; G2 (trigger-to-gripper mapping) is decided in RL6 (swap to the Dex1-1). The Robotiq plug of SwapKit option A ([[D07 Software and data format]]) is built here. Earlier steps: [[2026-11-23 RL3 real UR10e replay procedure]].
 
-**Change 2026-11-24 (Martyn): RL4 uses the bare PICO controller, without the handheld prototype.** The "fingertip" is then a chosen point on the controller, and its offset from the tracked point is measured with a pivot test (step 0.1), not read from CAD.
+**Change 2026-11-24 (Martyn): RL4 uses the bare PICO controller, without the handheld prototype.** The "fingertip" is then a chosen point on the controller, and its offset from the tracked point is read in Fusion (step 0.1, section 1b).
 
 Read on the pendant (Martyn, 2026-11-24): TCP (X, Y, Z) = 0, 0, 174 mm, rotation 0, 0, 0 (matches the team IK value 0.174 m); payload 1.770 kg, centre of gravity (9, 26, 40) mm.
 
