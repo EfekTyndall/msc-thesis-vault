@@ -142,3 +142,5 @@ Plan (Martyn, 2026-11-24): record with the full handheld (sleeve + adapter + pri
 | Robot, pendant TCP | 174.0 mm from the flange (incl. coupling) | Lies 26.9 mm beyond the open pad centre | Manual p. 78; pendant read by Martyn |
 
 The Dex1-1 dummy closes in a straight line (no forward motion); the 2F-85 pads move forward while closing, so a fixed offset matches at one width only. Proposal: use the open pad centre (147.1 mm) as the robot reference, because the robot positions the fingers before closing; the up to 13.6 mm forward shift during closing is taken up by the soft block. (Reasoned only.)
+
+Measured on the robot (Martyn, 2026-11-24): Robotiq jaws close left–right at the current mounting; flange → fingertip ends ≈ 170 mm (ruler; gripper state and exact start face not recorded). Manual: fingertip ends at 166.2 mm open / 179.7 mm closed from the flange (149.3 / 162.8 mm overall height + 16.9 mm coupling). The 170 mm lies inside that range, so the pendant TCP (174 mm) marks the fingertip ends, not the pad middle; the pad-middle reference of 147.1 mm (open) stays.
