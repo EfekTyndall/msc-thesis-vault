@@ -35,7 +35,7 @@ Actions: **Keep** (stays where it is), **Close** (done or no longer needed; tick
 
 | Item | Where | Change |
 | --- | --- | --- |
-| PICO Motion Trackers: "need a thesis-plan change and the supervisor's OK" | Waiting: Later stages | → "need a thesis-plan change (Martyn's call)" |
+| PICO Motion Trackers | Waiting: Later stages | → Move to a new group "Only if time allows" (optional, not mandatory; benefit unknown; most useful for H2 (humanoid) data collection and teleop). Drop the supervisor wording (Martyn, 2026-11-24) |
 | Unused 256 GB SD card: "confirm with the supervisor first" | TODO, Jetson step 5 | → "ask who owns it first" |
 
 ## 4. Merge: one job listed twice
@@ -75,6 +75,6 @@ After the moves, today's TODO would hold only: RL4 (Robotiq open/close + pick-an
 
 ## Keep as is (checked, still valid)
 
-RL4 item; task definition; team GPU question; inserts + sleeve-boss joint; scale; RS-485 adapter; cables + balancer; real-adapter checks; bow flex check; cable clip; RS-485 check; printed-copy fallback group; handover clean-up; rejection rules (parked until after the Replay Ladder); sleeve closure survey (deferred); 20 rollouts per condition; PICO Motion Trackers; RL5 sync findings Open; rejection evidence log Open; copy-path Research Opens (dormant with the fallback).
+RL4 item; task definition; team GPU question; inserts + sleeve-boss joint; scale; RS-485 adapter; cables + balancer; real-adapter checks; bow flex check; cable clip; RS-485 check; printed-copy fallback group; handover clean-up; rejection rules (parked until after the Replay Ladder); sleeve closure survey (deferred); 20 rollouts per condition; RL5 sync findings Open; rejection evidence log Open; copy-path Research Opens (dormant with the fallback).
 
 Not found stale: `msc-thesis/docs/thesis-plan.md` §6 delivery risk row already names the Replay Ladder (line 99), so the earlier "stale risk row" note is resolved.
