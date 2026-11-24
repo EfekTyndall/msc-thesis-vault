@@ -36,11 +36,11 @@ The PICO developer docs ([input mapping](https://developer.picoxr.com/document/u
 | The SDK ships a 3D model of the PICO 4 Ultra controller | `Assets/Resources/Controller/PICO 4U/Animation/mesh/o_com_PICO4U_right_01.fbx` (≈ 750 kB) |
 | That model is drawn exactly at the tracked pose: no shift, only a 180° turn about the vertical axis | `PICO 4U R.prefab` (position 0, 0, 0; rotation y = 180°); `PXR_ControllerLoader.cs` places it with no offset |
 
-Consequence: the origin of that model file is the tracked point. Lined up with our controller scan in Fusion, it gives the tracked point inside the controller, and the tip offset follows from CAD (D09 (calibration)). Assumption (unverified): PICO's own model is placed at the same pose the app sends; one pivot take checks it. Licence: the SDK is proprietary PICO material ("reproduction … strictly forbidden" without permission), so the model is used locally for measuring only, never committed to Git or shared.
+Consequence: the origin of that model file is the tracked point. Lined up with our controller scan in Fusion, it gives the tracked point inside the controller, and the tip offset follows from CAD (D09 (calibration)). Assumption (unverified): PICO's own model is placed at the same pose the app sends; the RL4b pick checks it. Licence: the SDK is proprietary PICO material ("reproduction … strictly forbidden" without permission), so the model is used locally for measuring only, never committed to Git or shared.
 
-Done 2026-11-24: model downloaded (SDK commit `c93a59b`) to `~/thesis/local/pico-4u-official/` (outside all repos) and converted to `pico4u_right_official_mm.stl` (mm; origin = tracked point; 2 472 points, 4 731 triangles; FBX in cm). Size check against our scan (main extents): official 137.2 / 68.5 / 61.6 mm, scan 138.2 / 69.3 / 57.6 mm. Automatic shape matching (ICP) did **not** settle the position: best fits leave 3 mm median gaps and two near-equal fits put the tracked point about 10 mm apart. The alignment is therefore done by eye in Fusion on features (tracking ring, trigger, buttons), then checked with one pivot take.
+Done 2026-11-24: model downloaded (SDK commit `c93a59b`) to `~/thesis/local/pico-4u-official/` (outside all repos) and converted to `pico4u_right_official_mm.stl` (mm; origin = tracked point; 2 472 points, 4 731 triangles; FBX in cm). Size check against our scan (main extents): official 137.2 / 68.5 / 61.6 mm, scan 138.2 / 69.3 / 57.6 mm. Automatic shape matching (ICP) did **not** settle the position: best fits leave 3 mm median gaps and two near-equal fits put the tracked point about 10 mm apart. The alignment is therefore done by eye in Fusion on features (tracking ring, trigger, buttons), then used directly (no pivot test).
 
-Fusion check (2026-11-24, unsaved "Untitled" document, meshes only): of the two fits, the mirrored one (B) is clearly wrong (button face upside down); fit A matches the handle and the button side, but the head does not coincide everywhere (the scan's ring is only partly captured). Fit A puts the tracked point **inside the controller, about 7.5 mm below the surface**, near the middle of its width and height and 57 mm from one end of the 138 mm length (scan frame: 1.3, −2.3, −1.5 mm). Estimated uncertainty: several mm (by eye, not measured). A pivot take is required before the number is used.
+Fusion check (2026-11-24, unsaved "Untitled" document, meshes only): of the two fits, the mirrored one (B) is clearly wrong (button face upside down); fit A matches the handle and the button side, but the head does not coincide everywhere (the scan's ring is only partly captured). Fit A puts the tracked point **inside the controller, about 7.5 mm below the surface**, near the middle of its width and height and 57 mm from one end of the 138 mm length (scan frame: 1.3, −2.3, −1.5 mm). Estimated uncertainty: several mm (by eye, not measured). Used without a pivot test (decision above).
 
 ## 2. What gets built (dex1-1-handheld PR, before the lab session)
 
@@ -62,7 +62,7 @@ Martyn can only reach the table in front of the robot; every step below is done 
 
 | # | Item | Who | How it is checked |
 | --- | --- | --- | --- |
-| 0.1 | Tip offset for the bare controller: pick one clearly visible point on the controller as the tip (marked with a sticker); pivot test: that point rests in a small dimple on the table while the controller is tilted around it for about 30 s, recorded with `pose_log.py`; a least-squares fit gives the point's offset from the tracked point, saved as a versioned file ([Yaniv 2015](https://doi.org/10.1117/12.2081348), not in bib) | Martyn records, Claude fits | Fit residual (RMS, mm) reported; a second pivot take must give the same offset within a few mm. The same fit later locates the PICO tracked point for D09 (calibration) of the handheld, which is unpublished ([[D09 Calibration]] "Revisit if"). |
+| 0.1 | Tip offset for the bare controller: tracked point (from PICO's controller model lined up with our scan in Fusion, section 1b) → a chosen, marked point on the controller, read in Fusion and saved as a versioned file | Claude in Fusion, Martyn confirms the marked point | No separate test (pivot test dropped, Martyn, 2026-11-24). Reason: a point error e shifts the robot tip by about e × wrist-turn angle (5 mm × 30° ≈ 3 mm; × 90° ≈ 8 mm), small against the 85 mm Robotiq opening. The RL4b pick is the check; a miss of more than about 1 cm triggers D09 (calibration) "Revisit if". |
 | 0.2 | Robot tool point: read PolyScope Installation > TCP; must match 0.174 m | Martyn at the pendant | Number written in this note |
 | 0.3 | Height of the fingertip above the table at HOME_Q (team comment says ≈ 0.25 m) | Martyn, ruler | Number written in this note; sets the allowed box in step 4 |
 | 0.4 | PR merged (plug, settings file, replay change), dry run on the Mac with a synthetic take | Claude, Martyn merges | MuJoCo replay prints the gripper events at the right times |
@@ -98,7 +98,7 @@ As written in the Daily TODO of [[2026-11-24]] (station Jetson, `trigger_log.py`
 4. Replay on the robot as in step 3, with the new `--box` depth.
 5. Repeat the replay three times with the same take, putting the object back on the pick outline each time.
 
-**Pass (proposal):** in each of the three replays the robot lifts the object and leaves it inside the place outline. Record per run: picked yes/no, placed yes/no, distance of the object centre from the place-outline centre (mm, ruler). If the tip misses the object by more than about 1 cm, D09 (calibration) "Revisit if" applies: check the tip offset (pivot test) before anything else.
+**Pass (proposal):** in each of the three replays the robot lifts the object and leaves it inside the place outline. Record per run: picked yes/no, placed yes/no, distance of the object centre from the place-outline centre (mm, ruler). If the tip misses the object by more than about 1 cm, D09 (calibration) "Revisit if" applies: check the tip offset in Fusion before anything else.
 
 ## 4. Open
 
@@ -106,7 +106,3 @@ As written in the Daily TODO of [[2026-11-24]] (station Jetson, `trigger_log.py`
 - Start stand, object size, allowed depth and the three-run pass rule are proposals; Martyn decides.
 - The Robotiq position step in mm and the grip force at setting 100 are not checked in the manual (unverified); not needed for open/close.
 - Tip offset file format and version naming follow D09 (calibration); defined in the PR.
-
-## Add to Zotero
-
-- Z. Yaniv, "Which pivot calibration?", Proc. SPIE 9415, Medical Imaging 2015, [doi:10.1117/12.2081348](https://doi.org/10.1117/12.2081348): standard method to find a tracked tool's tip from rotations about a fixed point; optional check of the D09 CAD offset.
