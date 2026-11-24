@@ -57,7 +57,7 @@ Both paths share: the PICO 4 Ultra Enterprise controller as the grip, the grip s
 ## Open
 
 - Resolved 2026-11-05: lab filaments ([[2026-11-05]], Done): PETG (4 spools), HT-PLA and TPU are in stock, so the PETG assumption holds; densities are not on the labels, so 1.27 g/cm³ stays assumed. TPU allows the pads in TPU, as the proposal's BOM plans ("TPU fingertips").
-- Weigh the controller (if a scale becomes available), the delivered gripper and the printed parts; Fusion masses use an assumed PETG density at 100 % infill (upper bound); set the real material and infill once the slicer settings are known.
-- Prices: waiting on company Storefront access ([[Waiting]]).
+- Weigh the controller (if a scale becomes available), the delivered gripper and the printed parts; Fusion masses use an assumed PETG density at 100 % infill (upper bound); set the real material and infill once the slicer settings are known. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): tracked in [[Waiting]], Purchases (scale).
+- Prices: waiting on company Storefront access ([[Waiting]]). Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): closed, D01 (handheld gripper body) settled on the real Dex1-1 (2026-11-16).
 - Copy-path lever, rod, spring and bracket: copy path frozen on 2026-11-05 (link A modelled, bracket not started), so their mass stays open unless the copy path is resumed.
-- Stroke: measure on the delivered gripper (82–83 mm vs 90 mm).
+- Stroke: measure on the delivered gripper (82–83 mm vs 90 mm). Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): tracked in [[Waiting]], Dex1-1 delivery (Delivery check list).

@@ -37,6 +37,6 @@ Whether any of these enters the thesis plan is for you to decide; I have not cha
 
 ## Open
 
-- Run a deep-research pass for G1 to G3 outside the bib? Needs your go. (Moved 2026-11-10 to the TODO in [[2026-11-11]], with the G2 mapping decision.)
+- Run a deep-research pass for G1 to G3 outside the bib? Needs your go. (Moved 2026-11-10 to the TODO in [[2026-11-11]], with the G2 mapping decision.) Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): single home is the G2 (trigger-to-gripper mapping) item in the daily TODO.
 - Ask the intern which gripper mapping the VR stack uses (G2). (Moved 2026-11-10 to [[Waiting]], Intern.) Answered 2026-11-16 by the supervisor ([[2026-11-16 Yanmei]]): her stack is open/close only; since the handheld runs on a separate Jetson, the mapping for handheld and VR baseline is Martyn's choice.
-- G9 (force limiting) added 2026-11-16; researched the same day in [[2026-11-16 Dex1-1 force limiting on contact]]. Open: force-gauge tests on the real gripper and the choice of limit.
+- G9 (force limiting) added 2026-11-16; researched the same day in [[2026-11-16 Dex1-1 force limiting on contact]]. Open: force-gauge tests on the real gripper and the choice of limit. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): single home is the G9 item in [[Waiting]], Dex1-1 delivery.

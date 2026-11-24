@@ -2,7 +2,7 @@
 date: 2026-11-24
 tags: [report, clean-up]
 ---
-# Open items clean-up (proposal, nothing changed yet)
+# Open items clean-up (applied 2026-11-24 after Martyn's OK)
 
 Sources read: [[Waiting]], [[2026-11-24]] `## TODO`, the `## Open` sections of all `Agent/Research` notes. Each item checked against later tests, merged PRs and decision records (D07 (software and data format), D09 (calibration), D10 (handheld mechanism), `PRINT-TEST-QUEUE.md`, `msc-thesis/docs/thesis-plan.md`).
 

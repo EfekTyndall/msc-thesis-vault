@@ -138,6 +138,6 @@ Martyn's PLA prints on the lab Bambu Lab H2S (photos in the project thread); geo
 
 ## Open
 
-- PETG–PETG friction coefficient (none found), so the closing and opening forces carry the ABS value.
-- Which PETG the lab spools are. The Ultimaker values stand in for it.
-- PETG cycle test of v21 (20 open/close cycles) and repeatability (`msc-thesis/hardware/PRINT-TEST-QUEUE.md` §1). (Moved 2026-11-10 to the TODO in [[2026-11-11]].)
+- PETG–PETG friction coefficient (none found), so the closing and opening forces carry the ABS value. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): only matters for the deferred closure survey ([[Waiting]], Later stages).
+- Which PETG the lab spools are. The Ultimaker values stand in for it. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): closed, Spectrum PETG (since 2026-11-17).
+- PETG cycle test of v21 (20 open/close cycles) and repeatability (`msc-thesis/hardware/PRINT-TEST-QUEUE.md` §1). (Moved 2026-11-10 to the TODO in [[2026-11-11]].) Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): done, 20 cycles passed 2026-11-17 (v22 PETG, `PRINT-TEST-QUEUE.md` §1).

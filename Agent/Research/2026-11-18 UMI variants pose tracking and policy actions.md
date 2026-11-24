@@ -36,5 +36,5 @@ Method: arXiv HTML of the bib papers listed below, read 2026-11-18. For UMI, Fas
 - Closest to this thesis (VR controller + VLA): ActiveUMI (π0, absolute world frame, jig reset) and HiFi-UMI (π0.5, relative actions).
 
 ## Open
-- ActiveUMI: how the jig-defined world origin is placed relative to the robot at deployment is not stated.
-- UMI SLAM appendix (map building, scale, relocalisation) not read verbatim.
+- ActiveUMI: how the jig-defined world origin is placed relative to the robot at deployment is not stated. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): closed, D07 (software and data format) relative actions need no world origin.
+- UMI SLAM appendix (map building, scale, relocalisation) not read verbatim. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): closed, no SLAM in this design (PICO tracking).

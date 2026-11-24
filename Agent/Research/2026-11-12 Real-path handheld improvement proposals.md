@@ -164,10 +164,10 @@ Ranked by expected effect. "Keeps" lists what stays untouched, since the current
 ## Open
 
 - The estimate is a hand calculation. Step 1 above, or a Fusion static simulation in stage 2, would verify it.
-- Gripper centre of mass and controller mass are assumed; weigh and balance both when the scale and the gripper arrive.
+- Gripper centre of mass and controller mass are assumed; weigh and balance both when the scale and the gripper arrive. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): tracked in [[Waiting]] (scale; bow flex check).
 - Official Bambu H2S specification page and the HT-PLA modulus rows were not readable; both are marked unverified above.
 - A wider search (deep research) could look for stiffness or flex figures in handheld data-collection devices and for wrist-moment limits; not run, waits for Martyn's go.
-- Fusion: `ASM real-path` v14 was opened for reading and left open, unmodified.
+- Fusion: `ASM real-path` v14 was opened for reading and left open, unmodified. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): closed, session remark only.
 
 ## Stage 2: real-adapter v8 (Fusion, 2026-11-12)
 

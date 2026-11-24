@@ -54,6 +54,8 @@ A is the default if the teleop code is reused; B makes the limit explicit and de
 
 ## Open (needs the real gripper)
 
+Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): items 1–6 and the choice of limit are tracked as one G9 item in [[Waiting]], Dex1-1 delivery.
+
 1. Force gauge between the fingers: squeeze force vs `kp · Δ` and vs `tau`, to get N per N·m and check the 54 N estimate and the 5–120 N range.
 2. `tau_est` vs gauge: is it usable as a force estimate?
 3. Stall test: close on a rigid block (e.g. the metal sleeve) at the chosen limit for 60 s; watch for heating or cut-out. Temperature and `MError` need a small change to read (fields are dropped by the service), so first just touch-check the motor case (unverified safe duration).

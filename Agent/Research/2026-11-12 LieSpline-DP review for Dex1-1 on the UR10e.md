@@ -47,5 +47,5 @@ The paper is a policy paper (smooth SE(3) spline actions for diffusion policy), 
 
 ## Open
 
-- Mounting, power, RS-485 and driver details for a UR + Dex1-1 setup are still unsourced. Options: (a) ask the authors (sends a message, needs Martyn's OK); (b) a deep-research pass for other UR + Dex1-1 setups (GitHub issues on `dex1_1_service`, other papers), asked before running; (c) the project-page videos may show the adapter and cables; not watched here (the video host was not reachable from this session).
+- Mounting, power, RS-485 and driver details for a UR + Dex1-1 setup are still unsourced. Options: (a) ask the authors (sends a message, needs Martyn's OK); (b) a deep-research pass for other UR + Dex1-1 setups (GitHub issues on `dex1_1_service`, other papers), asked before running; (c) the project-page videos may show the adapter and cables; not watched here (the video host was not reachable from this session). Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): merged into [[2026-11-12 Dex1-1 on the UR10e integration]] Open; can wait.
 - Whether "Dex1" in the paper is the Dex1-1 product: likely, unverified.

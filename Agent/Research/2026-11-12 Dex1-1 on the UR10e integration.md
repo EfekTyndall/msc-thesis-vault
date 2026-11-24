@@ -123,5 +123,5 @@ This has four consequences (all inference, not checked on the station):
 - Whether calibration persists across power cycles (the tutorial says once; the motor flash behaviour is not in source).
 - Whether the gear ratio in `queryGearRatio(M4010)` equals the 1:25 spec, and the motor-side PD law: closed library.
 - Whether the UR10e unit in the lab is rated 10 kg or 12.5 kg (irrelevant at under 1 kg, but should be stated in the thesis).
-- LieSpline-DP hardware details: ask the authors (sends a message; needs approval) or watch the project-page videos.
+- LieSpline-DP hardware details: ask the authors (sends a message; needs approval) or watch the project-page videos. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): single home for this question (also in [[2026-11-12 LieSpline-DP review for Dex1-1 on the UR10e]]); can wait.
 - No precedent for the flange adapter, for the external-supply safety interlock, or for a ROS 2 Dex1-1 driver: each is the thesis's own design.

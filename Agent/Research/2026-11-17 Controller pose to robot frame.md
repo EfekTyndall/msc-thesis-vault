@@ -124,7 +124,7 @@ Pattern: the handheld papers either use relative actions (and so skip the room â
 
 ## Open
 - PICO official docs on tracking origin, recenter and controller IMU fallback: not read (pages empty outside a browser). The meaning of PICO's `localControllerPose` vs `globalControllerPose` is inferred, not documented.
-- Whether PICO 4 Ultra keeps the room frame across app restarts (persistent map) or re-anchors each time: unverified; matters for how often `T_base_room` must be calibrated.
+- Whether PICO 4 Ultra keeps the room frame across app restarts (persistent map) or re-anchors each time: unverified; matters for how often `T_base_room` must be calibrated. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): closed, D07 (software and data format) 2026-11-18 uses relative actions, so no per-session room-to-base calibration.
 - Fixed-mount headset: no precedent found, not tested; static-sleep property unverified.
-- Controller out of view: drift and snap-back behaviour on PICO unmeasured; XRoboToolkit stream carries no controller tracking flag.
+- Controller out of view: drift and snap-back behaviour on PICO unmeasured; XRoboToolkit stream carries no controller tracking flag. Clean-up 2026-11-24 ([[2026-11-24 Open items clean-up]]): moved to [[2026-11-24 Demo rejection rules evidence log]] (tests to run).
 - A wider web search (PICO forums, other teleop stacks such as GR00T-WholeBodyControl) was not run; ask before running a deep-research pass if needed.
