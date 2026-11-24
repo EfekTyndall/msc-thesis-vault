@@ -1,7 +1,7 @@
 ---
 date: 2026-11-24
 topic: SwapKit (modular framework: teleoperation, recording, replay with swappable robot, gripper, camera)
-status: options for Martyn, no decision yet
+status: decided 2026-11-24, option A (recorded in D07 Software and data format)
 ---
 # SwapKit: one framework, three modes, swappable hardware
 
@@ -123,6 +123,6 @@ Why A first: it costs least, fixes the interfaces before the Dex1-1 arrives (RL6
 - LeRobot fit (option B): its camera class and simulation interface were not read.
 - Effort estimates in the options table are guesses, not measured.
 
-## Decision to record (when Martyn chooses)
+## Decision
 
-Suggested entry for the `record-decision` skill: "SwapKit: thin modular framework built inside the Replay Ladder (option A); H2 stays stretch". Not recorded yet.
+2026-11-24: Martyn chose option A (thin SwapKit inside the Replay Ladder; H2 stays stretch). Recorded in [[D07 Software and data format]] (History 2026-11-24); roadmap: [[2026-11-24 Red Line roadmap]].

@@ -34,7 +34,7 @@ flowchart TD
   DC["6. Data collection<br/>handheld + VR (Jan)"]:::later
   TR["7. Training C1–C4 + 80 rollouts (Feb)"]:::later
   W["8. Writing (Apr)"]:::later
-  FW["Framework shape<br/>(own thread, outcome pending)"]:::pending
+  FW["SwapKit framework, option A<br/>(decided 24 Nov): plugs built<br/>inside RL4–RL6"]:::pending
   H --> R4
   R13 --> R4 --> R5 --> EX
   R5 --> R6
@@ -42,9 +42,9 @@ flowchart TD
   EX --> G
   G --> DC
   T --> DC --> TR --> W
-  FW -. may reshape .-> R4
-  FW -. may reshape .-> R5
-  FW -. may reshape .-> R6
+  FW -. gripper plug .-> R4
+  FW -. camera plug + recorder .-> R5
+  FW -. first plug swap .-> R6
   classDef done fill:#d9f2d9,stroke:#2e7d32
   classDef now fill:#ffe0b2,stroke:#e65100,stroke-width:3px
   classDef next fill:#fff3cd,stroke:#b8860b
@@ -68,7 +68,7 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 | Item | Tag | Where |
 | --- | --- | --- |
 | RL4 procedure: find the Robotiq driver in the team repo, write the steps | 🔴 blocks next step | Daily TODO |
-| Gripper program, Robotiq plug (one shared trigger program + a plug per gripper; team driver = open/close) | 🔴 blocks next step | Daily TODO (RL4) |
+| Gripper program, Robotiq plug (one shared trigger program + a plug per gripper; team driver = open/close); this is the SwapKit gripper plug, option A of [[D07 Software and data format]] | 🔴 blocks next step | Daily TODO (RL4) |
 | D09 (calibration) fingertip offset for the replay | 🔴 blocks next step | Daily TODO (RL4) |
 | G2 (trigger-to-gripper mapping), stage 1: binary on the Robotiq | 🔴 blocks next step | Daily TODO |
 | G1 (trigger value vs travel) run | 🟠 important (feeds G2) | Daily TODO |
@@ -82,6 +82,7 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 | --- | --- | --- |
 | Camera CAM1 (plug in and check), CAM2 (test frames), CAM3 (recorder venv, needs Martyn's go); the only D435i is on the robot flange | 🔴 blocks next step | [[Waiting]], RL5 |
 | Sync test: camera delay, pose delay, clock | 🔴 blocks next step | [[2026-11-23 RL5 sync test findings]] |
+| SwapKit camera plug (D435i) and the recorder behind fixed interfaces, so the Dex1-1 camera is a plug swap later | 🔴 blocks next step | [[2026-11-24 SwapKit modular framework options]] |
 | Jetson disk and the unused 256 GB SD card (ask the supervisor first) | ⚪ can wait (until recordings grow) | [[Waiting]], RL5 |
 | Replay from the station Jetson instead of fractal-pc (`ur_rtde` source build) | ⚪ can wait | Daily TODO (RL4 item, "Later") |
 
@@ -103,7 +104,7 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 | Delivery check list (stroke, version, back-drive, latency, mass, power, motor IDs) | 🔴 blocks next step | [[Waiting]], Dex1-1 delivery |
 | G9 (force limit on contact): gauge tests, choose the limit | 🔴 blocks next step | [[Waiting]], Dex1-1 delivery |
 | G2 stage 2: proportional vs binary, final choice | 🔴 blocks next step | Daily TODO (G2) |
-| Gripper program, Dex1-1 plug: against a mock just before delivery, then real | 🟠 important | [[Waiting]], Dex1-1 delivery |
+| Gripper program, Dex1-1 plug: against a mock just before delivery, then real; RL6 is the first real SwapKit plug swap (Robotiq to Dex1-1) | 🟠 important | [[Waiting]], Dex1-1 delivery |
 | Real-adapter checks, bow flex check (decides adapter material, before the freeze) | 🟠 important | [[Waiting]], Dex1-1 delivery |
 | Cable clip; 3–5 m cable and balancer | 🟠 important | [[Waiting]] |
 | Scale: weigh controller, prints, gripper | ⚪ can wait | [[Waiting]], Purchases |
@@ -146,7 +147,7 @@ Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. I
 
 | Item | When it becomes active | Where |
 | --- | --- | --- |
-| Framework shape (three modes, plug-and-play robot, gripper, camera) | Outcome of the thread "Shape the modular robot framework"; may reshape steps 1, 2 and 4 and the thesis plan | Placeholder, filled after that thread |
+| SwapKit portability test (option C: same episode on two grippers, measured) and H2 plug | March buffer, only if the gate is met; H2 stays stretch (thesis plan §2) | [[2026-11-24 SwapKit modular framework options]], [[D07 Software and data format]] |
 | Printed-copy fallback | RS-485 check fails or delivery slips | [[Waiting]], Printed-copy fallback |
 | Grip sleeve closure survey | Sleeve stops snapping or slips | [[Waiting]], Later stages |
 | Rough support faces under the clamp collar; ufw rule on fractal-pc | Next reprint / ever | [[Waiting]], Later stages |
