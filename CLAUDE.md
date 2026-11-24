@@ -14,7 +14,7 @@ Obsidian vault for the MSc thesis (handheld vs VR-teleop demonstrations for GR00
 
 ## Zones
 - **Human side** (`Daily`, `Meetings`, `Chapters`, `Literature`, `Decisions`, `Experiments`, `Home.md`): read, link, move, copy. Write or edit only when asked; Decisions only via the `record-decision` skill.
-- **Machine side** (`Agent/`): read, write, edit freely. Put research, reports and drafts here, not in human notes.
+- **Machine side** (`Agent/`): read, write, edit freely. Put research, reports and drafts here, not in human notes. When a note is added to `Agent/`, add its line to `Agent/Start here.md` in the same commit; when a note is replaced, `git mv` it to `Agent/Archive/` and add its "replaced by" row there.
 - Never edit `Templates/` or `.obsidian/` unless asked.
 
 ## Conventions
