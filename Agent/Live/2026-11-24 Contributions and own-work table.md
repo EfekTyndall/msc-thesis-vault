@@ -68,5 +68,5 @@ Each contribution names the result that backs it. Status as of 2026-11-24.
 ## Open
 
 - Contribution 4 "no precedent" is checked only against the bib; a wider search needs Martyn's OK.
-- Contribution 5 depends on the SwapKit option Martyn chooses.
+- Contribution 5: option A chosen 2026-11-24 (SwapKit built inside the Replay Ladder; recorded in [[D07 Software and data format]]).
 - Hardware AI-assisted entries ("partly") need Martyn's own estimate of what he did in Fusion himself.
