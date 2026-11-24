@@ -6,6 +6,7 @@ tags: [waiting]
 Long-running items that cannot be done in a single session, grouped by what unblocks them. Each item lives in one place only: here while it waits, or in a daily note's `## TODO` once it can be worked on. When a blocker clears, move (cut, not copy) its items into that day's TODO. Tests to run on printed parts stay in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md`; this note only points to them.
 
 ## Supervisor (on leave until early 2027, email only)
+Standing rule (Martyn, 2026-11-24): Martyn makes all decisions himself and may change decisions the supervisor approved earlier; waiting for her would slow the thesis. Only items Martyn names, or asks about, go to the supervisor; do not list supervisor approval as a blocker otherwise.
 Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 (handheld gripper body) real Dex1-1, Path 2 station computer, D08 (deployment) confirmed).
 
 ## Colleague (station supply)
