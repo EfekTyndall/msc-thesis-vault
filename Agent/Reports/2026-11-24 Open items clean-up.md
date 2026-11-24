@@ -31,12 +31,11 @@ Actions: **Keep** (stays where it is), **Close** (done or no longer needed; tick
 | Private Wi-Fi access point | Waiting: Purchases, only if needed | Not needed: the Mac already works with the PCs, the Jetson and the robots on the local lab network (Martyn, 2026-11-24) |
 | Encoder rad → width curve as a calibration | Waiting: Dex1-1 delivery (latency item) | D09 (calibration) 2026-11-23: width from the raw motor angle, caliper only as a sanity check. Keep only "caliper sanity check" |
 
-## 3. Reword: stale supervisor wording (standing rule 2026-11-24: Martyn decides alone)
+## 3. Reword: stale supervisor wording (standing rule 2026-11-24: Martyn decides alone; he names what goes to the supervisor)
 
 | Item | Where | Change |
 | --- | --- | --- |
 | PICO Motion Trackers | Waiting: Later stages | → Move to a new group "Only if time allows" (optional, not mandatory; benefit unknown; most useful for H2 (humanoid) data collection and teleop). Drop the supervisor wording (Martyn, 2026-11-24) |
-| Unused 256 GB SD card: "confirm with the supervisor first" | TODO, Jetson step 5 | → "ask who owns it first" |
 
 ## 4. Merge: one job listed twice
 
@@ -59,8 +58,9 @@ Actions: **Keep** (stays where it is), **Close** (done or no longer needed; tick
 | [S] items check in the PDFs before citing (UMI, DM-UMI, FastUMI, RAPID) | TODO | Waiting "Writing" (before Chapter 2 text) |
 | Zotero: add ACT, robomimic, Diffusion Policy, Open X-Embodiment, LeRobot | TODO | Waiting "Writing" |
 | LeRobot version; video codec loss in the export | TODO | Waiting "Export" (after RL5 (D435i + recorder), when the exporter is written) |
-| Camera CAM1–CAM3, Jetson disk (step 5) | TODO | Waiting "RL5 (D435i + recorder)" |
+| Camera CAM1–CAM3 | TODO | Waiting "RL5 (D435i + recorder)" |
 | Gripper control program + G9 | TODO | Waiting "Dex1-1 delivery / RL6 (swap to the Dex1-1)" |
+| Jetson disk (step 5) and the unused 256 GB SD card: keep "ask the supervisor first" (Martyn names this one, 2026-11-24) | TODO, Jetson step 5 | Waiting "RL5 (D435i + recorder)": first needed when recordings are stored; ask the supervisor then |
 | Rough support faces under the clamp collar | TODO Prints | Waiting "Later stages" (next reprint) |
 | Optional ufw rule removal on fractal-pc | TODO | Waiting "Later stages" |
 | Controller out of view: drift and snap-back | Research controller pose note | Rejection rules evidence log (tests to run) |
