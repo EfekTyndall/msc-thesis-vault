@@ -38,6 +38,8 @@ The PICO developer docs ([input mapping](https://developer.picoxr.com/document/u
 
 Consequence: the origin of that model file is the tracked point. Lined up with our controller scan in Fusion, it gives the tracked point inside the controller, and the tip offset follows from CAD (D09 (calibration)). Assumption (unverified): PICO's own model is placed at the same pose the app sends; one pivot take checks it. Licence: the SDK is proprietary PICO material ("reproduction … strictly forbidden" without permission), so the model is used locally for measuring only, never committed to Git or shared.
 
+Done 2026-11-24: model downloaded (SDK commit `c93a59b`) to `~/thesis/local/pico-4u-official/` (outside all repos) and converted to `pico4u_right_official_mm.stl` (mm; origin = tracked point; 2 472 points, 4 731 triangles; FBX in cm). Size check against our scan (main extents): official 137.2 / 68.5 / 61.6 mm, scan 138.2 / 69.3 / 57.6 mm. Automatic shape matching (ICP) did **not** settle the position: best fits leave 3 mm median gaps and two near-equal fits put the tracked point about 10 mm apart. The alignment is therefore done by eye in Fusion on features (tracking ring, trigger, buttons), then checked with one pivot take.
+
 ## 2. What gets built (dex1-1-handheld PR, before the lab session)
 
 No new dependencies. The team class is imported from the team repo (outside dependency at `7e6c754`, no copied code).
