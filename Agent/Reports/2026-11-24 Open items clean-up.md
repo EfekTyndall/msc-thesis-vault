@@ -28,13 +28,13 @@ Actions: **Keep** (stays where it is), **Close** (done or no longer needed; tick
 | ActiveUMI: where the jig-defined origin sits at deployment | Research: UMI variants | Same (D07 relative actions) |
 | UMI SLAM appendix not read | Research: UMI variants | No SLAM in this design (PICO tracking, D04 (pose tracking)) |
 | MacBook chip (Apple silicon or Intel) | Research: Replay Ladder RL1–RL2 setup | URSim and `ur_rtde` run on fractal-pc; RL1–RL3 (replay in MuJoCo, URSim, real UR10e) passed |
+| Private Wi-Fi access point | Waiting: Purchases, only if needed | Not needed: the Mac already works with the PCs, the Jetson and the robots on the local lab network (Martyn, 2026-11-24) |
 | Encoder rad → width curve as a calibration | Waiting: Dex1-1 delivery (latency item) | D09 (calibration) 2026-11-23: width from the raw motor angle, caliper only as a sanity check. Keep only "caliper sanity check" |
 
 ## 3. Reword: stale supervisor wording (standing rule 2026-11-24: Martyn decides alone)
 
 | Item | Where | Change |
 | --- | --- | --- |
-| Private Wi-Fi access point: "IT rules question for Yanmei first" | Waiting: Purchases, only if needed | → "IT rules: Martyn checks if ever needed" |
 | PICO Motion Trackers: "need a thesis-plan change and the supervisor's OK" | Waiting: Later stages | → "need a thesis-plan change (Martyn's call)" |
 | Unused 256 GB SD card: "confirm with the supervisor first" | TODO, Jetson step 5 | → "ask who owns it first" |
 
