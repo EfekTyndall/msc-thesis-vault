@@ -42,7 +42,7 @@ Actions: **Keep** (stays where it is), **Close** (done or no longer needed; tick
 | Job | Entries now | Proposed single home |
 | --- | --- | --- |
 | G9 (force limit on contact) tests and choice | Waiting (Dex1-1 delivery); TODO (Software, G9); TODO (Trigger software "must include G9"); Research force-limit note Open 1–6; Research gaps note | Waiting, Dex1-1 delivery: "G9: gauge tests, then choose the limit" (needs the gripper). Research notes point there |
-| Gripper control program | TODO Software "Trigger software … against a mock"; TODO Jetson step 8 | One item "Gripper control program (trigger → `rt/dex1/<side>/cmd`) against a mock", parked in Waiting under RL6 (swap to the Dex1-1), see Move |
+| Gripper control program | TODO Software "Trigger software … against a mock"; TODO Jetson step 8 | One item "Gripper control program (trigger → `rt/dex1/<side>/cmd`) against a mock", parked in Waiting under RL6 (swap to the Dex1-1), see Move. Agreed order (Martyn, 2026-11-24): one trigger program with an exchangeable gripper output; first on the Robotiq 2F-85 in RL4 (Robotiq open/close + pick-and-place, via the team driver), then the Dex1-1 output against a mock just before delivery, then on the real Dex1-1 in RL6 |
 | Proportional vs binary trigger test | Waiting (Dex1-1 delivery); part of G2 (trigger-to-gripper mapping) in TODO | Inside the G2 item: decide the mapping on RL4 (Robotiq), confirm on the Dex1-1 |
 | Deep-research go/no-go for G1–G3 (trigger questions) | TODO G2 item; Research gaps-from-sim note | Only in the G2 item |
 | LeRobot dataset version | TODO (data formats); Research data formats; Research GR00T/π0.5 note; `msc-thesis/docs/proposal.md` open question | One TODO item; the notes point to it |
