@@ -1,0 +1,627 @@
+repo,commit,date,author,ai_assisted,subject
+msc-thesis,87e061bf69,2026-11-24,Claude,yes,thesis-plan: Dec – mid-Jan row uses the CAD tip offset (D09 calibration) instead of hand-eye
+msc-thesis,4b98b227c3,2026-11-23,Martyn,no,"hardware-specs: fractal-pc CPU, RAM, disk and the RL2 installs (2026-11-23)"
+msc-thesis,1bcfb4d345,2026-11-23,Martyn,no,"hardware-specs: UR10e software version, serial number and IP (pendant, 2026-11-23)"
+msc-thesis,71187b7b9d,2026-11-23,Martyn,yes,Decision log: raw MCAP + LeRobot export (D07); CAD tip offset and motor-angle width (D09)
+msc-thesis,bd9e619cdc,2026-11-22,Claude,yes,"Project-instructions copy: code-naming and citation rules follow CLAUDE.md (Martyn, 2026-11-22)"
+msc-thesis,3347dd4645,2026-11-22,Claude,yes,hardware-specs: source of the 3.5 mm sleeve wall design value
+msc-thesis,3bd77048ca,2026-11-22,Claude,yes,"Apply 2026-11-22 audit decisions: hardware specs, thesis plan, setup"
+msc-thesis,11548e4d7e,2026-11-20,Martyn,yes,"Mac paths: repos moved to ~/thesis (setup docs, local Claude setup, CLAUDE.md)"
+msc-thesis,19c803d6c1,2026-11-20,Claude,yes,Project-instructions copy: mirror the codes and topic-name rules verbatim
+msc-thesis,3f1a5b4d07,2026-11-20,Claude,yes,Project-instructions copy: code-naming rule
+msc-thesis,887f520aae,2026-11-20,Claude,yes,Name codes: CLAUDE.md rule and thesis-plan annotations
+msc-thesis,f39303febf,2026-11-20,Claude,yes,Thesis plan: Replay Ladder phases in the decision-log row; delivery-delay risk row updated
+msc-thesis,5e37d486b6,2026-11-20,Claude,yes,Decision log: interim pipeline rig while the Dex1-1 is delayed; 2F-85 core as last resort
+msc-thesis,b508f02efb,2026-11-20,Claude,yes,Decision log: prototype sleeve v23 front + v22 back + tape; closure survey deferred
+msc-thesis,7315addb2c,2026-11-19,Martyn,yes,Decision log: v23 without brim; access-point item by email and only if needed; project-instructions copy mirrors the CAD source of truth
+msc-thesis,eba5f03eb5,2026-11-19,Martyn,yes,Decision log and risks: gripper width from the Dex1-1 motor encoder
+msc-thesis,ebb6ecd426,2026-11-19,Martyn,yes,Decision log: D10 split into real path and copy fallback
+msc-thesis,953e450bc0,2026-11-19,Martyn,yes,"Docs: hardware specs, thesis plan and setup copies brought up to date after the consistency audit; drop stale hardware ignore lines"
+msc-thesis,8f655f907a,2026-11-19,Claude,yes,"Decision log: grip sleeve frozen as v22 + tape, next print v23"
+msc-thesis,6777793e76,2026-11-18,Claude,yes,Decision log: sleeve boss insert holes 4.1 mm
+msc-thesis,9ffb6158a1,2026-11-18,Claude,yes,"Thesis plan: relative actions are core (D07), not a stretch goal"
+msc-thesis,1736bafc40,2026-11-18,Claude,yes,Decision log: relative actions and state (D07)
+msc-thesis,93e6b04bcf,2026-11-18,Claude,yes,Decision log: two-piece real-adapter clamp ring
+msc-thesis,7a285c6fcb,2026-11-17,Claude,yes,Setup guide: PICO headset view on the Mac and neck-hung headset
+msc-thesis,f6d458e0b9,2026-11-17,Claude,yes,Thesis plan: put headset placement row last
+msc-thesis,4de357862b,2026-11-17,Claude,yes,Thesis plan: decision log row for headset placement (D04)
+msc-thesis,b7706c8291,2026-11-16,Claude,yes,Hardware specs: station Jetson measured values; Pi 5 and Nano status after 16 Nov
+msc-thesis,4f4bf6f437,2026-11-16,Claude,yes,hardware-specs: H2 heading matches scope (stretch)
+msc-thesis,9a2486da15,2026-11-16,Claude,yes,"CLAUDE.md: H2 only if time remains, bimanual only on the H2"
+msc-thesis,06d5b40964,2026-11-16,Claude,yes,Scope: H2 after UR10e only if time remains; bimanual only on the H2
+msc-thesis,82fd4c01da,2026-11-16,Claude,yes,"Decision log: D01 real Dex1-1, D06 station Jetson, D08 confirmed (Yanmei talk 2026-11-16)"
+msc-thesis,42e1a67de4,2026-11-16,Martyn,no,Decision log: grip sleeve final material PETG
+msc-thesis,b45316b929,2026-11-16,Martyn,yes,Decision log: real-path insert boss (D10)
+msc-thesis,e57bcec82c,2026-11-16,Martyn,yes,Collect hardware specs in one sheet (incl. task-part dimensions)
+msc-thesis,01005b836a,2026-11-16,Martyn,yes,"Add task-part dimensions (metal sleeve, elastomer bushing)"
+msc-thesis,57b304ce9e,2026-11-12,Claude,yes,Drop the personal GitHub / cloud AI question for Yanmei (Claude runs only on the MacBook)
+msc-thesis,95b709e31b,2026-11-12,Claude,yes,"Research notes: lab PC as far computer, Pi at the station runs the Dex1-1 service"
+msc-thesis,3138223028,2026-11-12,Claude,yes,Research notes: Jetson also far from the station
+msc-thesis,73adeb0076,2026-11-12,Claude,yes,Research notes: station computer and Dex1-1 on the UR10e findings
+msc-thesis,a5a7cff281,2026-11-12,Martyn,no,Added new literature
+msc-thesis,c85e027fa7,2026-11-12,Claude,yes,Claude Code setup for ~/dex1-1-handheld on the Mac; refresh project-instructions copy
+msc-thesis,971eb060b9,2026-11-11,Claude,yes,PICO setup guide: run the trigger sender from the dex1-1-handheld clone on the PC
+msc-thesis,f5eacd0d2b,2026-11-11,Claude,yes,CLAUDE.md: hardware/ and software/ now in dex1-1-handheld
+msc-thesis,073f176257,2026-11-11,Claude,yes,Move software/ and hardware/ to the dex1-1-handheld repo
+msc-thesis,63f0b745e2,2026-11-11,Claude,yes,"Print queue §3: ruthex RX-M3x5.7 as the insert being bought, lab tip set"
+msc-thesis,a25a8de399,2026-11-10,Claude,yes,"Print queue §3 and dummy README: exact M3 screw lengths from Fusion (rear mount M3x25 no nut, clamp ring M3x16 + nut)"
+msc-thesis,bec33f1698,2026-11-10,Claude,yes,Print queue: v21 was sliced with Arachne (Martyn)
+msc-thesis,42d596ade2,2026-11-10,Claude,yes,"Thesis plan §7: grip sleeve A v21 kept, hinge-hook dropped; queue slicer note"
+msc-thesis,9eeb027627,2026-11-10,Claude,yes,"Grip sleeve A v21: v20, hinge-hook rings and v21 results; README and checksums for v21"
+msc-thesis,d4db93da68,2026-11-10,Claude,yes,Thesis plan §7: grip width measurement backs the controller-scan match
+msc-thesis,f4dd6e503f,2026-11-10,Claude,yes,Print queue: close the pre-print grip width and LED checks
+msc-thesis,406afdff4a,2026-11-10,Claude,yes,"docs(setup): cite XRoboToolkit source for ports, refine UDP 42952 note"
+msc-thesis,e9da1fa74b,2026-11-10,Claude,yes,"Grip sleeve A v20: A2 seam over full length; README, checksums, queue, plan §7"
+msc-thesis,9064b25c98,2026-11-09,Claude,yes,"Print queue: ring A3 result, A2 chosen"
+msc-thesis,96e9ae0f0c,2026-11-09,Claude,yes,"Setup guide: restart the PC Service at session start, stop it at the end"
+msc-thesis,612b4a48cd,2026-11-09,Claude,yes,"Setup guide: PICO trigger to simulated Dex1-1, with measured ports"
+msc-thesis,1d11f9330f,2026-11-09,Claude,yes,Print queue: ring A3
+msc-thesis,871c847b14,2026-11-09,Claude,yes,Print queue: seam ring results (A2 best)
+msc-thesis,a373eb8d8d,2026-11-09,Claude,yes,UDP trigger link: XRoboToolkit trigger sender (Linux) and --udp mode for the Dex1-1 sim
+msc-thesis,19a59df8d9,2026-11-09,Claude,yes,Print queue: seam ring test A0-A2
+msc-thesis,8d3939341f,2026-11-09,Claude,yes,Ignore hardware/controller-grip/print-files/
+msc-thesis,8f847796ac,2026-11-09,Claude,yes,Run script for the Dex1-1 MuJoCo sim
+msc-thesis,24d1329a9d,2026-11-09,Claude,yes,Drop print-files/ ignore (handled in PR #16)
+msc-thesis,2cc9367ef6,2026-11-09,Claude,yes,"Print queue: PLA fit result for sleeve A, drop variant B; ignore print-files/"
+msc-thesis,3c6f1ff137,2026-11-09,Claude,yes,"Dex1-1 in MuJoCo from the official URDF, driven by a trigger value 0-1"
+msc-thesis,447165ac9b,2026-11-09,Claude,yes,Grip sleeve: README and checksums for the v19 STL exports; ignore files/
+msc-thesis,12f89eb926,2026-11-06,Martyn,yes,"Sleeve: local relief near the boss, insert boss y 53-69 with 7 mm holes; relief sections"
+msc-thesis,561430a208,2026-11-06,Martyn,yes,Dummy Dex1-1 for test prints; clamp ring corrected to the 49 mm motor housing
+msc-thesis,08843b9b3e,2026-11-05,Claude,yes,Print queue: mark copy-mechanism section as frozen fallback (D01 work order)
+msc-thesis,124ea77552,2026-11-05,Claude,yes,"Thesis plan §7: real path main line, copy path frozen as fallback (D01)"
+msc-thesis,2e22378e24,2026-11-05,Claude,yes,Thesis plan §7: cable+drum (B) parked (D10)
+msc-thesis,d1fb890688,2026-11-05,Claude,yes,"Thesis plan §7: recessed trigger blade, ~10 mm travel (D10)"
+msc-thesis,5695f20720,2026-11-05,Claude,yes,CLAUDE.md: research-first rule: deep research only after asking
+msc-thesis,1b5ae1c8b7,2026-11-05,Claude,yes,Drop CLAUDE.md rule from this PR (already in another PR)
+msc-thesis,8bbffb8b8a,2026-11-05,Claude,yes,CLAUDE.md: research before laying out options
+msc-thesis,c4da8de63c,2026-11-05,Claude,yes,Thesis plan §7: copy-path trigger and transmission (D10)
+msc-thesis,f186b1ea97,2026-11-05,Claude,yes,CLAUDE.md: add research-first rule
+msc-thesis,f0b067cfad,2026-11-04,Claude,yes,Thesis plan §7: controller angle and real-path bow joint (D10)
+msc-thesis,33b4741dfc,2026-11-04,Martyn,yes,"Print queue: bow-to-sleeve screw joint, fit check near the boss"
+msc-thesis,8f521065ec,2026-11-04,Martyn,yes,Print queue: real adapter v2 (knuckle bow)
+msc-thesis,68d98b2142,2026-11-04,Martyn,yes,Print queue: real adapter v1
+msc-thesis,8ed0c94702,2026-11-04,Martyn,yes,Print queue: real-Dex1-1 adapter checks
+msc-thesis,41680245ba,2026-11-04,Martyn,yes,Print queue: barb lead-in added
+msc-thesis,042b732188,2026-11-04,Martyn,no,Update literatures
+msc-thesis,56cf22989a,2026-11-04,Claude,yes,"Thesis plan §7: D03 RGB only, D04 Quest dropped, MGN9 purchase on hold"
+msc-thesis,98dd5d5031,2026-11-04,Claude,yes,Thesis plan: both paths until delivery and RS-485 check
+msc-thesis,9336f8480c,2026-11-04,Claude,yes,Thesis plan: D01 both paths in parallel; delivery-delay risk occurred
+msc-thesis,e48e7f06dc,2026-11-03,Martyn,yes,Reference README: part files without linked reference
+msc-thesis,0fb90eeaef,2026-11-03,Martyn,yes,"Fusion file structure v2: renamed parts, assemblies per D01 path"
+msc-thesis,3560b8599f,2026-11-03,Martyn,yes,"Dex1-1 reference: files rebuilt from the official STEP, stroke and gear phase; print queue"
+msc-thesis,3129f572d5,2026-11-03,Martyn,yes,Dex1-1 reference README: unitree_ros meshes removed from dex1-1-ref
+msc-thesis,d73475a655,2026-11-03,Martyn,yes,"Dex1-1 reference: official STEP in Fusion, placement and comparison"
+msc-thesis,ccb5b9e45c,2026-11-03,Martyn,yes,Sort Dex1-1 reference files: official docs vs unitree_ros
+msc-thesis,c2f0aa7fb4,2026-11-02,Martyn,yes,Print queue: housing
+msc-thesis,20af40532b,2026-11-02,Martyn,yes,Hardware print and test queue
+msc-thesis,d833fb3c67,2026-11-02,Martyn,yes,"Sleeve sections: variants A (barbed tongue, 3.5 mm wall) and B (edge hooks)"
+msc-thesis,b7805ff7e0,2026-11-02,Martyn,yes,"Plan: PICO 4 Ultra Enterprise confirmed, handheld grip decision; scan README"
+msc-thesis,f70df3bfba,2026-11-02,Martyn,yes,Sleeve sections: tongue and groove rings for the seam
+msc-thesis,06ddafc500,2026-11-02,Martyn,yes,Grip-sleeve section generator and its output
+msc-thesis,96ca92cb80,2026-11-02,Martyn,yes,"Add PICO 4 Ultra Glock shell reference (README, checksums; STL not in Git)"
+msc-thesis,d556992943,2026-11-01,Martyn,yes,Controller scan: reduction script and note on the Fusion copy
+msc-thesis,2455e8351c,2026-11-01,Martyn,yes,"Add PICO 4 Ultra controller scan reference (README, licence, checksum; STL not in Git)"
+msc-thesis,48bb13f4a0,2026-11-01,Martyn,yes,"Thesis plan: log handheld trigger, CAD structure and mechanism decisions"
+msc-thesis,0c99ce1940,2026-10-28,Claude,yes,Add Dex1-1 reference geometry from unitree_ros
+msc-thesis,214f287165,2026-10-24,Martyn Devin Somba,yes,Shared rules in CLAUDE.md; slim project instructions; dashboard in setup
+msc-thesis,336471e603,2026-10-23,Martyn,no,Update literature
+msc-thesis,07d808c910,2026-10-23,Claude,yes,Add Better BibTeX export of literature.bib; SETUP: export as BibTeX
+msc-thesis,3097ef90ec,2026-10-23,Claude,yes,"Thesis skeleton: chapter files, layout fixes, drop template demo"
+msc-thesis,76c32ad7a6,2026-10-23,Martyn Devin Somba,yes,Project instructions: name both repos explicitly
+msc-thesis,3fd1a6075d,2026-10-23,Martyn Devin Somba,yes,Setup: Templater templates and settings
+msc-thesis,f93d2ca1e1,2026-10-23,Martyn Devin Somba,yes,Link decision log to vault decision notes; core Templates syntax; vault repo in setup
+msc-thesis,fd878ec944,2026-10-23,Martyn,no,Add references from Zotero
+msc-thesis,99150c7f5e,2026-10-23,Martyn Devin Somba,yes,"Update thesis plan: proposal approval, open items, docs master copy"
+msc-thesis,91af3448e4,2026-10-23,Martyn Devin Somba,yes,"Add proposal, research notes and thesis plan as Markdown; drop proposal PDF"
+msc-thesis,3d03fbdf19,2026-10-23,Martyn Devin Somba,yes,"Initial thesis repository: structure, conventions, h_da LaTeX template"
+msc-thesis-vault,f63fef1135,2026-11-24,Claude,yes,"Research: SwapKit modular framework options (feasibility, prior work, thesis impact)"
+msc-thesis-vault,e3b7781455,2026-11-24,Claude,yes,"Red Line roadmap: workstream order, needs/unlocks, every open item placed with a priority tag; framework placeholder"
+msc-thesis-vault,580e78beaf,2026-11-24,Claude,yes,"Clean-up applied (Martyn OK 2026-11-24): Waiting regrouped by Replay Ladder step (RL5, Export, Dex1-1/RL6, Writing, Only if time allows), duplicates merged, done/moot items closed with reasons; daily TODO trimmed to RL4 + trigger tests + task/GPU; Research Open sections annotated"
+msc-thesis-vault,ede85e84c2,2026-11-24,Claude,yes,Clean-up proposal: inserts log question answered yes
+msc-thesis-vault,5924c78705,2026-11-24,Claude,yes,Clean-up proposal: G1/G8 in RL4 answered yes
+msc-thesis-vault,2fe3a05ef5,2026-11-24,Claude,yes,Clean-up proposal: 24 V supply question answered yes
+msc-thesis-vault,a4fff713bb,2026-11-24,Claude,yes,Clean-up proposal: G2 comparison waits for the Dex1-1; RL4 tests binary only (Martyn 2026-11-24)
+msc-thesis-vault,c7c2b20bf9,2026-11-24,Claude,yes,"Clean-up proposal: gripper agreements from the thread (Robotiq first, one program + plug per gripper)"
+msc-thesis-vault,a17c09c4a3,2026-11-24,Claude,yes,"Clean-up proposal: gripper program order Robotiq (RL4) -> mock -> Dex1-1 (RL6), Martyn 2026-11-24"
+msc-thesis-vault,f61a018cb0,2026-11-24,Claude,yes,Clean-up proposal: gripper control program row matches the Move table
+msc-thesis-vault,cf000e098b,2026-11-24,Claude,yes,"Clean-up proposal: SD card stays a supervisor question, moved to RL5 (Martyn 2026-11-24)"
+msc-thesis-vault,1055aa2f18,2026-11-24,Claude,yes,Clean-up proposal: PICO Motion Trackers to 'only if time allows' (Martyn 2026-11-24)
+msc-thesis-vault,ac29c7de57,2026-11-24,Claude,yes,Clean-up proposal: Wi-Fi access point moved to Close (Martyn 2026-11-24)
+msc-thesis-vault,e1a2ca2833,2026-11-24,Claude,yes,"Open items clean-up proposal (Waiting, daily TODO, Research Open); nothing removed yet, waits for Martyn's OK"
+msc-thesis-vault,25dd434eef,2026-11-24,Claude,yes,Rejection rules: evidence log (prior work + RL1-RL3 results); decision parked in Waiting until after the Replay Ladder (Martyn 2026-11-24)
+msc-thesis-vault,08aadadc9f,2026-11-24,Claude,yes,Daily 2026-11-24 and Waiting: D09 supervisor item closed; standing rule that Martyn decides alone (Martyn 2026-11-24)
+msc-thesis-vault,30fdb9eadd,2026-11-24,Claude,yes,"Daily 2026-11-24: start-day answers (HOME_Q saved, single D435i, clamp-ring joint screwed, D09 timeline PR #47); inserts not yet"
+msc-thesis-vault,a4d07826d3,2026-11-23,Martyn,yes,"End day 2026-11-23: daily note closed, open TODOs moved to 2026-11-24, Open sections annotated"
+msc-thesis-vault,5a98b300a9,2026-11-23,Martyn,no,Daily 2026-11-23: URSim stopped
+msc-thesis-vault,87fec9ca4d,2026-11-23,Martyn,no,"Daily 2026-11-23 and Replay Ladder note: RL1-RL3 passed, open items resolved"
+msc-thesis-vault,a913ba3e9f,2026-11-23,Martyn,no,RL3 report: HOME_Q program not confirmed
+msc-thesis-vault,c99b988f5b,2026-11-23,Martyn,no,RL3 (replay on the real UR10e): first run passed
+msc-thesis-vault,0595feca48,2026-11-23,Martyn,no,RL3 (replay on the real UR10e): procedure and safety layers
+msc-thesis-vault,48244c3adf,2026-11-23,Martyn,no,RL2 (replay against URSim on fractal-pc): first run report
+msc-thesis-vault,91db240fa9,2026-11-23,Martyn,no,RL2 plan: URSim 5.11.11 to match the UR10e (5.11.7)
+msc-thesis-vault,8a3ecdca79,2026-11-23,Martyn,no,RL2 (replay against URSim on fractal-pc): read-only check and install plan
+msc-thesis-vault,f91e9f2aa9,2026-11-23,Martyn,no,RL1 report: passed (Martyn's visual check)
+msc-thesis-vault,5e4ca36412,2026-11-23,Martyn,no,RL1 report: first real take
+msc-thesis-vault,cb0a7f89cd,2026-11-23,Martyn,no,RL1 report: start pose and desk recording (Martyn)
+msc-thesis-vault,eda391dff3,2026-11-23,Martyn,yes,RL1 (replay in MuJoCo on the Mac): first run report
+msc-thesis-vault,94ee13c094,2026-11-23,Martyn,yes,Team repo cloned: pinned commit 7e6c754 recorded; clone TODO ticked
+msc-thesis-vault,d3c92313b4,2026-11-23,Claude,yes,Daily 2026-11-23: TODO items from the data formats explainer's open list
+msc-thesis-vault,96e53d70c1,2026-11-23,Claude,yes,"Agent/Research: robot data formats explainer (MCAP, rosbag, HDF5, Zarr, LeRobot, RLDS) and companion note"
+msc-thesis-vault,8060f4400d,2026-11-23,Martyn,yes,"D07: raw MCAP + LeRobot export, no HDF5; D09: CAD tip offset, width from motor angle (record-decision 2026-11-23)"
+msc-thesis-vault,700d697253,2026-11-23,Martyn,yes,Agent/Research: RL5 sync test findings; linked from the Replay Ladder RL5 row
+msc-thesis-vault,986bce4092,2026-11-23,Martyn,yes,Pipelines note: recommendation 7 (hand-eye calibration) marked superseded by CAD offset
+msc-thesis-vault,93595836cc,2026-11-23,Martyn,yes,Start day 2026-11-23: screws collected; clamp-ring joint moved from Waiting to TODO
+msc-thesis-vault,05fcab1d2a,2026-11-22,Claude,yes,"Weekly audit 2026-11-22 decisions: D06, D04, D10 history order, Waiting, 23 Nov TODOs"
+msc-thesis-vault,290d3e885a,2026-11-22,Claude,yes,"Handover: weekly audit 2026-11-22, commit counts, PR range, vault refs in commit messages"
+msc-thesis-vault,dc825c03fd,2026-11-20,Claude,yes,"Day close 2026-11-20: ticks and Done, open TODOs moved to Daily/2026-11-23, team-stack question answered in Waiting"
+msc-thesis-vault,2179be3062,2026-11-20,Claude,yes,Explainer: label start poses with coordinates
+msc-thesis-vault,673a85b4c5,2026-11-20,Claude,yes,"Explainer: readable demo labels (margin ticks, label placer, halos)"
+msc-thesis-vault,9b6d3b86b8,2026-11-20,Claude,yes,"Explainer: draw delta and relative legs, compare against robot base"
+msc-thesis-vault,33e55028b5,2026-11-20,Claude,yes,Explainer: fixed table columns in the frame demo
+msc-thesis-vault,2147d8a32f,2026-11-20,Claude,yes,"Explainer: metric grid in the frame demo, poses on grid points"
+msc-thesis-vault,f5f947f140,2026-11-20,Claude,yes,Explainer: room frame caption under pipelines
+msc-thesis-vault,06b9e48a1f,2026-11-20,Claude,yes,Explainer: headset pose is absolute; clutch box spelled out
+msc-thesis-vault,8936dd3ba9,2026-11-20,Claude,yes,Explainer: clarify absolute storage vs relative training
+msc-thesis-vault,93997d9481,2026-11-20,Martyn,yes,"Home, Handover: Mac paths after the move to ~/thesis"
+msc-thesis-vault,9d65f3a245,2026-11-20,Claude,yes,"Replay Ladder: table layout (shared start mark, pick and place outlines)"
+msc-thesis-vault,0015dd2e2b,2026-11-20,Claude,yes,"Replay Ladder: summary of the team VR-teleop stack (UR10e, Robotiq, recording)"
+msc-thesis-vault,9261ba87da,2026-11-20,Claude,yes,CLAUDE.md: codes always carry a plain-words name (Martyn OK 2026-11-20)
+msc-thesis-vault,25c59f1e24,2026-11-20,Claude,yes,"Spell out codes in living notes: decisions, Replay Ladder phases, research gaps, study conditions"
+msc-thesis-vault,2a148a06ad,2026-11-20,Claude,yes,"Work not blocked by parts: Replay Ladder RL1–RL6 merged; new timing (screws/inserts next week, Dex1-1 ~5–6 weeks)"
+msc-thesis-vault,fd45fbe9a9,2026-11-20,Claude,yes,"Replay Ladder: RL1/RL2 setup research (MuJoCo UR10e, URSim amd64, ROS 2 not needed, ur_rtde wheels)"
+msc-thesis-vault,b59e31341b,2026-11-20,Claude,yes,"Replay Ladder: interim phases RL1–RL6 in the brief, D01 History and today's TODO"
+msc-thesis-vault,80d4ce9187,2026-11-20,Claude,yes,"D01: interim work order while the Dex1-1 is delayed (pipeline rig; 2F-85 core as last resort, gate mid-Jan 2027)"
+msc-thesis-vault,fb7b2809a0,2026-11-20,Martyn,no,vault backup: 2026-11-20 09:46:45
+msc-thesis-vault,f69918cb5f,2026-11-20,Claude,yes,Agent/Reports: interim hardware brief while the Dex1-1 is delayed
+msc-thesis-vault,69ac577b6c,2026-11-20,Claude,yes,D10: prototype sleeve = plate 4 v23 front + plate 1 v22 back + tape; closure survey deferred to Waiting
+msc-thesis-vault,1e2a7c7194,2026-11-20,Martyn,no,vault backup: 2026-11-20 08:56:37
+msc-thesis-vault,8ccd819d3b,2026-11-19,Claude,yes,Day close 2026-11-19: open TODOs moved to 2026-11-20 (review both threads first); firmware update and flow calibration pass 2 dropped; GPU ask moved from Waiting to TODO
+msc-thesis-vault,3fc51fe341,2026-11-19,Claude,yes,"D07: training π0.5 first, 100–300 demos per task, GPU ≥ 24 GB"
+msc-thesis-vault,6e654a1601,2026-11-19,Claude,yes,Research: MCAP vs HDF5 sources
+msc-thesis-vault,1941bc295f,2026-11-19,Claude,yes,Research: recommendation for the recording and training pipeline
+msc-thesis-vault,ea43e7292d,2026-11-19,Claude,yes,Report: station Jetson camera install plan (D435i stand-in)
+msc-thesis-vault,31fb3dbd0b,2026-11-19,Claude,yes,"Research: UMI-style recording, sync, calibration and training pipelines"
+msc-thesis-vault,c3f0d81c7f,2026-11-19,Claude,yes,Report: revised task order after Martyn's answers
+msc-thesis-vault,a7eb3a90db,2026-11-19,Claude,yes,Waiting: ask for a larger training GPU
+msc-thesis-vault,59493c8ce8,2026-11-19,Claude,yes,Waiting: cabinet RS-485 adapter belongs to the current gripper
+msc-thesis-vault,92d8f2e3fe,2026-11-19,Claude,yes,"Waiting: station 24 V supply read from label; Daily: fractal-pc GPU vs openpi/GR00T memory needs, UR10e free"
+msc-thesis-vault,097480134e,2026-11-19,Claude,yes,"Waiting: intern meeting dropped; Daily: supplier follow-up dropped, G1 run TODO"
+msc-thesis-vault,6e5d6c7fb0,2026-11-19,Claude,yes,"Report: thesis work not blocked by screws, inserts or the Dex1-1"
+msc-thesis-vault,86e54a2d45,2026-11-19,Claude,yes,"Daily, D10, Waiting: comfort, trigger-finger room and tracking good on v22 + tape; rod flexes little by hand, formal flex check waits on screws, inserts and Dex1-1"
+msc-thesis-vault,a9de42051b,2026-11-19,Martyn,yes,"D10: next sleeve print v23 front + v22 back, plate 1 settings without brim; Handover v9 entry after PR #12"
+msc-thesis-vault,1d7189dfc8,2026-11-19,Claude,yes,"Handover: refreshed by the weekly audit (commit counts, PR #12, tracked v9 CAD)"
+msc-thesis-vault,4efb766daf,2026-11-19,Martyn,yes,Daily: D05/D10 TODO done
+msc-thesis-vault,10bf5eb3ae,2026-11-19,Martyn,yes,D05: width from the Dex1-1 motor encoder (real path)
+msc-thesis-vault,b8012644bd,2026-11-19,Martyn,yes,D10: split into real path and copy fallback; daily TODOs from the audit board
+msc-thesis-vault,7f2b2ac1e2,2026-11-19,Martyn,yes,Handover: refreshed by the weekly audit
+msc-thesis-vault,54d4e53926,2026-11-19,Martyn,yes,Waiting: v23 prints without brim
+msc-thesis-vault,69cdbdb597,2026-11-19,Martyn,yes,Audit report: status after fixes
+msc-thesis-vault,61fefde75b,2026-11-19,Martyn,yes,D09: visual-match calibration only for the printed-copy fallback
+msc-thesis-vault,537847ff08,2026-11-19,Martyn,no,vault backup: 2026-11-19 11:47:07
+msc-thesis-vault,e2cd075d39,2026-11-19,Martyn,yes,"Report: add rules, skills and setup files to the consistency audit"
+msc-thesis-vault,a2378571f5,2026-11-19,Martyn,yes,Report: three-repo consistency audit 2026-11-19
+msc-thesis-vault,9b45eb9486,2026-11-19,Claude,yes,Waiting: v23 print caveat on the active v24 back offset in Fusion
+msc-thesis-vault,bad7398d30,2026-11-19,Claude,yes,Waiting: next sleeve print v23 after inserts arrive
+msc-thesis-vault,90e96f611d,2026-11-19,Claude,yes,D10: sleeve frozen as v22 + tape; v24 dropped; next print v23 with plate 1 settings
+msc-thesis-vault,b672e06626,2026-11-19,Claude,yes,Sleeve v24: plate 1 vs plate 3 slicer comparison
+msc-thesis-vault,30a1d085b4,2026-11-19,Claude,yes,"Sleeve v24 test result: no snap, seam broke"
+msc-thesis-vault,d110112d89,2026-11-18,Claude,yes,"Day close 2026-11-18: daily note audit, TODOs moved to 2026-11-19, Waiting and report Open sections"
+msc-thesis-vault,140cfd2e68,2026-11-18,Claude,yes,Sleeve v24 offset variants
+msc-thesis-vault,e67104c118,2026-11-18,Claude,yes,Sleeve tape test result
+msc-thesis-vault,8a390c9b10,2026-11-18,Martyn,yes,Station Jetson trigger test: fingers followed (observed)
+msc-thesis-vault,9da4aa5ff7,2026-11-18,Martyn,yes,Station Jetson: trigger -> Mac sim test passed (3 of 1561 packets lost)
+msc-thesis-vault,68a143301c,2026-11-18,Claude,yes,Plate 2c fit results and sleeve slip diagnosis
+msc-thesis-vault,fa7615e1d5,2026-11-18,Martyn,yes,"Station Jetson B3-B5 installed: deploy-key clone, unitree_sdk2, dex1_1_service; no-gripper check passed"
+msc-thesis-vault,b3bb026606,2026-11-18,Claude,yes,D10: sleeve boss insert holes 4.1 mm (controller-grip v23)
+msc-thesis-vault,cd1d1e39ba,2026-11-18,Claude,yes,"Daily 2026-11-18: PRs merged, fit and sleeve tests wait on plate 2c"
+msc-thesis-vault,f32414908e,2026-11-18,Claude,yes,"Daily 2026-11-18: plate 2b result, v14, D07 B, open items"
+msc-thesis-vault,fb76ab1e91,2026-11-18,Claude,yes,Draft: policy explainer page (how robot policies learn)
+msc-thesis-vault,d5780959a7,2026-11-18,Claude,yes,GR00T/openpi state exclusion check for D07 option B
+msc-thesis-vault,aa1b5bb856,2026-11-18,Claude,yes,D07: relative actions and relative or no pose state
+msc-thesis-vault,73a66a4da9,2026-11-18,Claude,yes,D10: two-piece clamp ring (real-adapter v14)
+msc-thesis-vault,c4b347b451,2026-11-18,Claude,yes,Plate 2b report: v14 outcome
+msc-thesis-vault,1488186660,2026-11-18,Claude,yes,Report: plate 2b clamp failure diagnosis
+msc-thesis-vault,ecb449b78a,2026-11-18,Claude,yes,Draft: relative vs absolute actions decision
+msc-thesis-vault,2874bf56fb,2026-11-18,Claude,yes,Research: UMI variants pose tracking and policy actions
+msc-thesis-vault,ab788aa722,2026-11-18,Claude,yes,Research: GR00T and pi0.5 action format for handheld data
+msc-thesis-vault,922bbb4db2,2026-11-17,Claude,yes,Fix line link
+msc-thesis-vault,7b44b50f08,2026-11-17,Claude,yes,Research: controller pose frame and mapping to robot base
+msc-thesis-vault,36fdef3081,2026-11-17,Claude,yes,"Day close 2026-11-17: tick merged PRs and PICO, move open TODOs to 2026-11-18, plate 2b test first"
+msc-thesis-vault,cb0d65090a,2026-11-17,Claude,yes,Agent/Research: link PICO view setup guide
+msc-thesis-vault,d97bcf549e,2026-11-17,Claude,yes,Agent/Research: PICO Wi-Fi adb not reboot-proof
+msc-thesis-vault,d2537872fd,2026-11-17,Claude,yes,Agent/Research: PICO view over Wi-Fi works
+msc-thesis-vault,51afe788c9,2026-11-17,Claude,yes,D04: test tracking with headset worn and neck-hung
+msc-thesis-vault,75e525b521,2026-11-17,Claude,yes,Agent/Research: note worn vs neck-hung idea
+msc-thesis-vault,2a26f3d47f,2026-11-17,Claude,yes,"Agent/Research: PICO from Mac, closed"
+msc-thesis-vault,6474e7b547,2026-11-17,Claude,yes,Agent/Research: PICO neck test 2 min result
+msc-thesis-vault,1cc628de76,2026-11-17,Claude,yes,Agent/Research: PICO tape test passed
+msc-thesis-vault,e882dbea13,2026-11-17,Claude,yes,Agent/Research: PICO proximity sensor location
+msc-thesis-vault,da60c4b4df,2026-11-17,Claude,yes,Agent/Research: PICO proximity sleep confirmed
+msc-thesis-vault,d9d523d129,2026-11-17,Claude,yes,"Agent/Research: PICO from Mac, controller for buttons"
+msc-thesis-vault,f5cb3005c9,2026-11-17,Claude,yes,"Agent/Research: PICO from Mac, results of steps 1-3"
+msc-thesis-vault,727bc1b870,2026-11-17,Claude,yes,"Daily 2026-11-17: mid-day progress (PETG, plate 2, Jetson B1/B2, PICO); PETG report update"
+msc-thesis-vault,75d008f2a6,2026-11-17,Claude,yes,"Agent: station Jetson B1/B2 installed, headset to Jetson SDK test passed"
+msc-thesis-vault,9ef85f907b,2026-11-17,Claude,yes,Agent/Research: plan for PICO control from the Mac and neck-hung headset
+msc-thesis-vault,015902ddaf,2026-11-17,Claude,yes,Agent/Reports: SD card left unused for now
+msc-thesis-vault,abc34e8d76,2026-11-17,Claude,yes,"Agent/Reports: SD card check, open items"
+msc-thesis-vault,3bd363a182,2026-11-17,Claude,yes,"Agent/Reports: station Jetson SD card check (empty, owner open)"
+msc-thesis-vault,ddc26cfabe,2026-11-17,Martyn,no,vault backup: 2026-11-17 15:15:16
+msc-thesis-vault,d918124e49,2026-11-17,Claude,yes,Agent: station Jetson setup results and install plan (2026-11-17)
+msc-thesis-vault,7cf874d379,2026-11-17,Martyn,no,vault: 2026-11-17 14:17:07
+msc-thesis-vault,53699e19dc,2026-11-17,Claude,yes,PETG plate 1 report: repeatability result
+msc-thesis-vault,410c442f5a,2026-11-17,Claude,yes,"D10: PETG sleeve passed 20-cycle test (evidence, decision unchanged)"
+msc-thesis-vault,6816854322,2026-11-17,Claude,yes,"PETG plate 1 report: 20-cycle test passed, summary"
+msc-thesis-vault,cd8f3ec782,2026-11-17,Claude,yes,PETG plate 1 report: residue confirmed as brim
+msc-thesis-vault,8988a47112,2026-11-17,Claude,yes,"PETG plate 1 report: ring test, stringing was moisture, brim residue"
+msc-thesis-vault,0d2075c72d,2026-11-17,Claude,yes,PETG plate 1 report: flow ratio 0.95 -> 1.00
+msc-thesis-vault,f2a77b6b81,2026-11-17,Claude,yes,PETG plate 1 report: flow pass 1 result +5
+msc-thesis-vault,08d3fe7b3f,2026-11-17,Martyn,no,vault: 2026-11-17 11:51:09
+msc-thesis-vault,4f8ff4dde0,2026-11-17,Claude,yes,PETG plate 1 report: flow calibration pass 1 shows no over-extrusion
+msc-thesis-vault,4d8ff1ef56,2026-11-17,Claude,yes,PETG plate 1 report: Fusion confirms v22 seam widths
+msc-thesis-vault,44dc5dddcf,2026-11-17,Claude,yes,PETG plate 1 report: mark STL-based CAD widths provisional
+msc-thesis-vault,07a1dda87e,2026-11-17,Claude,yes,PETG plate 1 report: v22 CAD seam widths from STL sections
+msc-thesis-vault,47798a1845,2026-11-17,Claude,yes,PETG plate 1 report: per-seam caliper readings PLA v21 and PETG v22
+msc-thesis-vault,e33b72a051,2026-11-17,Martyn,no,vault: 2026-11-17 11:15:54
+msc-thesis-vault,c6e07a89b8,2026-11-17,Claude,yes,"Daily 2026-11-17: morning printer results, flow calibration, plate 2 on hold"
+msc-thesis-vault,5f17f36c56,2026-11-17,Claude,yes,Research: Bambu Studio and H2S firmware match
+msc-thesis-vault,0f376160af,2026-11-17,Claude,yes,PETG plate 1 report: tongue measured on the flat part
+msc-thesis-vault,3a2a7d5f30,2026-11-17,Claude,yes,"PETG plate 1 report: morning results (humidity 14 %, snap engages, calipers)"
+msc-thesis-vault,a1600a4440,2026-11-17,Claude,yes,Daily 2026-11-17: TODOs for PETG plate 1 stringing and snap fit
+msc-thesis-vault,1f0f2044d4,2026-11-16,Claude,yes,PETG plate 1 report: drying set to 8 h
+msc-thesis-vault,0e0dea41a2,2026-11-16,Claude,yes,PETG plate 1 report: AMS PETG drying preset 12 h
+msc-thesis-vault,f0b20c3e0d,2026-11-16,Claude,yes,PETG plate 1 report: AMS humidity and overnight drying plan
+msc-thesis-vault,51d507a9c1,2026-11-16,Claude,yes,PETG plate 1 report: spool opened just before the print
+msc-thesis-vault,01c64e265f,2026-11-16,Claude,yes,PETG plate 1 report: spool new and undried
+msc-thesis-vault,4b8e3e90b2,2026-11-16,Claude,yes,"PETG plate 1 report: spool label temps, avoid crossing walls was on"
+msc-thesis-vault,6d15c903a5,2026-11-16,Claude,yes,PETG plate 1 report: stringing and sleeve snap-fit diagnosis
+msc-thesis-vault,df5ab8ab28,2026-11-16,Claude,yes,Remove stray Bambu CLI result.json from vault root
+msc-thesis-vault,c11a210c78,2026-11-16,Claude,yes,Station Jetson check: Open items moved to Daily/2026-11-17
+msc-thesis-vault,5428b53f39,2026-11-16,Claude,yes,"Day close 2026-11-16 (second pass): evening work in Done/Measured, Jetson blocker, PR #31 ticked"
+msc-thesis-vault,a63979e30d,2026-11-16,Claude,yes,Daily 2026-11-17: ordered Jetson setup checklist
+msc-thesis-vault,47f20af15d,2026-11-16,Claude,yes,"Station Jetson check: AGX Orin, L4T R36 fits; move and own account open"
+msc-thesis-vault,57720a419b,2026-11-16,Claude,yes,G9: point control-program TODO and Waiting tests to the force-limit note
+msc-thesis-vault,608e56d19f,2026-11-16,Claude,yes,Research G9: Dex1-1 force limiting on contact; update G9 row
+msc-thesis-vault,837e3d13b4,2026-11-16,Claude,yes,"D08 scope (H2 if time, bimanual only on H2), D01 worst-case fallback, Nano test dropped"
+msc-thesis-vault,b834207a43,2026-11-16,Claude,yes,"Yanmei talk 2026-11-16: notes, D01/D06/D08 updated, Waiting and Daily/2026-11-17, gap G9"
+msc-thesis-vault,60b54dac20,2026-11-16,Claude,yes,Daily 2026-11-17: Yanmei outcome reported tomorrow
+msc-thesis-vault,c699a7fa5c,2026-11-16,Claude,yes,"Day close 2026-11-16: Done/Measured filled, open TODOs moved to Daily/2026-11-17, Waiting updated"
+msc-thesis-vault,8e363b4721,2026-11-16,Martyn,no,vault: 2026-11-16 14:12:02
+msc-thesis-vault,2eddbe1198,2026-11-16,Martyn,yes,Daily 2026-11-16: Fable 5.2 design test finished
+msc-thesis-vault,5f0a051fe9,2026-11-16,Claude,yes,"Agent: real-path proposals, real-adapter v10 in two printed parts"
+msc-thesis-vault,3162c78d61,2026-11-16,Martyn,yes,D10: sleeve final material PETG; Daily 2026-11-16: PLA sleeve loosening
+msc-thesis-vault,b315a53f04,2026-11-16,Martyn,yes,D10: insert boss verified in Fusion (controller-grip v21)
+msc-thesis-vault,63f6ddea77,2026-11-16,Martyn,yes,"D10: log the insert-boss change (hole 4.0 x 7.0 mm, boss y 53-69)"
+msc-thesis-vault,6cf92becbb,2026-11-16,Martyn,yes,Daily 2026-11-16: dummy rear section now cut in Fusion
+msc-thesis-vault,7276dc31a0,2026-11-16,Martyn,no,vault backup: 2026-11-16 11:24:53
+msc-thesis-vault,c433955418,2026-11-16,Martyn,yes,Daily 2026-11-16: dummy gripper TODO to rear-section print plan
+msc-thesis-vault,6374c607f9,2026-11-16,Martyn,no,vault backup: 2026-11-16 11:14:50
+msc-thesis-vault,72dd63fcb1,2026-11-16,Martyn,no,vault: 2026-11-16 11:06:01
+msc-thesis-vault,0e7943fd54,2026-11-16,Martyn,yes,Daily 2026-11-16: point to hardware-specs sheet
+msc-thesis-vault,4295d05c1b,2026-11-16,Martyn,yes,Daily 2026-11-16: task-part measurements; tick PC pull and measuring
+msc-thesis-vault,3360aa466f,2026-11-16,Martyn,no,vault backup: 2026-11-16 10:34:44
+msc-thesis-vault,1a0f944bfb,2026-11-13,Claude,yes,"Day close 2026-11-13: Done/Measured, open TODOs moved to 2026-11-16, Jetson test paused in Waiting"
+msc-thesis-vault,079b9f4822,2026-11-13,Martyn,no,vault backup: 2026-11-13 17:10:23
+msc-thesis-vault,fcdef0f496,2026-11-13,Claude,yes,"Daily 2026-11-13: tick dummy-shell print, explainer and Monday prep"
+msc-thesis-vault,0f03eb0e1b,2026-11-13,Claude,yes,Remove two committed draw.io backup files
+msc-thesis-vault,c81f374271,2026-11-13,Claude,yes,Ignore draw.io backup files; remove committed .bkp
+msc-thesis-vault,b0b3af6c1a,2026-11-13,Claude,yes,Point diagram embeds to the draw.io PNG export
+msc-thesis-vault,e5451d3c58,2026-11-13,Martyn,no,vault backup: 2026-11-13 17:00:19
+msc-thesis-vault,4c994e646e,2026-11-13,Claude,yes,"Monday meeting: keyword guide with diagram, task photos and sim demo steps"
+msc-thesis-vault,b9a9578fcf,2026-11-13,Claude,yes,Monday agenda: task description (metal sleeve into elastomer bushing) with photos and questions
+msc-thesis-vault,1876f2ad6e,2026-11-13,Claude,yes,"Monday agenda: drop robot time, intern and Wi-Fi items; add other open questions 6-9"
+msc-thesis-vault,0231328177,2026-11-13,Martyn,no,vault backup: 2026-11-13 16:40:14
+msc-thesis-vault,8c62c73a84,2026-11-13,Claude,yes,Monday agenda: block C (real vs copy) with decision goal and changes since 6 Nov
+msc-thesis-vault,aaed58b235,2026-11-13,Claude,yes,Report figure: draw.io source of the handheld connection paths
+msc-thesis-vault,c99d7a5290,2026-11-13,Claude,yes,Report: handheld computer and gripper connection paths + diagram PDF; drop external brief
+msc-thesis-vault,cdf96bf70b,2026-11-13,Claude,yes,"External brief handheld connections: PDF export, list spacing"
+msc-thesis-vault,072d4f53d4,2026-11-13,Claude,yes,External brief figure: network label next to its line
+msc-thesis-vault,dccbd0df92,2026-11-13,Claude,yes,External brief figure: no lines across boxes
+msc-thesis-vault,f62e507e7a,2026-11-13,Claude,yes,External brief: computer and gripper connection paths for the Monday talk
+msc-thesis-vault,92cab1732c,2026-11-13,Claude,yes,"Waiting: second Pi 5, order after the Yanmei talk"
+msc-thesis-vault,741d00f4ec,2026-11-13,Claude,yes,Agenda A3: station Pi capacity question; Waiting: second Pi 5 after Monday
+msc-thesis-vault,cf11647f55,2026-11-13,Claude,yes,Monday agenda: mobility argument for the single-computer path
+msc-thesis-vault,82581616b5,2026-11-13,Claude,yes,Monday agenda: current setup questions and two handheld connection paths
+msc-thesis-vault,86bdae8f8c,2026-11-13,Martyn,no,vault backup: 2026-11-13 13:59:54
+msc-thesis-vault,58cae79476,2026-11-13,Claude,yes,"Agent: dex1_1_service code read, Pi 5 fit and teleimager camera server"
+msc-thesis-vault,d6ded39bb2,2026-11-13,Martyn,no,vault backup: 2026-11-13 10:47:50
+msc-thesis-vault,a1caf302f8,2026-11-13,Martyn,no,vault backup: 2026-11-13 09:57:41
+msc-thesis-vault,62ee8cefc5,2026-11-12,Claude,yes,"Agent: real-path proposals, real-adapter v9 clean rebuild"
+msc-thesis-vault,5e11a27885,2026-11-12,Claude,yes,"Day close 2026-11-12: Done/Measured, open TODOs moved to 2026-11-13, Waiting updated, Monday agenda for Yanmei"
+msc-thesis-vault,c0a18f5e96,2026-11-12,Claude,yes,Explainer marked as unconfirmed working picture with source table; Daily 2026-11-13 TODOs
+msc-thesis-vault,8fb1e0c392,2026-11-12,Claude,yes,"Agent: real-path proposals, stage 2 results (real-adapter v8)"
+msc-thesis-vault,c3cbc5c380,2026-11-12,Claude,yes,"Explainer: UR10e arm moved directly by the Jetson, only gripper and camera via the Pi"
+msc-thesis-vault,b0838ab4d8,2026-11-12,Claude,yes,Agent: plain-language report and visual explainer of lab computers and gripper connections
+msc-thesis-vault,1b36ef5d26,2026-11-12,Claude,yes,"Station computer: fractal-pc as far computer, Pi at station; Monday questions updated"
+msc-thesis-vault,42e923ed36,2026-11-12,Claude,yes,"Raspberry Pi note: Martyn's layout, Pi must run dex1_1_service, Monday questions"
+msc-thesis-vault,0590facc2a,2026-11-12,Claude,yes,Raspberry Pi note: wording
+msc-thesis-vault,8faa89ff6a,2026-11-12,Claude,yes,"Raspberry Pi note: say station computer, not station box"
+msc-thesis-vault,a7a3e77ded,2026-11-12,Claude,yes,"Station computer: Jetson also far from the station; second Pi 5 or AGX Orin at the station, Pi build test first"
+msc-thesis-vault,fee1dd79a6,2026-11-12,Claude,yes,"Station computer findings: tick Pi TODO, Waiting items for Monday, UR10e tool-connector item answered, workflow report correction"
+msc-thesis-vault,4350b9611d,2026-11-12,Martyn,no,vault backup: 2026-11-12 14:48:45
+msc-thesis-vault,6e2cef7595,2026-11-12,Claude,yes,"Agent: real-path handheld improvement proposals (design review, stage 1)"
+msc-thesis-vault,81e0f381c9,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, station layout confirmed (XRoboToolkit on Jetson, Pi as I/O)"
+msc-thesis-vault,ff41d0e49e,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, station camera pipelines and chrony"
+msc-thesis-vault,9aeb8259d2,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, ser2net config and camera scripts on station Pi"
+msc-thesis-vault,01cbad20bb,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, station Pi inspection results"
+msc-thesis-vault,c78f1837bb,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, handheld-side layouts H1/H2"
+msc-thesis-vault,fb9998b79f,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, mobile dropped; existing UR10e station Pi (Robotiq) as precedent"
+msc-thesis-vault,dd54fc9034,2026-11-12,Claude,yes,Agent: add existing UR10e station context to Dex1-1 integration note
+msc-thesis-vault,192473b50b,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, video encoder is a minor point"
+msc-thesis-vault,9179f0a504,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, add AGX Orin justification and gated test plan"
+msc-thesis-vault,6097a49878,2026-11-12,Martyn,no,vault backup: 2026-11-12 11:47:59
+msc-thesis-vault,2ac53257a9,2026-11-12,Claude,yes,Agent: Dex1-1 on the UR10e integration (deep research)
+msc-thesis-vault,f00d7ca86b,2026-11-12,Claude,yes,"Agent: Raspberry Pi note, add mobile-collection section (Jetson vs Pi, power, precedent)"
+msc-thesis-vault,244c5b550b,2026-11-12,Claude,yes,Agent: LieSpline-DP (UR5e + Dex1) review for Dex1-1 on the UR10e (research)
+msc-thesis-vault,447ee105c9,2026-11-12,Claude,yes,Agent: Raspberry Pi vs lab PC for the Dex1-1 (research)
+msc-thesis-vault,4c80414bb4,2026-11-12,Martyn,no,vault backup: 2026-11-12 11:17:51
+msc-thesis-vault,34fbe44e9d,2026-11-12,Claude,yes,Daily: remove carried-over unticked TODOs from past notes
+msc-thesis-vault,cd83c05339,2026-11-12,Claude,yes,"Agent: Claude rules in VS Code for dex1-1-handheld, tested"
+msc-thesis-vault,7e78bbded6,2026-11-11,Claude,yes,trigger_udp.py change discarded on purpose; drop the TODO
+msc-thesis-vault,559a81a046,2026-11-11,Claude,yes,Daily 2026-11-12: trigger_udp.py change status after the split
+msc-thesis-vault,a3e8e488e6,2026-11-11,Claude,yes,"Day close 2026-11-11: Done/Measured, carry open TODOs to Daily/2026-11-12, Waiting paths to dex1-1-handheld"
+msc-thesis-vault,899136269c,2026-11-11,Claude,yes,Agent: Claude Code only in the Mac VS Code window
+msc-thesis-vault,994000b438,2026-11-11,Claude,yes,Agent: Remote-SSH set up
+msc-thesis-vault,aeda37dbb5,2026-11-11,Claude,yes,Agent: lab PC deploy key and clone done
+msc-thesis-vault,ec399684e3,2026-11-11,Claude,yes,Agent: workflow note uses dex1-1-handheld after the repo split
+msc-thesis-vault,646548d60c,2026-11-11,Claude,yes,Agent: Mac-centred lab workflow plan
+msc-thesis-vault,2f76f8da27,2026-11-11,Martyn,no,vault backup: 2026-11-11 14:06:16
+msc-thesis-vault,4d716bafc3,2026-11-11,Claude,yes,Waiting: insert delivery 1 day
+msc-thesis-vault,f27cfb28be,2026-11-11,Claude,yes,Insert set ordered 2026-11-11
+msc-thesis-vault,53ec62bebd,2026-11-11,Claude,yes,Waiting: screw order lives in today's TODO only
+msc-thesis-vault,66cb6d9e60,2026-11-11,Claude,yes,"Daily 2026-11-11 and Waiting: parts sorted into before and after the gripper; inserts via Storefront, screws via Amazon"
+msc-thesis-vault,db53a4c95d,2026-11-11,Claude,yes,"Daily 2026-11-11: scale borrowed, cable and balancer not in lab"
+msc-thesis-vault,4130e50149,2026-11-11,Claude,yes,"Daily 2026-11-11: lab parts check results (ballast, scale, RS-485, supply, Vive)"
+msc-thesis-vault,fcf45f5159,2026-11-11,Claude,yes,Daily 2026-11-11: soldering iron and insert tips found in the lab
+msc-thesis-vault,2cc0545adb,2026-11-11,Martyn,no,vault backup: 2026-11-11 11:38:14
+msc-thesis-vault,f791ff5608,2026-11-11,Martyn,no,vault backup: 2026-11-11 11:28:10
+msc-thesis-vault,befcc8abef,2026-11-11,Claude,yes,"Daily 2026-11-11: group TODO into hardware, software, parts and admin"
+msc-thesis-vault,1d0563c447,2026-11-11,Martyn,no,vault backup: 2026-11-11 11:18:07
+msc-thesis-vault,2870f8c5f5,2026-11-10,Claude,yes,Daily 2026-11-10: sources for the screw lengths and the day close
+msc-thesis-vault,a22c0c6772,2026-11-10,Claude,yes,Carry every open TODO from 2026-11-04 to 2026-11-10 forward: pointer to Daily/2026-11-11 or Waiting; copy-path tests to Waiting
+msc-thesis-vault,07d1427c55,2026-11-10,Claude,yes,"Storefront: browse only, ordering still blocked (Martyn)"
+msc-thesis-vault,37ac6911de,2026-11-10,Claude,yes,"Storefront: browse only, ordering still blocked (Martyn)"
+msc-thesis-vault,558e8985b2,2026-11-10,Claude,yes,"Close 2026-11-10: tick finished TODOs (2026-11-04 to 2026-11-10), record results; daily note for 2026-11-11"
+msc-thesis-vault,2bc871474f,2026-11-10,Claude,yes,Sleeve research note: v21 sliced with Arachne (Martyn)
+msc-thesis-vault,c324389552,2026-11-10,Claude,yes,"D10 and sleeve research note: v20, hinge-hook rings H1-H2b, sleeve A v21 kept"
+msc-thesis-vault,166ea4d1dc,2026-11-10,Claude,yes,Daily 2026-11-10: lab parts check list in TODO
+msc-thesis-vault,aa14092421,2026-11-10,Claude,yes,Add standalone Trigger to Gripper page to Agent/Drafts; link from the knowledge base
+msc-thesis-vault,f0202b3bbd,2026-11-10,Claude,yes,"PICO review note restructured into a knowledge base (diagram, components, test log, facts register)"
+msc-thesis-vault,bc92fc0413,2026-11-10,Claude,yes,"PICO review: tag where each thing lives, explain terms inline; add research gaps from the sim test"
+msc-thesis-vault,2f2e41bee2,2026-11-10,Claude,yes,Report: rewrite PICO trigger review in plain language with glossary
+msc-thesis-vault,bec773a122,2026-11-10,Claude,yes,D10: sleeve A seam (A2) in controller-grip v20
+msc-thesis-vault,6976bbbbc3,2026-11-10,Claude,yes,Report: fix two source attributions
+msc-thesis-vault,cde711353e,2026-11-10,Claude,yes,Agent/Reports: PICO trigger test review (XRoboToolkit to MuJoCo Dex1-1)
+msc-thesis-vault,edc223b9e4,2026-11-09,Claude,yes,"Daily 2026-11-10: A3 checked, A2 stays the better ring catch"
+msc-thesis-vault,c90d24cb08,2026-11-09,Claude,yes,"Snap-fit note: ring A3 result, A2 chosen"
+msc-thesis-vault,54a34ab680,2026-11-09,Claude,yes,Close 2026-11-09; daily note for 2026-11-10
+msc-thesis-vault,3eb9f90cee,2026-11-09,Claude,yes,Daily 2026-11-09: mark ufw detail unverified
+msc-thesis-vault,4d4b47e947,2026-11-09,Claude,yes,2026-11-09: PICO trigger drives the simulated Dex1-1; PICO setup item moved from Waiting
+msc-thesis-vault,d06c83c932,2026-11-09,Claude,yes,Snap-fit note: ring A3 (80 deg return)
+msc-thesis-vault,8b06ebef8a,2026-11-09,Claude,yes,Snap-fit note: seam ring results
+msc-thesis-vault,61364d664f,2026-11-09,Claude,yes,Agent/Reports: plan for Claude Code with Remote Control on the lab workstation
+msc-thesis-vault,1a71483da0,2026-11-09,Claude,yes,Snap-fit note: seam ring test matrix A0-A2
+msc-thesis-vault,93351ac393,2026-11-09,Claude,yes,Snap-fit note: measured barb geometry (0.15 mm catch)
+msc-thesis-vault,ae1d147ada,2026-11-09,Claude,yes,Grip sleeve snap-fit closure research; D10: drop sleeve variant B
+msc-thesis-vault,1e1770acff,2026-11-09,Claude,yes,Printer access cleared: move print items from Waiting to 2026-11-09 TODO
+msc-thesis-vault,0c8ef4bd45,2026-11-06,Martyn,yes,Close 2026-11-06; daily note for 2026-11-09
+msc-thesis-vault,3a7e5f2db0,2026-11-06,Claude,yes,Insert note: record boss wall fix (a) chosen
+msc-thesis-vault,341a890fe3,2026-11-06,Claude,yes,"Insert note: fold in boss/pad geometry from Fusion, wall fix, screw length"
+msc-thesis-vault,4801285862,2026-11-06,Claude,yes,Agent/Research: M3 heat-set inserts for the real-adapter boss
+msc-thesis-vault,c8ba0e2610,2026-11-06,Martyn,no,vault: 2026-11-06 14:16:11
+msc-thesis-vault,2fa103e1e1,2026-11-06,Claude,yes,Park PICO Motion Tracker item in Waiting (after D01)
+msc-thesis-vault,e9c647d3fb,2026-11-06,Claude,yes,Source H2 arm joints from official URDF
+msc-thesis-vault,725e46dd70,2026-11-06,Claude,yes,Add H2 forearm-tracker option to PICO tracker note
+msc-thesis-vault,d1dbc7f563,2026-11-06,Martyn,no,vault backup: 2026-11-06 12:12:23
+msc-thesis-vault,147bfb7059,2026-11-06,Claude,yes,Daily 2026-11-06: progress update before lunch; Waiting: brief sent
+msc-thesis-vault,487bd0bca4,2026-11-06,Martyn,no,vault: 2026-11-06 12:03:39
+msc-thesis-vault,b18c6ca7b2,2026-11-06,Martyn,no,vault backup: 2026-11-06 12:02:16
+msc-thesis-vault,7b44e69956,2026-11-06,Martyn,no,vault backup: 2026-11-06 11:52:10
+msc-thesis-vault,5e559319b2,2026-11-06,Martyn,no,vault: 2026-11-06 11:42:27
+msc-thesis-vault,8af171cc41,2026-11-06,Martyn,no,vault backup: 2026-11-06 11:42:05
+msc-thesis-vault,239d75370d,2026-11-06,Martyn,no,vault: 2026-11-06 11:35:13
+msc-thesis-vault,cbd31c32ac,2026-11-06,Martyn,no,vault: 2026-11-06 11:33:00
+msc-thesis-vault,9a1a78fd90,2026-11-06,Martyn,no,vault backup: 2026-11-06 11:31:58
+msc-thesis-vault,1adb7fcfd5,2026-11-06,Martyn,no,vault backup: 2026-11-06 11:21:52
+msc-thesis-vault,9fe75040e4,2026-11-06,Martyn,no,vault backup: 2026-11-06 11:11:47
+msc-thesis-vault,fe9ee767a9,2026-11-06,Claude,yes,Supervisor map: match the revised brief
+msc-thesis-vault,a403be1a88,2026-11-06,Claude,yes,Add PICO Motion Tracker uses research note
+msc-thesis-vault,b58edc125a,2026-11-06,Claude,yes,Remove PDF export (Martyn exports from Obsidian)
+msc-thesis-vault,5c79640d56,2026-11-06,Claude,yes,Supervisor brief: PDF export for review of the layout
+msc-thesis-vault,a01f005d4e,2026-11-06,Claude,yes,"Supervisor brief: short comparison cells, grouped rows, numbered notes"
+msc-thesis-vault,d5e9e07115,2026-11-06,Claude,yes,"Supervisor brief: clarify comparison rows, deployment robot open, concept check"
+msc-thesis-vault,30c0462751,2026-11-06,Claude,yes,Supervisor brief: printed copy at concept level with rack-and-pinion figure
+msc-thesis-vault,b803608aa2,2026-11-06,Martyn,no,vault backup: 2026-11-06 09:11:10
+msc-thesis-vault,282cd04e8a,2026-11-05,Claude,yes,"Close 2026-11-05: daily note summary, Waiting and Research open items, 2026-11-06 TODO"
+msc-thesis-vault,5dd60079bf,2026-11-05,Martyn,no,vault backup: 2026-11-05 16:04:44
+msc-thesis-vault,42cbe522c1,2026-11-05,Claude,yes,Agent/External: supervisor copy of the draw.io gripper map
+msc-thesis-vault,a9bb67ac82,2026-11-05,Claude,yes,Agent/External: overview map for the supervisor gripper brief
+msc-thesis-vault,d881ed37d8,2026-11-05,Claude,yes,Agent/External: remove intermediate Fusion test captures
+msc-thesis-vault,83850673d7,2026-11-05,Martyn,no,vault backup: 2026-11-05 15:44:33
+msc-thesis-vault,d43886275c,2026-11-05,Claude,yes,Agent/External: inline source links and CAD figures in the supervisor brief
+msc-thesis-vault,9ad8a84d70,2026-11-05,Claude,yes,Agent/External: supervisor version of the gripper decision brief
+msc-thesis-vault,de75edb318,2026-11-05,Martyn,no,vault backup: 2026-11-05 14:44:16
+msc-thesis-vault,f992ee5d0a,2026-11-05,Martyn,no,vault backup: 2026-11-05 14:24:12
+msc-thesis-vault,bcddb281ac,2026-11-05,Martyn,no,vault backup: 2026-11-05 14:14:07
+msc-thesis-vault,ef982a6783,2026-11-05,Martyn,no,vault: 2026-11-05 14:08:03
+msc-thesis-vault,5e0b65068b,2026-11-05,Martyn,no,vault backup: 2026-11-05 14:04:01
+msc-thesis-vault,6ec9dcb175,2026-11-05,Martyn,no,vault backup: 2026-11-05 13:53:55
+msc-thesis-vault,8a50ea8656,2026-11-05,Martyn,no,vault backup: 2026-11-05 13:43:51
+msc-thesis-vault,a63c58149d,2026-11-05,Martyn,no,vault backup: 2026-11-05 13:33:47
+msc-thesis-vault,0628b3e6a1,2026-11-05,Martyn,no,vault backup: 2026-11-05 13:23:42
+msc-thesis-vault,6f2ea05c7e,2026-11-05,Claude,yes,Agent/Drafts: D01 mind map as draw.io file
+msc-thesis-vault,1cf805e9d9,2026-11-05,Martyn,no,vault backup: 2026-11-05 12:13:23
+msc-thesis-vault,31ccb829b9,2026-11-05,Claude,yes,"D01: real path main line, copy path frozen as fallback"
+msc-thesis-vault,9783341417,2026-11-05,Claude,yes,Side-by-side summary: copy path 438 g
+msc-thesis-vault,919bf6375e,2026-11-05,Claude,yes,D10: park cable+drum (B); side-by-side: trigger and link A mass
+msc-thesis-vault,228188c4a2,2026-11-05,Claude,yes,D10: copy-only sleeve front halves for the trigger window
+msc-thesis-vault,2bd5295444,2026-11-05,Claude,yes,"D10: recessed trigger blade, ~10 mm travel, ~4:1 link"
+msc-thesis-vault,cb0e683d99,2026-11-05,Claude,yes,Agent/Research: trigger travel and grip span (sourced)
+msc-thesis-vault,59f54301d0,2026-11-05,Claude,yes,CLAUDE.md: research-first rule: deep research only after asking
+msc-thesis-vault,6c27971468,2026-11-05,Claude,yes,Drop CLAUDE.md rule from this PR (already in another PR)
+msc-thesis-vault,6f1e372481,2026-11-05,Claude,yes,CLAUDE.md: research before laying out options
+msc-thesis-vault,e3048854bf,2026-11-05,Claude,yes,"D10: multi-finger trigger, link (A) main, cable+drum (B) fallback, continuous lock"
+msc-thesis-vault,dfc70cfe5d,2026-11-05,Claude,yes,"CLAUDE.md: add research-first rule; survey: record Martyn's choice (A main, B fallback)"
+msc-thesis-vault,fb82c92211,2026-11-05,Claude,yes,Agent/Research: trigger-to-finger transmission survey
+msc-thesis-vault,179ab1c49a,2026-11-05,Claude,yes,Side-by-side: controller mass; prices moved to Waiting (Storefront access)
+msc-thesis-vault,178e7ef259,2026-11-05,Claude,yes,"Side-by-side: note lab filament stock (PETG, HT-PLA, TPU)"
+msc-thesis-vault,3f27e83094,2026-11-05,Martyn,no,vault: 2026-11-05 09:41:32
+msc-thesis-vault,3ac2867660,2026-11-05,Claude,yes,Agent/Research: D01 side-by-side of real Dex1-1 vs printed copy
+msc-thesis-vault,74b288c71e,2026-11-04,Martyn,no,vault: 2026-11-04 15:20:28
+msc-thesis-vault,e6f2de8863,2026-11-04,Claude,yes,D10: controller angle +35° and real-path bow joint
+msc-thesis-vault,ef0a43e299,2026-11-04,Claude,yes,Add Waiting note for long-running items; prepare 2026-11-05 daily note
+msc-thesis-vault,3805178355,2026-11-04,Claude,yes,Close 2026-11-04: CAD and dex1_1_service progress in the daily note; DM-UMI fixed in Research gaps
+msc-thesis-vault,cd5b7fb664,2026-11-04,Martyn,no,vault backup: 2026-11-04 14:56:07
+msc-thesis-vault,ed121f5893,2026-11-04,Claude,yes,Dex1-1 note: shared-adapter findings and outdated service URDF
+msc-thesis-vault,9c688a55e9,2026-11-04,Martyn,no,vault backup: 2026-11-04 13:55:48
+msc-thesis-vault,2991374049,2026-11-04,Martyn,no,vault backup: 2026-11-04 12:55:30
+msc-thesis-vault,00440ac819,2026-11-04,Martyn,no,vault backup: 2026-11-04 12:35:25
+msc-thesis-vault,07a87496c3,2026-11-04,Claude,yes,Move relevant Agent/Research open items into the 2026-11-04 TODO
+msc-thesis-vault,a1cb74d33a,2026-11-04,Claude,yes,Add report: open research items and DM-UMI hardware lessons for D01 mind map
+msc-thesis-vault,2670dc3209,2026-11-04,Martyn,no,vault backup: 2026-11-04 12:05:12
+msc-thesis-vault,9b6d2d25a1,2026-11-04,Martyn,no,vault backup: 2026-11-04 11:44:54
+msc-thesis-vault,35360a6956,2026-11-04,Claude,yes,"Dex1-1 version confirmed, RS-485 wiring checked by Martyn; daily TODO updated"
+msc-thesis-vault,0404cceae9,2026-11-04,Martyn,no,vault backup: 2026-11-04 11:34:31
+msc-thesis-vault,7a487b3853,2026-11-04,Martyn,no,vault backup: 2026-11-04 11:04:07
+msc-thesis-vault,7104e15805,2026-11-04,Martyn,no,vault backup: 2026-11-04 10:54:04
+msc-thesis-vault,25d5cf43a8,2026-11-04,Martyn,no,vault: 2026-11-04 10:50:38
+msc-thesis-vault,84d0ddaf6f,2026-11-04,Claude,yes,Daily 2026-11-04 approvals answered; D10: MGN9 purchase on hold until D01
+msc-thesis-vault,7010612ab7,2026-11-04,Martyn,no,vault backup: 2026-11-04 10:43:42
+msc-thesis-vault,9a70ae1742,2026-11-04,Claude,yes,Daily 2026-11-04: carry over Martyn's local TODO edits
+msc-thesis-vault,319881a947,2026-11-04,Martyn,no,vault backup: 2026-11-04 10:33:40
+msc-thesis-vault,080c02ba82,2026-11-04,Claude,yes,TODO as a section in the daily note and template instead of a standalone TODO.md
+msc-thesis-vault,f74f2c17cc,2026-11-04,Claude,yes,Running TODO.md; daily note keeps only today's blockers; Home embeds TODO Now
+msc-thesis-vault,3595a74a2a,2026-11-04,Claude,yes,Daily 2026-11-04: real-path modelling on hold until Martyn starts it
+msc-thesis-vault,8fd5981002,2026-11-04,Claude,yes,"D01 history, technical note and daily TODO: both paths in parallel, two grippers ordered"
+msc-thesis-vault,b259ab6f0a,2026-11-04,Claude,yes,Remove mind map draft (not requested yet); keep Martyn's updates in Daily/2026-11-04
+msc-thesis-vault,839c271cca,2026-11-04,Claude,yes,"D01 mind map (Canvas + Markdown), Martyn's answers in Daily/2026-11-04"
+msc-thesis-vault,967afb1e3e,2026-11-03,Martyn,no,vault: 2026-11-03 16:27:01
+msc-thesis-vault,b0d079e398,2026-11-03,Martyn,no,vault backup: 2026-11-03 16:24:16
+msc-thesis-vault,bddd5a6761,2026-11-03,Claude,yes,"Daily: end-of-day summary for 2026-11-03, TODO list for 2026-11-04"
+msc-thesis-vault,ea08ae6343,2026-11-03,Martyn,yes,D10: CAD rebuilt from the official STEP; stroke from rack stops
+msc-thesis-vault,23fc71cc64,2026-11-03,Martyn,yes,D10: evidence from the official Dex1-1 STEP
+msc-thesis-vault,8d124007a9,2026-11-03,Martyn,yes,"Dex1-1 technical note: wiring from the official docs figures, official URDF travel"
+msc-thesis-vault,da4f22aa2f,2026-11-03,Martyn,no,vault backup: 2026-11-03 15:14:01
+msc-thesis-vault,fb162fe0b4,2026-11-03,Martyn,no,vault backup: 2026-11-03 15:03:58
+msc-thesis-vault,76f078fe44,2026-11-03,Martyn,no,vault backup: 2026-11-03 14:53:55
+msc-thesis-vault,9d8ac8cd0a,2026-11-03,Martyn,no,vault backup: 2026-11-03 14:43:52
+msc-thesis-vault,7e21f05360,2026-11-03,Martyn,no,vault backup: 2026-11-03 14:23:48
+msc-thesis-vault,f9759f7548,2026-11-03,Claude,yes,D03/D04 updates from supervisor meeting; Dex1-1 and PICO trigger notes
+msc-thesis-vault,6f2ac0f7b5,2026-11-03,Martyn,no,vault backup: 2026-11-03 13:23:38
+msc-thesis-vault,ba07894da7,2026-11-03,Martyn,no,vault backup: 2026-11-03 13:13:35
+msc-thesis-vault,6489f9aed2,2026-11-03,Martyn,no,vault backup: 2026-11-03 13:03:31
+msc-thesis-vault,5cfba54e77,2026-11-03,Martyn,no,vault backup: 2026-11-03 12:53:28
+msc-thesis-vault,e26f72a26c,2026-11-03,Martyn,no,vault backup: 2026-11-03 12:43:25
+msc-thesis-vault,5429adcca3,2026-11-03,Martyn,no,vault backup: 2026-11-03 12:33:22
+msc-thesis-vault,177e940429,2026-11-03,Martyn,no,vault backup: 2026-11-03 12:23:19
+msc-thesis-vault,ef22b1ce81,2026-11-03,Martyn,no,vault backup: 2026-11-03 12:13:16
+msc-thesis-vault,c5236119e2,2026-11-03,Martyn,no,vault backup: 2026-11-03 12:03:13
+msc-thesis-vault,9be66ff942,2026-11-03,Martyn,no,vault backup: 2026-11-03 11:53:10
+msc-thesis-vault,3c7bc6e655,2026-11-03,Martyn,no,vault backup: 2026-11-03 11:43:05
+msc-thesis-vault,48fbea8a02,2026-11-03,Claude,yes,Add meeting note with questions for VR teleop intern
+msc-thesis-vault,99c04353cc,2026-11-02,Claude,yes,Agent research: research gaps for handheld vs VR-teleop comparison
+msc-thesis-vault,3fed60dcc1,2026-11-02,Martyn,yes,Research: how UMI-style handhelds open and close the gripper
+msc-thesis-vault,7b6ad46e23,2026-11-02,Martyn,yes,D04: PICO 4 Ultra Enterprise confirmed
+msc-thesis-vault,bcd661ccff,2026-11-02,Martyn,yes,"D10: grip sleeve, LED constraint"
+msc-thesis-vault,af0cf46586,2026-11-01,Martyn,yes,"D10: controller as handle, index-finger lever"
+msc-thesis-vault,368121593b,2026-11-01,Martyn,yes,Record D10 Handheld mechanism; D01 history
+msc-thesis-vault,f4ffae8a8b,2026-10-28,Claude,yes,Handheld plan: record Martyn's answers to open questions
+msc-thesis-vault,42ece38d3b,2026-10-28,Claude,yes,Handheld plan: record passive-trigger choice
+msc-thesis-vault,b12b03e237,2026-10-28,Claude,yes,Add public CAD starting points to handheld plan
+msc-thesis-vault,ba1a5506dc,2026-10-28,Claude,yes,Agent report: handheld design start plan
+msc-thesis-vault,c08d6fc7ba,2026-10-24,Martyn,no,vault backup: 2026-10-24 13:45:01
+msc-thesis-vault,6406e0ac38,2026-10-24,Martyn,no,vault backup: 2026-10-24 13:34:57
+msc-thesis-vault,834d63f349,2026-10-24,Martyn,no,vault backup: 2026-10-24 13:24:52
+msc-thesis-vault,dd929b4926,2026-10-24,Martyn,no,vault backup: 2026-10-24 13:14:46
+msc-thesis-vault,1c73e42365,2026-10-24,Martyn,no,vault backup: 2026-10-24 13:04:40
+msc-thesis-vault,64e5f698ca,2026-10-24,Martyn,no,vault backup: 2026-10-24 12:44:35
+msc-thesis-vault,29f948fadb,2026-10-24,Martyn,no,vault backup: 2026-10-24 12:29:05
+msc-thesis-vault,2ffbd4e823,2026-10-24,Martyn Devin Somba,yes,"Home dashboard, Agent zone, human/machine rules, chapter status, daily next step"
+msc-thesis-vault,979a620668,2026-10-23,Martyn,no,vault backup: 2026-10-23 22:51:55
+msc-thesis-vault,539e381e67,2026-10-23,Martyn,no,vault backup: 2026-10-23 22:41:51
+msc-thesis-vault,33c3e7b649,2026-10-23,Martyn,no,vault backup: 2026-10-23 21:21:40
+msc-thesis-vault,0bc8a241f2,2026-10-23,Martyn,no,vault backup: 2026-10-23 21:11:36
+msc-thesis-vault,8c82029ce4,2026-10-23,Martyn,no,vault: 2026-10-23 21:07:27
+msc-thesis-vault,35ac95af0c,2026-10-23,Martyn,no,vault backup: 2026-10-23 21:01:12
+msc-thesis-vault,86c106c5fc,2026-10-23,Martyn Devin Somba,yes,Templates: switch back to Templater syntax
+msc-thesis-vault,48ee03086b,2026-10-23,Martyn Devin Somba,yes,"Initial vault: notes, decisions, templates, CLAUDE.md, record-decision skill"
+dex1-1-handheld,e97d2c447f,2026-11-23,Martyn,no,"Replay: progress line while computing, and Ctrl-C that works inside the team IK"
+dex1-1-handheld,31af490d4c,2026-11-23,Martyn,no,"ur10e_replay_rtde.py: allowed-box check before connecting, and --dry-run"
+dex1-1-handheld,fa883e067e,2026-11-23,Martyn,no,view_joint_log.py: play a URSim/robot joint log on the MuJoCo UR10e
+dex1-1-handheld,0867f71bb2,2026-11-23,Martyn,no,RL2: replay a controller recording against URSim or a UR controller over RTDE
+dex1-1-handheld,fc97c44ccc,2026-11-23,Martyn,no,"ur10e_replay.py: joint speed limit (default 0.3 rad/s, as the team's real-robot teleop)"
+dex1-1-handheld,4be889bb49,2026-11-23,Martyn,no,"pose_log.py: record controller takes, started and stopped with a controller button"
+dex1-1-handheld,59470b3303,2026-11-23,Martyn,no,"RL1 replay in MuJoCo: UR10e and H2 models, IK replay of a controller path"
+dex1-1-handheld,9e3d33f382,2026-11-22,Claude,yes,"Print queue and slicer notes: sleeve in use, dummy rear printed, Z hop, wall values"
+dex1-1-handheld,046fe491d6,2026-11-20,Claude,yes,Name the vault decision codes in reference notes
+dex1-1-handheld,f88b2c0f4f,2026-11-20,Claude,yes,Print queue: v23 sleeve printed; only the adapter test with inserts and screws remains
+dex1-1-handheld,69d1c7525a,2026-11-20,Claude,yes,controller-grip README: current sleeve state
+dex1-1-handheld,2af820408a,2026-11-20,Claude,yes,Sleeve: v23 front (plate 4) + v22 back (plate 1) + tape in use; closure survey deferred
+dex1-1-handheld,c9a423c6c5,2026-11-20,Claude,yes,Print queue: plate 4 (v23 front + v22 back) slicer project and fit result
+dex1-1-handheld,30aaf4d64e,2026-11-19,Claude,yes,"Logger: also log controller buttons, grip and joystick for the press-movement check"
+dex1-1-handheld,397c55e997,2026-11-19,Claude,yes,Trigger logger: also log the raw controller pose (G8 check)
+dex1-1-handheld,3a8a58d506,2026-11-19,Claude,yes,"Print queue: comfort, tracking and finger room good on v22 + tape; rod flex by hand small, weight check waits on the Dex1-1"
+dex1-1-handheld,8cccde66f4,2026-11-19,Claude,yes,"Trigger logger for value vs travel (resolution, dead zone, hysteresis)"
+dex1-1-handheld,53d55dfb04,2026-11-19,Martyn,yes,Print queue: v23 prints without brim; bed-hold checks
+dex1-1-handheld,429680eb40,2026-11-19,Martyn,yes,"Hardware docs: CAD stays local, real-adapter v14 and sleeve v22-v24 exports listed, print queue and slicer settings brought up to date"
+dex1-1-handheld,b77cac3d2d,2026-11-19,Claude,yes,Print queue: v23 sleeve item names the v22 back-half file
+dex1-1-handheld,7f210ae1e0,2026-11-19,Claude,yes,Print queue: sleeve v24 failed; next print v23 with plate 1 settings plus tape
+dex1-1-handheld,9520cf2997,2026-11-18,Claude,yes,Print queue: plate 2c results and sleeve v24 back-half offset variants
+dex1-1-handheld,147773c90b,2026-11-18,Claude,yes,Print queue: sleeve boss insert holes to 4.1 mm (controller-grip v23)
+dex1-1-handheld,a5660c734f,2026-11-18,Claude,yes,"Print queue: plate 2c printing, final settings"
+dex1-1-handheld,67af22c705,2026-11-18,Claude,yes,Print queue: plate 2c support only from build plate
+dex1-1-handheld,2958f8dcca,2026-11-18,Claude,yes,Print queue: plate 2c PETG only
+dex1-1-handheld,682b1efc33,2026-11-18,Claude,yes,Print queue: plate 2c slicer project for v14 clamp
+dex1-1-handheld,6329a34702,2026-11-18,Claude,yes,Print queue: plate 2b clamp failure and real-adapter v14 two-piece ring
+dex1-1-handheld,53b0e432bc,2026-11-17,Claude,yes,"Print queue: real-adapter v13 plate 2a/2b, no-brim rule, PETG preset saved"
+dex1-1-handheld,d7fb5c9375,2026-11-17,Claude,yes,Print queue: sleeve repeatability result (manual alignment needed)
+dex1-1-handheld,3f5ec0a551,2026-11-17,Claude,yes,"Print queue: sleeve A v22 PETG results (drying, fit, 20-cycle test passed)"
+dex1-1-handheld,9cfc582f1c,2026-11-17,Martyn,no,PRINT-TEST-QUEUE §3: insert-hole coupon measurements
+dex1-1-handheld,6d6058384e,2026-11-16,Martyn,yes,"Slicer baseline: Bambu Studio 0.20mm Standard @BBL H2S, with the changes used"
+dex1-1-handheld,604879167f,2026-11-16,Claude,yes,Print queue: real-adapter v10 uses 4 x M3 x 35; ignore real-adapter print iterations
+dex1-1-handheld,247e78508a,2026-11-16,Martyn,no,PRINT-TEST-QUEUE §3: insert-hole measurement and coupon
+dex1-1-handheld,59034548af,2026-11-16,Martyn,no,PRINT-TEST-QUEUE §3: rear section cut in Fusion
+dex1-1-handheld,d52840a121,2026-11-16,Martyn,no,PRINT-TEST-QUEUE §3: print only the dummy rear section
+dex1-1-handheld,b8ae783f24,2026-11-16,Martyn,no,Add real-adapter v9 source CAD; ignore derived exports
+dex1-1-handheld,1e5c1315ad,2026-11-12,Claude,yes,"Dummy shell: shape-only Dex1-1 in four glue-on parts (script, README, checksums)"
+dex1-1-handheld,f32681eb83,2026-11-11,Claude,yes,Add .gitignore (rules carried over from msc-thesis)
+dex1-1-handheld,adeda8786b,2026-11-11,Claude,yes,"Print queue §3: ruthex RX-M3x5.7 as the insert being bought, lab tip set"
+dex1-1-handheld,9a9cdf9b3c,2026-11-10,Claude,yes,"Print queue §3 and dummy README: exact M3 screw lengths from Fusion (rear mount M3x25 no nut, clamp ring M3x16 + nut)"
+dex1-1-handheld,0eac66acfb,2026-11-10,Claude,yes,Print queue: v21 was sliced with Arachne (Martyn)
+dex1-1-handheld,9ed8bb18c4,2026-11-10,Claude,yes,"Thesis plan §7: grip sleeve A v21 kept, hinge-hook dropped; queue slicer note"
+dex1-1-handheld,d302abe412,2026-11-10,Claude,yes,"Grip sleeve A v21: v20, hinge-hook rings and v21 results; README and checksums for v21"
+dex1-1-handheld,e70a274ac0,2026-11-10,Claude,yes,Print queue: close the pre-print grip width and LED checks
+dex1-1-handheld,91f97a354c,2026-11-10,Claude,yes,"Grip sleeve A v20: A2 seam over full length; README, checksums, queue, plan §7"
+dex1-1-handheld,0984332409,2026-11-09,Claude,yes,"Print queue: ring A3 result, A2 chosen"
+dex1-1-handheld,680653b94a,2026-11-09,Claude,yes,Print queue: ring A3
+dex1-1-handheld,f672a501fa,2026-11-09,Claude,yes,Print queue: seam ring results (A2 best)
+dex1-1-handheld,0f205b6cbc,2026-11-09,Claude,yes,UDP trigger link: XRoboToolkit trigger sender (Linux) and --udp mode for the Dex1-1 sim
+dex1-1-handheld,c7b1232f43,2026-11-09,Claude,yes,Print queue: seam ring test A0-A2
+dex1-1-handheld,6e74dbd6b2,2026-11-09,Claude,yes,Run script for the Dex1-1 MuJoCo sim
+dex1-1-handheld,b5ea4993f8,2026-11-09,Claude,yes,"Print queue: PLA fit result for sleeve A, drop variant B; ignore print-files/"
+dex1-1-handheld,7dcc5164e0,2026-11-09,Claude,yes,"Dex1-1 in MuJoCo from the official URDF, driven by a trigger value 0-1"
+dex1-1-handheld,63123741ec,2026-11-09,Claude,yes,Grip sleeve: README and checksums for the v19 STL exports; ignore files/
+dex1-1-handheld,e10a35c53a,2026-11-06,Martyn,yes,"Sleeve: local relief near the boss, insert boss y 53-69 with 7 mm holes; relief sections"
+dex1-1-handheld,46a9407282,2026-11-06,Martyn,yes,Dummy Dex1-1 for test prints; clamp ring corrected to the 49 mm motor housing
+dex1-1-handheld,188732896a,2026-11-05,Claude,yes,Print queue: mark copy-mechanism section as frozen fallback (D01 work order)
+dex1-1-handheld,2b745225a4,2026-11-04,Martyn,yes,"Print queue: bow-to-sleeve screw joint, fit check near the boss"
+dex1-1-handheld,6574022bdc,2026-11-04,Martyn,yes,Print queue: real adapter v2 (knuckle bow)
+dex1-1-handheld,e0c31167fb,2026-11-04,Martyn,yes,Print queue: real adapter v1
+dex1-1-handheld,30349c1199,2026-11-04,Martyn,yes,Print queue: real-Dex1-1 adapter checks
+dex1-1-handheld,a175ddba25,2026-11-04,Martyn,yes,Print queue: barb lead-in added
+dex1-1-handheld,611978321e,2026-11-03,Martyn,yes,Reference README: part files without linked reference
+dex1-1-handheld,e15efe4062,2026-11-03,Martyn,yes,"Fusion file structure v2: renamed parts, assemblies per D01 path"
+dex1-1-handheld,812cb5abf3,2026-11-03,Martyn,yes,"Dex1-1 reference: files rebuilt from the official STEP, stroke and gear phase; print queue"
+dex1-1-handheld,cecc7b6c69,2026-11-03,Martyn,yes,Dex1-1 reference README: unitree_ros meshes removed from dex1-1-ref
+dex1-1-handheld,eb099b80ce,2026-11-03,Martyn,yes,"Dex1-1 reference: official STEP in Fusion, placement and comparison"
+dex1-1-handheld,18652a6f67,2026-11-03,Martyn,yes,Sort Dex1-1 reference files: official docs vs unitree_ros
+dex1-1-handheld,67eb5f1110,2026-11-02,Martyn,yes,Print queue: housing
+dex1-1-handheld,31e87b2d7d,2026-11-02,Martyn,yes,Hardware print and test queue
+dex1-1-handheld,5f355223b0,2026-11-02,Martyn,yes,"Sleeve sections: variants A (barbed tongue, 3.5 mm wall) and B (edge hooks)"
+dex1-1-handheld,bf0d8a6c43,2026-11-02,Martyn,yes,"Plan: PICO 4 Ultra Enterprise confirmed, handheld grip decision; scan README"
+dex1-1-handheld,872b245f46,2026-11-02,Martyn,yes,Sleeve sections: tongue and groove rings for the seam
+dex1-1-handheld,9bb34318e8,2026-11-02,Martyn,yes,Grip-sleeve section generator and its output
+dex1-1-handheld,e96cb8d5c2,2026-11-02,Martyn,yes,"Add PICO 4 Ultra Glock shell reference (README, checksums; STL not in Git)"
+dex1-1-handheld,c3bbf1ee9b,2026-11-01,Martyn,yes,Controller scan: reduction script and note on the Fusion copy
+dex1-1-handheld,bbf8d55bb6,2026-11-01,Martyn,yes,"Add PICO 4 Ultra controller scan reference (README, licence, checksum; STL not in Git)"
+dex1-1-handheld,5495573773,2026-10-28,Claude,yes,Add Dex1-1 reference geometry from unitree_ros
+dex1-1-handheld,9e388ad132,2026-10-23,Martyn Devin Somba,yes,"Initial thesis repository: structure, conventions, h_da LaTeX template"

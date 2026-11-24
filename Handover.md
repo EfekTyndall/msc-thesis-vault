@@ -38,6 +38,7 @@ Git history and GitHub:
 - [ ] 43 commits authored by `Claude <noreply@anthropic.com>` and 66 `Co-Authored-By: Claude` lines on `main` (count of 2026-11-22, weekly audit; was 34 and 55 on 2026-11-19; re-count with step 1). The step 1 author grep also matches merge subjects naming `claude/…` branches (68 lines in all)
 - [ ] Commit messages with vault or thesis references, e.g. 046fe49 "Name the vault decision codes in reference notes", f32681e "(rules carried over from msc-thesis)", 9ed8bb1 "Thesis plan §7: …", 1887328 "(D01 work order)", e15efe4 "assemblies per D01 path" (found 2026-11-22; dropped with a history rewrite or a fresh repository)
 - [ ] PR history: PRs #1–#15 (count of 2026-11-22) came from `claude/…` and similar branches; PR titles and bodies stay on GitHub
+- [ ] Before any history rewrite: regenerate the AI-assisted commit list (`Agent/Reports/2026-11-24 AI-assisted commits.csv`) as evidence for the thesis AI register ([[2026-11-24 AI use register]])
 - [ ] Decide: rewrite history (`git filter-repo` for authors and message lines) or hand over a fresh repository with one initial commit. A fresh repository drops both the history and the PR list
 
 Local-only files on the Mac (never in Git, never in a zip of the folder):
