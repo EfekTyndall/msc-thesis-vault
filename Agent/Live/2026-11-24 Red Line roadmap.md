@@ -67,7 +67,7 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 
 | Item | Tag | Where |
 | --- | --- | --- |
-| RL4 procedure: find the Robotiq driver in the team repo, write the steps | 🔴 blocks next step | Daily TODO |
+| RL4 procedure: find the Robotiq driver in the team repo, write the steps (written 2026-11-24: [[2026-11-24 RL4 Robotiq pick-and-place procedure]]; choices wait for Martyn) | 🔴 blocks next step | Daily TODO |
 | Gripper program, Robotiq plug (one shared trigger program + a plug per gripper; team driver = open/close); this is the SwapKit gripper plug, option A of [[D07 Software and data format]] | 🔴 blocks next step | Daily TODO (RL4) |
 | D09 (calibration) fingertip offset for the replay | 🔴 blocks next step | Daily TODO (RL4) |
 | G2 (trigger-to-gripper mapping), stage 1: binary on the Robotiq | 🔴 blocks next step | Daily TODO |
