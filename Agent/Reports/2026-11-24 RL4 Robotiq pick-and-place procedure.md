@@ -4,7 +4,11 @@ tags: [report, replay-ladder, procedure, safety, robotiq]
 ---
 # RL4 (Robotiq pick-and-place during replay): procedure
 
-RL4 adds the gripper to the replay: the recorded trigger opens and closes the Robotiq 2F-85 while the UR10e replays the handheld movement, first in the air, then as one pick-and-place of a light, soft object. Scope agreed 2026-11-24: binary open/close only; G2 (trigger-to-gripper mapping) is decided in RL6 (swap to the Dex1-1). The Robotiq plug of SwapKit option A ([[D07 Software and data format]]) is built here. Earlier steps: [[2026-11-23 RL3 real UR10e replay procedure]].
+RL4 adds the gripper to the replay: the recorded trigger opens and closes the Robotiq 2F-85 while the UR10e replays the controller movement, first in the air, then as one pick-and-place of a light, soft object. Scope agreed 2026-11-24: binary open/close only; G2 (trigger-to-gripper mapping) is decided in RL6 (swap to the Dex1-1). The Robotiq plug of SwapKit option A ([[D07 Software and data format]]) is built here. Earlier steps: [[2026-11-23 RL3 real UR10e replay procedure]].
+
+**Change 2026-11-24 (Martyn): RL4 uses the bare PICO controller, without the handheld prototype.** The "fingertip" is then a chosen point on the controller, and its offset from the tracked point is measured with a pivot test (step 0.1), not read from CAD.
+
+Read on the pendant (Martyn, 2026-11-24): TCP (X, Y, Z) = 0, 0, 174 mm, rotation 0, 0, 0 (matches the team IK value 0.174 m); payload 1.770 kg, centre of gravity (9, 26, 40) mm.
 
 ## 1. The team's Robotiq driver (checked 2026-11-24)
 
@@ -42,7 +46,7 @@ Martyn can only reach the table in front of the robot; every step below is done 
 
 | # | Item | Who | How it is checked |
 | --- | --- | --- | --- |
-| 0.1 | D09 (calibration) tip offset: controller tracked point → dummy Dex1-1 fingertip midpoint, from the Fusion assembly, saved as a versioned file | Claude reads Fusion (the Fusion connection failed on 2026-11-24, retry), Martyn confirms | The PICO's tracked point inside the controller is not published (unverified, [[D09 Calibration]] "Revisit if"). Optional check without CAD: pivot test, fingertip held on one point while the handheld is tilted around it; the point that stays still gives the offset ([Yaniv 2015](https://doi.org/10.1117/12.2081348), not in bib). |
+| 0.1 | Tip offset for the bare controller: pick one clearly visible point on the controller as the tip (marked with a sticker); pivot test: that point rests in a small dimple on the table while the controller is tilted around it for about 30 s, recorded with `pose_log.py`; a least-squares fit gives the point's offset from the tracked point, saved as a versioned file ([Yaniv 2015](https://doi.org/10.1117/12.2081348), not in bib) | Martyn records, Claude fits | Fit residual (RMS, mm) reported; a second pivot take must give the same offset within a few mm. The same fit later locates the PICO tracked point for D09 (calibration) of the handheld, which is unpublished ([[D09 Calibration]] "Revisit if"). |
 | 0.2 | Robot tool point: read PolyScope Installation > TCP; must match 0.174 m | Martyn at the pendant | Number written in this note |
 | 0.3 | Height of the fingertip above the table at HOME_Q (team comment says ≈ 0.25 m) | Martyn, ruler | Number written in this note; sets the allowed box in step 4 |
 | 0.4 | PR merged (plug, settings file, replay change), dry run on the Mac with a synthetic take | Claude, Martyn merges | MuJoCo replay prints the gripper events at the right times |
@@ -66,14 +70,14 @@ As written in the Daily TODO of [[2026-11-24]] (station Jetson, `trigger_log.py`
 
 ### Step 4. RL4b: one pick-and-place
 
-**Table layout** (agreed 2026-11-20, [[2026-11-20 Interim hardware while the Dex1-1 is delayed]]): tape outlines for the pick spot and the place spot, about 10 cm apart, both within reach from the table side and of the robot. The handheld must start at the same point as the robot's fingertip at HOME_Q, which is in the air. Proposal: a **start stand**, a box of the height from 0.3 with a cross on top, placed on a taped outline under the robot's fingertip at HOME_Q; the handheld's fingertip starts on the cross; the stand is removed before each replay (same idea as ActiveUMI's docking jig, zeng2025 Sec. 3.3).
+**Table layout** (agreed 2026-11-20, [[2026-11-20 Interim hardware while the Dex1-1 is delayed]]): tape outlines for the pick spot and the place spot, about 10 cm apart, both within reach from the table side and of the robot. The controller tip must start at the same point as the robot's fingertip at HOME_Q, which is in the air. Proposal: a **start stand**, a box of the height from 0.3 with a cross on top, placed on a taped outline under the robot's fingertip at HOME_Q; the controller tip starts on the cross; the stand is removed before each replay (same idea as ActiveUMI's docking jig, zeng2025 Sec. 3.3).
 
 **Object:** light and soft, about 5–6 cm tall and narrower than 7 cm (for example a foam block or sponge), so a wrong height or a hard close cannot damage the gripper or table.
 
 **Allowed box:** the pick needs the tip to go down almost to the table, more than the RL3 limit of 5 cm. Proposal: allowed depth = fingertip height above the table at HOME_Q (0.3) minus 3 cm, so the tip stays at least 3 cm above the table; set with `--box 0.15 <depth> 0.15`. Sideways and up limits unchanged.
 
 1. Recentre the headset while facing the robot squarely (the replay assumes the operator faced the robot at recentre, [[2026-11-23 RL1 replay in MuJoCo first run]]).
-2. Object on the pick outline. Handheld fingertip on the start-stand cross; press A to start; move to the object, squeeze, lift about 5 cm, move to the place outline, lower, release, lift away; press A to stop.
+2. Object on the pick outline. Controller tip on the start-stand cross; press A to start; move to the object, squeeze, lift about 5 cm, move to the place outline, lower, release, lift away; press A to stop.
 3. Mac dry run (box check, gripper events). Remove the start stand; object back on the pick outline; robot at HOME_Q.
 4. Replay on the robot as in step 3, with the new `--box` depth.
 5. Repeat the replay three times with the same take, putting the object back on the pick outline each time.
