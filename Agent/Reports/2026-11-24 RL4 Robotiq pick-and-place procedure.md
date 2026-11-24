@@ -112,3 +112,20 @@ As written in the Daily TODO of [[2026-11-24]] (station Jetson, `trigger_log.py`
 - Start stand, object size, allowed depth and the three-run pass rule are proposals; Martyn decides.
 - The Robotiq position step in mm and the grip force at setting 100 are not checked in the manual (unverified); not needed for open/close.
 - Tip offset file format and version naming follow D09 (calibration); defined in the PR.
+
+## 5. Forward-pointing start pose HOME_FWD (2026-11-24, simulation only)
+
+Reason (Martyn, 2026-11-24): on the handheld the gripper sits in front of the controller and points forward, so the robot must start with the Robotiq pointing the same way: toward the robot base, level, jaws closing left–right. Same orientation at the start keeps the approach to the object the same (relative actions only carry changes from the start, [[D07 Software and data format]]).
+
+Computed with the team's UR10e model (`assets/ur10e/ur10e.urdf`, Pinocchio, TCP 0.174 m), fingertip at the same point as at HOME_Q: (−0.174, 0.692, 0.240) m in the pendant's base frame.
+
+| | Base | Shoulder | Elbow | Wrist 1 | Wrist 2 | Wrist 3 |
+| --- | --- | --- | --- | --- | --- | --- |
+| HOME_Q (team, tool down) | −90.0° | −84.1° | 111.2° | −117.1° | −90.0° | 0.0° |
+| HOME_FWD (proposal) | −90.0° | −41.6° | 65.1° | −23.5° | −90.0° | −180.0° or 90.0° |
+
+- Tool axis points from the fingertip toward the base (−y of the base frame), level. Wrist 3 decides the jaw direction: which of −180° / 90° gives left–right jaws depends on how the Robotiq is turned on the flange (not known); check by eye on the robot.
+- Reach: all 27 corners and midpoints of a 20 cm cube around the start solved; largest joint change 33° (elbow); no near-singular pose (smallest singular value 0.25).
+- The wrist sits about 0.98 m from the base, 0.29 m closer to the operator than the fingertip, at 0.24–0.36 m height. To be checked against where the operator stands; moving the start 10–15 cm toward the base is possible.
+- Open, direction mapping: the team code maps the operator's "forward" to base +y (`BASE_YAW = π/2`), i.e. away from the base. If the operator faces the base, forward hand motion would move the robot away. RL3 compared the robot with the simulation, not with the hand, so this was not checked. To be checked before RL4 with a 10 cm push toward the robot.
+- How to set it: on the pendant in Local mode, Move → joint values as above at low speed, look at the jaws, then save as its own program "HOME_FWD". The replay code takes the start pose from the settings file.
