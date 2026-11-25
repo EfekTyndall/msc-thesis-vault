@@ -144,9 +144,25 @@ Run command on the Jetson (from `~/dex1-1-handheld`):
 ```
 Next: V2–V4 at the robot (section 6), with fractal-pc not connected.
 
+## 9. Real-robot run from the Jetson: passed (Martyn, 2026-11-25, ≈18:00 CET)
+
+Take-01, command of section 8, fractal-pc not connected. Logs: Jetson `~/rl4-take-01-jetson.csv`, `~/rl4-take-01-jetson-gripper.csv` (not in Git); reference fractal-pc `~/rl2-test/rl4-take-01-hyst.csv` and `-gripper.csv`. Compared on the Mac (numpy).
+
+| Check (section 6) | fractal-pc | Jetson | Pass |
+| --- | --- | --- | --- |
+| Commanded joints | — | identical, max difference 8.9×10⁻¹⁶ rad | yes |
+| Tracking target vs actual TCP (from the logs) | RMS 6.48, max 21.83, end 0.02 mm | RMS 6.49, max 22.21, end 0.04 mm | yes (within 1 mm) |
+| Actual robot path, Jetson run vs fractal-pc run | — | TCP difference max 0.73 mm, RMS 0.15 mm (joints max 1.0×10⁻³ rad) | — (repeatability of the arm) |
+| Highest actual joint speed (script printout) | 0.32 rad/s | 0.32 rad/s | same (the 0.3 rad/s limit is on the commands; the measured arm briefly overshoots in both runs) |
+| Loop | 3922 ticks, 31.4 s, longest tick 9.3 ms | 3922 ticks, 31.5 s, longest tick 9.3 ms | yes |
+| Gripper commands | close 13.34 / open 15.94 / close 18.50 / open 21.21 / close 24.57 / open 25.82 s | close 13.36 / open 15.92 / close 18.53 / open 21.19 / close 24.56 / open 25.81 s | yes (same 6, each within 33 ms) |
+| Command → first finger movement | 50 ms | 50 ms (one 20 Hz poll) | yes |
+
+**Jetson Move passed.** The station Jetson replaces fractal-pc for real-robot replay with the gripper; fractal-pc is no longer needed at the robot.
+
 ## Open
 
-- ~~Martyn's go for J1–J6~~ done 2026-11-25 (section 8). V3/V4 (real-robot run from the Jetson and log comparison) open.
+- ~~Martyn's go for J1–J6~~ done 2026-11-25 (section 8). V3/V4 passed 2026-11-25 (section 9).
 - Who set up `orin-new-hotspot` on the Jetson Wi-Fi (side finding).
 - ~~Option B only if J6 says so.~~ J6: not needed (47 s).
 

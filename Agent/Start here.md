@@ -43,7 +43,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 - [[2026-11-10 Research gaps from the PICO sim test]] (research, wide): gaps G1–G9 (trigger, force cap and others)
 
 **Step 2, RL5 (D435i + recorder)**
-- [[2026-11-25 Jetson Move replay install plan]] (report): Jetson Move, moving the real-robot replay from fractal-pc to the station Jetson before RL5; inventory, install steps J1–J6 (awaiting Martyn's go), fractal-pc vs Jetson comparison of take-01
+- [[2026-11-25 Jetson Move replay install plan]] (report): Jetson Move, moving the real-robot replay from fractal-pc to the station Jetson before RL5; inventory, installed and passed 2026-11-25 (Jetson replays take-01 like fractal-pc)
 - [[2026-11-19 Station Jetson camera install plan]] (report)
 - [[2026-11-17 Station Jetson setup and install plan]] (report): current Jetson setup, clock sync
 - [[2026-11-16 Station Jetson check]] and [[2026-11-17 Station Jetson SD card check]] (reports): disk and board checks, open item 3 in Waiting
