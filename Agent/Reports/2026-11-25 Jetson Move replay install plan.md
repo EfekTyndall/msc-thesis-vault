@@ -124,10 +124,30 @@ Read from `xr_teleoperate` 7e6c754 (Mac clone); the team Jetson itself was not a
 
 Effect on the plan: the team precedent is conda on the Jetson; J2 now uses Miniforge (changed 2026-11-25, see the short version). Martyn (2026-11-25): own research found no other route, so the team's ur_rtde was most likely built from source; not confirmed with Yanmei (optional question).
 
+## 8. Installed after Martyn's go (2026-11-25, "Let's do the move. I give you the go", ≈17:15 CET)
+
+| Step | Result | How checked |
+| --- | --- | --- |
+| J1 (update our code) | `~/dex1-1-handheld` b055f3f → 1f90bd0 | `git log -1` |
+| J2 (conda env) | Miniforge 26.9.4-2 (`Miniforge3-Linux-aarch64.sh`, 129,818,628 bytes, sha256 `1adf18b5…98d94c8` = GitHub release digest) in `~/miniforge3`; `auto_activate` off, no `conda init` (`~/.bashrc` unchanged). Env `replay`: Python 3.10.22, numpy 1.24.4, pinocchio 4.1.0, casadi 3.7.2, libboost-devel 1.90.0, cmake (conda-forge), mujoco 3.17.0 (pip). Same versions as fractal-pc `ursim-replay` | import test prints versions |
+| J3 (ur_rtde) | `pip install ur_rtde==1.6.6` built from source in **127 s**, no errors; modules link no Boost library dynamically. **Receive-only** check against the robot: 6 joint angles read (`[-90.1, -83.7, 111.6, -117.1, -90.1, 0.1]` deg), robot mode 7 (running), safety mode 1 (normal); nothing sent to the robot | `rtde_receive.RTDEReceiveInterface("10.36.11.3")` |
+| J4 (team code) | `~/team/xr_teleoperate` at 7e6c754, clean, 429 MB (rsync from the Mac) | `git log -1`, `git status` |
+| J5 (robot models) | Menagerie 370c439 (UR10e, Robotiq 2F-85), unitree_mujoco 1eb6642; 66 MB | `fetch_models.sh` output |
+| J6 (speed test) | Precompute of take-01 on the Jetson (30 W mode): **46.4 s for 3921 ticks (11.8 ms per tick)**; fractal-pc ≈20 ms per solve, Mac M4 8.3 ms. Full dry run with the RL4 command (`--box 0.22 0.05 0.15`): 47 s wall time, floor check PASSED, 201 mm horizontal within 220 mm. Decision rule of section 3: **option A** (full script on the Jetson) | `date` around the run |
+| V1 (desk comparison) | Jetson joint commands vs the `q_cmd` columns of fractal-pc's real-robot log `rl4-take-01-hyst.csv`: **max difference 8.9×10⁻¹⁶ rad** (median 4.4×10⁻¹⁶), i.e. identical to rounding. IK error max 3.3 mm, 0 IK failures of 3921, gripper events identical to the Mac and fractal-pc (close 13.33 / open 15.91 / close 18.50 / open 21.18 / close 24.54 / open 25.78 s) | comparison script in `/tmp` (not in the repo) |
+
+Disk: `/` free 30 GB → 27 GB (`~/miniforge3` 2.2 GB). Miniforge installer left in `~/Downloads` (130 MB, can be deleted).
+
+Run command on the Jetson (from `~/dex1-1-handheld`):
+```
+~/miniforge3/envs/replay/bin/python software/sim/ur10e_replay_rtde.py --csv ~/pose-log-20261125-150606/take-01/raw.csv --setup software/config/rl4_robotiq.json --robot 10.36.11.3 --team ~/team/xr_teleoperate --box 0.22 0.05 0.15 --log ~/rl4-take-01-jetson.csv
+```
+Next: V2–V4 at the robot (section 6), with fractal-pc not connected.
+
 ## Open
 
-- Martyn's go for J1–J6 (dependencies on the shared Jetson).
+- ~~Martyn's go for J1–J6~~ done 2026-11-25 (section 8). V3/V4 (real-robot run from the Jetson and log comparison) open.
 - Who set up `orin-new-hotspot` on the Jetson Wi-Fi (side finding).
-- Option B only if J6 says so.
+- ~~Option B only if J6 says so.~~ J6: not needed (47 s).
 
 Sources: PyPI file lists and the ur_rtde 1.6.6 source package (read 2026-11-25); team code `xr_teleoperate` 7e6c754; measurements on the Mac, fractal-pc and the Jetson as listed. No deep research used.
