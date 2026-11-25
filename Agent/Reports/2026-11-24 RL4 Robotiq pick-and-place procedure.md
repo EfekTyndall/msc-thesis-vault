@@ -238,4 +238,14 @@ Checks on the Mac (take-01, conda env `humanoid`):
 
 Also fixed: the "command → finger movement" printout only counts movement before the next command. Re-read of the real log with it: 56–57 ms for the six normal commands; the flicker commands show 0 ms or none because the fingers were already moving.
 
-Open: the new rule has not run on the real robot; one re-run of take-01 on the UR10e would confirm 6 commands there.
+**Real-robot re-run with the new rule (Martyn, 2026-11-25, ≈15:45 CET; merged as dex1-1-handheld PR #23).** Take-01, same command as section 12 plus `--log ~/rl2-test/rl4-take-01-hyst.csv`; dry run first.
+
+| Check | Result |
+| --- | --- |
+| Gripper commands | 6 (plus the start-open), at 13.34 / 15.95 / 18.50 / 21.21 / 24.57 / 25.82 s; simulation 13.38 / 15.96 / 18.54 / 21.22 / 24.58 / 25.82 s (each within 40 ms); **no flicker at 21 s** |
+| Command → first finger movement | 50 ms for all six. Since this PR the command time is logged before the network write (before: after it, giving 56–63 ms) and the width is read at 20 Hz, so the value is the poll period: the fingers start moving within one 50 ms poll |
+| Robot tracking (target vs actual TCP) | RMS 6.5 mm, max 21.8 mm, 0.0 mm at the end (section 12: 6.5 / 22.3 mm) |
+| Highest actual joint speed | 0.30 rad/s (limit 0.3) |
+| Loop | 3922 ticks in 31.5 s, longest tick 9.4 ms |
+
+Logs: fractal-pc `~/rl2-test/rl4-take-01-hyst.csv`, `~/rl2-test/rl4-take-01-hyst-gripper.csv` (not in Git). **Hysteresis confirmed on the real robot.** For a finer command-to-movement delay (G3 (squeeze-to-finger delay)), the width would have to be read faster than 20 Hz.
