@@ -24,8 +24,8 @@ Tags are relative to the step the item sits in. When a step becomes current, its
 flowchart TD
   H["Handheld prototype<br/>sleeve + adapter<br/>(built, inserts pending)"]:::done
   R13["RL1–RL3: replay in MuJoCo,<br/>URSim, real UR10e<br/>(passed 23 Nov)"]:::done
-  R4["1. RL4: Robotiq pick-and-place<br/>+ trigger tests<br/>NOW"]:::now
-  R5["2. RL5: D435i + recorder<br/>(sync test)"]:::next
+  R4["1. RL4: Robotiq open/close<br/>(passed 25 Nov)"]:::done
+  R5["2. RL5: D435i + recorder<br/>(sync test)<br/>NOW"]:::now
   EX["3. Export to LeRobot"]:::later
   DX(["Dex1-1 delivery<br/>late Dec – early Jan, unconfirmed"]):::ext
   R6["4. RL6: swap to the Dex1-1<br/>RS-485, G9, final G2"]:::later
@@ -65,7 +65,7 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 ### 1. RL4: Robotiq open/close during replay (sim, then real) — PASSED 2026-11-25
 
 Scope changed 2026-11-25 (Martyn): no pick; handheld episode replayed in simulation first, then slowly on the real UR10e with the Robotiq opening and closing; pick-and-place proposed for RL6 ([[2026-11-24 RL4 Robotiq pick-and-place procedure]], section 8).
-**Needs first:** RL3 passed ✓. **Unlocks:** RL5 (a working gripper command in the replay), the first real-gripper trigger data. **Status:** not started.
+**Needs first:** RL3 passed ✓. **Unlocks:** RL5 (a working gripper command in the replay), the first real-gripper trigger data. **Status:** passed 2026-11-25; G1 (trigger value vs travel) and G8 (press test) carried into the daily TODO.
 
 | Item | Tag | Where |
 | --- | --- | --- |
@@ -106,7 +106,7 @@ Scope changed 2026-11-25 (Martyn): no pick; handheld episode replayed in simulat
 | RS-485-to-USB adapter (box first, else Storefront) | 🔴 blocks next step | [[Waiting]], Purchases |
 | Delivery check list (stroke, version, back-drive, latency, mass, power, motor IDs) | 🔴 blocks next step | [[Waiting]], Dex1-1 delivery |
 | G9 (force limit on contact): gauge tests, choose the limit | 🔴 blocks next step | [[Waiting]], Dex1-1 delivery |
-| G2 stage 2: proportional vs binary, final choice | 🔴 blocks next step | Daily TODO (G2) |
+| G2 stage 2: proportional vs binary, final choice | 🔴 blocks next step | [[Waiting]], Dex1-1 delivery |
 | Gripper program, Dex1-1 plug: against a mock just before delivery, then real; RL6 is the first real SwapKit plug swap (Robotiq to Dex1-1) | 🟠 important | [[Waiting]], Dex1-1 delivery |
 | Real-adapter checks, bow flex check (decides adapter material, before the freeze) | 🟠 important | [[Waiting]], Dex1-1 delivery |
 | Cable clip; 3–5 m cable and balancer | 🟠 important | [[Waiting]] |

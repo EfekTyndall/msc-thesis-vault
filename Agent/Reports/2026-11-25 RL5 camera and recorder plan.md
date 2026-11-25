@@ -73,7 +73,7 @@ One Python program on the station Jetson, written against fixed interfaces so th
 | Step | Where | What | Installs | Check (pass if) |
 | --- | --- | --- | --- | --- |
 | R1 (read-only look) | Jetson, Pi over SSH | Is the streamer running? Port 5555 open? Pi: `chronyc tracking` (whom it follows); Jetson: `timedatectl`, htpdate status; disk free | none | Facts written into this note §1 |
-| R2 (desk code) | Mac | Recorder (camera plug for the ZMQ stream, XR source, MCAP writer) with `--fake` sources as in `pose_log.py`; wall-clock column + RTDE timestamp in the replay log; analysis script for S2/S3 (cross-correlation) tested on simulated data with a known shift | Mac only, in the existing env (mcap, pyzmq: Martyn's go) | Simulated 40 ms shift recovered within 1 ms |
+| R2 (desk code) | Mac | Recorder (camera plug for the ZMQ stream, XR source, MCAP writer) with `--fake` sources as in `pose_log.py`; wall-clock column + RTDE timestamp in the replay log; analysis script for S2/S3 (cross-correlation) tested on simulated data with a known shift | Mac only: `mcap` into the existing conda env (Martyn's go); `pyzmq` is already in `mujoco-lab` | Simulated 40 ms shift recovered within 1 ms |
 | R3 (installs + clock check) | Jetson | `pip install pyzmq mcap opencv-python-headless` into `~/venvs/xrobotoolkit`; 10 min clock check: Pi–Jetson offset by a small round-trip script (no install on the Pi beyond what is there; method: NTP-style 4-timestamp exchange, unverified on this setup) | **3 packages, Martyn's go** | Offset spread within a session < 5 ms → option A stays |
 | R4 (camera only, no robot motion) | Jetson + flange camera | Record 60 s with the robot still; frame rate, dropped frames, capture-to-receive time; MCAP opens on the Mac | none | 30 fps ± 1, no gaps > 2 frames |
 | R5 (sync run) | Robot, Remote mode, slow, person at the stop | S2 + S3: marker on the table, controller fixed to the flange, sine motion program run by the replay script (dry run in MuJoCo first, as RL4) | none | Camera delay and pose delay each with spread < 5 ms over 3 runs |
@@ -93,7 +93,7 @@ RL5 passes when R6 passes. Then step 3 (export to LeRobot) can start on R6 data.
 
 ## Open
 
-- Martyn's go for the three Jetson packages (R3) and for mcap/pyzmq on the Mac (R2).
+- Martyn's go for the three Jetson packages (R3) and for `mcap` on the Mac (R2).
 - Whether a screen can be plugged into the Jetson (only for the S1 cross-check).
 - Whether the 2F-85 can hold the handheld sleeve safely for S3 (look at the robot).
 - Who set up `orin-new-hotspot` on the Jetson Wi-Fi (from the Jetson Move note).

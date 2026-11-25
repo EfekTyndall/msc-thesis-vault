@@ -37,6 +37,7 @@ Columns as in the flyer's example 3. "Sections" is filled once the thesis chapte
 | RL4 (Robotiq pick-and-place) procedure and pose analysis: start pose HOME_FACE by inverse kinematics on the team UR10e model, PICO controller model lined up with the scan in Fusion, fingertip offsets (vault `Agent/Reports/2026-11-24 RL4 Robotiq pick-and-place procedure.md`) | methods, experiments (tbd) | Start-pose direction, recording with the dummy, and the camera-adapter correction by Martyn; jaw direction and 170 mm measured by Martyn at the robot; HOME_FACE not yet checked on the robot | Claude (Anthropic), Claude Code, Fusion connector | Simulation and CAD values unverified until measured at the robot |
 | LaTeX skeleton (chapter files, layout) in msc-thesis `thesis/` | whole document structure | h_da template chosen and set up by Martyn | Claude (Anthropic) | Structure suggestion, disclose |
 | Camera View: Dex1-1 camera view rendered in MuJoCo from Unitree's URDF and meshes (scene and render script, picture in vault `Agent/Research/figures/2026-11-25 Dex1-1 camera view sim.png`) | hardware or methods chapter (tbd) | Idea to check the camera field of view in simulation by Martyn; values from Unitree sources; not yet checked against the real camera | Claude (Anthropic), Claude Code | Figure: disclose if reused; simulation only (pinhole, real lens wider at the corners) |
+| RL5 (D435i camera + recorder) plan: camera read from the team's Pi stream, delays measured against the robot's own motion, recorder channels (vault `Agent/Reports/2026-11-25 RL5 camera and recorder plan.md`); Jetson Move install and comparison (vault `Agent/Reports/2026-11-25 Jetson Move replay install plan.md`) | methods, system chapter (tbd) | Jetson Move run and checked by Martyn at the robot; RL5 plan not yet reviewed or run | Claude (Anthropic), Claude Code | Sync method is a plan (reasoned only) until R5 is run |
 
 ## Primary prompts
 
@@ -49,6 +50,7 @@ Numbered as in the flyer's example 2. Add a prompt when its output enters the th
 | P3 | "For the Dex One camera, is it possible that we check the field of view in simulation using Unitree Mujoco library … check if they have the Dex one gripper camera specification in the repo" (output: vault `Agent/Research/2026-11-25 Camera View Dex1-1 and D435i field of view.md`) | 2026-11-25 |
 | P4 | "Current works: some of them already designed the UMI handheld with modularity, right? … my DexOne gripper comes late and we only have another gripper, modularity is key … I'm getting doubts now" (output: vault `Agent/Research/2026-11-25 Handheld Rethink real gripper vs passive design.md`) | 2026-11-25 |
 | P5 | "Yes let's do that" (adaptation plan for HandUMI with Dex1-1 tips as a parallel fallback, after Martyn's own reasoning on simplicity vs modularity) (output: vault `Agent/Reports/2026-11-25 HandUMI fallback adaptation plan.md`) | 2026-11-25 |
+| P6 | "Plan for RL5 and close the day after" (output: vault `Agent/Reports/2026-11-25 RL5 camera and recorder plan.md`) | 2026-11-25 |
 
 ## Commit evidence
 

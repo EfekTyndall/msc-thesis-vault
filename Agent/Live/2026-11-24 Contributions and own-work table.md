@@ -50,7 +50,7 @@ Each contribution names the result that backs it. Status as of 2026-11-24.
 | Dex1-1 camera view scene (MuJoCo) | adapted | Unitree `unitree_ros` Dex1-1 URDF and meshes (BSD-3) | idea and task parts | scene and render script: yes |
 | Robot connection | reused | ur_rtde, URSim | — | no |
 | Pose and trigger logging | built | dex1-1-handheld `software/xr/` | requirements, lab runs | yes |
-| Replay in MuJoCo, URSim and on the real UR10e (Replay Ladder RL1–RL3) | built | dex1-1-handheld `software/sim/` | requirements, safety limits, all lab runs | yes |
+| Replay in MuJoCo, URSim and on the real UR10e (Replay Ladder RL1–RL4, incl. Robotiq open/close; runs on the station Jetson since 2026-11-25) | built | dex1-1-handheld `software/sim/`, `software/gripper/` | requirements, safety limits, all lab runs | yes |
 | Recorder (raw MCAP) and LeRobot export | built (planned) | format choice D07 (data format) | decision, tests | expected |
 | Trigger-to-gripper mapping and force cap | built (planned) | gaps G2 (mapping) and G9 (force limit) | design decisions, tests | expected |
 | Controller-to-tip offset | adapted | D09 (calibration): fixed offset from the CAD assembly | CAD measurement | partly |
@@ -62,7 +62,7 @@ Each contribution names the result that backs it. Status as of 2026-11-24.
 | --- | --- | --- | --- |
 | Hypotheses H1–H3 and conditions C1–C4 | built | motivated by UMI (chi2024), HiFi-UMI (ai2026), ActiveUMI (zeng2025) | design of the study |
 | Pose error measurement on the robot | adapted | Banaszczyk et al. (banaszczyk2024) | applied to the controller on the UR10e flange |
-| Sync test | adapted | UMI (chi2024), ViTaMIn-B (li2025) | Replay Ladder RL5 (camera + recorder) test |
+| Sync test | adapted | UMI (chi2024), ViTaMIn-B (li2025); robot motion as time reference adapts UMI's cross-correlation (App. A.0-A3) | Replay Ladder RL5 (camera + recorder) test; plan [[2026-11-25 RL5 camera and recorder plan]] (AI-assisted, Martyn's go pending) |
 | Workload questionnaire | reused | NASA-TLX | — |
 | Statistics (Wilson intervals, Fisher's test) | reused | standard methods | — |
 
