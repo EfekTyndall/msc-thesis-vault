@@ -193,3 +193,18 @@ Open (2026-11-25): the simulation applies the trigger rule directly to the MuJoC
 Take `pose-log-20261125-150606/take-01` (station Jetson, handheld with Dex1-1 dummy, Martyn): 30.4 s, 2187 samples, largest gap 0.02 s, trigger up to 1.000. Simulation with `--setup` (Mac): IK error max 3.3 mm; joint speed max 0.25 rad/s (limit active 0.7 s); floor check PASSED (lowest robot fingertip 303 mm above the table); fingertip span x 106 / y 200 / z 109 mm. Gripper events: close 13.3–15.9 s, 18.5–21.0 s, 24.5–25.8 s, plus a 0.1 s open/close flicker at 21.0 s while the trigger hovered at 0.9 (single threshold, no hysteresis; relevant to G1 (trigger value vs travel) and G2 (trigger-to-gripper mapping)). Real-robot dry run refuses: horizontal 201 mm > 150 mm allowed radius (RL3 value); decision needed: re-record smaller or widen the radius.
 
 Decision (Martyn, 2026-11-25): option B, allowed radius widened to 0.22 m for take-01 (`--box 0.22 0.05 0.15`; 'down' replaced by the floor check). Dry run with 0.22 m passes (201 mm horizontal). Take copied to fractal-pc `~/rl2-test/pose-log-20261125-150606/`.
+
+## 12. First RL4 run on the real UR10e (Martyn, 2026-11-25, ≈15:24 CET)
+
+Take-01 from fractal-pc, start HOME_FACE, radius 0.22 m, floor check passed (dry run first). Models on fractal-pc fetched into `~/dex1-1-handheld/software/sim/models` with `fetch_models.sh` the same day.
+
+| Check | Result |
+| --- | --- |
+| Run completed | Yes, 30.4 s take, no early stop reported |
+| Robot tracking (target vs actual TCP, encoders) | RMS 6.5 mm, max 22.3 mm, 0.1 mm at the end (RL3: RMS 3.3, max 8.7 mm; this take moved more and faster) |
+| Highest actual joint speed | 0.29 rad/s (limit 0.3) |
+| Loop | 3922 ticks in 31.5 s, longest tick 8.2 ms |
+| Gripper commands | 8 of 8 sent in the simulated order, at 13.35 / 15.94 / 18.54 / 20.97 / 21.03 / 21.15 / 24.60 / 25.79 s (simulation: 13.3 / 15.9 / 18.5 / 21.0 / 21.0 / 21.1 / 24.5 / 25.8 s) |
+| Command → first finger movement | 56–63 ms (width read at 20 Hz, so resolution about 50 ms); flicker commands at 21.03 / 21.15 s while the fingers were still moving |
+
+Logs: fractal-pc `~/rl2-test/rl4-take-01-robot.csv`, `~/rl2-test/rl4-take-01-robot-gripper.csv` (not in Git). Pass checks of section 8 met by the numbers; Martyn's visual check pending.
