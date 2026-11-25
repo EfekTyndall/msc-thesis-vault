@@ -155,7 +155,7 @@ Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. I
 | --- | --- | --- |
 | SwapKit portability test (option C: same episode on two grippers, measured) and H2 plug | March buffer, only if the gate is met; H2 stays stretch (thesis plan §2) | [[2026-11-24 SwapKit modular framework options]], [[D07 Software and data format]] |
 | Printed-copy fallback | RS-485 check fails or delivery slips | [[Waiting]], Printed-copy fallback |
-| Handheld Rethink: passive 2F-85 tip-set fallback yes/no (read HandUMI, RUMI first); camera availability (second D435i, separate Dex1-1 camera) | Martyn's choice, before the mid-January gate | [[Waiting]], Printed-copy fallback and Purchases; [[2026-11-25 Handheld Rethink real gripper vs passive design]] |
+| Handheld Rethink fallback: adapted HandUMI with Dex1-1 tips, built alongside RL5 (D435i + recorder); jaw travel, camera choice, parts order, Feetech driver | Martyn chose to plan it (2026-11-25); orders and new dependencies need his go | [[Waiting]], Printed-copy fallback; [[2026-11-25 HandUMI fallback adaptation plan]] |
 | Grip sleeve closure survey | Sleeve stops snapping or slips | [[Waiting]], Later stages |
 | Rough support faces under the clamp collar; ufw rule on fractal-pc | Next reprint / ever | [[Waiting]], Later stages |
 | PICO Motion Trackers; H2 (humanoid) deployment; bimanual | Only if time allows (stretch, thesis plan §2) | [[Waiting]], Only if time allows |

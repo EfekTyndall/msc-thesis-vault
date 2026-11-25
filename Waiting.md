@@ -63,7 +63,12 @@ As of 2026-11-10 the Storefront can be browsed but not ordered from; orders go t
 D01 (handheld gripper body) settled 2026-11-16 on the real Dex1-1; these items wait on the copy being resumed (RS-485 check fails or delivery slips).
 - [ ] Buy 2 MGN9C blocks and 2 MGN9 rails (75 mm) only if the printed copy stays (on hold since 2026-11-04).
 - [ ] Copy path, only if resumed: print tests in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md` §2 (lever force over the stroke, friction and lock, ArUco / AS5600 width error against calipers). Copy path frozen since 2026-11-05. (since 2026-11-04)
-- [ ] Handheld Rethink: decide yes/no on a passive handheld with Robotiq 2F-85 tips (RUMI-style) as the fallback instead of the frozen Dex1-1 copy; read HandUMI and RUMI in the original first (Martyn) ([[2026-11-25 Handheld Rethink real gripper vs passive design]]). ⚪ (since 2026-11-25)
+- [x] ~~Handheld Rethink: decide yes/no on a passive handheld with Robotiq 2F-85 tips (RUMI-style) as the fallback instead of the frozen Dex1-1 copy; read HandUMI and RUMI in the original first (Martyn) ([[2026-11-25 Handheld Rethink real gripper vs passive design]]). ⚪ (since 2026-11-25)~~ Replaced 2026-11-25 (Martyn): HandUMI with Dex1-1 tips as the parallel fallback instead of a 2F-85 copy.
+- [ ] HandUMI fallback: measure the real jaw travel from the HandUMI STEP in Fusion (paper 0–66 mm vs Dex1-1 ≈ 82 mm) ([[2026-11-25 HandUMI fallback adaptation plan]]). 🟠 (since 2026-11-25)
+- [ ] HandUMI fallback: choose the camera (two identical wide USB cameras recommended, option B; changes D02 (policy camera) only if the fallback becomes the study setup) and check Storefront delivery time ([[2026-11-25 HandUMI fallback adaptation plan]]). 🟠 (since 2026-11-25)
+- [ ] HandUMI fallback: approve the parts list and order via the Storefront (Martyn; manager's approval) ([[2026-11-25 HandUMI fallback adaptation plan]]). 🟠 (since 2026-11-25)
+- [ ] HandUMI fallback: Feetech servo driver library for the width encoder on the station Jetson; new dependency, Martyn's go ([[2026-11-25 HandUMI fallback adaptation plan]]). ⚪ (since 2026-11-25)
+- [ ] HandUMI fallback: Dex1-1 finger colour and pad material, check on delivery or product images ([[2026-11-25 HandUMI fallback adaptation plan]]). ⚪ (since 2026-11-25)
 
 ## Writing (before the Chapter 2 text)
 - [ ] Check the [S] items of the survey (UMI appendix, DM-UMI tables, FastUMI V-A to V-C, RAPID appendices incl. RAPID's MCAP detail) in the PDFs before citing their numbers (Claude). (since 2026-11-19; moved from [[2026-11-24]] TODO)
