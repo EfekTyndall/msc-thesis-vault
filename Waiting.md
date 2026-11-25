@@ -33,6 +33,7 @@ Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 (handheld gripper bo
 - [ ] Bow flex check under the real gripper's weight, with screwed joints (needs screws and inserts too); the result decides the adapter material ([[D10 Handheld mechanism]], Revisit if). 2026-11-19: by hand the rod flexes little (Martyn). (since 2026-11-19)
 - [ ] Camera View, field of view: measure the Dex1-1 camera FoV and lens distortion on arrival (wall or checkerboard); Unitree page 118×87° vs ~90×66° from the unitree_sim_isaaclab calibration, unverified which applies; also check whether the local official URDF 261030 has the same `Camera` joint. Asking Unitree for the datasheet sends a message: Martyn's go first ([[2026-11-25 Camera View Dex1-1 and D435i field of view]]). ⚪ (since 2026-11-25)
 - [ ] Camera View, occlusion: check in MuJoCo + Fusion CAD whether handheld parts block the Dex1-1 camera view; before the hardware freeze at the gate ([[2026-11-25 Camera View Dex1-1 and D435i field of view]]). ⚪ (since 2026-11-25)
+- [ ] Handheld Rethink: weigh the delivered Dex1-1 on the handheld and judge comfort in a short use test; if too heavy, the passive base with swappable tips becomes the main handheld ([[2026-11-25 Handheld Rethink real gripper vs passive design]]). ⚪ (part of the delivery check) (since 2026-11-25)
 
 ## Purchases
 Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orders need the manager's approval and a colleague to place them.
@@ -52,6 +53,7 @@ Inserts expected 23–27 Nov; not arrived on 2026-11-24. Screws collected 2026-1
 **Only if needed**
 - [x] ~~Private Wi-Fi access point: only if measurements show the shared lab network is too slow (it worked end to end on 2026-11-09); IT rules question for Yanmei first (not on the 2026-11-16 agenda, Martyn 2026-11-13).~~ Closed 2026-11-24 (Martyn): not needed; the Mac already works with the PCs, the Jetson and the robots on the local lab network. (since 2026-11-11)
 - Vive Tracker 3.0 + base stations: fallback only, not a concern for now (Martyn, 2026-11-11).
+- [ ] Handheld Rethink: check whether a second D435i or a separate Dex1-1 camera can be ordered; decides how well a passive fallback handheld matches the robot camera view ([[2026-11-25 Handheld Rethink real gripper vs passive design]]). ⚪ (since 2026-11-25)
 
 ## Company IT access (internal Storefront)
 As of 2026-11-10 the Storefront can be browsed but not ordered from; orders go through the manager's approval and a colleague (2026-11-11).
@@ -61,6 +63,7 @@ As of 2026-11-10 the Storefront can be browsed but not ordered from; orders go t
 D01 (handheld gripper body) settled 2026-11-16 on the real Dex1-1; these items wait on the copy being resumed (RS-485 check fails or delivery slips).
 - [ ] Buy 2 MGN9C blocks and 2 MGN9 rails (75 mm) only if the printed copy stays (on hold since 2026-11-04).
 - [ ] Copy path, only if resumed: print tests in `dex1-1-handheld/hardware/PRINT-TEST-QUEUE.md` §2 (lever force over the stroke, friction and lock, ArUco / AS5600 width error against calipers). Copy path frozen since 2026-11-05. (since 2026-11-04)
+- [ ] Handheld Rethink: decide yes/no on a passive handheld with Robotiq 2F-85 tips (RUMI-style) as the fallback instead of the frozen Dex1-1 copy; read HandUMI and RUMI in the original first (Martyn) ([[2026-11-25 Handheld Rethink real gripper vs passive design]]). ⚪ (since 2026-11-25)
 
 ## Writing (before the Chapter 2 text)
 - [ ] Check the [S] items of the survey (UMI appendix, DM-UMI tables, FastUMI V-A to V-C, RAPID appendices incl. RAPID's MCAP detail) in the PDFs before citing their numbers (Claude). (since 2026-11-19; moved from [[2026-11-24]] TODO)
@@ -68,6 +71,7 @@ D01 (handheld gripper body) settled 2026-11-16 on the real Dex1-1; these items w
 
 - [ ] AI rules (h_da flyer): agreement with the examiner on AI-written source code and AI-assisted presentations, ideally in writing (Martyn asks); check whether Daimler has an AI-use guideline that applies (Martyn). Details: [[2026-11-24 AI use register]], Open actions. (since 2026-11-24)
 - [ ] Camera View, method text: how the camera view is matched between handheld and robot ([[2026-11-25 Camera View Dex1-1 and D435i field of view]]). ⚪ (since 2026-11-25)
+- [ ] Handheld Rethink: Zotero additions (HandUMI, RUMI, YUBI, Robot-Matched Soft Fingers, gripper-design study, LEGATO, Mirage, DexUMI; list in the note) and positioning of the handheld against DM-UMI, HandUMI and RUMI in related work (Martyn adds to Zotero) ([[2026-11-25 Handheld Rethink real gripper vs passive design]]). ⚪ (since 2026-11-25)
 
 ## Thesis end (Daimler handover)
 - [ ] Clean `dex1-1-handheld` before it is shared with the company: checklist and check commands in [[Handover]]. (since 2026-11-19)

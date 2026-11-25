@@ -76,6 +76,8 @@ Note: Martyn rejected option C (matched 2F-85 fingertips) of [[2026-11-20 Interi
 
 ## Open
 
+Placed on the roadmap and in Waiting on 2026-11-25 (all ⚪ can wait): fallback yes/no, camera availability, weighing at delivery, Zotero and positioning ([[2026-11-24 Red Line roadmap]], [[Waiting]]). Nothing changes this week; RL4 (Robotiq open/close) continues.
+
 - HandUMI and RUMI (November 2026) were read through a summary only; read both in the original, especially RUMI's 2F-85 linkage copy and HandUMI's PICO mount and finger-cradle drive.
 - FastUMI names only two of its five tip variants; fastumi.com could not be fetched.
 - No source found on the Dex1-1 on any handheld, or on PICO-controller LED occlusion handling on handhelds.

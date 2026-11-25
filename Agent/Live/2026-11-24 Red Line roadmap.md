@@ -111,6 +111,7 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 | Scale: weigh controller, prints, gripper | ⚪ can wait | [[Waiting]], Purchases |
 | Camera View: measure the Dex1-1 camera field of view and lens distortion on arrival (wall or checkerboard); Unitree page 118×87° vs ~90×66° from the unitree_sim_isaaclab calibration, unverified which applies. Asking Unitree for the datasheet instead sends a message (Martyn's go) | ⚪ can wait (part of the delivery check) | [[Waiting]], Dex1-1 delivery; [[2026-11-25 Camera View Dex1-1 and D435i field of view]] |
 | Camera View: occlusion check, do handheld parts block the Dex1-1 camera view (MuJoCo + Fusion CAD); before the hardware freeze at the gate | ⚪ can wait | [[Waiting]], Dex1-1 delivery; [[2026-11-25 Camera View Dex1-1 and D435i field of view]] |
+| Handheld Rethink: weigh the delivered Dex1-1 on the handheld; if too heavy, the passive swappable-tip base becomes the main handheld | ⚪ can wait (part of the delivery check) | [[Waiting]], Dex1-1 delivery; [[2026-11-25 Handheld Rethink real gripper vs passive design]] |
 
 ### Gate (mid-January 2027)
 Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. If not met, all stretch goals are dropped (`msc-thesis/docs/thesis-plan.md` §5).
@@ -146,6 +147,7 @@ Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. I
 | [S] items check in the PDFs before citing | ⚪ can wait | [[Waiting]], Writing |
 | Zotero additions (ACT, robomimic, Diffusion Policy, Open X-Embodiment, LeRobot) | ⚪ can wait | [[Waiting]], Writing |
 | Camera View: method text on matching the camera view between handheld and robot | ⚪ can wait | [[Waiting]], Writing; [[2026-11-25 Camera View Dex1-1 and D435i field of view]] |
+| Handheld Rethink: Zotero additions and positioning against DM-UMI, HandUMI, RUMI | ⚪ can wait | [[Waiting]], Writing; [[2026-11-25 Handheld Rethink real gripper vs passive design]] |
 
 ## Off the path (no step depends on these)
 
@@ -153,6 +155,7 @@ Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. I
 | --- | --- | --- |
 | SwapKit portability test (option C: same episode on two grippers, measured) and H2 plug | March buffer, only if the gate is met; H2 stays stretch (thesis plan §2) | [[2026-11-24 SwapKit modular framework options]], [[D07 Software and data format]] |
 | Printed-copy fallback | RS-485 check fails or delivery slips | [[Waiting]], Printed-copy fallback |
+| Handheld Rethink: passive 2F-85 tip-set fallback yes/no (read HandUMI, RUMI first); camera availability (second D435i, separate Dex1-1 camera) | Martyn's choice, before the mid-January gate | [[Waiting]], Printed-copy fallback and Purchases; [[2026-11-25 Handheld Rethink real gripper vs passive design]] |
 | Grip sleeve closure survey | Sleeve stops snapping or slips | [[Waiting]], Later stages |
 | Rough support faces under the clamp collar; ufw rule on fractal-pc | Next reprint / ever | [[Waiting]], Later stages |
 | PICO Motion Trackers; H2 (humanoid) deployment; bimanual | Only if time allows (stretch, thesis plan §2) | [[Waiting]], Only if time allows |
