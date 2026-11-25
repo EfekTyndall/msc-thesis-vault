@@ -70,6 +70,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 - [[2026-11-16 PETG plate 1 stringing and snap fit]] (report)
 - [[2026-11-02 Handheld trigger survey]] (research, bib): related work for D10 (handheld mechanism)
 - [[2026-11-05 D01 real vs copy side-by-side]] (research, bib): basis of D01 (handheld gripper body)
+- [[2026-11-25 Handheld Rethink real gripper vs passive design]] (research, wide): real Dex1-1 vs passive handheld with swappable tips (HandUMI, RUMI, FastUMI); recommends keeping the real Dex1-1 and a passive 2F-85 tip set as fallback; nothing decided
 
 **Done steps: RL1–RL3 (replay in MuJoCo, URSim, real UR10e) — results**
 - [[2026-11-20 Replay Ladder RL1-RL2 setup]] (research, bib)

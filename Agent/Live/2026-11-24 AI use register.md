@@ -47,6 +47,7 @@ Numbered as in the flyer's example 2. Add a prompt when its output enters the th
 | P1 | "At the end I want to have a full modular framework that can be easily adjusted and adapted into different robots … three main modes: Teleoperation, Recording, and Replay mode … Does this actually feasible?" (output: vault `Agent/Research/2026-11-24 SwapKit modular framework options.md`) | 2026-11-24 |
 | P2 | "Plan RL4 Robotiq pick-and-place" (Replay Ladder thread; Martyn's corrections: robot works in front of itself, gripper facing the operator; record with the full handheld and the dummy; camera adapter between flange and Robotiq) (output: vault `Agent/Reports/2026-11-24 RL4 Robotiq pick-and-place procedure.md`) | 2026-11-24 |
 | P3 | "For the Dex One camera, is it possible that we check the field of view in simulation using Unitree Mujoco library … check if they have the Dex one gripper camera specification in the repo" (output: vault `Agent/Research/2026-11-25 Camera View Dex1-1 and D435i field of view.md`) | 2026-11-25 |
+| P4 | "Current works: some of them already designed the UMI handheld with modularity, right? … my DexOne gripper comes late and we only have another gripper, modularity is key … I'm getting doubts now" (output: vault `Agent/Research/2026-11-25 Handheld Rethink real gripper vs passive design.md`) | 2026-11-25 |
 
 ## Commit evidence
 
