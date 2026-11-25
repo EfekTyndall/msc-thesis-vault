@@ -27,9 +27,13 @@ New since the 2026-10-28 check: Unitree's commit of 2026-10-30 added a `Camera` 
 - **Unverified that this is the Dex1-1 camera.** The hand-eye entries name robot `g1_d.urdf` and mount the camera on `left/right_wrist_yaw_link`, not on a gripper link; `camera_configs.py` uses the same intrinsics for the Dex1 (`hand="gripper"`), Dex3 and Inspire wrist cameras. So it is a wrist camera on a G1-D, hand type not stated.
 - It does not match the product page (118 × 87°). A 640 × 480 (4:3) stream cut from a wider sensor, or a different camera, would explain this; neither is confirmed.
 
-**Which way the lens looks** (from the mesh, see picture `figures/2026-11-25 Dex1-1 camera mount axes.png`): the lens sits on the camera link's +x face. With the URDF angles (read as fixed-axis roll, pitch, yaw, the URDF convention), +x points forward along the fingers and 30° down towards them. So the camera sits on top of the gripper body, just behind the finger base, and looks along the fingers at the tips.
+**Which way the lens looks** (from the mesh, picture below: side, top, angled and front views; orange = camera block; red, green, blue = camera link x, y, z): the lens sits on the camera link's +x face. With the URDF angles (read as fixed-axis roll, pitch, yaw, the URDF convention), +x points forward along the fingers and 30° down towards them. So the camera sits on top of the gripper body, just behind the finger base, and looks along the fingers at the tips.
 
-## 2. First rendered view (cloud, MuJoCo 3.x)
+![[2026-11-25 Dex1-1 camera mount axes.png]]
+
+## 2. Rendered views of the Dex1-1 camera (MuJoCo 3.x)
+
+### 2a. Grasping the sleeve from above (cloud render)
 
 ![[2026-11-25 Dex1-1 camera view sim.png]]
 
@@ -44,9 +48,20 @@ Limits:
 - Finger opening: joint value 0 = closed (pads touch), 0.041 m per finger = fully open (82 mm), read from the URDF limits and the render.
 - Files: `/mnt/project-files/camera-view/` (`scene.xml`, `render.py`, picture). Not yet in a repo.
 
+### 2b. Product spec vs G1-D calibration (Mac render)
+
+![[2026-11-25 Dex1-1 camera view spec vs calibration.png]]
+
+Rendered on the Mac (conda env `mujoco-lab`, no installs) from the same Unitree model, gripper pointing forward over the table, red cube as a stand-in object. Top row: Unitree spec 118° × 87° at 1080p (16:9). Bottom row: the G1-D wrist calibration from section 1, about 90° × 66° at 640 × 480 (4:3). Left: fingers closed; right: fully open.
+
+What it shows (simulation only):
+- With the spec field of view, the open fingers sit in the lower half with a wide strip of table beside each finger.
+- With the calibration field of view, the open fingers are cut at the left and right edges; the cube between them stays fully in view.
+- Closed, the fingers fill the lower centre in both; the view straight ahead is mostly table.
+
 ## 3. Options for running it on the Mac
 
-Checked 2026-11-25: `render.py` runs on the Mac in conda env `mujoco-lab` (MuJoCo, Pillow, pyzmq present) with no installs; it reproduces the picture above (`/mnt/project-files/dex1_camera_views.png`).
+Checked 2026-11-25: MuJoCo renders run on the Mac in conda env `mujoco-lab` (MuJoCo, Pillow, pyzmq present) with no installs (section 2b).
 
 | Option | What | Needs | Precedent |
 |---|---|---|---|
@@ -56,7 +71,7 @@ Checked 2026-11-25: `render.py` runs on the Mac in conda env `mujoco-lab` (MuJoC
 
 Recommendation: B first (no install, quick look), then C once the adapter offset is fixed, because C shows the view along real recorded motions. Viewer not opened on the Mac yet.
 
-## 4. D435i on the flange: live frame on the Mac
+## 4. D435i on the flange: frame on the Mac
 
 Known: the D435i is plugged into the station Raspberry Pi 5 ("arena"); the Pi has `wrist/realsense_streamer.py` (ZMQ/JPEG stream, 848 × 480 at 30 fps per [[2026-11-12 Lab computers and gripper connections]]) and `wrist/fov_check.py` (contents not read) ([[2026-11-12 Raspberry Pi vs lab PC for the Dex1-1]], section "Station Pi inspected").
 
@@ -67,11 +82,25 @@ D435i colour camera: 69° × 42° (H × V), 1920 × 1080, 30 fps ([intelrealsens
 | A. One still picture | On the Pi, take one frame with the existing `wrist/` venv (or `fov_check.py` if it does this), copy it to the Mac with `scp`, open in Preview | SSH Mac → Pi; nothing installed | Simplest; enough to see how much of the Robotiq is visible |
 | B. Live stream | Start `realsense_streamer.py` on the Pi; a small viewer on the Mac shows the ZMQ/JPEG frames | `pyzmq` is already in the Mac conda env `mujoco-lab`; the viewer needs no OpenCV (correction 2026-11-25); no new installs | Moving view |
 
-Recommendation: B, since it needs no installs, after a read-only look at `fov_check.py` and `realsense_streamer.py`; A as fallback. Only one program can open the camera at a time, so nothing else may be using it (ask the team if the Pi stream is in use).
+Only one program can open the camera at a time, so nothing else may be using it.
+
+### Result (2026-11-25, option A, done by Martyn in the lab)
+
+Found: the station Pi answers at `arena.local` (10.36.11.9), user `arena`; `~/wrist` is itself the Python venv (`~/wrist/bin/python`) with `pyrealsense2`. Stream port 5555 was closed (no teleop running), so option B was not used. Martyn took one colour frame at 1280 × 720 (same full field of view as 1080p, 16:9) with a short `pyrealsense2` script in that venv, copied it to the Mac with `scp`, converted it to PNG and deleted the file on the Pi. Nothing installed.
+
+![[2026-11-25 D435i frame with Robotiq 2F-85.png]]
+
+What the frame shows (estimates by eye, no pixel measurement):
+- Only the 2F-85 fingertips (grey printed tips) are in view, in the bottom ~30% of the image height; the rest of the gripper is out of frame.
+- Left fingertip at about 25–40% of the width, right fingertip at about 80–95%, close to the right edge: at this opening the outer side of the right finger is nearly cut off.
+- The orange bushing is upper right, outside the finger gap at this pose; the middle and top show the table.
+- This is the D435i's full colour view (about 69° × 42°), so it cannot be widened in software.
+
+Comparison with the Dex1-1 renders (simulation vs real frame, different gripper and mount): the Dex1-1 camera at the product spec (118° across) shows the whole visible finger length plus a strip beside each finger; the D435i shows only the tips.
 
 ## Open
 
-- Martyn's go to look read-only at the Pi's `wrist/` scripts and start the stream (section 4, option B).
+- D435i live stream (section 4, option B): Mac viewer written and tested with a fake stream in the D435i stream thread, kept outside the repos; use only if a moving view is needed.
 - Ask Unitree or the Dex1-1 docs which camera and resolution the G1-D wrist calibration belongs to.
 - Check whether the local official URDF 261030 has the same `Camera` joint.
 - Real Dex1-1 camera: measure FOV and lens distortion on arrival (RL6 (Dex1-1 swap)); the 160° reseller figure stays unverified.
