@@ -191,3 +191,5 @@ Open (2026-11-25): the simulation applies the trigger rule directly to the MuJoC
 ## 11. First RL4 take in simulation (2026-11-25)
 
 Take `pose-log-20261125-150606/take-01` (station Jetson, handheld with Dex1-1 dummy, Martyn): 30.4 s, 2187 samples, largest gap 0.02 s, trigger up to 1.000. Simulation with `--setup` (Mac): IK error max 3.3 mm; joint speed max 0.25 rad/s (limit active 0.7 s); floor check PASSED (lowest robot fingertip 303 mm above the table); fingertip span x 106 / y 200 / z 109 mm. Gripper events: close 13.3–15.9 s, 18.5–21.0 s, 24.5–25.8 s, plus a 0.1 s open/close flicker at 21.0 s while the trigger hovered at 0.9 (single threshold, no hysteresis; relevant to G1 (trigger value vs travel) and G2 (trigger-to-gripper mapping)). Real-robot dry run refuses: horizontal 201 mm > 150 mm allowed radius (RL3 value); decision needed: re-record smaller or widen the radius.
+
+Decision (Martyn, 2026-11-25): option B, allowed radius widened to 0.22 m for take-01 (`--box 0.22 0.05 0.15`; 'down' replaced by the floor check). Dry run with 0.22 m passes (201 mm horizontal). Take copied to fractal-pc `~/rl2-test/pose-log-20261125-150606/`.
