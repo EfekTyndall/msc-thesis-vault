@@ -44,6 +44,9 @@ No paper reports its rejected share per reason, and none publishes pose-jump thr
 | 2026-11-23 | RL1 replay of take-01 | IK error RMS 0.8 mm, max 12.9 mm; 0 solver failures in 5525 solves; joint speed above 0.3 rad/s for 11.3 s of 44.2 s | same |
 | 2026-11-23 | RL3 box check | take-01 refused (242 mm horizontal, allowed 150 mm) | [[2026-11-23 RL3 real UR10e replay procedure]] |
 | 2026-11-23 | RL3 replay of take-02 (28.2 s) on the real UR10e | IK solver gave up 2 of 3656 ticks (held pose one tick); no protective stop | same |
+| 2026-11-25 | RL4 simulation of handheld take-01 (`pose-log-20261125-150606`, 30.4 s) | Floor check passed (lowest fingertip 303 mm above the table); 201 mm horizontal, refused by the 150 mm RL3 radius until widened to 0.22 m; IK max 3.3 mm, 0 give-ups in 3921 solves | [[2026-11-24 RL4 Robotiq pick-and-place procedure]] |
+| 2026-11-25 | RL4 on the real UR10e, same take | Simulation predicted the robot: tracking RMS 5.7 mm in sim vs 6.5 mm real (max 18.6 vs 21.8 mm); gripper commands within 40 ms. Supports using the simulation replay as the robot-free feasibility check (as HiFi-UMI, ai2026) | same, section 13 |
+| 2026-11-25 | Trigger in take-01 | A resting trigger dipped 0.033 below the 0.9 threshold and toggled the gripper; fixed by hysteresis (open below 0.8), not a rejection reason | same, section 13 |
 
 ## 4. Tests to run later (none scheduled)
 

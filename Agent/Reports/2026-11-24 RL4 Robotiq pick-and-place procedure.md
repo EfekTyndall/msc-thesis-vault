@@ -6,6 +6,20 @@ tags: [report, replay-ladder, procedure, safety, robotiq]
 
 RL4 adds the gripper to the replay: the recorded trigger opens and closes the Robotiq 2F-85 while the UR10e replays the controller movement, first in the air, then as one pick-and-place of a light, soft object. Scope agreed 2026-11-24: binary open/close only; G2 (trigger-to-gripper mapping) is decided in RL6 (swap to the Dex1-1). The Robotiq plug of SwapKit option A ([[D07 Software and data format]]) is built here. Earlier steps: [[2026-11-23 RL3 real UR10e replay procedure]].
 
+## RL4 result at a glance: PASSED 2026-11-25
+
+Take `pose-log-20261125-150606/take-01` (30.4 s, handheld with the Dex1-1 dummy), start pose HOME_FACE, allowed radius 0.22 m. How the four steps work and why: [[2026-11-25 From Recording to Robot]] (explainer).
+
+| Test | Result | Section |
+| --- | --- | --- |
+| Gripper alone (5 close/open cycles, Mac and fractal-pc) | 5 of 5, no error | 10 |
+| Simulation (Mac) | IK error max 3.3 mm, 0 solver give-ups; joint speed max 0.25 rad/s; floor check PASSED (lowest fingertip 303 mm above the table); horizontal 201 mm | 11 |
+| Real UR10e, first run (one trigger threshold) | Tracking RMS 6.5 / max 22.3 mm; 8 gripper commands in the simulated order, incl. a 0.1 s flicker at 21 s; fingers move 56–63 ms after a command | 12 |
+| Fixes (dex1-1-handheld PR #23) | Trigger hysteresis (close ≥ 0.9, open < 0.8); simulation runs the same gripper program through a simulation plug; sim vs real command times within 50 ms | 13 |
+| Real UR10e, re-run with hysteresis | Tracking RMS 6.5 / max 21.8 mm; 6 commands, each within 40 ms of the simulation; no flicker; fingers move within one 50 ms reading | 13 |
+
+Not covered by RL4: picking an object (moved to RL6 (swap to the Dex1-1)), collisions other than the table plane, trigger value vs travel (G1).
+
 **Change 2026-11-24 (Martyn): RL4 uses the bare PICO controller, without the handheld prototype.** The "fingertip" is then a chosen point on the controller, and its offset from the tracked point is read in Fusion (step 0.1, section 1b).
 
 Read on the pendant (Martyn, 2026-11-24): TCP (X, Y, Z) = 0, 0, 174 mm, rotation 0, 0, 0 (matches the team IK value 0.174 m); payload 1.770 kg, centre of gravity (9, 26, 40) mm.

@@ -1,0 +1,242 @@
+<title>From Recording to Robot</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Archivo:wght@600;700;800&display=swap">
+<style>
+  /* One reading column. Colour: teal = simulation, amber = real robot, slate = no-robot zone. */
+  :root {
+    --bg: #f4f5f7;
+    --surface: #ffffff;
+    --ink: #151a22;
+    --muted: #5b6575;
+    --line: #d7dce4;
+    --rec: #b45f06;
+    --rec-tint: #fbeedd;
+    --train: #0b7a6b;
+    --train-tint: #dcf0ec;
+    --time: #3d5a8a;
+    --time-tint: #e3eaf6;
+    --good: #1f7a3a;
+    --bad: #b3261e;
+    --code-bg: #eef0f4;
+    --font-text: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-head: "Archivo", "IBM Plex Sans", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1217; --surface: #171c24; --ink: #e8ebf0; --muted: #9aa4b3; --line: #2a313c;
+      --rec: #f0a24a; --rec-tint: #33240f; --train: #3cc6b0; --train-tint: #11302b;
+      --time: #8fb0ea; --time-tint: #1b2538; --good: #6cd08a; --bad: #ff8a80; --code-bg: #1e242e; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1217; --surface: #171c24; --ink: #e8ebf0; --muted: #9aa4b3; --line: #2a313c;
+    --rec: #f0a24a; --rec-tint: #33240f; --train: #3cc6b0; --train-tint: #11302b;
+    --time: #8fb0ea; --time-tint: #1b2538; --good: #6cd08a; --bad: #ff8a80; --code-bg: #1e242e; color-scheme: dark;
+  }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-text); font-size: 16px; line-height: 1.6; }
+  .wrap { max-width: 780px; margin: 0 auto; padding-block: 40px 80px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; line-height: 1.2; margin: 0; }
+  h1 { font-size: clamp(30px, 6vw, 44px); font-weight: 800; letter-spacing: -0.01em; }
+  h2 { font-size: 24px; font-weight: 700; }
+  h3 { font-size: 17px; font-weight: 700; }
+  p { margin: 0; }
+  ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+  .lead { color: var(--muted); font-size: 18px; max-width: 62ch; }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  header { display: flex; flex-direction: column; gap: 14px; padding-bottom: 28px; }
+  section { display: flex; flex-direction: column; gap: 14px; padding-block: 36px; border-top: 1px solid var(--line); }
+  .text { max-width: 68ch; display: flex; flex-direction: column; gap: 12px; }
+  .term { font-weight: 600; }
+  .muted { color: var(--muted); }
+  code, .mono { font-family: var(--font-mono); font-size: 0.88em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+  a { color: var(--time); }
+  .rec { color: var(--rec); } .train { color: var(--train); }
+  .tag { display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
+  .tag.rec { background: var(--rec-tint); } .tag.train { background: var(--train-tint); }
+  .figure { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; overflow-x: auto; }
+  .figure svg { display: block; width: 100%; min-width: 560px; height: auto; }
+  .figure figcaption, .cap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  figure { margin: 0; }
+  svg text { font-family: var(--font-mono); font-size: 12px; fill: var(--ink); }
+  svg .t-muted { fill: var(--muted); } svg .t-rec { fill: var(--rec); } svg .t-train { fill: var(--train); } svg .t-time { fill: var(--time); }
+  svg .t-head { font-family: var(--font-head); font-weight: 700; font-size: 13px; }
+  svg .b-rec { fill: var(--rec-tint); stroke: var(--rec); }
+  svg .b-train { fill: var(--train-tint); stroke: var(--train); }
+  svg .b-time { fill: var(--time-tint); stroke: var(--time); }
+  svg .b-plain { fill: var(--surface); stroke: var(--line); }
+  svg .l-muted { stroke: var(--muted); fill: none; }
+  svg .l-time { stroke: var(--time); fill: none; }
+  svg .dot-rec { fill: var(--rec); } svg .dot-train { fill: var(--train); } svg .dot-time { fill: var(--time); }
+  .glossary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .glossary div { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 14px; min-width: 0; }
+  .pc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pc > div { min-width: 0; font-size: 15px; }
+  .pc h4 { margin: 0 0 4px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .pc .plus h4 { color: var(--good); } .pc .minus h4 { color: var(--bad); }
+  @media (max-width: 560px) { .pc { grid-template-columns: 1fr; } }
+  .who { font-size: 14px; color: var(--muted); }
+  .tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14px; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+  th { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  tr:last-child td { border-bottom: 0; }
+  .yes { color: var(--good); font-weight: 600; } .no { color: var(--bad); font-weight: 600; }
+  ol.steps { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 12px; max-width: 68ch; }
+  .note { font-size: 14px; background: var(--time-tint); border-radius: 8px; padding: 10px 12px; max-width: 68ch; }
+  .src { font-size: 13px; color: var(--muted); }
+  .src li { overflow-wrap: anywhere; }
+</style>
+<div class="wrap">
+<header>
+  <p class="eyebrow">Thesis explainer · 2026-11-25 · companion note: 2026-11-24 RL4 Robotiq pick-and-place procedure.md</p>
+  <h1>From Recording to Robot</h1>
+  <p class="lead">How a handheld recording becomes robot motion in the Replay Ladder: four steps, what each one calculates, and why the first three matter even when no robot is in the room.</p>
+  <p class="cap">Numbers are from take <code>pose-log-20261125-150606/take-01</code> (30.4 s), replayed 2026-11-25 on the Mac and on the real UR10e (RL4 (Robotiq open/close during replay)). Papers in the thesis bibliography are cited by key; anything else is marked <em>not in bib</em>. Code: <code>dex1-1-handheld/software/sim/ur10e_replay.py</code> (steps 1–3) and <code>ur10e_replay_rtde.py</code> (step 4).</p>
+</header>
+
+<section>
+  <p class="eyebrow">The short version</p>
+  <div class="text">
+    <p>A recording only says where the operator's hand went and how far the trigger was pressed. A robot needs something else: six joint angles every 8 ms, plus "open" and "close" at the right moments. It also needs to know in advance that it can reach every point safely. The pipeline translates the first into the second and checks it before anything moves.</p>
+    <p><span class="term">Martyn's reading is right.</span> During handheld collection there is no robot, so nobody sees whether a demonstration is actually possible for the UR10e. Steps 1–3 run on a laptop without the robot. They act as that check: a take that the robot could not follow, or that comes too close to the table, is flagged right after recording. Step 4 is only needed to prove, once, that what the check predicts is what the real robot does. That proof is the Replay Ladder.</p>
+  </div>
+  <figure class="figure">
+    <svg viewBox="0 0 760 210" role="img" aria-label="Four steps: read the recording, rehearse in simulation, safety check, play on the real robot. Steps 1 to 3 need no robot.">
+      <rect x="10" y="20" width="545" height="180" rx="10" class="b-time" fill-opacity="0.35" stroke-dasharray="5 4"/>
+      <text x="22" y="40" class="t-time t-head">No robot needed (laptop) — runs after every take</text>
+      <rect x="590" y="20" width="160" height="180" rx="10" class="b-rec" fill-opacity="0.35" stroke-dasharray="5 4"/>
+      <text x="602" y="40" class="t-rec t-head">Robot needed</text>
+      <rect x="25" y="60" width="150" height="120" rx="8" class="b-plain"/>
+      <text x="37" y="84" class="t-head">1 · Read</text>
+      <text x="37" y="106" class="t-muted">hand pose + trigger</text>
+      <text x="37" y="124" class="t-muted">~72 rows / s</text>
+      <text x="37" y="142" class="t-muted">→ movement since</text>
+      <text x="37" y="158" class="t-muted">  the first row</text>
+      <rect x="200" y="60" width="160" height="120" rx="8" class="b-train"/>
+      <text x="212" y="84" class="t-head t-train">2 · Rehearse</text>
+      <text x="212" y="106" class="t-muted">fingertip target</text>
+      <text x="212" y="124" class="t-muted">→ joint angles (IK)</text>
+      <text x="212" y="142" class="t-muted">→ simulated arm</text>
+      <text x="212" y="158" class="t-muted">trigger → open/close</text>
+      <rect x="385" y="60" width="155" height="120" rx="8" class="b-plain"/>
+      <text x="397" y="84" class="t-head">3 · Check</text>
+      <text x="397" y="106" class="t-muted">floor clearance</text>
+      <text x="397" y="124" class="t-muted">allowed area</text>
+      <text x="397" y="142" class="t-muted">IK error, speed</text>
+      <text x="397" y="158" class="t-muted">fail → stop here</text>
+      <rect x="605" y="60" width="130" height="120" rx="8" class="b-rec"/>
+      <text x="617" y="84" class="t-head t-rec">4 · Play</text>
+      <text x="617" y="106" class="t-muted">joint angles</text>
+      <text x="617" y="124" class="t-muted">every 8 ms</text>
+      <text x="617" y="142" class="t-muted">gripper commands</text>
+      <text x="617" y="158" class="t-muted">log what happened</text>
+      <path d="M175 120 H198" class="l-muted" stroke-width="2"/><path d="M360 120 H383" class="l-muted" stroke-width="2"/><path d="M540 120 H603" class="l-muted" stroke-width="2"/>
+    </svg>
+    <figcaption>One command does all four; <code>--dry-run</code> stops after step 3. In the thesis collection, only steps 1–3 would run per take.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <p class="eyebrow">Step 1</p>
+  <h2>Read the recording</h2>
+  <div class="text">
+    <p><span class="term">Input:</span> <code>raw.csv</code> from the recorder. Each row holds the PC time, the controller position (x, y, z) and orientation (a quaternion, four numbers for a rotation), and the trigger value 0–1. Take-01 has 2187 rows in 30.4 s (about 72 rows per second, from a 90 Hz stream).</p>
+    <p><span class="term">Calculated:</span></p>
+    <ul>
+      <li>Time of each row in seconds from the first row. The replay keeps the recorded timing.</li>
+      <li>Where the <em>fingertip</em> is, not the controller. The tracked point sits inside the controller, so a fixed offset from the Fusion assembly (<code>hand_tip</code> in the settings file) moves it to the midpoint between the Dex1-1 dummy's finger pads.</li>
+      <li>Movement since the first row, in the fingertip's own frame: "5 cm forward along the fingers, turned 10° about the jaw axis". The operator's absolute position in the room is not used.</li>
+    </ul>
+    <p><span class="term">Why:</span> the robot cannot copy absolute room positions, because the handheld's room is not the robot's room. UMI-style systems use the same <em>relative</em> movement (chi2024). This is the action format chosen in D07 (software and data format).</p>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Step 2</p>
+  <h2>Rehearse in simulation</h2>
+  <div class="text">
+    <p><span class="term">Calculated, every 8 ms (125 times per second, the robot's own rate):</span></p>
+    <ul>
+      <li><span class="term">Target for the robot fingertip.</span> The start pose HOME_FACE plus the movement from step 1. The robot fingertip is the midpoint between the Robotiq pads, 154 mm beyond the flange.</li>
+      <li><span class="term">Joint angles (inverse kinematics, IK).</span> The team's UR10e solver finds the six joint angles that put the fingertip on the target. Take-01: the solution was at most 3.3 mm from the target, and the solver never gave up (0 of 3921 solves).</li>
+      <li><span class="term">Speed limit.</span> No joint may turn faster than 0.3 rad/s, as in the team's VR teleop on the real UR10e. If a hand movement was faster, the step is shortened and the arm lags behind. Take-01: the limit was active for 0.7 s, highest joint speed 0.25 rad/s.</li>
+      <li><span class="term">Simulated arm (MuJoCo).</span> A model of the UR10e with a Robotiq 2F-85 actually moves to those angles. Each next solve starts from where the simulated arm really is. Take-01: the simulated fingertip stayed within 18.6 mm of the target (RMS 5.7 mm).</li>
+      <li><span class="term">Gripper commands.</span> The trigger values become a short list: close when the trigger reaches 0.9, open again only when it drops below 0.8 (6 commands in take-01). The same gripper program as on the real robot sends them to the simulated gripper.</li>
+    </ul>
+    <p><span class="term">Why simulate, and not just compute angles?</span> Three reasons:</p>
+    <ul>
+      <li>The solver needs a "current arm pose" to start from. Starting each solve from the previous answer made the team solver fail often (seen 2026-11-23). A simulated arm gives a realistic current pose without a robot.</li>
+      <li>It shows the path the arm <em>actually</em> takes with the speed limit, not only the wished-for path. The checks in step 3 use that path.</li>
+      <li>One IK solve takes about 20 ms on fractal-pc, too slow for the 8 ms robot loop. Computing everything beforehand lets step 4 just send numbers.</li>
+    </ul>
+    <p class="note">Not URSim. The simulation is MuJoCo inside the same Python program. URSim (UR's own controller simulator) was used only in RL2 (replay against URSim), to test the network commands.</p>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Step 3</p>
+  <h2>Safety check</h2>
+  <div class="text">
+    <p><span class="term">Calculated</span> on both the target path and the simulated path:</p>
+  </div>
+  <div class="tablewrap"><table>
+    <tr><th>Check</th><th>Rule</th><th>Take-01</th><th>What it catches</th></tr>
+    <tr><td>Floor</td><td>Robot fingertip and flange ≥ 30 mm above the table (table 113 mm below the robot base)</td><td class="yes">Lowest fingertip 303 mm above the table</td><td>A demo that would drive the gripper into the table</td></tr>
+    <tr><td>Allowed area</td><td>Path stays within a set horizontal radius and height around the start (0.22 m / 0.15 m for this take)</td><td class="yes">201 mm horizontal, 61 mm up</td><td>A demo bigger than what is allowed near people on the real robot</td></tr>
+    <tr><td>Reachability</td><td>IK error and solver give-ups</td><td class="yes">Max 3.3 mm, 0 give-ups</td><td>Poses the arm cannot reach or only reaches badly</td></tr>
+    <tr><td>Speed</td><td>Time the 0.3 rad/s limit was active, catch-up time after the end</td><td class="yes">0.7 s, 0.0 s</td><td>Hand movements too fast for the robot, where it would fall behind</td></tr>
+  </table></div>
+  <div class="text">
+    <p>If the floor or area check fails, the program stops <em>before</em> connecting to the robot. Example: on 2026-11-23 take-01 of the desk recording was refused at 242 mm (allowed 150 mm).</p>
+    <p><span class="term">Not checked yet:</span> collisions with objects on the table or with the robot itself, and joint torques. The MuJoCo model has collision shapes, but the replay does not report contacts. These are open for when objects come into the scene (RL6 (swap to the Dex1-1)).</p>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Step 4</p>
+  <h2>Play it on the real robot</h2>
+  <div class="text">
+    <p><span class="term">What happens:</span> the program connects to the UR controller (RTDE, UR's network interface) and moves the arm to HOME_FACE. Then it sends the precomputed joint angles every 8 ms with <code>servoJ</code> (UR's "go to these angles now" command, team settings). A second loop checks 20 times a second whether a gripper command is due and sends it to the Robotiq through the station Pi. Both start together. Nothing is computed live, except reading back where the robot actually is.</p>
+    <p><span class="term">Logged:</span> commanded and measured joint angles, target and actual fingertip, gripper commands and measured opening. These logs show whether steps 1–3 predicted the robot correctly.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <tr><th>Measured 2026-11-25, take-01, real UR10e</th><th>Simulation said</th><th>Robot did</th></tr>
+    <tr><td>Fingertip tracking (target vs actual)</td><td>RMS 5.7 mm, max 18.6 mm</td><td>RMS 6.5 mm, max 21.8 mm</td></tr>
+    <tr><td>Highest joint speed</td><td>0.25 rad/s</td><td>0.30 rad/s (limit 0.3)</td></tr>
+    <tr><td>Gripper commands (new rule)</td><td>13.38 / 15.96 / 18.54 / 21.22 / 24.58 / 25.82 s</td><td>13.34 / 15.95 / 18.50 / 21.21 / 24.57 / 25.82 s</td></tr>
+    <tr><td>Command → fingers start moving</td><td>56 ms (model)</td><td>within one 50 ms reading</td></tr>
+  </table></div>
+  <div class="text">
+    <p><span class="term">Why the real robot at all?</span> To show that the laptop check can be trusted. The simulation and the robot agree to within a few millimetres and tens of milliseconds, so in the thesis collection steps 1–3 can stand in for the robot.</p>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">How other work handles this</p>
+  <h2>Checking handheld demos without a robot</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Work</th><th>What they do</th><th>Published numbers</th></tr>
+    <tr><td>UMI (chi2024, HD6 and Sec. VIII)</td><td>With the robot's base position and kinematics known, recorded gripper poses are filtered for kinematic and dynamic feasibility before training</td><td>None</td></tr>
+    <tr><td>HiFi-UMI (ai2026, Sec. 3.3.3)</td><td>Every trajectory is replayed in simulation on the target robot; infeasible ones are discarded</td><td>98 % pass the replay</td></tr>
+    <tr><td>FastUMI (zhaxizhuoma2025, III-B)</td><td>Checks tracking quality instead: low-confidence poses removed, pose jumps flagged by speed and acceleration thresholds</td><td>Thresholds not published</td></tr>
+    <tr><td>This thesis</td><td>Simulation replay as HiFi-UMI, plus floor and area checks for the lab, run after each take; the robot replay (Replay Ladder) validates the simulation once</td><td>Take-01: all checks passed; sim vs robot as above</td></tr>
+  </table></div>
+  <div class="text">
+    <p>Sources from the vault notes <em>Demo rejection rules evidence log</em> and <em>UMI-style recording and training pipelines</em>. No paper reports its rejected share per reason (gap A6 (dropouts and episode rejection)). Reporting it for both handheld and VR data would be a small contribution. Which thresholds count as "reject" is not decided yet (deferred until after the Replay Ladder, Martyn 2026-11-24).</p>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Words used on this page</p>
+  <div class="glossary">
+    <div><span class="term">IK (inverse kinematics)</span><br>Finding the joint angles that put the gripper at a wanted position and angle.</div>
+    <div><span class="term">MuJoCo</span><br>Physics simulator; runs a model of the UR10e and Robotiq on the laptop.</div>
+    <div><span class="term">servoJ</span><br>UR command: move to these six joint angles within the next 8 ms.</div>
+    <div><span class="term">HOME_FACE</span><br>Start pose saved on the pendant: gripper level, facing the operator.</div>
+    <div><span class="term">Hysteresis</span><br>Two thresholds (close at 0.9, open below 0.8) so a trigger resting near one value cannot toggle the gripper.</div>
+    <div><span class="term">Replay Ladder</span><br>Steps RL1–RL6 that replay recordings on ever more real setups, from Mac simulation to the Dex1-1 on the UR10e.</div>
+  </div>
+</section>
+</div>
