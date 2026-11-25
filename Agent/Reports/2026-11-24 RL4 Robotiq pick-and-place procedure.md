@@ -181,3 +181,5 @@ Pick-and-place moves out of RL4; proposed home: RL6 (swap to the Dex1-1), where 
 ## 9. Code (2026-11-25)
 
 dex1-1-handheld PR #22 (`claude/rl4-gripper-replay`): gripper program and Robotiq plug (`software/gripper/`), settings `software/config/rl4_robotiq.json`, `ur10e_replay.py --setup` (fingertip-relative mapping, HOME_FACE start, Menagerie Robotiq in the simulation, floor check), `ur10e_replay_rtde.py --setup` (gripper thread and log). Checked on the Mac: synthetic path and take-02 pass the floor check; directions turned, not mirrored (operator forward → robot +148 mm toward the operator); gripper plug against a fake Modbus server. Not yet run on the real gripper or robot. Steps per take: `software/sim/README.md`, section RL4.
+
+Open (2026-11-25): the simulation applies the trigger rule directly to the MuJoCo gripper; it does not go through the gripper program's timed runner and a plug. D07 (software and data format) puts real and simulated devices behind the same interface (RoboManipBaselines, LeRobot), so a simulation plug is to be added. Not needed for the first RL4 run (Martyn, 2026-11-25: "not yet"); latest with the Dex1-1 plug before RL6.
