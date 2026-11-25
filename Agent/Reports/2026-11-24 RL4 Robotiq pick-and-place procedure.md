@@ -146,3 +146,15 @@ The Dex1-1 dummy closes in a straight line (no forward motion); the 2F-85 pads m
 Measured on the robot (Martyn, 2026-11-24): Robotiq jaws close left–right at the current mounting; flange → fingertip ends ≈ 170 mm (ruler; gripper state and exact start face not recorded). Manual: fingertip ends at 166.2 mm open / 179.7 mm closed from the flange (149.3 / 162.8 mm overall height + 16.9 mm coupling). The 170 mm lies inside that range, so the pendant TCP (174 mm) marks the fingertip ends, not the pad middle; the pad-middle reference of 147.1 mm (open) stays.
 
 **Correction (Martyn, 2026-11-24):** a camera adapter (D435i mount) sits between the flange and the Robotiq. The manual-based 147.1 mm (open pad middle) and the 166–180 mm finger-end range leave it out and are **not valid** for this robot. Whether the pendant TCP (174 mm) includes the adapter is unknown. To measure at the robot: flange face → middle of the finger pads, gripper fully open (this single number is the robot fingertip reference); also adapter thickness and whether the Robotiq coupling is still fitted.
+
+## 7. Measured at HOME_FACE (Martyn, 2026-11-25, ruler, "maybe not accurate")
+
+| Quantity | Measured | Cross-check |
+| --- | --- | --- |
+| Flange face → middle of finger pads, open | 150 mm | Manual 147.1 mm + camera adapter 7.25 mm = 154.4 mm (if the Robotiq coupling is fitted). Manual finger ends open 166.2 + 7.25 = 173.5 mm ≈ pendant TCP 174 mm, so the pendant TCP is very likely the open finger ends including the adapter. |
+| Middle of finger pads above the table at HOME_FACE | 345 mm | Puts the table about 0.107 m below the UR base plane (simulation). The team's code comment "TCP ~0.25 m above the table" at HOME_Q does not match; the measured value is used. |
+| Camera adapter thickness | 7.25 mm | — |
+
+Proposed robot fingertip reference: 154 mm from the flange (manual + adapter; agrees with the pendant TCP; ruler 150 mm within about 4 mm). Reasoned from two sources, not a precise measurement.
+
+Consequence for RL4b (simulation, reasoned): from 345 mm the pick needs about 31 cm of downward travel. With the gripper level, its body and the wrist sit at the height of the pads, so at pad height 3 cm they would reach the table: the grasp needs the gripper tilted down, as a hand would do it. Lower start option computed: pads 150 mm above the table, same place and orientation, joints −90 / −62.3 / 140.6 / −78.2 / 90 / 180 deg (wrist joints and flange 150 mm above the table at the start; ±10 cm cube reachable).
