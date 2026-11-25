@@ -23,7 +23,7 @@ Ask (coordinator for Martyn, 2026-11-25): before RL5 (D435i camera + recorder, r
 | Disk | `/` 57 GB, **30 GB free** | `df -h /` |
 | Python | System 3.10.12, numpy 1.21.5 (system, not used); `python3-dev`, `python3-venv`, pip present; no conda | `python3 --version`, `dpkg -l` |
 | Build tools | cmake 3.22.1, g++ 11.4.0, Boost 1.74 dev (system, thread, program-options; from B4 (dex1_1_service packages) on 2026-11-18), pybind11-dev 2.9.1, Eigen 3.4 | `dpkg -l`, `--version` |
-| Existing venv | `~/venvs/xrobotoolkit`: only `xrobotoolkit-sdk` 1.1.0 (headset). Left untouched; the replay gets its own venv | `pip list` |
+| Existing venv | `~/venvs/xrobotoolkit`: only `xrobotoolkit-sdk` 1.1.0 (headset). Left untouched; the replay gets its own conda env (J2) | `pip list` |
 | Not present | ur_rtde, MuJoCo, Pinocchio, CasADi (no apt or pip package), team code `xr_teleoperate`, robot models (`software/sim/models`) | `dpkg -l`, `ls` |
 | Our code | `~/dex1-1-handheld` at b055f3f (PR #18); GitHub main is 1f90bd0 (PR #23), so a `git pull` is needed (RL4 code is missing on the Jetson) | `git log`, `git fetch --dry-run` |
 | Take | `~/pose-log-20261125-150606/take-01/raw.csv`, same file as on fractal-pc (MD5 `c6f1a2ae…c322c` on both) | `md5sum` |
