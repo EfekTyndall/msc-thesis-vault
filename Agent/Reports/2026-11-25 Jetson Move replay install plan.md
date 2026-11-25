@@ -110,6 +110,19 @@ Reference: fractal-pc real-robot run of take-01 with the trigger hysteresis rule
 
 If V1–V4 pass: the Jetson replaces fractal-pc for real-robot replay, and RL5 (D435i + recorder) can start there.
 
+## 7. How the team's VR teleop Jetson reaches the UR10e (team code, 2026-11-25)
+
+Read from `xr_teleoperate` 7e6c754 (Mac clone); the team Jetson itself was not accessed.
+
+| Point | Finding | Source |
+| --- | --- | --- |
+| Arm interface | ur_rtde `servoJ` at 125 Hz, lookahead 0.1 s, gain 300; `getActualQ` read back. Same as `ur10e_replay_rtde.py`; no ROS driver | `teleop/robot_control/robot_arm.py`, `UR10e_ArmController` (commit aac0a50) |
+| Gripper | `robotiq_2f85_node.py` over the Pi's ser2net bridge, as ours | `teleop/run_ur10e_teleop_real.sh` |
+| Environment | conda env `h2_teleop`; Jetson installer uses Miniforge/conda-forge (pinocchio 3.1.0, numpy 1.26.4, casadi), "tested clean on Ubuntu 22.04 / aarch64" | `deploy/install_teleop_env.sh`, `deploy/README.md` |
+| ur_rtde | **Not installed by the team installer**; no conda-forge package (anaconda.org search, 2026-11-25) and no aarch64 PyPI wheel, so on an aarch64 Jetson it must have been built from source; how is undocumented (unverified) | as above |
+
+Effect on the plan: the team precedent is conda on the Jetson; the venv in J2 stays the proposal (smaller, no clash with JetPack libraries, all wheels exist), Miniforge the fallback. Open question for Yanmei (Martyn asks): how ur_rtde was installed on the teleop Jetson, and whether the UR10e runs used that Jetson.
+
 ## Open
 
 - Martyn's go for J1–J6 (dependencies on the shared Jetson).
