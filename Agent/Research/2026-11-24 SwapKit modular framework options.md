@@ -156,7 +156,9 @@ flowchart LR
 | Prior work | RoboManipBaselines (murooka2026) robots mostly in MuJoCo; XRoboToolkit (zhao2025) "currently supports only MuJoCo" | Unitree's teleop data collection (`xr_teleoperate --sim`) |
 | Cost to switch | none | new install on a shared Linux PC, new models for UR10e and Robotiq |
 
-Recommendation: **MuJoCo only.** Everything the core thesis needs (UR10e, Robotiq, Dex1-1) already runs there, on the Mac where Martyn has a display. Isaac Lab would only pay off for Unitree's ready-made G1 / H1-2 scenes, and it does not list the H2. Revisit if the H2 stretch goal starts and Unitree publishes an H2 Isaac scene before a standing H2 runs in MuJoCo.
+Decided 2026-11-25 (Martyn): MuJoCo for all testing now; the end-product simulator is chosen near the end, once the other intern's Isaac Sim / Isaac Lab scene is known (Waiting, Later stages). Isaac Sim runs on Linux or Windows 11 with an NVIDIA RTX GPU, not on macOS.
+
+Earlier recommendation: **MuJoCo only.** Everything the core thesis needs (UR10e, Robotiq, Dex1-1) already runs there, on the Mac where Martyn has a display. Isaac Lab would only pay off for Unitree's ready-made G1 / H1-2 scenes, and it does not list the H2. Revisit if the H2 stretch goal starts and Unitree publishes an H2 Isaac scene before a standing H2 runs in MuJoCo.
 
 ## Open / unverified
 
