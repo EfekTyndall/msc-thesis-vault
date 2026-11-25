@@ -6,7 +6,7 @@ tags: [report, roadmap, red-line]
 
 One path through the thesis: what comes first, what it unlocks, and where every open item belongs. Built from `msc-thesis/docs/thesis-plan.md` (§2 scope, §5 schedule and gates, §8 open items), [[Waiting]] and the Replay Ladder ([[2026-11-20 Interim hardware while the Dex1-1 is delayed]]), after the clean-up [[2026-11-24 Open items clean-up]].
 
-**Now:** step 1, RL4 (Robotiq pick-and-place). **Next:** step 2, RL5 (D435i + recorder). Everything else waits in [[Waiting]] under its step.
+**Now:** move replay and gripper to the station Jetson, then step 2, RL5 (D435i + recorder). **Done:** RL4 passed 2026-11-25 (Robotiq open/close during replay, sim then real). Everything else waits in [[Waiting]] under its step.
 
 ## Priority tags
 
@@ -62,7 +62,7 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 - Prototype: plate 4 v23 front + plate 1 v22 back sleeve, real-adapter v14, clamp-ring joint screwed (24 Nov) ([[D10 Handheld mechanism]]).
 - RL1–RL3 passed 23 Nov: real UR10e within 1.0 mm RMS of the MuJoCo prediction ([[2026-11-23 RL3 real UR10e replay procedure]]).
 
-### 1. RL4: Robotiq open/close during replay (sim, then real) — NOW
+### 1. RL4: Robotiq open/close during replay (sim, then real) — PASSED 2026-11-25
 
 Scope changed 2026-11-25 (Martyn): no pick; handheld episode replayed in simulation first, then slowly on the real UR10e with the Robotiq opening and closing; pick-and-place proposed for RL6 ([[2026-11-24 RL4 Robotiq pick-and-place procedure]], section 8).
 **Needs first:** RL3 passed ✓. **Unlocks:** RL5 (a working gripper command in the replay), the first real-gripper trigger data. **Status:** not started.

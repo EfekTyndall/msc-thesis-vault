@@ -207,4 +207,4 @@ Take-01 from fractal-pc, start HOME_FACE, radius 0.22 m, floor check passed (dry
 | Gripper commands | 8 of 8 sent in the simulated order, at 13.35 / 15.94 / 18.54 / 20.97 / 21.03 / 21.15 / 24.60 / 25.79 s (simulation: 13.3 / 15.9 / 18.5 / 21.0 / 21.0 / 21.1 / 24.5 / 25.8 s) |
 | Command → first finger movement | 56–63 ms (width read at 20 Hz, so resolution about 50 ms); flicker commands at 21.03 / 21.15 s while the fingers were still moving |
 
-Logs: fractal-pc `~/rl2-test/rl4-take-01-robot.csv`, `~/rl2-test/rl4-take-01-robot-gripper.csv` (not in Git). Pass checks of section 8 met by the numbers; Martyn's visual check pending.
+Logs: fractal-pc `~/rl2-test/rl4-take-01-robot.csv`, `~/rl2-test/rl4-take-01-robot-gripper.csv` (not in Git). Pass checks of section 8 met by the numbers. Martyn's visual check (2026-11-25): "everything looks as expected". **RL4 passed 2026-11-25.**

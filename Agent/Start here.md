@@ -35,7 +35,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 
 ## By Red Line step
 
-**Now, step 1, RL4 (Robotiq pick-and-place)**
+**Step 1, RL4 (Robotiq open/close during replay), passed 2026-11-25**
 - [[2026-11-24 RL4 Robotiq pick-and-place procedure]] (report): team Robotiq driver (how it connects), what gets built, lab steps
 - [[2026-11-20 Interim hardware while the Dex1-1 is delayed]] (report): why the Replay Ladder exists, interim hardware
 - [[2026-11-23 RL3 real UR10e replay procedure]] (report): how to replay on the real robot
