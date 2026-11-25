@@ -121,7 +121,7 @@ Read from `xr_teleoperate` 7e6c754 (Mac clone); the team Jetson itself was not a
 | Environment | conda env `h2_teleop`; Jetson installer uses Miniforge/conda-forge (pinocchio 3.1.0, numpy 1.26.4, casadi), "tested clean on Ubuntu 22.04 / aarch64" | `deploy/install_teleop_env.sh`, `deploy/README.md` |
 | ur_rtde | **Not installed by the team installer**; no conda-forge package (anaconda.org search, 2026-11-25) and no aarch64 PyPI wheel, so on an aarch64 Jetson it must have been built from source; how is undocumented (unverified) | as above |
 
-Effect on the plan: the team precedent is conda on the Jetson; the venv in J2 stays the proposal (smaller, no clash with JetPack libraries, all wheels exist), Miniforge the fallback. Open question for Yanmei (Martyn asks): how ur_rtde was installed on the teleop Jetson, and whether the UR10e runs used that Jetson.
+Effect on the plan: the team precedent is conda on the Jetson; the venv in J2 stays the proposal (smaller, no clash with JetPack libraries, all wheels exist), Miniforge the fallback. Martyn (2026-11-25): own research found no other route, so the team's ur_rtde was most likely built from source; not confirmed with Yanmei (optional question).
 
 ## Open
 
