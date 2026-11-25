@@ -56,6 +56,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 
 **Step 4, Dex1-1 delivery and RL6 (swap to the Dex1-1)**
 - [[2026-11-03 Dex1-1 technical note]] (research, bib)
+- [[2026-11-25 Camera View Dex1-1 and D435i field of view]] (research, bib): Dex1-1 camera pose from Unitree's URDF, first MuJoCo render of its view; how to see a D435i frame on the Mac
 - [[2026-11-12 Dex1-1 on the UR10e integration]] (research, wide)
 - [[2026-11-13 dex1_1_service code and Pi 5 fit]] (research, bib): gripper service code
 - [[2026-11-16 Dex1-1 force limiting on contact]] (research, bib): G9 (force cap)

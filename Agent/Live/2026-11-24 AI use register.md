@@ -36,6 +36,7 @@ Columns as in the flyer's example 3. "Sections" is filled once the thesis chapte
 | Explainer pages, diagrams, mind maps (e.g. D01 (handheld gripper body) mind map, data-format explainer) | tbd (only if a figure is reused) | Content checked by Martyn | Claude (Anthropic) | Disclose any figure that enters the thesis |
 | RL4 (Robotiq pick-and-place) procedure and pose analysis: start pose HOME_FACE by inverse kinematics on the team UR10e model, PICO controller model lined up with the scan in Fusion, fingertip offsets (vault `Agent/Reports/2026-11-24 RL4 Robotiq pick-and-place procedure.md`) | methods, experiments (tbd) | Start-pose direction, recording with the dummy, and the camera-adapter correction by Martyn; jaw direction and 170 mm measured by Martyn at the robot; HOME_FACE not yet checked on the robot | Claude (Anthropic), Claude Code, Fusion connector | Simulation and CAD values unverified until measured at the robot |
 | LaTeX skeleton (chapter files, layout) in msc-thesis `thesis/` | whole document structure | h_da template chosen and set up by Martyn | Claude (Anthropic) | Structure suggestion, disclose |
+| Camera View: Dex1-1 camera view rendered in MuJoCo from Unitree's URDF and meshes (scene and render script, picture in vault `Agent/Research/figures/2026-11-25 Dex1-1 camera view sim.png`) | hardware or methods chapter (tbd) | Idea to check the camera field of view in simulation by Martyn; values from Unitree sources; not yet checked against the real camera | Claude (Anthropic), Claude Code | Figure: disclose if reused; simulation only (pinhole, real lens wider at the corners) |
 
 ## Primary prompts
 
@@ -45,6 +46,7 @@ Numbered as in the flyer's example 2. Add a prompt when its output enters the th
 | --- | --- | --- |
 | P1 | "At the end I want to have a full modular framework that can be easily adjusted and adapted into different robots … three main modes: Teleoperation, Recording, and Replay mode … Does this actually feasible?" (output: vault `Agent/Research/2026-11-24 SwapKit modular framework options.md`) | 2026-11-24 |
 | P2 | "Plan RL4 Robotiq pick-and-place" (Replay Ladder thread; Martyn's corrections: robot works in front of itself, gripper facing the operator; record with the full handheld and the dummy; camera adapter between flange and Robotiq) (output: vault `Agent/Reports/2026-11-24 RL4 Robotiq pick-and-place procedure.md`) | 2026-11-24 |
+| P3 | "For the Dex One camera, is it possible that we check the field of view in simulation using Unitree Mujoco library … check if they have the Dex one gripper camera specification in the repo" (output: vault `Agent/Research/2026-11-25 Camera View Dex1-1 and D435i field of view.md`) | 2026-11-25 |
 
 ## Commit evidence
 
