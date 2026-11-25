@@ -47,6 +47,7 @@ Each contribution names the result that backs it. Status as of 2026-11-24.
 | UR10e IK, arm controller, HOME_Q, base yaw | reused (outside dependency, pinned) | team fork of Unitree `xr_teleoperate` | — | no |
 | Dex1-1 driver | reused | Unitree `dex1_1_service`, `unitree_sdk2` | build on the station Jetson | no |
 | UR10e and H2 simulation models | reused | MuJoCo Menagerie (BSD-3), unitree_mujoco (BSD-3) | model check against the team URDF | check script: yes |
+| Dex1-1 camera view scene (MuJoCo) | adapted | Unitree `unitree_ros` Dex1-1 URDF and meshes (BSD-3) | idea and task parts | scene and render script: yes |
 | Robot connection | reused | ur_rtde, URSim | — | no |
 | Pose and trigger logging | built | dex1-1-handheld `software/xr/` | requirements, lab runs | yes |
 | Replay in MuJoCo, URSim and on the real UR10e (Replay Ladder RL1–RL3) | built | dex1-1-handheld `software/sim/` | requirements, safety limits, all lab runs | yes |
