@@ -164,3 +164,16 @@ Station facts (Martyn, 2026-11-25, with photos): the UR10e is mounted on a carri
 **Start pose chosen (Martyn, 2026-11-25): option A**, lower start: joints −90 / −62.3 / 140.6 / −78.2 / 90 / 180 deg; pads about 156 mm above the table (with the 113 mm table measurement). Move from HOME_FACE is a straight lowering; lowest axis point along the way 156 mm above the table (simulation; gripper body, camera and wrist housings add their radius, about 4–6 cm, not modelled). Replaces HOME_FACE as the RL4 start; to be saved on the pendant as its own program (name proposed: "HOME_FACE_LOW").
 
 **Changed (Martyn, 2026-11-25): HOME_FACE stays the RL4 start** (−90 / −87.3 / 136.7 / −49.3 / 90 / 180 deg; pads about 345–350 mm above the table); option A dropped. The table height (113 mm below the base mounting face) is taken into account instead: the allowed box gets a floor limit from the table (pads at least about 30 mm above it) rather than the RL3 5 cm depth, so a pick from the table means up to about 32 cm downward travel; the handheld start stand is about 35 cm tall.
+
+## 8. RL4 scope changed (Martyn, 2026-11-25)
+
+RL4 no longer picks anything. New idea: a handheld episode (movement + trigger) is replayed first in simulation to see what the robot would do and whether it is safe, then on the real robot, moving slowly, with the Robotiq opening and closing at the recorded trigger moments.
+
+Proposed pass checks (Claude, for Martyn's OK):
+
+| Stage | Pass when |
+| --- | --- |
+| RL4-sim (MuJoCo on the Mac) | The recorded take plays on the UR10e model with a gripper that opens/closes at the trigger moments; all safety checks pass (floor limit from the table, sideways box, 0.3 rad/s); Martyn judges it looks right and safe |
+| RL4-real (UR10e, from HOME_FACE) | The robot follows as in RL3 (no protective stop, tracking logged); the Robotiq opens and closes in the same order and at about the same moments as in the simulation (log: command time and measured width) |
+
+Pick-and-place moves out of RL4; proposed home: RL6 (swap to the Dex1-1), where the mid-January gate needs successful replays anyway. Sections 3 (step 4, RL4b) and the 3-of-3 pass rule are superseded by this section.

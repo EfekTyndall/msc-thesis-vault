@@ -62,7 +62,9 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 - Prototype: plate 4 v23 front + plate 1 v22 back sleeve, real-adapter v14, clamp-ring joint screwed (24 Nov) ([[D10 Handheld mechanism]]).
 - RL1–RL3 passed 23 Nov: real UR10e within 1.0 mm RMS of the MuJoCo prediction ([[2026-11-23 RL3 real UR10e replay procedure]]).
 
-### 1. RL4: Robotiq pick-and-place — NOW
+### 1. RL4: Robotiq open/close during replay (sim, then real) — NOW
+
+Scope changed 2026-11-25 (Martyn): no pick; handheld episode replayed in simulation first, then slowly on the real UR10e with the Robotiq opening and closing; pick-and-place proposed for RL6 ([[2026-11-24 RL4 Robotiq pick-and-place procedure]], section 8).
 **Needs first:** RL3 passed ✓. **Unlocks:** RL5 (a working gripper command in the replay), the first real-gripper trigger data. **Status:** not started.
 
 | Item | Tag | Where |
