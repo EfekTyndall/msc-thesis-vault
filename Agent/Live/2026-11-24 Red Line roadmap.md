@@ -6,7 +6,7 @@ tags: [report, roadmap, red-line]
 
 One path through the thesis: what comes first, what it unlocks, and where every open item belongs. Built from `msc-thesis/docs/thesis-plan.md` (§2 scope, §5 schedule and gates, §8 open items), [[Waiting]] and the Replay Ladder ([[2026-11-20 Interim hardware while the Dex1-1 is delayed]]), after the clean-up [[2026-11-24 Open items clean-up]].
 
-**Now:** move replay and gripper to the station Jetson, then step 2, RL5 (D435i + recorder). **Done:** RL4 passed 2026-11-25 (Robotiq open/close during replay, sim then real). Everything else waits in [[Waiting]] under its step.
+**Now:** step 2, RL5 (D435i + recorder), plan [[2026-11-25 RL5 camera and recorder plan]]. Jetson Move passed 2026-11-25. **Done:** RL4 passed 2026-11-25 (Robotiq open/close during replay, sim then real). Everything else waits in [[Waiting]] under its step.
 
 ## Priority tags
 
@@ -78,7 +78,7 @@ Scope changed 2026-11-25 (Martyn): no pick; handheld episode replayed in simulat
 | M3 inserts and the screwed sleeve-boss joint (prototype holds up in longer runs) | 🟠 important | [[Waiting]], Purchases |
 
 ### 2. RL5: D435i + recorder
-**Needs first:** RL4. **Unlocks:** raw MCAP recordings with images; the sync test; export (step 3). **Status:** findings note ready ([[2026-11-23 RL5 sync test findings]]).
+**Needs first:** RL4. **Unlocks:** raw MCAP recordings with images; the sync test; export (step 3). **Status:** plan written 2026-11-25 ([[2026-11-25 RL5 camera and recorder plan]], steps R1–R6); findings note [[2026-11-23 RL5 sync test findings]].
 
 | Item | Tag | Where |
 | --- | --- | --- |
