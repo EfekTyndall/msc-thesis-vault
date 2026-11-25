@@ -100,6 +100,8 @@ Comparison with the Dex1-1 renders (simulation vs real frame, different gripper 
 
 ## Open
 
+Placed on the roadmap 2026-11-25, all ⚪ can wait, none started: [[2026-11-24 Red Line roadmap]] (RL5 (D435i + recorder), RL6 (swap to the Dex1-1), Writing) and [[Waiting]].
+
 - D435i live stream (section 4, option B): Mac viewer written and tested with a fake stream in the D435i stream thread, kept outside the repos; use only if a moving view is needed.
 - Ask Unitree or the Dex1-1 docs which camera and resolution the G1-D wrist calibration belongs to.
 - Check whether the local official URDF 261030 has the same `Camera` joint.

@@ -85,6 +85,7 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 | SwapKit camera plug (D435i) and the recorder behind fixed interfaces, so the Dex1-1 camera is a plug swap later | 🔴 blocks next step | [[2026-11-24 SwapKit modular framework options]] |
 | Jetson disk and the unused 256 GB SD card (ask the supervisor first) | ⚪ can wait (until recordings grow) | [[Waiting]], RL5 |
 | Replay from the station Jetson instead of fractal-pc (`ur_rtde` source build) | ⚪ can wait | Daily TODO (RL4 item, "Later") |
+| Camera View (25 Nov): the flange D435i sees only the 2F-85 fingertips in the bottom ~30 % of the frame, unlike the Dex1-1 camera; RL5 images are for the sync test only, not for vision training | ⚪ can wait (note only) | [[Waiting]], RL5; [[2026-11-25 Camera View Dex1-1 and D435i field of view]] |
 
 ### 3. Export to LeRobot
 **Needs first:** RL5 recordings. **Unlocks:** pilot training. **Status:** format decided in D07 (software and data format): raw MCAP, offline alignment, LeRobot export.
@@ -108,6 +109,8 @@ Gate and dates: `msc-thesis/docs/thesis-plan.md` §5. Task definition (step 5) r
 | Real-adapter checks, bow flex check (decides adapter material, before the freeze) | 🟠 important | [[Waiting]], Dex1-1 delivery |
 | Cable clip; 3–5 m cable and balancer | 🟠 important | [[Waiting]] |
 | Scale: weigh controller, prints, gripper | ⚪ can wait | [[Waiting]], Purchases |
+| Camera View: measure the Dex1-1 camera field of view and lens distortion on arrival (wall or checkerboard); Unitree page 118×87° vs ~90×66° from the unitree_sim_isaaclab calibration, unverified which applies. Asking Unitree for the datasheet instead sends a message (Martyn's go) | ⚪ can wait (part of the delivery check) | [[Waiting]], Dex1-1 delivery; [[2026-11-25 Camera View Dex1-1 and D435i field of view]] |
+| Camera View: occlusion check, do handheld parts block the Dex1-1 camera view (MuJoCo + Fusion CAD); before the hardware freeze at the gate | ⚪ can wait | [[Waiting]], Dex1-1 delivery; [[2026-11-25 Camera View Dex1-1 and D435i field of view]] |
 
 ### Gate (mid-January 2027)
 Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. If not met, all stretch goals are dropped (`msc-thesis/docs/thesis-plan.md` §5).
@@ -142,6 +145,7 @@ Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. I
 | Related-work outline | ⚪ can wait | `msc-thesis/docs/thesis-plan.md` §8 |
 | [S] items check in the PDFs before citing | ⚪ can wait | [[Waiting]], Writing |
 | Zotero additions (ACT, robomimic, Diffusion Policy, Open X-Embodiment, LeRobot) | ⚪ can wait | [[Waiting]], Writing |
+| Camera View: method text on matching the camera view between handheld and robot | ⚪ can wait | [[Waiting]], Writing; [[2026-11-25 Camera View Dex1-1 and D435i field of view]] |
 
 ## Off the path (no step depends on these)
 
@@ -157,5 +161,6 @@ Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. I
 ## Rules
 
 - A new item gets a home here (step + tag) before anyone works on it. If it belongs to a later step, it goes to [[Waiting]] under that step and work stays on the current step.
+- New findings (a research note, a lab result): the same day, each item in the note's Open list gets a row here (step + tag) and a line in [[Waiting]]; the note's Open list links back here. Nothing is started unless it is 🔴 in the current step. First applied: Camera View, 2026-11-25.
 - Daily TODO holds at most 3 tasks, taken from the current step, 🔴 first.
 - A step is done when all its 🔴 items are done; then its 🟠 items are re-checked and the next step becomes "Now".

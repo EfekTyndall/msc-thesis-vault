@@ -16,6 +16,7 @@ Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 (handheld gripper bo
 ## RL5 (D435i + recorder): after RL4 (Robotiq pick-and-place)
 - [ ] Camera: the only D435i sits on the UR10e flange with the Robotiq 2F-85 (Martyn, 2026-11-24), so RL5 shares or unmounts it. Steps ([[2026-11-19 Station Jetson camera install plan]]): CAM1 (plug in and check) plug in a blue USB port of the station Jetson and check with `v4l2-ctl` (nothing installed); CAM2 (test frames) grab test frames with the existing GStreamer/V4L2 tools and measure the frame rate (nothing installed); CAM3 (recorder venv) venv `~/venvs/recorder` with `numpy`, `opencv-python-headless`, `mcap` (**needs Martyn's go**, new dependencies). Risk: D435i colour over plain UVC unverified until CAM1. Sync test details: [[2026-11-23 RL5 sync test findings]]. (since 2026-11-19; moved from [[2026-11-24]] TODO)
 - [ ] Jetson disk (setup step 5): 31 GB free on eMMC. Measure recording size per episode first, then decide external drive or copy-off ([[2026-11-16 Station Jetson check]] open item 3). The 256 GB SD card in the Jetson is empty, owner unknown; leave it unused; **ask the supervisor first** (Martyn, 2026-11-24), then speed-test ([[2026-11-17 Station Jetson SD card check]]). First needed when recordings are stored. (since 2026-11-17; moved from [[2026-11-24]] TODO)
+- [ ] Camera View: the flange D435i sees only the 2F-85 fingertips (bottom ~30 % of the frame), unlike the Dex1-1 camera; mark RL5 images as sync-test only, not vision training data ([[2026-11-25 Camera View Dex1-1 and D435i field of view]]). ⚪ (since 2026-11-25)
 
 ## Export (after RL5, when the exporter is written)
 - [ ] LeRobot version for the export: GR00T expects a LeRobot v2 flavour plus `meta/modality.json`; LeRobot `main` writes v3.0; which version openpi's pinned LeRobot commit reads is unverified. Decide one v2.1 export for both models or two outputs; record in [[D07 Software and data format]] with the record-decision skill. Single home for this question (also in [[2026-11-23 Robot data formats]], [[2026-11-18 GR00T and pi0.5 action format for handheld data]] and the open question in `msc-thesis/docs/proposal.md`). (since 2026-11-23; moved from [[2026-11-24]] TODO)
@@ -30,6 +31,8 @@ Talk held 2026-11-16: outcome in [[2026-11-16 Yanmei]] (D01 (handheld gripper bo
 - [ ] Real path: cable clip for power and RS-485 on real-adapter, once it is known where the cables leave the gripper. (since 2026-11-04)
 - [ ] Real-adapter checks on the gripper (rear-mount 4×M3, clamp ring): see `PRINT-TEST-QUEUE.md` §3. (since 2026-11-04)
 - [ ] Bow flex check under the real gripper's weight, with screwed joints (needs screws and inserts too); the result decides the adapter material ([[D10 Handheld mechanism]], Revisit if). 2026-11-19: by hand the rod flexes little (Martyn). (since 2026-11-19)
+- [ ] Camera View, field of view: measure the Dex1-1 camera FoV and lens distortion on arrival (wall or checkerboard); Unitree page 118×87° vs ~90×66° from the unitree_sim_isaaclab calibration, unverified which applies; also check whether the local official URDF 261030 has the same `Camera` joint. Asking Unitree for the datasheet sends a message: Martyn's go first ([[2026-11-25 Camera View Dex1-1 and D435i field of view]]). ⚪ (since 2026-11-25)
+- [ ] Camera View, occlusion: check in MuJoCo + Fusion CAD whether handheld parts block the Dex1-1 camera view; before the hardware freeze at the gate ([[2026-11-25 Camera View Dex1-1 and D435i field of view]]). ⚪ (since 2026-11-25)
 
 ## Purchases
 Sorted 2026-11-11 (Martyn): before the gripper arrives vs after. Storefront orders need the manager's approval and a colleague to place them.
@@ -64,6 +67,7 @@ D01 (handheld gripper body) settled 2026-11-16 on the real Dex1-1; these items w
 - [ ] Zotero: add ACT, robomimic, Diffusion Policy, Open X-Embodiment and LeRobot if the thesis text cites them (Martyn; `literature.bib` is never edited by hand). (since 2026-11-23; moved from [[2026-11-24]] TODO)
 
 - [ ] AI rules (h_da flyer): agreement with the examiner on AI-written source code and AI-assisted presentations, ideally in writing (Martyn asks); check whether Daimler has an AI-use guideline that applies (Martyn). Details: [[2026-11-24 AI use register]], Open actions. (since 2026-11-24)
+- [ ] Camera View, method text: how the camera view is matched between handheld and robot ([[2026-11-25 Camera View Dex1-1 and D435i field of view]]). ⚪ (since 2026-11-25)
 
 ## Thesis end (Daimler handover)
 - [ ] Clean `dex1-1-handheld` before it is shared with the company: checklist and check commands in [[Handover]]. (since 2026-11-19)
