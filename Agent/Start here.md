@@ -82,7 +82,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 - [[2026-11-06 PICO Motion Tracker uses]] (research, wide)
 - [[2026-11-17 PICO control from the Mac and neck-hung headset]] (research, bib)
 - [[2026-11-11 Mac-centred lab workflow]] (report): which computer does what
-- [[2026-11-24 SwapKit modular framework options]] (research, wide): option A chosen 24 Nov, plugs built inside RL4–RL6 (recorded in [[D07 Software and data format]])
+- [[2026-11-24 SwapKit modular framework options]] (research, wide): option A chosen 24 Nov, plugs built inside RL4–RL6 (recorded in [[D07 Software and data format]]); 25 Nov: Martyn's picture checked, simulation = MuJoCo only (recommended)
 - [[2026-11-19 Three-repo consistency audit]] (report): base of the weekly repo audit and [[Handover]]
 - [[2026-11-24 Open items clean-up]] (report): what the 2026-11-24 clean-up changed in Waiting
 

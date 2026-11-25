@@ -116,6 +116,48 @@ Why A first: it costs least, fixes the interfaces before the Dex1-1 arrives (RL6
 - **Schedule (plan section 5):** no new phase. RL4 (Robotiq pick-and-place) builds the gripper plug, RL5 (camera + recorder) builds the camera plug and recorder, RL6 (swap to the Dex1-1) is the first swap test. VR teleop in MuJoCo for the UR10e is a new small piece (live version of RL1).
 - **Thesis plan and CLAUDE.md:** not changed by this note. Changing them is Martyn's call.
 
+## Check of Martyn's picture (2026-11-25)
+
+Martyn wrote out his understanding on 2026-11-25. Mostly right; five corrections, then the simulation choice.
+
+```mermaid
+flowchart LR
+  subgraph SRC[Where the movement comes from]
+    VR[VR controller<br/>live]
+    HH[Handheld<br/>PICO + Dex1-1<br/>no robot]
+    EP[(Saved episode<br/>raw MCAP)]
+  end
+  VR -->|Teleop| ROB
+  VR -->|Record| ROB
+  ROB -. robot + camera data .-> EP
+  HH -->|Record| EP
+  EP -->|Replay| SIM[Rehearsal in MuJoCo<br/>+ safety check]
+  SIM -->|only if PASSED| ROB[Robot plug<br/>sim or real UR10e<br/>H2 later]
+  EP -->|Export| LR[(LeRobot dataset<br/>for training)]
+```
+
+| Martyn's point | Verdict | Correction or detail |
+| --- | --- | --- |
+| VR teleop can drive the robot only (Teleop) or also save the episode (Record) | right | In Record the robot's own movement, gripper width and robot camera are saved |
+| A recorded episode can only be replayed | right, add one | It can also be exported to LeRobot for training. And the episodes replayed so far are **handheld** recordings (RL1–RL4 (replay in MuJoCo, URSim, real UR10e, Robotiq open/close)): replay is how handheld data is checked on the robot, which the mid-January gate needs |
+| Replay works on the robot, simulated or real | right, with an order | Replay on the real robot always plays the episode in MuJoCo first, then runs the safety check (allowed box, floor clearance), and only then moves the real UR10e (`ur10e_replay_rtde.py` uses the MuJoCo replay's joint targets; RL4 setup file). So "real" means "sim rehearsal, then real" |
+| Handheld records without a robot | right | Gripper on the handheld = Dex1-1 (it reads its own width); camera = the Dex1-1 camera, because the only D435i sits on the robot flange. There is no simulated handheld: it is a real device |
+| Recording on the Dex1-1 because the Robotiq is heavy | partly | Weight matters only for the **handheld**. For VR recording on the UR10e the gripper sits on the robot, so the Robotiq works. But for the thesis data all conditions must use the same gripper and camera (thesis plan §3 fairness rules), so final data = Dex1-1 on robot and handheld; Robotiq data stays pilot data |
+| Camera not relevant in teleop only | mostly | Nothing is saved, so no camera plug is needed. Optional: the team's VR teleop can stream a robot camera into the headset (`xr_teleoperate` image service, [README](https://github.com/unitreerobotics/xr_teleoperate)); at the UR10e table the operator sees the robot directly |
+| Any robot × any gripper × any camera | not every pair | The H2 carries the Dex1-1 (Unitree's own gripper); Robotiq on the H2 is not planned. Sim side today: UR10e + Robotiq in MuJoCo exist; a simulated camera plug does not exist yet |
+| Hardware plugs come as real or simulated | right | Same interface, e.g. `robotiq_2f85` (real) and `sim_robotiq_2f85` (MuJoCo), both behind the one gripper program (`software/gripper/gripper_program.py`, RL4 2026-11-25) |
+
+### Simulation: one environment, MuJoCo (recommendation)
+
+| | MuJoCo | Isaac Lab / Isaac Sim |
+| --- | --- | --- |
+| Runs on the Mac | yes, RL1 and RL4 simulations run there today | no: Linux or Windows only, NVIDIA RTX GPU; NVIDIA lists RTX 4080 / 16 GB as minimum ([requirements](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/requirements.html), read from a summary, unverified). fractal-pc has a 12 GB RTX 3080 Ti; Unitree reports tests on an RTX 3080 ([unitree_sim_isaaclab](https://github.com/unitreerobotics/unitree_sim_isaaclab)) |
+| Models in use | UR10e and Robotiq 2F-85 (MuJoCo Menagerie, BSD-3), own Dex1-1 model (`software/sim/dex1_1_mujoco.py`), H2 model loads (unitree_mujoco, cannot stand yet) | Unitree's sim: G1 and H1-2 with Dex1, Dex3, Inspire; **no H2** and no UR10e in its README |
+| Prior work | RoboManipBaselines (murooka2026) robots mostly in MuJoCo; XRoboToolkit (zhao2025) "currently supports only MuJoCo" | Unitree's teleop data collection (`xr_teleoperate --sim`) |
+| Cost to switch | none | new install on a shared Linux PC, new models for UR10e and Robotiq |
+
+Recommendation: **MuJoCo only.** Everything the core thesis needs (UR10e, Robotiq, Dex1-1) already runs there, on the Mac where Martyn has a display. Isaac Lab would only pay off for Unitree's ready-made G1 / H1-2 scenes, and it does not list the H2. Revisit if the H2 stretch goal starts and Unitree publishes an H2 Isaac scene before a standing H2 runs in MuJoCo.
+
 ## Open / unverified
 
 - Whether team pin 7e6c754 contains upstream H2 arm control (check on the Mac: `git log` of `~/thesis/team/xr_teleoperate`, read-only).
