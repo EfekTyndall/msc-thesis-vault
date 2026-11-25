@@ -86,7 +86,7 @@ Scope changed 2026-11-25 (Martyn): no pick; handheld episode replayed in simulat
 | Sync test: camera delay, pose delay, clock | 🔴 blocks next step | [[2026-11-23 RL5 sync test findings]] |
 | SwapKit camera plug (D435i) and the recorder behind fixed interfaces, so the Dex1-1 camera is a plug swap later | 🔴 blocks next step | [[2026-11-24 SwapKit modular framework options]] |
 | Jetson disk and the unused 256 GB SD card (ask the supervisor first) | ⚪ can wait (until recordings grow) | [[Waiting]], RL5 |
-| Replay from the station Jetson instead of fractal-pc (`ur_rtde` source build) | ⚪ can wait | Daily TODO (RL4 item, "Later") |
+| Move the real replay and the gripper from fractal-pc to the station Jetson (`ur_rtde` source build: install plan + Martyn's OK first; check IK speed on the Jetson). Order agreed 2026-11-25: RL4 from fractal-pc first, then this move, before RL5 recordings. Check: the same take replayed from both computers gives matching logs. Mac stays for development and simulation preview; fractal-pc later for training only | 🟠 important | Daily TODO |
 | Camera View (25 Nov): the flange D435i sees only the 2F-85 fingertips in the bottom ~30 % of the frame, unlike the Dex1-1 camera; RL5 images are for the sync test only, not for vision training | ⚪ can wait (note only) | [[Waiting]], RL5; [[2026-11-25 Camera View Dex1-1 and D435i field of view]] |
 
 ### 3. Export to LeRobot
