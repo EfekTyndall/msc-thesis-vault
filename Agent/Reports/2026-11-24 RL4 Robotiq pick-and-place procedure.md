@@ -208,3 +208,34 @@ Take-01 from fractal-pc, start HOME_FACE, radius 0.22 m, floor check passed (dry
 | Command → first finger movement | 56–63 ms (width read at 20 Hz, so resolution about 50 ms); flicker commands at 21.03 / 21.15 s while the fingers were still moving |
 
 Logs: fractal-pc `~/rl2-test/rl4-take-01-robot.csv`, `~/rl2-test/rl4-take-01-robot-gripper.csv` (not in Git). Pass checks of section 8 met by the numbers. Martyn's visual check (2026-11-25): "everything looks as expected". **RL4 passed 2026-11-25.**
+
+## 13. Follow-ups: trigger hysteresis and simulation gripper plug (2026-11-25)
+
+Code on dex1-1-handheld branch `claude/project-thread-sx49ne` (pull request pending; not yet on the robot).
+
+**Trigger hysteresis.** At 21.0 s of take-01 the trigger fell from 1.000 to 0.867, rose back to 0.933 and then went to 0. With one threshold at 0.9 that gave open / close / open within 0.16 s (section 12). New rule: close at trigger ≥ 0.9 (`trigger_close_at`, kept equal to the team's VR teleop for G2 (same trigger-to-gripper mapping in both conditions)), open again only below 0.8 (`trigger_open_below`); in between the last command is kept. Both values are in `software/config/rl4_robotiq.json`; setting them equal restores the old rule.
+
+| Basis for 0.8 | Source |
+| --- | --- |
+| Observed dip below 0.9 during the hover: 0.033 (lowest 0.867); a 0.1 band leaves about 3× margin | take-01 `raw.csv` (measured) |
+| Cost: the three releases of take-01 open 12, 224 (the hover) and 24 ms later than with one threshold; at the hover the final open is 21.18 s instead of the last flicker command at 21.11 s | take-01, computed with `trigger_events` |
+| Team VR teleop: one threshold 0.9, no hysteresis | `controller_events.py` (`_AnalogTracker`) |
+| LieSpline-DP (not in bib) turns gripper targets into binary open/close intent with hysteresis 0.25 on a −1..1 scale (switches above +0.25, below −0.25), i.e. a band of 25 % of the range, used for training labels, not teleop | [`bspline_se3_util.py` `_binary_intent_from_target`](https://github.com/xieerxuan/LieSpline-DP/blob/main/liespline_dp/common/bspline_se3_util.py), `_bspline_se3.yaml` `gripper_intent_hysteresis_q: 0.25` |
+
+No teleop paper or toolkit with a published trigger hysteresis value was found (team code, XRoboToolkit and Unitree mappings per G2); 0.8 rests on the measurement above and is to be revisited with G1 (trigger value vs travel). Side finding for G1: all 2187 trigger values of take-01 are multiples of 1/255 (127 distinct values), i.e. the trigger arrives with 8-bit steps.
+
+**Simulation gripper plug.** The Mac simulation (`ur10e_replay.py --setup`) no longer applies the trigger rule itself: it runs the same gripper program as the real robot (`GripperRunner`, 20 Hz poll, command log) on the simulated clock, with a simulation plug `sim_robotiq_2f85` (MuJoCo Menagerie 2F-85, same width mapping as the real plug). The setup file names both plugs (`plug` for the robot, `sim_plug` for the simulation), the SwapKit idea of real and simulated gripper behind one interface (D07 (software and data format)).
+
+Checks on the Mac (take-01, conda env `humanoid`):
+
+| Check | Result |
+| --- | --- |
+| Old rule (0.9 / 0.9) through the new simulation path: command times vs real robot log (section 12) | Sim 13.38 / 15.90 / 18.54 / 21.00 / 21.06 / 21.11 / 24.58 / 25.82 s; real 13.35 / 15.94 / 18.54 / 20.97 / 21.03 / 21.15 / 24.60 / 25.79 s. Same 8 commands in the same order, each within 50 ms (one 20 Hz poll) |
+| New rule (0.9 / 0.8) | 6 commands: close 13.38, open 15.96, close 18.54, open 21.22, close 24.58, open 25.82 s; flicker gone |
+| Arm path unchanged | IK error max 3.3 mm, joint speed max 0.25 rad/s, floor check PASSED (lowest fingertip 303 mm above the table), as in section 11 |
+| `ur10e_replay_rtde.py --dry-run` (real-robot script, now picks the plug from the setup file) | Passes, 201 mm horizontal within 220 mm |
+| Synthetic test path with `--setup` | Floor check PASSED, close 2.30 s / open 12.88 s |
+
+Also fixed: the "command → finger movement" printout only counts movement before the next command. Re-read of the real log with it: 56–57 ms for the six normal commands; the flicker commands show 0 ms or none because the fingers were already moving.
+
+Open: the new rule has not run on the real robot; one re-run of take-01 on the UR10e would confirm 6 commands there.
