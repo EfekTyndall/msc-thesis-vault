@@ -187,3 +187,7 @@ Open (2026-11-25): the simulation applies the trigger rule directly to the MuJoC
 ## 10. Gripper test alone: passed (Martyn, 2026-11-25, ≈14:59 CET)
 
 `software/gripper/robotiq_2f85.py --cycles 5` from fractal-pc and from the Mac (both reach arena.local:4001): 5 of 5 close/open cycles, no error. Opening read back 13.3 mm closed (team "closed" position 215/255) and 84.0 mm open, identical in every cycle and from both computers. The mm values come from the plug's linear mapping of Robotiq's position register over 85 mm, not from a measurement of the real gap.
+
+## 11. First RL4 take in simulation (2026-11-25)
+
+Take `pose-log-20261125-150606/take-01` (station Jetson, handheld with Dex1-1 dummy, Martyn): 30.4 s, 2187 samples, largest gap 0.02 s, trigger up to 1.000. Simulation with `--setup` (Mac): IK error max 3.3 mm; joint speed max 0.25 rad/s (limit active 0.7 s); floor check PASSED (lowest robot fingertip 303 mm above the table); fingertip span x 106 / y 200 / z 109 mm. Gripper events: close 13.3–15.9 s, 18.5–21.0 s, 24.5–25.8 s, plus a 0.1 s open/close flicker at 21.0 s while the trigger hovered at 0.9 (single threshold, no hysteresis; relevant to G1 (trigger value vs travel) and G2 (trigger-to-gripper mapping)). Real-robot dry run refuses: horizontal 201 mm > 150 mm allowed radius (RL3 value); decision needed: re-record smaller or widen the radius.
