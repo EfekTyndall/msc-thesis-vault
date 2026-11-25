@@ -10,7 +10,7 @@ Ask (coordinator for Martyn, 2026-11-25): before RL5 (D435i camera + recorder, r
 
 - The Jetson already has the compiler tools and the Boost library that the robot-connection library (ur_rtde) needs. Everything else comes as ready-made Python packages for the Jetson's processor type. **No sudo (admin password) is needed for any step.**
 - Only ur_rtde has no ready-made package for the Jetson; pip compiles it from source on the board (one command, estimated 10–20 min, unverified).
-- All new software goes into one folder (`~/venvs/replay`), removable with one `rm -rf`. Nothing autostarts.
+- All new software goes into one folder (`~/miniforge3`, conda env `replay`), removable with one `rm -rf`. Nothing autostarts. Conda chosen over a plain venv on 2026-11-25 (Martyn: "which will make life easier?"): same tool as the Mac, fractal-pc and the team's Jetson, and the same conda-forge Pinocchio build as fractal-pc.
 - Recommendation: run the whole replay script on the Jetson, unchanged (option A below). A measurement today shows the joint commands come out identical on two different computer types, so the Jetson should reproduce fractal-pc exactly; the check is a side-by-side replay of take-01.
 - Estimated time: about 45 min install (mostly the build), 10 min desk checks, 20 min at the robot.
 
@@ -78,20 +78,21 @@ Decision rule: A, unless J6 shows a precompute above ≈5 min for take-01 or a p
 | Step | What (commands on the Jetson unless noted) | Check | Undo |
 | --- | --- | --- | --- |
 | J1 (update our code) | `git -C ~/dex1-1-handheld pull` (b055f3f → 1f90bd0) | `git log -1` shows 1f90bd0 | `git checkout b055f3f` |
-| J2 (Python packages) | `python3 -m venv ~/venvs/replay`, then `~/venvs/replay/bin/pip install numpy==1.24.4 mujoco==3.17.0 pin==4.1.0 casadi==3.7.2` (≈150 MB download, all prebuilt) | `python -c "import mujoco, pinocchio, casadi"` prints versions | `rm -rf ~/venvs/replay` |
-| J3 (ur_rtde build) | `CMAKE_BUILD_PARALLEL_LEVEL=6 ~/venvs/replay/bin/pip install -v ur_rtde==1.6.6` (no aarch64 wheel, so pip builds the source package; uses the system Boost 1.74 and Python headers already installed). Estimated 10–20 min (unverified) | `python -c "import rtde_control, rtde_receive"`; then **receive only**: `rtde_receive.RTDEReceiveInterface("10.36.11.3").getActualQ()` returns 6 joint angles (reads, never moves the robot) | same as J2 |
+| J2 (Python packages) | Miniforge into the home folder, no sudo: `wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh` (130 MB), `bash Miniforge3-Linux-aarch64.sh -b -p ~/miniforge3`, then `~/miniforge3/bin/conda config --set auto_activate_base false` and **no** `conda init` (conda is only active when started, so the system `ssh` and JetPack libraries are not disturbed; the team README warns that conda's `LD_LIBRARY_PATH` breaks `ssh`). Env as on fractal-pc: `conda create -n replay -c conda-forge python=3.10 pinocchio=4.1.0 casadi=3.7.2 numpy=1.24.4 libboost-devel cmake`, then `pip install mujoco==3.17.0` (all linux-aarch64 builds exist on conda-forge / PyPI, checked 2026-11-25) | `conda run -n replay python -c "import mujoco, pinocchio, casadi"` prints versions | `rm -rf ~/miniforge3` |
+| J3 (ur_rtde build) | In the env: `CMAKE_BUILD_PARALLEL_LEVEL=6 pip install -v ur_rtde==1.6.6` (no aarch64 wheel or conda package, so pip builds the source package). Boost: the env's `libboost-devel` (same Boost 1.90 as Pinocchio's) should be found first; if CMake picks the system Boost 1.74 instead, pass `-DBoost_ROOT=$CONDA_PREFIX` (unverified, checked in the build log). Estimated 10–20 min (unverified) | `python -c "import rtde_control, rtde_receive"`; then **receive only**: `rtde_receive.RTDEReceiveInterface("10.36.11.3").getActualQ()` returns 6 joint angles (reads, never moves the robot) | same as J2 |
 | J4 (team code) | From the **Mac**: `rsync -a ~/thesis/team/xr_teleoperate/ station-jetson:team/xr_teleoperate/` (428 MB, commit 7e6c754); on the Jetson add `export XR_TELEOPERATE=~/team/xr_teleoperate` to the run command (the script default is the Mac path) | `git -C ~/team/xr_teleoperate log -1` = 7e6c754 | `rm -rf ~/team/xr_teleoperate` |
 | J5 (robot models) | `~/dex1-1-handheld/software/sim/fetch_models.sh` (pinned Menagerie and unitree_mujoco commits, 66 MB, over https) | script prints both commits | `rm -rf ~/dex1-1-handheld/software/sim/models` |
 | J6 (speed test, no robot) | `time python ur10e_replay_rtde.py --csv ~/pose-log-20261125-150606/take-01/raw.csv --setup ../config/rl4_robotiq.json --box 0.22 0.05 0.15 --robot 10.36.11.3 --dry-run` | Prints the same RL4 checks as the Mac and fractal-pc (IK error max 3.3 mm, floor check PASSED with the lowest fingertip 303 mm above the table, gripper events close 13.33 / open 15.91 / … s); wall time recorded → decision A or B | — |
 
-Disk use ≈1 GB of 30 GB free. Nothing outside the home folder changes, nothing autostarts.
+Disk use ≈2 GB of 30 GB free (Miniforge env ≈1 GB, team code, models, build). Nothing outside the home folder changes, nothing autostarts.
 
 ## 5. Risks
 
 | Risk | Effect | Mitigation |
 | --- | --- | --- |
 | ur_rtde source build fails on aarch64 (no published aarch64 wheel, so not tested by the release) | No robot connection from the Jetson | Read the build log; build the C++ library with plain CMake as the ur_rtde docs describe; last resort: fractal-pc keeps streaming until fixed |
-| pip `pin` (cmeel build) differs from conda-forge Pinocchio on fractal-pc and the Mac | Tiny numeric differences in IK → commands not bit-identical | Caught by V1 below; fallback: a user-level Miniforge env (no sudo, ≈1 GB) with the same conda-forge packages as fractal-pc |
+| aarch64 conda-forge builds differ numerically from x86_64 | Tiny IK differences → commands not bit-identical | Caught by V1 below (Mac arm64 vs fractal-pc x86_64 already agree within 2.5×10⁻¹⁴ rad) |
+| Conda on a Jetson | Conda libraries shadowing JetPack's or breaking `ssh` | Base env not auto-activated, no `conda init`; env only used for the replay |
 | Slow precompute on the Orin (30 W mode) | Waiting time per take | J6 measures; option B if too slow. Not changing the power mode (owner's setting, needs sudo) |
 | Network: 1.0 ms average ping vs 0.14 ms from fractal-pc | Could add jitter to the 8 ms loop | V3 checks the longest tick (fractal-pc: 8.2 ms) |
 | Two controllers at once | Robot accepts only one RTDE control client; the Robotiq bridge only one gripper client (connecting cuts off the other) | Never run fractal-pc and the Jetson replay at the same time |
@@ -121,7 +122,7 @@ Read from `xr_teleoperate` 7e6c754 (Mac clone); the team Jetson itself was not a
 | Environment | conda env `h2_teleop`; Jetson installer uses Miniforge/conda-forge (pinocchio 3.1.0, numpy 1.26.4, casadi), "tested clean on Ubuntu 22.04 / aarch64" | `deploy/install_teleop_env.sh`, `deploy/README.md` |
 | ur_rtde | **Not installed by the team installer**; no conda-forge package (anaconda.org search, 2026-11-25) and no aarch64 PyPI wheel, so on an aarch64 Jetson it must have been built from source; how is undocumented (unverified) | as above |
 
-Effect on the plan: the team precedent is conda on the Jetson; the venv in J2 stays the proposal (smaller, no clash with JetPack libraries, all wheels exist), Miniforge the fallback. Martyn (2026-11-25): own research found no other route, so the team's ur_rtde was most likely built from source; not confirmed with Yanmei (optional question).
+Effect on the plan: the team precedent is conda on the Jetson; J2 now uses Miniforge (changed 2026-11-25, see the short version). Martyn (2026-11-25): own research found no other route, so the team's ur_rtde was most likely built from source; not confirmed with Yanmei (optional question).
 
 ## Open
 
