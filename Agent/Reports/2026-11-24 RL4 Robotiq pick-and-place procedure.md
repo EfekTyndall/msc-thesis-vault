@@ -177,3 +177,7 @@ Proposed pass checks (Claude, for Martyn's OK):
 | RL4-real (UR10e, from HOME_FACE) | The robot follows as in RL3 (no protective stop, tracking logged); the Robotiq opens and closes in the same order and at about the same moments as in the simulation (log: command time and measured width) |
 
 Pick-and-place moves out of RL4; proposed home: RL6 (swap to the Dex1-1), where the mid-January gate needs successful replays anyway. Sections 3 (step 4, RL4b) and the 3-of-3 pass rule are superseded by this section.
+
+## 9. Code (2026-11-25)
+
+dex1-1-handheld PR #22 (`claude/rl4-gripper-replay`): gripper program and Robotiq plug (`software/gripper/`), settings `software/config/rl4_robotiq.json`, `ur10e_replay.py --setup` (fingertip-relative mapping, HOME_FACE start, Menagerie Robotiq in the simulation, floor check), `ur10e_replay_rtde.py --setup` (gripper thread and log). Checked on the Mac: synthetic path and take-02 pass the floor check; directions turned, not mirrored (operator forward → robot +148 mm toward the operator); gripper plug against a fake Modbus server. Not yet run on the real gripper or robot. Steps per take: `software/sim/README.md`, section RL4.
