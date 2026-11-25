@@ -83,6 +83,12 @@ Placed on the roadmap and in Waiting on 2026-11-25 (all ⚪ can wait): fallback 
 - No source found on the Dex1-1 on any handheld, or on PICO-controller LED occlusion handling on handhelds.
 - RDT2 is inconsistent about its gripper type (Table 1 "linkage" vs App. A.1 parallel-jaw replica).
 
+## Martyn's rationale (own words, 2026-11-25, draft for the discussion section)
+
+> Why I chose the approach is because of simplicity. The idea of exploring the world of handheld data collection comes from the team at Daimler Truck, so more or less they are trying to discover if these kind of data collection can be implemented in the industry. The team already know which robot and gripper they want to work with and what kind of use case they want to test it. That's why using the real gripper and PICO headset comes to mind, because of their simplicity, which is not adding to much hardware as much as possible. But then during research and looking into other recent works, something comes to mind: Modularity. Modularity is what makes todays robotic very attractive and they move into that direction. Toolkit such as XRoboToolkit is an example. I think, handheld data collection devices needs to be modular as well, at least on the gripper side, because currently tracking with VR controller is probably still the best option so far. This problem we also encounter because of the delayed gripper. That's why I am having a doubt, mainly because my approach isn't modular enough. But that is the trade-off on keeping things simple.
+
+Kept verbatim as Martyn's own input (own-work record); to be rewritten in third person for the thesis.
+
 ## Add to Zotero
 
 | Title | Link | Why |
