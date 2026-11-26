@@ -72,4 +72,4 @@ Recommendation: B. The RL5 plan's channels change to the team's names and types;
 - ~~R1 check: rosbag2 MCAP plugin on the station Jetson~~ 2026-11-26: present (rosbag2 0.15.17 with `rosbag2-storage-mcap`), so the team node could run there without installs; option B kept (Martyn's choice), the team node stays available as a cross-check.
 - Team's VR data format for the baseline (decides CDR vs JSON).
 - One real team bag to compare against (where are the team's bags; is the C++ "gibbon" recorder still used).
-- `mcap-ros2-support` on PyPI: version, licence, pure Python (check before asking for the install).
+- ~~`mcap-ros2-support` on PyPI: version, licence, pure Python (check before asking for the install).~~ Resolved 2026-11-26: 0.6.0 installed on the Mac and the Jetson, MIT (dex1-1-handheld `software/recorder/README.md`).

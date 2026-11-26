@@ -38,6 +38,7 @@ Columns as in the flyer's example 3. "Sections" is filled once the thesis chapte
 | LaTeX skeleton (chapter files, layout) in msc-thesis `thesis/` | whole document structure | h_da template chosen and set up by Martyn | Claude (Anthropic) | Structure suggestion, disclose |
 | Camera View: Dex1-1 camera view rendered in MuJoCo from Unitree's URDF and meshes (scene and render script, picture in vault `Agent/Research/figures/2026-11-25 Dex1-1 camera view sim.png`) | hardware or methods chapter (tbd) | Idea to check the camera field of view in simulation by Martyn; values from Unitree sources; not yet checked against the real camera | Claude (Anthropic), Claude Code | Figure: disclose if reused; simulation only (pinhole, real lens wider at the corners) |
 | RL5 (D435i camera + recorder) plan: camera read from the team's Pi stream, delays measured against the robot's own motion, recorder channels (vault `Agent/Reports/2026-11-25 RL5 camera and recorder plan.md`); Jetson Move install and comparison (vault `Agent/Reports/2026-11-25 Jetson Move replay install plan.md`) | methods, system chapter (tbd) | Jetson Move run and checked by Martyn at the robot; RL5 plan not yet reviewed or run | Claude (Anthropic), Claude Code | Sync method is a plan (reasoned only) until R5 is run |
+| RL5 (camera + recorder) code: recorder writing MCAP takes in the team's bag layout (CDR, no ROS 2 runtime), local V4L2 camera source, `inspect_take.py`, `delay_xcorr.py` (dex1-1-handheld `software/recorder/`, PR #24); explainer "Why Sync Matters" (vault `Agent/Explainers/2026-11-26 Why Sync Matters.html`, P6, P7) | methods, system chapter (tbd) | Format choice (D07 (software and data format) option B with CDR) and camera on the Jetson decided by Martyn; take runs on the station Jetson started by Martyn; further own share unverified | Claude (Anthropic), Claude Code | Code: needs the examiner's agreement; explainer charts drawn from the real take files, board-wave curves simulated and marked |
 
 ## Primary prompts
 
@@ -51,6 +52,7 @@ Numbered as in the flyer's example 2. Add a prompt when its output enters the th
 | P4 | "Current works: some of them already designed the UMI handheld with modularity, right? … my DexOne gripper comes late and we only have another gripper, modularity is key … I'm getting doubts now" (output: vault `Agent/Research/2026-11-25 Handheld Rethink real gripper vs passive design.md`) | 2026-11-25 |
 | P5 | "Yes let's do that" (adaptation plan for HandUMI with Dex1-1 tips as a parallel fallback, after Martyn's own reasoning on simplicity vs modularity) (output: vault `Agent/Reports/2026-11-25 HandUMI fallback adaptation plan.md`) | 2026-11-25 |
 | P6 | "Plan for RL5 and close the day after" (output: vault `Agent/Reports/2026-11-25 RL5 camera and recorder plan.md`) | 2026-11-25 |
+| P7 | "Explain RL5 sync visually with Anatomy" (thread request; Martyn: "Yes sounds good") (output: vault `Agent/Explainers/2026-11-26 Why Sync Matters.html`) | 2026-11-26 |
 
 ## Commit evidence
 

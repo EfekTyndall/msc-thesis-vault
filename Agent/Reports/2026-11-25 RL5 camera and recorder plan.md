@@ -134,8 +134,10 @@ RL5 passes when R6 passes. Then step 3 (export to LeRobot) can start on R6 data.
 
 ## Open
 
-- Martyn's go for the three Jetson packages (R3) and for `mcap` on the Mac (R2).
-- Whether a screen can be plugged into the Jetson (only for the S1 cross-check).
+- ~~Martyn's go for the three Jetson packages (R3) and for `mcap` on the Mac (R2).~~ Resolved 2026-11-26: installed on both (see R4, R4b).
+- 10 min camera-only take on the Jetson (Retest above): moved to daily [[2026-11-27]].
+- Delay method, proposed 2026-11-26, not yet chosen by Martyn: a desk board wave (controller taped to a printed marker, waved at the camera, `delay_xcorr.py`, same method as the team's `diag/analyze_diag.py`) instead of the R5 (sync run) sine motion; plus a table marker at the next ordinary replay for the camera-to-robot delay. Moved to daily [[2026-11-27]].
+- Whether a screen can be plugged into the Jetson (only for the S1 cross-check). In [[Waiting]] (RL5); moot if the board wave is chosen.
 - Whether the 2F-85 can hold the handheld sleeve safely for S3 (look at the robot).
 - Who set up `orin-new-hotspot` on the Jetson Wi-Fi (from the Jetson Move note).
 
