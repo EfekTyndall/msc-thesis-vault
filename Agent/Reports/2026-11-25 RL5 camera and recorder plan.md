@@ -65,6 +65,7 @@ Fix in dex1-1-handheld PR #24 (7f2d504, desk-tested with `--fake` only): the fil
 - No gap over 45 ms in the middle of any take. During the takes the Jetson's CPU was 84 % idle and I/O wait was 0.08 % (vmstat).
 - The stall is likely caused by the disk write inside the camera loop. This is not proven: one event in 1 min against none in 3 min. **A 10 min take is still to do.**
 - Each take started with about 0.6 s of unusable frames while the camera opened: 3 old buffered frames without a kernel timestamp, then about 0.4 s of nothing.
+- Chart of all four takes, drawn from the measured summary numbers: ![[2026-11-26 RL5 Jetson camera holes.png]]
 - Fix e957524, desk-tested only: `--camera-only` waits 1 s before the take, and frames without a kernel timestamp are dropped. With the headset, the camera is already open before the double-click (not checked).
 
 ## 2. Where the camera is read: options
