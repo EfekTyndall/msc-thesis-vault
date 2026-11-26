@@ -206,7 +206,7 @@ Open (2026-11-25): the simulation applies the trigger rule directly to the MuJoC
 
 Take `pose-log-20261125-150606/take-01` (station Jetson, handheld with Dex1-1 dummy, Martyn): 30.4 s, 2187 samples, largest gap 0.02 s, trigger up to 1.000. Simulation with `--setup` (Mac): IK error max 3.3 mm; joint speed max 0.25 rad/s (limit active 0.7 s); floor check PASSED (lowest robot fingertip 303 mm above the table); fingertip span x 106 / y 200 / z 109 mm. Gripper events: close 13.3–15.9 s, 18.5–21.0 s, 24.5–25.8 s, plus a 0.1 s open/close flicker at 21.0 s while the trigger hovered at 0.9 (single threshold, no hysteresis; relevant to G1 (trigger value vs travel) and G2 (trigger-to-gripper mapping)). Real-robot dry run refuses: horizontal 201 mm > 150 mm allowed radius (RL3 value); decision needed: re-record smaller or widen the radius.
 
-Decision (Martyn, 2026-11-25): option B, allowed radius widened to 0.22 m for take-01 (`--box 0.22 0.05 0.15`; 'down' replaced by the floor check). Dry run with 0.22 m passes (201 mm horizontal). Take copied to fractal-pc `~/rl2-test/pose-log-20261125-150606/`.
+Decision (Martyn, 2026-11-25): option B, allowed radius widened to 0.22 m for take-01 (`--box 0.22 0.05 0.15`; 'down' replaced by the floor check). Dry run with 0.22 m passes (201 mm horizontal). Take copied to fractal-pc `~/rl2-test/pose-log-20261125-150606/` (since 2026-11-26 only on the Mac: `msc-thesis/data/takes/pose-log-20261125-150606/`).
 
 ## 12. First RL4 run on the real UR10e (Martyn, 2026-11-25, ≈15:24 CET)
 
@@ -221,7 +221,7 @@ Take-01 from fractal-pc, start HOME_FACE, radius 0.22 m, floor check passed (dry
 | Gripper commands | 8 of 8 sent in the simulated order, at 13.35 / 15.94 / 18.54 / 20.97 / 21.03 / 21.15 / 24.60 / 25.79 s (simulation: 13.3 / 15.9 / 18.5 / 21.0 / 21.0 / 21.1 / 24.5 / 25.8 s) |
 | Command → first finger movement | 56–63 ms (width read at 20 Hz, so resolution about 50 ms); flicker commands at 21.03 / 21.15 s while the fingers were still moving |
 
-Logs: fractal-pc `~/rl2-test/rl4-take-01-robot.csv`, `~/rl2-test/rl4-take-01-robot-gripper.csv` (not in Git). Pass checks of section 8 met by the numbers. Martyn's visual check (2026-11-25): "everything looks as expected". **RL4 passed 2026-11-25.**
+Logs: Mac `msc-thesis/data/rl4/2026-11-25-fractal/rl4-take-01-robot.csv` and `rl4-take-01-robot-gripper.csv` (not in Git; recorded on fractal-pc in `~/rl2-test/`, moved 2026-11-26). Pass checks of section 8 met by the numbers. Martyn's visual check (2026-11-25): "everything looks as expected". **RL4 passed 2026-11-25.**
 
 ## 13. Follow-ups: trigger hysteresis and simulation gripper plug (2026-11-25)
 
@@ -262,4 +262,4 @@ Also fixed: the "command → finger movement" printout only counts movement befo
 | Highest actual joint speed | 0.30 rad/s (limit 0.3) |
 | Loop | 3922 ticks in 31.5 s, longest tick 9.4 ms |
 
-Logs: fractal-pc `~/rl2-test/rl4-take-01-hyst.csv`, `~/rl2-test/rl4-take-01-hyst-gripper.csv` (not in Git). **Hysteresis confirmed on the real robot.** For a finer command-to-movement delay (G3 (squeeze-to-finger delay)), the width would have to be read faster than 20 Hz.
+Logs: Mac `msc-thesis/data/rl4/2026-11-25-fractal/rl4-take-01-hyst.csv` and `rl4-take-01-hyst-gripper.csv` (not in Git; recorded on fractal-pc in `~/rl2-test/`, moved 2026-11-26). **Hysteresis confirmed on the real robot.** For a finer command-to-movement delay (G3 (squeeze-to-finger delay)), the width would have to be read faster than 20 Hz.

@@ -41,6 +41,6 @@ Robot moves as in the MuJoCo and URSim replays (Martyn's visual check); logged a
 | Protective stop | none |
 | IK solver gave up | 2 of 3656 ticks (known rare NaN case; held the pose for one tick) |
 
-"Actual TCP" is computed from the robot's joint encoders with the team's kinematic model: it shows that the robot followed the commands, not where the tool was in the room (no external measurement). Logs: fractal-pc `~/rl2-test/take-02-robot.csv`, Mac `~/Desktop/take-02*.csv` (not in Git).
+"Actual TCP" is computed from the robot's joint encoders with the team's kinematic model: it shows that the robot followed the commands, not where the tool was in the room (no external measurement). Logs: Mac `msc-thesis/data/rl3/2026-11-23-take02/take-02-robot.csv`, take `msc-thesis/data/takes/pose-log-20261123-161005/` (not in Git; moved 2026-11-26 from fractal-pc `~/rl2-test/` and the Mac Desktop).
 
 Lessons: the replay printed nothing during the 80 s target computation and Ctrl-C was caught by the team IK, so Martyn's first attempt looked dead; fixed (progress line, Ctrl-C flag). Saving HOME_Q as an own pendant program (not in the team installation) was suggested; whether it was saved is not confirmed.

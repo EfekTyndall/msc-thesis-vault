@@ -32,6 +32,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 - [[2026-11-10 PICO trigger test review]]: test log and facts register for the PICO trigger (G1 (trigger value vs travel), G8 trigger tests in RL4 (Robotiq pick-and-place))
 - [[2026-11-23 RL5 sync test findings]]: points to consider for RL5 (D435i + recorder sync test)
 - [[2026-11-24 Demo rejection rules evidence log]]: tests that bear on which demonstrations to reject
+- [[2026-11-26 Test data layout]]: where every recording and replay log lives (Mac `msc-thesis/data/`), rules for new data
 
 ## By Red Line step
 

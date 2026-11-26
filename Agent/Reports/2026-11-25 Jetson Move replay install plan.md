@@ -26,7 +26,7 @@ Ask (coordinator for Martyn, 2026-11-25): before RL5 (D435i camera + recorder, r
 | Existing venv | `~/venvs/xrobotoolkit`: only `xrobotoolkit-sdk` 1.1.0 (headset). Left untouched; the replay gets its own conda env (J2) | `pip list` |
 | Not present | ur_rtde, MuJoCo, Pinocchio, CasADi (no apt or pip package), team code `xr_teleoperate`, robot models (`software/sim/models`) | `dpkg -l`, `ls` |
 | Our code | `~/dex1-1-handheld` at b055f3f (PR #18); GitHub main is 1f90bd0 (PR #23), so a `git pull` is needed (RL4 code is missing on the Jetson) | `git log`, `git fetch --dry-run` |
-| Take | `~/pose-log-20261125-150606/take-01/raw.csv`, same file as on fractal-pc (MD5 `c6f1a2ae…c322c` on both) | `md5sum` |
+| Take | `~/pose-log-20261125-150606/take-01/raw.csv`, same file as on fractal-pc (MD5 `c6f1a2ae…c322c` on both); since 2026-11-26 kept only on the Mac in `msc-thesis/data/takes/pose-log-20261125-150606/`: copy it back to the Jetson (`scp -r`) before rerunning the commands below | `md5sum` |
 | Robot | UR10e 10.36.11.3 reachable over `eno1`: ping avg **1.0 ms** (max 1.3 ms, 5 pings). fractal-pc to the robot: avg 0.14 ms. Both well under the 8 ms servoJ tick | `ping` from both |
 | Gripper | `arena.local` resolves to 10.36.11.9 (station Pi, Robotiq bridge port 4001) | `getent hosts` |
 | Internet | pypi.org and files.pythonhosted.org reachable (HTTP 200/404 headers) | `curl -I` |
@@ -100,7 +100,7 @@ Disk use ≈2 GB of 30 GB free (Miniforge env ≈1 GB, team code, models, build)
 
 ## 6. Verification: same take from fractal-pc and from the Jetson
 
-Reference: fractal-pc real-robot run of take-01 with the trigger hysteresis rule, log `~/rl2-test/rl4-take-01-hyst.csv` (3922 ticks, 31.4 s; tracking target vs actual TCP RMS 6.5 mm, max 21.8 mm, end 0.0 mm; highest joint speed 0.30 rad/s; recomputed from the log today) and its gripper log (6 commands at 13.34 / 15.95 / 18.50 / 21.21 / 24.57 / 25.82 s).
+Reference: fractal-pc real-robot run of take-01 with the trigger hysteresis rule, log `msc-thesis/data/rl4/2026-11-25-fractal/rl4-take-01-hyst.csv` (Mac; recorded on fractal-pc) (3922 ticks, 31.4 s; tracking target vs actual TCP RMS 6.5 mm, max 21.8 mm, end 0.0 mm; highest joint speed 0.30 rad/s; recomputed from the log today) and its gripper log (6 commands at 13.34 / 15.95 / 18.50 / 21.21 / 24.57 / 25.82 s).
 
 | Step | What | Pass if |
 | --- | --- | --- |
@@ -146,7 +146,7 @@ Next: V2–V4 at the robot (section 6), with fractal-pc not connected.
 
 ## 9. Real-robot run from the Jetson: passed (Martyn, 2026-11-25, ≈18:00 CET)
 
-Take-01, command of section 8, fractal-pc not connected. Logs: Jetson `~/rl4-take-01-jetson.csv`, `~/rl4-take-01-jetson-gripper.csv` (not in Git); reference fractal-pc `~/rl2-test/rl4-take-01-hyst.csv` and `-gripper.csv`. Compared on the Mac (numpy).
+Take-01, command of section 8, fractal-pc not connected. Logs: Mac `msc-thesis/data/rl4/2026-11-25-jetson/rl4-take-01-jetson.csv` and `-gripper.csv` (not in Git; recorded in the Jetson home, moved 2026-11-26); reference `msc-thesis/data/rl4/2026-11-25-fractal/rl4-take-01-hyst.csv` and `-gripper.csv`. Compared on the Mac (numpy).
 
 | Check (section 6) | fractal-pc | Jetson | Pass |
 | --- | --- | --- | --- |
