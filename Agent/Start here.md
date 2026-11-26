@@ -44,6 +44,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 
 **Step 2, RL5 (D435i + recorder)**
 - [[2026-11-25 RL5 camera and recorder plan]] (report): RL5 plan; camera stays on the Pi (Jetson listens to the team stream), delays measured with the robot's own motion as reference, recorder channels, steps R1–R6; installs need Martyn's go
+- [[2026-11-26 Team bag recorder and RL5 format]] (research, bib): the team's ROS 2 MCAP bag recorder (topics, start/stop), options to match its format, where "No ROS 2" came from
 - [[2026-11-25 Jetson Move replay install plan]] (report): Jetson Move, moving the real-robot replay from fractal-pc to the station Jetson before RL5; inventory, installed and passed 2026-11-25 (Jetson replays take-01 like fractal-pc)
 - [[2026-11-19 Station Jetson camera install plan]] (report)
 - [[2026-11-17 Station Jetson setup and install plan]] (report): current Jetson setup, clock sync
