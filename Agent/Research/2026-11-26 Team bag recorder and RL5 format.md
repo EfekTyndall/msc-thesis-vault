@@ -64,9 +64,12 @@ Recommendation: B. The RL5 plan's channels change to the team's names and types;
 
 **Recommendation (reasoned only, Martyn decides):** drop "No ROS 2" as a blanket rule and keep it only for robot control and replay. What matters for the thesis is that handheld and VR data end up in identical files, and both options give that. B stays the recommendation because it keeps Mac testing and needs no sudo. A becomes the better choice if the RL5 R1 look (read-only) finds rosbag2's MCAP plugin already installed on the Jetson: then it costs little and reuses the supervisor's tested code. Check for R1: `ls /opt/ros/humble/lib | grep -i mcap` and `dpkg -l | grep rosbag2-storage-mcap`.
 
+**Why the same format matters (Martyn's question, 2026-11-26).** The team's tools may never read the handheld data. The reason is the other direction: the exporter must read the team's VR bags (CDR) if condition C1 (VR baseline) is recorded with this recorder, so one CDR reader would serve both conditions and show they share one export path. That premise is unverified ("confirm with the team: teleop data format", roadmap step 6). If the VR baseline uses another format, JSON channels in MCAP (option C) suffice and `mcap-ros2-support` is not needed. Proposal: build R2 with the message-writing step swappable; choose CDR or JSON once the team confirms its VR data format.
+
 ## Open
 
 - Martyn's choice A / B / C (B recommended), and whether "No ROS 2" stays for robot control only.
 - R1 check: rosbag2 MCAP plugin on the station Jetson (decides how cheap option A is).
+- Team's VR data format for the baseline (decides CDR vs JSON).
 - One real team bag to compare against (where are the team's bags; is the C++ "gibbon" recorder still used).
 - `mcap-ros2-support` on PyPI: version, licence, pure Python (check before asking for the install).
