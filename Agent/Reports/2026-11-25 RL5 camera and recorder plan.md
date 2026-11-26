@@ -53,7 +53,7 @@ Recommendation: S2 + S3 in one run, S1 only as a cross-check if a screen can be 
 
 ## 4. Recorder (SwapKit camera plug + recorder)
 
-**Update 2026-11-26:** the team already records VR-teleop episodes as ROS 2 bags in MCAP; the channel names below should follow the team's topics and message types so one exporter reads both ([[2026-11-26 Team bag recorder and RL5 format]], option B recommended, Martyn decides).
+**Update 2026-11-26:** the team already records VR-teleop episodes as ROS 2 bags in MCAP; the channel names below should follow the team's topics and message types so one exporter reads both ([[2026-11-26 Team bag recorder and RL5 format]], option B with CDR chosen 2026-11-26, [[D07 Software and data format]]).
 
 One Python program on the station Jetson, written against fixed interfaces so the Dex1-1 camera is a plug swap in RL6 (SwapKit option A, [[D07 Software and data format]]).
 

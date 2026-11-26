@@ -68,7 +68,7 @@ Recommendation: B. The RL5 plan's channels change to the team's names and types;
 
 ## Open
 
-- Martyn's choice A / B / C (B recommended), and whether "No ROS 2" stays for robot control only.
+- ~~Martyn's choice A / B / C~~ Decided 2026-11-26 (Martyn): option B with CDR, recorded in [[D07 Software and data format]]; "No ROS 2" now applies to robot control and replay only.
 - R1 check: rosbag2 MCAP plugin on the station Jetson (decides how cheap option A is).
 - Team's VR data format for the baseline (decides CDR vs JSON).
 - One real team bag to compare against (where are the team's bags; is the C++ "gibbon" recorder still used).
