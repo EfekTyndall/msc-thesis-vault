@@ -97,6 +97,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 - `Explainers/2026-11-18 How Robot Policies Learn.html`
 - `Explainers/2026-11-23 Robot Data Formats.html`
 - `Explainers/2026-11-25 From Recording to Robot.html`: the four replay steps (read, rehearse in simulation, safety check, real robot), what each calculates, and why steps 1–3 work as the robot-free check of handheld demos
+- `Explainers/2026-11-26 Why Sync Matters.html`: RL5 (camera and recorder) sync in three panels: delay bench (gap = hand speed × delay, Anatomy figure), the Pi clock offset and the 2.5 s recorder hole drawn from the real take files, and the board-wave delay check (simulated)
 
 ## Archive (replaced, kept for history)
 
