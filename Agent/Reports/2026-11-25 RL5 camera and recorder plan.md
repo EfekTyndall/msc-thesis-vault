@@ -54,6 +54,19 @@ Consequence for the camera time (reasoned only, checked at R5): the camera's own
 
 Fix in dex1-1-handheld PR #24 (7f2d504, desk-tested with `--fake` only): the file is written by its own thread from a queue, and the recorder prints the longest single write and any camera gap over 200 ms. **Next check:** repeat the 60 s take three times. If the gaps still occur with short writes, the cause is not the disk.
 
+**Retest, 2026-11-26 (7f2d504, three 60 s takes, `~/rl5-r4-jetson-b/`):**
+
+| take | frames | fps | longest write | receive − source, median / max / SD |
+| --- | --- | --- | --- | --- |
+| 01 | 1779 | 29.82 | 32.8 ms | 32.50 / 36.22 / 1.38 ms |
+| 02 | 1786 | 29.82 | 28.7 ms | 32.23 / 34.04 / 1.36 ms |
+| 03 | 1784 | 29.83 | 30.0 ms | 32.39 / 34.63 / 1.37 ms |
+
+- No gap over 45 ms in the middle of any take. During the takes the Jetson's CPU was 84 % idle and I/O wait was 0.08 % (vmstat).
+- The stall is likely caused by the disk write inside the camera loop. This is not proven: one event in 1 min against none in 3 min. **A 10 min take is still to do.**
+- Each take started with about 0.6 s of unusable frames while the camera opened: 3 old buffered frames without a kernel timestamp, then about 0.4 s of nothing.
+- Fix e957524, desk-tested only: `--camera-only` waits 1 s before the take, and frames without a kernel timestamp are dropped. With the headset, the camera is already open before the double-click (not checked).
+
 ## 2. Where the camera is read: options
 
 | Option | How | For | Against | Precedent |
