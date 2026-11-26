@@ -41,6 +41,19 @@ Consequence: Pi capture stamps cannot be compared with Jetson times directly. Op
 
 Consequence for the camera time (reasoned only, checked at R5): the camera's own stamps are very regular (±0.04 ms), the arrival times jitter by a few ms. Best of both: per take, fit a straight line to receive − stamp (its lower edge = offset + drift + smallest network delay), then frame time = Pi stamp + fitted line. That keeps the camera's regular timing on the Jetson clock and removes both the 16 s offset and the drift. The constant part of the camera delay (exposure, readout, smallest network time) is still measured in R5 against the robot motion. Using the arrival time alone stays the fallback (SD 1.4 ms, also within the 10 ms target). Least-squares line on take-01 (all 1800 frames): receive − stamp = 16 440.47 ms + 0.0649 ms/s × t, i.e. drift **about 65 ppm** (replaces the rough 50 ppm from first vs last 10 s); residuals −2.4 to +3.3 ms. A line through the middle includes the mean network delay (about 1–2 ms) in the offset; it is absorbed into the constant camera delay measured in R5; a lower-edge fit would reduce it (unverified).
 
+**Camera on the station Jetson (Martyn, 2026-11-26: "Let's just have the camera in the Jetson").** This replaces the Pi path as the main route (step (2) of the agreed order, taken now). Reason: on the Pi, the camera needs a clock fix (the 16 s offset plus about 65 ppm drift); on the Jetson, the camera is on the same clock as the controller and the robot, and the same reader serves the Dex1-1 camera later. The D435i goes back to the station Pi before Martyn leaves the lab.
+
+**R4b (60 s camera-only recording, D435i on the Jetson), 2026-11-26.** Read as a plain webcam (V4L2, kernel driver `uvcvideo`); no RealSense SDK, no sudo, no udev rule. `lsusb -t` shows 5000M (USB 3). The colour node is `/dev/video4` (YUYV 640×480 and 848×480 at 30 fps); `/dev/video0` is depth, `/dev/video2` infrared. Recorder e6e5278 in `~/rl5-recorder`, opencv-python-headless 5.1.0 added to `~/venvs/xrobotoolkit`, take `~/rl5-r4-jetson/take-01.mcap`. Results:
+- 1700 frames; frame interval by kernel stamp, median 33.36 ms.
+- Receive − kernel stamp: median 32.53 ms (first 300 frames 32.55, last 300 frames 32.50), so **no offset and no drift**.
+- Normal frames 31.8–33.2 ms. The constant of about 32.5 ms is roughly one frame; it is probably the moment the driver stamps the frame plus OpenCV's read, but that is unverified, and R5 measures the true delay.
+- 161 MB per minute (mean JPEG 94.7 kB, quality 90); colour image checked (frame 900).
+- **One stall:** at 25.9 s the reader stopped for 2.5 s. Four queued frames arrived late, each with its correct stamp, and about 74 frames were lost.
+- Cause of the stall unknown. Candidates (none checked): an eMMC write, Python garbage collection, other load. `dmesg` needs root.
+- Exposure and white balance were the camera defaults (not set).
+
+Fix in dex1-1-handheld PR #24 (7f2d504, desk-tested with `--fake` only): the file is written by its own thread from a queue, and the recorder prints the longest single write and any camera gap over 200 ms. **Next check:** repeat the 60 s take three times. If the gaps still occur with short writes, the cause is not the disk.
+
 ## 2. Where the camera is read: options
 
 | Option | How | For | Against | Precedent |
