@@ -4,5 +4,10 @@
     "landscape": false,
     "margin": "0",
     "downscalePercent": 100
-  }
+  },
+  "strictLineBreaks": false,
+  "showLineNumber": false,
+  "rightToLeft": false,
+  "showIndentGuide": true,
+  "readableLineLength": false
 }
