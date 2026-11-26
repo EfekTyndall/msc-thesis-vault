@@ -29,6 +29,8 @@ Assuming: the only D435i stays on the UR10e flange, plugged into the station Pi 
 
 Consequence: frame capture times arrive already stamped at the source, which is what UMI and ViTaMIn-B approximate by subtracting a measured camera delay ([[2026-11-23 RL5 sync test findings]] §2). Two things remain: the Pi–Jetson clock offset, and how far "readout start" lies after the middle of the exposure (fixed exposure, so a constant; unverified size).
 
+**R1 (read-only look), 2026-11-26, station Jetson over SSH from the Mac:** clock synchronised (`timedatectl`: yes, NTP service active); `htpdate` runs as a service since 2026-11-24 against `www.pool.ntp.org`, `www.ntp.br`, `www.wikipedia.org` (HTTP time, so its accuracy is unverified at the ms level); disk 27 GB free of 57 GB; ROS 2 Humble has rosbag2 0.15.17 **with the MCAP storage plugin** (`ros-humble-rosbag2-storage-mcap`, `librosbag2_storage_mcap.so`), `rosbag2_py` in `/opt/ros/humble/local/lib/python3.10/dist-packages/`. Station Pi: not reached, `ssh arena@arena.local` refused (no key from the Mac), so stream, chrony and the Pi–Jetson offset are still open. Mac: `mcap` 1.6.0 and `mcap-ros2-support` 0.6.0 installed in `mujoco-lab`; the recorder's fake test and `delay_xcorr.py --selftest` pass there too.
+
 ## 2. Where the camera is read: options
 
 | Option | How | For | Against | Precedent |
