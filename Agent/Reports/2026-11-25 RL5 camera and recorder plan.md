@@ -35,6 +35,8 @@ Consequence: frame capture times arrive already stamped at the source, which is 
 
 Consequence: Pi capture stamps cannot be compared with Jetson times directly. Options: (1) use the Jetson receive time minus a measured, constant camera delay, keeping the Pi stamp only to check network jitter (the spread of receive − stamp shows jitter even with a constant offset); this is the one-clock approach of D06 (recording and synchronisation) and ViTaMIn-B; (2) correct the Pi stamp by an offset tracked from receive − stamp over the take; (3) put both computers on one time source (changes chrony on a team machine or the time on the shared Jetson; sudo; not recommended). Recommended: (1), with (2) only if R4 shows receive-time jitter above about 3 ms. Reasoned only; R4 measures the jitter.
 
+**Order agreed (Martyn, 2026-11-26):** (1) RL5 with the D435i on the station Pi, aligned by the Jetson's receive time minus the measured delay; the Pi's stamp kept only for jitter. (2) Then the Jetson camera path with the plain-webcam reader (V4L2), so it carries over to the Dex1-1 camera; the D435i may be moved to the Jetson for this (team intern agreed to sharing camera, robot and gripper), and **is plugged back into the station Pi before Martyn leaves the lab**. (3) The Robotiq stays on the Pi. Ideas not taken: station Jetson following the team Orin's clock (small gain, sudo, depends on a team machine); Robotiq on the Jetson (no clock problem, not reused for the Dex1-1).
+
 ## 2. Where the camera is read: options
 
 | Option | How | For | Against | Precedent |
