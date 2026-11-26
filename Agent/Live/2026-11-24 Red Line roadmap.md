@@ -163,6 +163,7 @@ Replayed demonstrations succeed on the robot with the Dex1-1; hardware frozen. I
 | Rough support faces under the clamp collar; ufw rule on fractal-pc | Next reprint / ever | [[Waiting]], Later stages |
 | PICO Motion Trackers; H2 (humanoid) deployment; bimanual | Only if time allows (stretch, thesis plan §2) | [[Waiting]], Only if time allows |
 | Handover clean-up of `dex1-1-handheld` | Thesis end | [[Waiting]], Thesis end; [[Handover]] |
+| Graphify trial (github.com/Graphify-Labs/graphify, turns code and docs into a knowledge graph, works as a Claude Code skill): run once on `dex1-1-handheld` as a code map and explainer. Added 2026-11-26 (Martyn). Install is a new dependency and needs Martyn's OK; its output (`graphify-out/`) is never committed to `dex1-1-handheld` | After RL5 (D435i camera + recorder) passes | Martyn's go for the install |
 
 ## Rules
 
