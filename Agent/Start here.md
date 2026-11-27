@@ -45,7 +45,6 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 
 **Step 2, RL5 (D435i + recorder)**
 - [[2026-11-25 RL5 camera and recorder plan]] (report): RL5 plan; camera stays on the Pi (Jetson listens to the team stream), delays measured with the robot's own motion as reference, recorder channels, steps R1–R6; installs need Martyn's go
-- [[2026-11-27 Latency sync prior-work code survey]] (research, wide): how UMI, DexUMI, ViTaMIn-B and FastUMI code measure and apply latency (files and lines); basis for any RL5 sync approach
 - [[2026-11-26 Team bag recorder and RL5 format]] (research, bib): the team's ROS 2 MCAP bag recorder (topics, start/stop), options to match its format, where "No ROS 2" came from
 - [[2026-11-25 Jetson Move replay install plan]] (report): Jetson Move, moving the real-robot replay from fractal-pc to the station Jetson before RL5; inventory, installed and passed 2026-11-25 (Jetson replays take-01 like fractal-pc)
 - [[2026-11-19 Station Jetson camera install plan]] (report)
@@ -98,9 +97,6 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 - `Explainers/2026-11-18 How Robot Policies Learn.html`
 - `Explainers/2026-11-23 Robot Data Formats.html`
 - `Explainers/2026-11-25 From Recording to Robot.html`: the four replay steps (read, rehearse in simulation, safety check, real robot), what each calculates, and why steps 1–3 work as the robot-free check of handheld demos
-- `Explainers/2026-11-26 Why Sync Matters.html`: RL5 (camera and recorder) sync in three panels: delay bench (gap = hand speed × delay, Anatomy figure), the Pi clock offset and the 2.5 s recorder hole drawn from the real take files, and the board-wave delay check (simulated)
-- `Explainers/2026-11-27 Sync Explainer.html`: how the team's diag tool (`analyze_diag.py`), UMI and the thesis board wave each measure a delay; real code lines, real UR10e replay and desk pose-log curves you can slide, side-by-side table, UMI's own `get_latency` code next to ours, a five-picture walk through `delay_xcorr.py`, robot sine run, when to redo the check (published artifact: https://claude.ai/artifact/RUnYzPFKDgkfFCNETJ1j36)
-- `Explainers/2026-11-27 Latency in Prior Work.html`: how UMI, DexUMI, ViTaMIn-B and FastUMI code measure and apply latency (real code lines, one frame handled two ways on a real controller log, screen test, UMI gripper test); visual version of [[2026-11-27 Latency sync prior-work code survey]] (published artifact: https://claude.ai/artifact/Hk4JrGsU3QmevRM5tJAbnM)
 
 ## Archive (replaced, kept for history)
 
@@ -118,6 +114,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 | [[2026-11-17 Bambu Studio and H2S firmware match]] | Printer firmware update dropped for good (2026-11-19) |
 | `Archive/2026-11-05 D01 mind map.drawio` | `External/2026-11-06 map gripper choice.drawio` |
 | [[2026-11-18 Relative vs absolute actions decision draft]] | D07 (software and data format), accepted; option A adopted |
+| `2026-11-26 Why Sync Matters.html`, `2026-11-27 Sync Explainer.html`, `2026-11-27 Latency in Prior Work.html`, [[2026-11-27 Latency sync prior-work code survey]] | Scrapped by Martyn, 2026-11-27: start the sync question fresh with a new comparison and recommendation (moved here, not deleted; published artifact pages still online)|
 
 ## Why this layout
 
