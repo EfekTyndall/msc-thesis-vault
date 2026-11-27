@@ -4,6 +4,8 @@ tags: [report, replay-ladder, rl5, sync, recorder, plan]
 ---
 # RL5 plan: D435i camera, recorder and sync test
 
+> **2026-11-27:** the sync parts of this plan (S1 screen clock, S2 robot motion, S3 controller on the flange, R5 sync run, the board wave, `delay_xcorr.py`) are replaced by the sync method locked in [[D06 Recording and synchronisation]]. R1–R4 results stay valid.
+
 Ask (Martyn, 2026-11-25): plan RL5 (D435i camera + recorder, the sync test) of the Replay Ladder, now that the Jetson Move passed ([[2026-11-25 Jetson Move replay install plan]]). **Plan only: nothing installed, nothing run on the Jetson, the Pi or the robot.** Every install below needs Martyn's go. Background and prior work: [[2026-11-23 RL5 sync test findings]] (the methods are taken from there and not repeated); recorder design: [[D06 Recording and synchronisation]], [[D07 Software and data format]].
 
 Assuming: the only D435i stays on the UR10e flange, plugged into the station Pi (`arena.local`), where the team's `realsense_streamer.py` (team `xr_teleoperate` 7e6c754, `teleop/camera_stream/`) sends colour frames on port 5555; from project memory and the team code (read 2026-11-25 on the Mac clone). The station Jetson has no screen (SSH only).

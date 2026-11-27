@@ -78,12 +78,12 @@ Scope changed 2026-11-25 (Martyn): no pick; handheld episode replayed in simulat
 | M3 inserts and the screwed sleeve-boss joint (prototype holds up in longer runs) | 🟠 important | [[Waiting]], Purchases |
 
 ### 2. RL5: D435i + recorder
-**Needs first:** RL4. **Unlocks:** raw MCAP recordings with images; the sync test; export (step 3). **Status:** plan written 2026-11-25 ([[2026-11-25 RL5 camera and recorder plan]], steps R1–R6); findings note [[2026-11-23 RL5 sync test findings]].
+**Needs first:** RL4. **Unlocks:** raw MCAP recordings with images; the sync test; export (step 3). **Status:** plan written 2026-11-25 ([[2026-11-25 RL5 camera and recorder plan]], steps R1–R6); sync method in [[D06 Recording and synchronisation]] (2026-11-27).
 
 | Item | Tag | Where |
 | --- | --- | --- |
 | Camera CAM1 (plug in and check), CAM2 (test frames), CAM3 (recorder venv, needs Martyn's go); the only D435i is on the robot flange | 🔴 blocks next step | [[Waiting]], RL5 |
-| Sync test: camera delay, pose delay, clock | 🔴 blocks next step | [[2026-11-23 RL5 sync test findings]] |
+| Sync test: method locked 2026-11-27 (one delay number per device, shifted at export; camera matched to the PICO pose at a fixed marker board; gripper by UMI's sine test); test plan not yet written (Martyn says when) | 🔴 blocks next step | [[D06 Recording and synchronisation]], [[2026-11-27 Latency sync method comparison]] |
 | SwapKit camera plug (D435i) and the recorder behind fixed interfaces, so the Dex1-1 camera is a plug swap later | 🔴 blocks next step | [[2026-11-24 SwapKit modular framework options]] |
 | Jetson disk and the unused 256 GB SD card (ask the supervisor first) | ⚪ can wait (until recordings grow) | [[Waiting]], RL5 |
 | ~~Move the real replay and the gripper from fractal-pc to the station Jetson~~ **Done 2026-11-25 (Jetson Move):** installed with Martyn's go (Miniforge env `replay`, ur_rtde built from source); take-01 replayed from the Jetson matches fractal-pc (identical commands, tracking RMS 6.49 vs 6.48 mm, same gripper commands within 33 ms). [[2026-11-25 Jetson Move replay install plan]] | ✅ done | — |
