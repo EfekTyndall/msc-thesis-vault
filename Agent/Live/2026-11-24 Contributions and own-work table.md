@@ -62,7 +62,7 @@ Each contribution names the result that backs it. Status as of 2026-11-24.
 | --- | --- | --- | --- |
 | Hypotheses H1–H3 and conditions C1–C4 | built | motivated by UMI (chi2024), HiFi-UMI (ai2026), ActiveUMI (zeng2025) | design of the study |
 | Pose error measurement on the robot | adapted | Banaszczyk et al. (banaszczyk2024) | applied to the controller on the UR10e flange |
-| Sync test | adapted | UMI (chi2024), ViTaMIn-B (li2025); robot motion as time reference adapts UMI's cross-correlation (App. A.0-A3) | Replay Ladder RL5 (camera + recorder) test; plan [[2026-11-25 RL5 camera and recorder plan]] (AI-assisted); 2026-11-26: delay by cross-correlation (`delay_xcorr.py`), same idea as the team's `diag/analyze_diag.py`; desk board wave proposed, not chosen |
+| Sync test | adapted | UMI (chi2024), ViTaMIn-B (li2025); robot motion as time reference adapts UMI's cross-correlation (App. A.0-A3) | Replay Ladder RL5 (camera + recorder) test; plan [[2026-11-25 RL5 camera and recorder plan]] (AI-assisted); 2026-11-26: delay by cross-correlation (`delay_xcorr.py`), same idea as the team's `diag/analyze_diag.py`; desk board wave proposed, not chosen; explainer "Sync Explainer" 2026-11-27 (AI-assisted) |
 | Workload questionnaire | reused | NASA-TLX | — |
 | Statistics (Wilson intervals, Fisher's test) | reused | standard methods | — |
 
