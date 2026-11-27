@@ -115,7 +115,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 | `Archive/2026-11-05 D01 mind map.drawio` | `External/2026-11-06 map gripper choice.drawio` |
 | [[2026-11-18 Relative vs absolute actions decision draft]] | D07 (software and data format), accepted; option A adopted |
 | [[2026-11-23 RL5 sync test findings]] | [[D06 Recording and synchronisation]] sync method (locked 2026-11-27) and [[2026-11-27 Latency sync method comparison]]; its robot sine run and screen test are dropped |
-| `2026-11-26 Why Sync Matters.html`, `2026-11-27 Sync Explainer.html`, `2026-11-27 Latency in Prior Work.html`, [[2026-11-27 Latency sync prior-work code survey]] | Scrapped by Martyn, 2026-11-27: start the sync question fresh with a new comparison and recommendation (moved here, not deleted; published artifact pages still online)|
+| `2026-11-26 Why Sync Matters.html`, `2026-11-27 Sync Explainer.html`, `2026-11-27 Latency in Prior Work.html`, [[2026-11-27 Latency sync prior-work code survey]] | Scrapped by Martyn, 2026-11-27: start the sync question fresh with a new comparison and recommendation (moved here, not deleted; the three published artifact pages were deleted 2026-11-27)|
 
 ## Why this layout
 
