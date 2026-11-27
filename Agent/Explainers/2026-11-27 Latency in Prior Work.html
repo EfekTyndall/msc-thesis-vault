@@ -1,0 +1,288 @@
+<title>Latency in Prior Work</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one scroll, four sections; each section = plain sentence, real code/data, one interactive chart. */
+:root{--bg:#f4f6f7;--panel:#ffffff;--fg:#14232b;--mute:#566872;--line:#d5dde1;--ink:#0f5c73;--ink2:#d6ebf1;--delay:#c4571a;--delay2:#f8e4d6;--good:#2a7a4b;--code:#eaeff1;
+--sans:'Inter',system-ui,sans-serif;--disp:'Space Grotesk','Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a20;--panel:#15252d;--fg:#e4edf0;--mute:#93a8b1;--line:#27404b;--ink:#5cc0dc;--ink2:#17363f;--delay:#f0905a;--delay2:#3a2519;--good:#6fcf97;--code:#0b1419;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1a20;--panel:#15252d;--fg:#e4edf0;--mute:#93a8b1;--line:#27404b;--ink:#5cc0dc;--ink2:#17363f;--delay:#f0905a;--delay2:#3a2519;--good:#6fcf97;--code:#0b1419;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);padding-block:0 4rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:920px;margin:0 auto}
+h1,h2,h3{font-family:var(--disp);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:2.2rem;padding-top:2rem}
+h2{font-size:1.5rem;margin-top:3rem}
+h3{font-size:1.05rem;margin:1.4rem 0 .4rem}
+p{margin:.6rem 0;max-width:68ch}
+.lede{font-size:1.1rem}
+.tag{font:500 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:.15rem .5rem;border-radius:4px;display:inline-block;vertical-align:middle}
+.real{background:var(--ink2);color:var(--ink)} .sim{background:var(--delay2);color:var(--delay)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;margin:1rem 0}
+.plain{border-left:4px solid var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.8rem}
+.grid>*{min-width:0}
+pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:.7rem .9rem;overflow-x:auto;font:400 .8rem/1.5 var(--mono);margin:.5rem 0}
+code{font:400 .86em var(--mono);background:var(--code);padding:.05rem .3rem;border-radius:4px}
+pre code{background:none;padding:0;font-size:inherit}
+.ln{color:var(--mute);user-select:none}
+.hl{background:var(--delay2);color:var(--fg)}
+.flow{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:.8rem 0}
+.flow>div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.45rem .7rem;font-size:.86rem}
+.flow .arr{border:0;background:none;padding:0;color:var(--mute)}
+.flow .log{border-color:var(--delay);background:var(--delay2)}
+.ctl{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;margin:.6rem 0;font-size:.9rem}
+.ctl label{display:flex;gap:.5rem;align-items:center}
+input[type=range]{accent-color:var(--delay);width:min(260px,60vw)}
+button{font:500 .88rem var(--sans);border:1px solid var(--ink);background:var(--panel);color:var(--ink);border-radius:6px;padding:.4rem .8rem;cursor:pointer}
+button:hover{background:var(--ink2)} button:focus-visible,input:focus-visible{outline:2px solid var(--delay);outline-offset:2px}
+button.on{background:var(--ink);color:var(--bg)}
+svg.chart{width:100%;height:auto;display:block;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.ro{font:500 .9rem var(--mono);background:var(--code);padding:.5rem .7rem;border-radius:6px;margin:.4rem 0;overflow-x:auto}
+.ro b{color:var(--delay)}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{border-bottom:1px solid var(--line);padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{font:600 .75rem var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+.scroll{overflow-x:auto}
+.small{font-size:.84rem;color:var(--mute)}
+.callout{background:var(--delay2);border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0}
+.cap{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem;margin:.5rem 0;font-size:.92rem}
+.cap code{font-size:.8em}
+.num{font:700 1.5rem var(--disp);color:var(--delay)}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.8rem}
+.nums>div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.7rem .9rem}
+.nums span{display:block;font-size:.82rem;color:var(--mute)}
+details{margin:.6rem 0} summary{cursor:pointer;color:var(--ink);font-weight:500}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<main>
+<h1>Latency in Prior Work</h1>
+<p class="lede">How the public code of UMI, DexUMI, ViTaMIn-B and FastUMI measures and removes the delay between camera, pose and gripper. Real code lines from the repositories (read on 27 Nov, none of it run). Charts marked <span class="tag real">real data</span> use our own desk log of the PICO controller; <span class="tag sim">simulated</span> parts are made up on purpose.</p>
+
+<div class="card plain">
+<h3 style="margin-top:0">Plain version</h3>
+<p><b>The question:</b> a camera image and a hand pose arrive at the recorder late by different amounts. What do the published handheld-gripper projects do about it? <b>The answer:</b> three of the four measure each delay once, store it as a number in a config file, then subtract it from each stream's arrival time and read the pose at the camera frame times. The fourth (FastUMI) measures nothing and takes the nearest pose.</p>
+<p><b>One frame, UMI-style:</b> a frame arrives at 10.000 s. The config says the camera is 0.125 s late, so it was taken at 9.875 s. The pose stream is 0.0001 s late, so a pose that arrived at 9.8751 s was taken at 9.875 s. The pose for the frame is found by a straight line between the two samples around 9.875 s.</p>
+</div>
+
+<h2>1 · The recipe all of them share</h2>
+<div class="flow">
+<div>1. Measure the delay<br><small>once per device</small></div><span class="arr">→</span>
+<div>2. Store it<br><small>config constant</small></div><span class="arr">→</span>
+<div>3. Subtract from arrival time<br><small>= capture time</small></div><span class="arr">→</span>
+<div>4. Read the pose at each frame time<br><small>interpolation</small></div>
+</div>
+<p class="small">Interpolation = finding a value between two samples on a straight line (rotations by Slerp, a turn along the shortest arc). FastUMI skips steps 1 to 3.</p>
+
+<h2>2 · One frame, three ways <span class="tag real">real data</span></h2>
+<p>The curve is the real x position of the controller from the 23 Nov desk log (83 samples per second). The camera frames are simulated at 30 fps. The pose stream is late by the "pose delay". The camera is late by the "camera delay". The truth is what the camera saw at the moment the frame was taken.</p>
+<div class="ctl">
+<label>Camera delay <input id="cam" type="range" min="0" max="250" value="125"> <b id="camv"></b></label>
+<label>Pose delay <input id="pose" type="range" min="0" max="100" value="10"> <b id="posev"></b></label>
+<label>Error of the measured camera delay <input id="err" type="range" min="-60" max="60" value="0"> <b id="errv"></b></label>
+</div>
+<div class="ctl"><label>Pick a frame (arrival time) <input id="arr" type="range" min="4.5" max="13" step="0.01" value="9"> <b id="arrv"></b></label></div>
+<svg class="chart" id="ch2" viewBox="0 0 800 300" role="img" aria-label="Controller curve around one frame"></svg>
+<div class="scroll"><table id="t2"></table></div>
+<div class="callout"><b>A real finding in this log:</b> the controller stream has holes. In the 23 Nov log the longest gaps between two pose samples are 0.42 s, 0.42 s, 0.51 s, 0.64 s and 0.78 s (normal spacing is 12 ms). Inside a hole every method can only draw a straight line across it. The excerpt below contains the 0.51 s hole (6.36 s to 6.87 s on the time axis). Hole cause not checked.</div>
+<p class="small">Method rows. <b>FastUMI style:</b> no delay measured; the pose sample nearest in time to the frame's arrival (<code>data_collection.py</code> line 255). <b>UMI, DexUMI, ViTaMIn-B style:</b> capture time = arrival − measured delay for both streams, then linear interpolation at the frame's capture time (<code>umi_env.py</code> line 209, <code>data_buffer.py</code> lines 151–153 and 200–202, <code>03_trajectory_video_sync.py</code> line 322). The "UMI style" error is exactly zero when the measured delays are right, because here the logged curve itself is the truth. Move "error of the measured camera delay" to see what a wrong constant does.</p>
+
+<h3>The same over the whole log</h3>
+<div class="scroll"><table id="t2b"></table></div>
+<p class="small">All simulated frames from 4.5 s to 13.5 s (30 fps), error = pose returned minus the logged pose at the capture time. Real curve, simulated camera and delays. The numbers depend on how fast the hand moved (median 0.04 m/s in this log) and include the 0.51 s hole. Real interpolation error between two normal samples (12 ms apart) is not tested here.</p>
+
+<h2>3 · How the camera delay is measured: a screen showing the time</h2>
+<p>UMI, DexUMI and ViTaMIn-B all film a screen that shows the current time as a QR code or an ArUco marker. Delay = arrival time of the frame − the time shown. All the code lines below are from the repositories.</p>
+<pre><code><span class="ln"> 56 </span>ts_qr = float(code)                                  <span class="hl"># time printed in the QR code</span>
+<span class="ln"> 57 </span>ts_recv = data['camera_receive_timestamp']
+<span class="ln"> 58 </span>latency = ts_recv - ts_qr                           <span class="hl"># UMI: scripts/calibrate_uvc_camera_latency.py</span>
+<span class="ln"> 82 </span>avg_latency = np.nanmean(qr_det_queue) - np.mean(qr_latency_deque)   <span class="hl"># minus the time to draw the QR</span>
+<span class="ln">107 </span>t_offsets = [v-k-avg_qr_latency for k,v in qr_recv_map.items()]
+<span class="ln">110 </span>print(f'Capture to receive latency: AVG={avg_latency} STD={std_latency}')</code></pre>
+<p class="small">DexUMI (<code>measure_latency.py</code> lines 48–70) does the same with <code>time.monotonic()</code> and prints mean, std, median. ViTaMIn-B (<code>cali_cam_latency.py</code> lines 78–79) uses one frame: video timestamp − ArUco timestamp.</p>
+<p><span class="tag sim">simulated</span> The shown time is only refreshed every few milliseconds, so each frame gives a slightly different answer. The page shows 60 frames of a camera that is truly 125 ms late.</p>
+<div class="ctl"><label>The shown time refreshes every <input id="ref" type="range" min="2" max="40" value="17"> <b id="refv"></b></label></div>
+<svg class="chart" id="ch3" viewBox="0 0 800 220" role="img" aria-label="Per-frame delay estimates"></svg>
+<div class="ro" id="ro3"></div>
+<p class="small">UMI and DexUMI print the mean and standard deviation over many frames; ViTaMIn-B takes one frame. If the shown time is on average half a refresh older than the moment of capture, the result reads high by half a refresh (reasoned only, no repo corrects it).</p>
+
+<h2>4 · Gripper and robot: command a motion, compare it with the measured motion</h2>
+<p>UMI sends the gripper a sine as the width command and records the measured width. It compares the two curves with its own function <code>get_latency</code>. The robot is driven by a spacemouse, and the same function compares commanded and measured pose, one dimension at a time (<code>calibrate_robot_latency.py</code> line 110).</p>
+<pre><code><span class="ln"> 28 </span>duration = 10.0;  sample_dt = 1 / 100                    <span class="hl"># 10 s, 100 samples per second</span>
+<span class="ln"> 32 </span>value = np.sin(sample_t * duration / 1.5) * 0.5 + 0.5
+<span class="ln"> 33 </span>width = value * 80                                       <span class="hl"># 0 to 80 mm, about 1 Hz</span>
+<span class="ln"> 58 </span>latency, info = get_latency(x_target=width, t_target=timestamps,
+<span class="ln"> 61 </span>                          x_actual=states['gripper_position'],
+<span class="ln"> 62 </span>                          t_actual=states['gripper_receive_timestamp'])   <span class="hl"># UMI: scripts/calibrate_gripper_latency.py</span></code></pre>
+<p><span class="tag sim">simulated</span> The command curve below is the sine from line 32–33. The measured curve is made up with the delay you set. The page runs UMI's <code>get_latency</code> steps on them: 1 ms grid, one mean and one spread for both curves, correlation of every slide, best slide. (The page tries slides from −0.6 s to +0.6 s to stay quick; UMI tries all.)</p>
+<div class="ctl"><label>Gripper delay (made up) <input id="gd" type="range" min="0" max="400" value="150"> <b id="gdv"></b></label><label>Slide measured curve back by <input id="gs" type="range" min="0" max="400" value="0"> <b id="gsv"></b></label><button id="gfind">Run get_latency</button></div>
+<div class="ro" id="ro4"></div>
+<svg class="chart" id="ch4" viewBox="0 0 800 240" role="img" aria-label="Command and measured gripper width"></svg>
+<svg class="chart" id="ch4b" viewBox="0 0 800 150" role="img" aria-label="Correlation per slide" style="margin-top:.6rem"></svg>
+
+<h2>5 · What gets stored and how it is applied</h2>
+<div class="scroll"><table>
+<tr><th>Work</th><th>Stored delays</th><th>Where</th><th>Applied</th></tr>
+<tr><td>UMI</td><td>camera 0.125 s, robot 0.0001 s, gripper 0.02 s; action 0.1 s</td><td><code>diffusion_policy/config/task/umi.yaml</code> lines 3–5; <code>example/eval_robots_config.yaml</code></td><td>camera timestamp = receive time − latency (<code>umi_env.py</code> line 209). Training: pose index shifted by (camera − robot latency) × frequency, then interpolated (<code>sampler.py</code> lines 131–151). Live: action latency subtracted from target time (<code>umi_env.py</code> lines 312–325)</td></tr>
+<tr><td>DexUMI</td><td>camera default 0.1849 s</td><td><code>1_replay_hand.py</code> line 64</td><td>capture time = receive time − latency for camera, encoder, tracking and each FSR (<code>data_buffer.py</code> lines 151–202), then interpolation. Raw receive times stay in the file</td></tr>
+<tr><td>ViTaMIn-B</td><td>visual camera 0.14 s, tactile camera 0.08 s, pose 0.01 s</td><td><code>config/task_config.yaml</code> lines 55–57</td><td>subtracted from timestamps (<code>02_cali_offset_latency.py</code>), then the trajectory is read at video frame times, linear plus Slerp (<code>03_trajectory_video_sync.py</code>)</td></tr>
+<tr><td>FastUMI</td><td>none</td><td>-</td><td>every 3rd frame, nearest trajectory sample (<code>data_collection.py</code> lines 235, 255)</td></tr>
+</table></div>
+<p class="small">UMI keeps the delays in config files, not in the recorded data. DexUMI keeps the raw receive times and computes the capture times when processing. Nobody explains where the config numbers came from.</p>
+
+<h2>6 · Who measures what</h2>
+<div class="scroll"><table>
+<tr><th>Stream</th><th>UMI</th><th>DexUMI</th><th>ViTaMIn-B</th><th>FastUMI</th></tr>
+<tr><td>Camera</td><td>QR on screen</td><td>QR on screen</td><td>ArUco on screen</td><td>none</td></tr>
+<tr><td>Robot</td><td>commanded vs measured pose</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>Gripper</td><td>sine command vs measured width</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>Hand or controller pose</td><td>not needed (pose comes from the camera's own tracking)</td><td>constant, no method in the code</td><td>constant 0.01 s, no method in the code</td><td>none</td></tr>
+</table></div>
+<div class="callout"><b>Two gaps.</b> (1) None of the four repositories measures a camera delay from motion; every camera measurement uses a screen with the time on it. (2) For the delay of a VR controller pose there is no code to base a method on. Any method we choose for it is our own and needs its own justification.</div>
+
+<h3>What this means for the thesis (recommendation, reasoned from the survey)</h3>
+<div class="grid">
+<div class="card"><b>A. Follow the references (recommended)</b><p>Camera by a screen with the time (needs a screen driven by the recording computer, the Jetson has none now). Robot by commanded vs measured pose (we already have this data from the RL3 replay). Gripper by UMI's sine test at the gripper swap. Then delay file, capture time = arrival − delay, interpolate at frame times. Open: the controller pose delay.</p></div>
+<div class="card"><b>B. Measure nothing (FastUMI)</b><p>Nearest pose on one clock. No screen, no tests. The camera delay of about 0.1 s stays inside the data (section 2 shows the size of that error).</p></div>
+</div>
+
+<h2>Sources and what was not checked</h2>
+<ul class="small">
+<li>UMI: github.com/real-stanford/universal_manipulation_interface, commit d095ba9; paper <code>chi2024</code> (Sec. III-B read verbatim, appendix A only as a summary).</li>
+<li>DexUMI: github.com/real-stanford/DexUMI, commit acddb8f. ViTaMIn-B: github.com/chuanyune/ViTaMIn-B_code, commit 1923436 (paper <code>li2025</code>). FastUMI: github.com/YdingTeam/FastUMI_Data, commit 16bb1a9 (paper <code>zhaxizhuoma2025</code>).</li>
+<li>Not checked: other works (ActiveUMI had no code link, exUMI, RAPID, HOMIE), XRoboToolkit's own timestamps, how the config numbers were obtained. Nothing was run.</li>
+<li>Full table with lines: vault note "2026-11-27 Latency sync prior-work code survey".</li>
+<li><b>Add to Zotero:</b> the four repositories above as software citations (not in bib); check whether the DexUMI paper (arXiv 2505.21864) is in the bib.</li>
+</ul>
+<p class="small">Made with Claude, 27 Nov 2026.</p>
+</main>
+<script>
+function interp(t,x,q){ // t sorted; q sorted ascending array -> values
+  const out=new Float64Array(q.length);let j=0;const n=t.length;
+  for(let i=0;i<q.length;i++){const v=q[i];
+    if(v<=t[0]){out[i]=x[0];continue}
+    if(v>=t[n-1]){out[i]=x[n-1];continue}
+    while(j<n-2&&t[j+1]<v)j++;
+    const f=(v-t[j])/(t[j+1]-t[j]);out[i]=x[j]+f*(x[j+1]-x[j]);}
+  return out}
+function norm(a){let m=0;for(const v of a)m+=v;m/=a.length;let s=0;for(const v of a)s+=(v-m)*(v-m);s=Math.sqrt(s/a.length);
+  return a.map(v=>(v-m)/s)}
+// port of delay_xcorr.estimate_delay (software/recorder/delay_xcorr.py); grid step configurable
+function estimateDelay(tr,xr,ts,xs,maxLag=0.3,step=0.001,gstep=0.001){
+  const lo=Math.max(tr[0],ts[0])+maxLag, hi=Math.min(tr[tr.length-1],ts[ts.length-1])-maxLag;
+  const grid=[];for(let g=lo;g<hi;g+=gstep)grid.push(g);
+  const sig=norm(interp(ts,xs,grid));
+  const nl=Math.round(2*maxLag/step)+1, lags=[],sc=[];
+  for(let i=0;i<nl;i++){const lag=-maxLag+i*step;lags.push(lag);
+    const ref=norm(interp(tr,xr,grid.map(g=>g-lag)));let s=0;for(let k=0;k<ref.length;k++)s+=ref[k]*sig[k];sc.push(s/ref.length);}
+  let k=0;for(let i=1;i<nl;i++)if(sc[i]>sc[k])k=i;
+  let best=lags[k];
+  if(k>0&&k<nl-1){const a=sc[k-1],b=sc[k],c=sc[k+1],den=a-2*b+c;if(den!==0)best+=0.5*(a-c)/den*step;}
+  return {delay:best,score:sc[k],lags,scores:sc}}
+// port of analyze_diag._lag_samples
+function lagSamples(a,b,maxLag){const ma=a.reduce((s,v)=>s+v,0)/a.length,mb=b.reduce((s,v)=>s+v,0)/b.length;
+  a=a.map(v=>v-ma);b=b.map(v=>v-mb);let best=0,bc=-Infinity;const sc=[];
+  for(let d=0;d<=maxLag;d++){let c=0;for(let i=0;i+d<a.length;i++)c+=a[i+d]*b[i];sc.push(c);if(c>bc){bc=c;best=d}}
+  return {lag:best,scores:sc}}
+function rng(seed){let a=seed>>>0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(r){return Math.sqrt(-2*Math.log(r()+1e-12))*Math.cos(2*Math.PI*r())}
+
+const D={"ht":[0.0,0.004,0.008,0.012,0.016,0.028,0.036,0.048,0.084,0.088,0.092,0.104,0.12,0.124,0.136,0.148,0.156,0.168,0.18,0.192,0.204,0.216,0.224,0.236,0.248,0.256,0.272,0.288,0.292,0.304,0.316,0.328,0.336,0.348,0.356,0.38,0.392,0.408,0.416,0.424,0.44,0.448,0.456,0.472,0.48,0.492,0.504,0.516,0.524,0.536,0.548,0.556,0.568,0.58,0.592,0.604,0.616,0.624,0.636,0.648,0.656,0.672,0.68,0.692,0.7,0.716,0.724,0.736,0.748,0.756,0.768,0.78,0.792,0.804,0.8165,0.824,0.836,0.848,0.856,0.872,0.88,0.892,0.904,0.916,0.924,0.936,0.948,0.956,0.968,0.98,0.992,1.004,1.012,1.024,1.036,1.048,1.06,1.068,1.08,1.092,1.104,1.116,1.124,1.136,1.148,1.156,1.168,1.18,1.192,1.204,1.216,1.224,1.236,1.248,1.256,1.272,1.28,1.292,1.304,1.32,1.336,1.352,1.356,1.372,1.38,1.392,1.404,1.42,1.424,1.44,1.448,1.456,1.468,1.48,1.492,1.504,1.516,1.528,1.536,1.552,1.556,1.568,1.58,1.592,1.604,1.62,1.624,1.636,1.648,1.66,1.668,1.68,1.692,1.704,1.716,1.724,1.736,1.748,1.756,1.768,1.78,1.792,1.8,1.816,1.824,1.836,1.852,1.86,1.872,1.88,1.892,1.904,1.916,1.924,1.936,1.948,1.96,1.968,1.98,1.992,2.004,2.016,2.028,2.04,2.048,2.06,2.068,2.08,2.092,2.104,2.116,2.124,2.136,2.148,2.16,2.168,2.18,2.192,2.208,2.212,2.228,2.236,2.252,2.256,2.296,2.3,2.312,2.324,2.336,2.348,2.356,2.376,2.38,2.392,2.404,2.416,2.424,2.436,2.448,2.46,2.476,2.48,2.492,2.5,2.516,2.524,2.536,2.548,2.556,2.568,2.58,2.592,2.604,2.616,2.628,2.64,2.648,2.656,2.668,2.68,2.692,2.7,2.716,2.724,2.736,2.748,2.756,2.772,2.78,2.792,2.804,2.82,2.824,2.868,2.872,2.888,2.9,2.908,2.92,2.928,2.94,2.952,2.964,2.972,2.984,2.992,3.008,3.016,3.028,3.044,3.048,3.06,3.068,3.08,3.096,3.104,3.116,3.124,3.14,3.188,3.192,3.196,3.216,3.268,3.364,3.368,3.404,3.436,3.512,3.532,3.536,3.556,3.56,3.572,3.576,3.584,3.588,3.592,3.604,3.616,3.624,3.636,3.648,3.664,3.672,3.68,3.692,3.704,3.716,3.728,3.736,3.748,3.756,3.768,3.78,3.792,3.808,3.816,3.824,3.836,3.848,3.86,3.8679,3.88,3.892,3.908,3.916,3.924,3.936,3.952,3.96,3.972,3.98,3.996,4.004,4.016,4.024,4.036,4.048,4.056,4.068,4.08,4.092,4.104,4.116,4.136,4.14,4.148,4.16,4.168,4.18,4.192,4.204,4.212,4.224,4.24,4.244,4.256,4.2679,4.2799,4.288,4.304,4.312,4.3239,4.336,4.344,4.356,4.3679,4.38,4.392,4.4,4.412,4.4239,4.436,4.444,4.456,4.472,4.488,4.492,4.504,4.512,4.524,4.536,4.544,4.556,4.576,4.58,4.596,4.604,4.612,4.624,4.636,4.644,4.656,4.672,4.688,4.692,4.708,4.716,4.724,4.74,4.752,4.756,4.768,4.808,4.816,4.828,4.836,4.852,4.856,4.88,4.952,4.956,4.984,5.056,5.076,5.08,5.088,5.212,5.216,5.3,5.304,5.308,5.312,5.316,5.328,5.34,5.348,5.356,5.376,5.38,5.392,5.4,5.416,5.452,5.46,5.556,5.56,5.588,5.896,5.9,5.936,6.36,6.868,6.872,6.876,6.88,6.884,6.888,6.892,6.896,6.9,6.904,6.92,6.924,6.932,6.936,6.94,6.944,6.948,6.952,6.956,6.96,6.964,6.968,6.972,6.976,6.98,6.988,7.008,7.012,7.028,7.036,7.044,7.06,7.068,7.08,7.092,7.108,7.116,7.124,7.144,7.156,7.168,7.18,7.192,7.2,7.212,7.22,7.236,7.244,7.256,7.268,7.284,7.288,7.3,7.312,7.324,7.336,7.344,7.356,7.3719,7.38,7.388,7.4,7.412,7.428,7.432,7.448,7.456,7.468,7.476,7.492,7.5,7.516,7.5239,7.532,7.556,7.568,7.5799,7.6,7.612,7.624,7.636,7.644,7.656,7.668,7.68,7.6879,7.6999,7.712,7.724,7.736,7.744,7.756,7.768,7.776,7.788,7.8,7.812,7.824,7.832,7.852,7.856,7.872,7.88,7.888,7.9,7.912,7.924,7.932,7.944,7.956,7.964,7.98,7.992,8.004,8.012,8.02,8.036,8.044,8.06,8.068,8.08,8.088,8.104,8.112,8.124,8.136,8.1486,8.156,8.168,8.18,8.192,8.208,8.212,8.224,8.236,8.248,8.256,8.268,8.28,8.288,8.3,8.316,8.324,8.336,8.344,8.356,8.368,8.38,8.392,8.4,8.412,8.424,8.436,8.444,8.456,8.468,8.476,8.492,8.5,8.512,8.524,8.532,8.544,8.56,8.568,8.58,8.588,8.6,8.616,8.624,8.636,8.644,8.656,8.672,8.68,8.692,8.704,8.712,8.724,8.736,8.748,8.756,8.768,8.78,8.792,8.8,8.812,8.824,8.832,8.848,8.856,8.8684,8.88,8.888,8.9,8.916,8.924,8.936,8.944,8.956,8.968,8.98,8.988,9.0,9.012,9.024,9.036,9.048,9.056,9.068,9.08,9.092,9.104,9.116,9.1319,9.136,9.148,9.156,9.172,9.184,9.2,9.204,9.22,9.224,9.236,9.252,9.26,9.268,9.28,9.292,9.3,9.312,9.332,9.336,9.348,9.356,9.372,9.408,9.42,9.424,9.432,9.444,9.456,9.476,9.48,9.492,9.5,9.512,9.524,9.536,9.544,9.556,9.568,9.58,9.588,9.6,9.612,9.624,9.636,9.644,9.656,9.668,9.676,9.688,9.7,9.72,9.724,9.74,9.748,9.756,9.768,9.78,9.788,9.8,9.812,9.824,9.836,9.844,9.86,9.868,9.88,9.888,9.9,9.912,9.924,9.936,9.944,9.956,9.968,9.98,9.992,10.0,10.016,10.0204,10.036,10.044,10.056,10.068,10.08,10.088,10.1,10.116,10.124,10.136,10.144,10.156,10.168,10.18,10.192,10.2,10.216,10.224,10.236,10.248,10.26,10.268,10.2805,10.292,10.3,10.312,10.328,10.332,10.344,10.356,10.368,10.38,10.388,10.4,10.412,10.42,10.432,10.448,10.456,10.468,10.48,10.488,10.5,10.512,10.524,10.536,10.544,10.556,10.568,10.58,10.588,10.604,10.616,10.624,10.632,10.648,10.66,10.668,10.68,10.692,10.7,10.716,10.72,10.732,10.74,10.756,10.772,10.784,10.788,10.832,10.844,10.856,10.864,10.876,10.892,10.904,10.912,10.92,10.932,10.944,10.956,10.964,10.976,10.988,11.0,11.012,11.02,11.032,11.044,11.056,11.064,11.08,11.088,11.1,11.112,11.128,11.136,11.144,11.156,11.168,11.176,11.188,11.204,11.212,11.22,11.232,11.244,11.256,11.264,11.28,11.296,11.304,11.312,11.32,11.3359,11.344,11.356,11.368,11.38,11.388,11.3999,11.412,11.428,11.436,11.444,11.456,11.468,11.48,11.488,11.4999,11.512,11.524,11.532,11.544,11.556,11.572,11.58,11.592,11.604,11.612,11.632,11.652,11.656,11.668,11.676,11.692,11.7,11.712,11.724,11.736,11.744,11.756,11.764,11.776,11.788,11.804,11.816,11.824,11.836,11.844,11.856,11.868,11.876,11.888,11.908,11.912,11.924,11.932,11.944,11.964,11.976,11.98,11.988,11.9999,12.012,12.02,12.0319,12.044,12.056,12.068,12.076,12.088,12.1,12.112,12.12,12.132,12.144,12.156,12.172,12.176,12.188,12.2,12.212,12.22,12.232,12.244,12.252,12.268,12.28,12.2919,12.3,12.308,12.324,12.34,12.348,12.356,12.364,12.376,12.388,12.404,12.408,12.424,12.436,12.444,12.456,12.468,12.484,12.496,12.5,12.512,12.528,12.532,12.544,12.556,12.572,12.58,12.588,12.604,12.612,12.62,12.632,12.648,12.656,12.668,12.676,12.692,12.7,12.712,12.728,12.732,12.744,12.756,12.764,12.776,12.788,12.8,12.812,12.824,12.832,12.844,12.8601,12.868,12.88,12.888,12.9,12.92,12.924,12.932,12.952,12.956,12.98,12.984,12.988,13.0,13.012,13.024,13.032,13.044,13.056,13.068,13.08,13.088,13.108,13.112,13.12,13.132,13.144,13.156,13.168,13.176,13.188,13.204,13.212,13.224,13.236,13.244,13.256,13.268,13.276,13.288,13.3,13.312,13.324,13.332,13.344,13.352,13.364,13.384,13.392,13.404,13.416,13.424,13.432,13.444,13.456,13.468,13.48,13.488,13.5,13.512,13.524,13.5359,13.544,13.556,13.568,13.576,13.588,13.6,13.612,13.62,13.636,13.644,13.656,13.668,13.684,13.692,13.7,13.716,13.728,13.732,13.744,13.756,13.764,13.776,13.788,13.8,13.812,13.824,13.832,13.844,13.856,13.864,13.876,13.888,13.9,13.912,13.924,13.932,13.944,13.956,13.968,13.98,13.992],"hx":[0.0,-0.46,-0.32,-0.23,-0.04,0.02,0.08,0.15,0.31,0.05,-0.17,-0.35,-0.54,-0.63,-0.67,-0.75,-0.81,-0.86,-0.88,-0.9,-0.95,-1.03,-1.07,-1.1,-1.09,-1.05,-0.99,-0.93,-0.89,-0.88,-0.87,-0.87,-0.88,-0.88,-0.88,-0.88,-0.89,-0.91,-0.93,-0.94,-0.95,-0.96,-0.99,-1.03,-1.05,-1.05,-1.04,-1.04,-1.05,-1.07,-1.07,-1.07,-1.06,-1.05,-1.04,-1.03,-1.02,-1.0,-0.99,-0.98,-0.98,-1.0,-1.03,-1.05,-1.05,-1.07,-1.1,-1.11,-1.11,-1.11,-1.11,-1.1,-1.09,-1.06,-1.0,-0.95,-0.87,-0.8,-0.73,-0.68,-0.65,-0.59,-0.52,-0.42,-0.28,-0.17,-0.04,0.11,0.23,0.32,0.36,0.39,0.39,0.38,0.38,0.36,0.32,0.26,0.24,0.23,0.21,0.16,0.1,0.05,0.0,-0.02,-0.01,0.03,0.07,0.16,0.31,0.42,0.53,0.62,0.73,0.89,1.11,1.25,1.42,1.57,1.79,1.72,1.65,1.65,1.69,1.74,1.75,1.61,1.55,1.61,1.76,1.89,1.97,1.88,1.79,1.73,1.73,1.77,1.75,1.55,1.4,1.35,1.42,1.51,1.67,1.78,1.86,1.96,2.08,2.24,2.38,2.43,2.51,2.6,2.66,2.7,2.72,2.67,2.64,2.65,2.73,2.83,2.89,2.95,2.96,2.93,2.95,2.97,2.95,2.86,2.8,2.76,2.64,2.42,2.17,1.82,1.38,0.99,0.83,0.64,0.43,-0.09,-0.41,-0.67,-0.84,-1.05,-1.15,-1.16,-1.18,-1.18,-1.19,-1.23,-1.28,-1.44,-1.59,-1.74,-1.82,-1.83,-1.83,-1.86,-1.9,-1.94,-1.98,-2.02,-1.75,-1.52,-1.19,-1.06,-0.96,-0.94,-0.81,-0.65,-0.38,-0.11,0.1,0.25,0.37,0.53,0.71,0.93,1.07,1.1,1.11,1.09,1.09,1.13,1.25,1.45,1.62,1.78,1.9,2.03,2.1,2.04,1.99,2.04,2.24,2.46,2.78,3.32,3.6,3.85,4.23,4.51,4.78,4.93,5.01,5.09,5.32,5.52,5.88,6.4,6.91,7.92,8.16,8.34,8.57,8.81,9.08,9.31,9.46,9.52,9.54,9.54,9.51,9.42,9.32,8.94,8.9,8.67,8.48,8.24,8.02,7.83,7.71,7.6,7.48,7.39,7.32,7.39,7.6,7.77,8.01,8.78,9.47,9.61,10.19,11.59,12.18,12.79,13.4,13.84,14.12,14.62,14.77,14.75,14.81,15.27,15.32,15.27,15.21,15.16,15.1,15.02,14.89,14.75,14.69,14.64,14.62,14.58,14.5,14.32,14.15,13.99,13.75,13.52,13.33,13.22,13.22,13.22,13.18,13.11,13.03,12.79,12.68,12.66,12.83,13.04,13.22,13.28,13.31,13.35,13.44,13.55,13.68,13.81,13.82,13.77,13.69,13.62,13.61,13.47,13.39,13.41,13.44,13.42,13.36,13.3,13.26,13.33,13.55,13.84,13.99,13.97,13.91,13.89,13.96,14.09,14.23,14.25,14.25,14.24,14.23,14.25,14.29,14.7,14.89,14.9,14.95,15.0,15.05,15.09,15.1,15.09,15.06,14.93,14.89,15.3,15.57,15.67,15.63,15.52,15.5,15.46,15.43,15.26,14.97,14.73,14.6,14.56,14.52,14.47,14.2,13.9,13.52,13.16,13.01,12.89,12.75,12.64,12.44,12.17,11.84,11.44,9.98,9.42,8.92,8.43,7.58,7.04,5.54,3.71,2.25,-0.35,-1.97,-3.06,-5.8,-7.7,-9.37,-12.09,-14.06,-16.96,-18.62,-23.68,-28.16,-30.58,-31.97,-33.11,-34.34,-35.33,-36.54,-37.79,-38.93,-40.39,-44.31,-45.41,-49.28,-50.42,-53.12,-57.42,-58.98,-65.0,-67.44,-68.83,-72.33,-76.21,-83.66,-89.04,-93.97,-99.17,-107.0,-113.72,-119.12,-121.54,-126.37,-128.92,-133.61,-138.0,-144.07,-149.5,-154.53,-156.8,-157.89,-158.23,-157.71,-155.72,-153.35,-152.97,-152.59,-152.05,-151.52,-151.13,-150.66,-150.22,-149.63,-148.37,-147.69,-146.92,-146.16,-145.44,-144.92,-142.95,-141.92,-141.09,-140.07,-139.0,-137.95,-137.24,-136.07,-134.56,-133.66,-132.3,-130.76,-129.21,-128.05,-126.76,-125.72,-124.49,-123.21,-122.09,-120.79,-119.51,-118.45,-117.38,-115.65,-114.44,-113.24,-111.74,-110.24,-108.76,-107.69,-106.0,-104.5,-102.98,-101.97,-100.47,-99.0,-96.31,-95.0,-93.13,-90.64,-89.37,-88.04,-86.88,-85.47,-84.05,-82.84,-81.36,-79.93,-78.76,-77.38,-76.28,-74.95,-73.51,-72.0,-70.99,-69.48,-68.02,-66.72,-65.84,-64.82,-63.71,-62.48,-61.36,-60.15,-58.46,-57.3,-56.23,-54.86,-53.92,-52.98,-51.84,-50.91,-49.76,-48.77,-47.51,-46.13,-44.69,-43.55,-42.47,-41.02,-40.04,-38.92,-37.5,-36.28,-35.14,-34.25,-33.21,-32.11,-31.01,-30.49,-29.33,-28.07,-27.29,-25.94,-24.61,-23.6,-22.46,-21.52,-20.33,-19.24,-18.34,-17.17,-16.2,-14.87,-13.94,-12.83,-11.96,-10.89,-9.94,-8.76,-7.58,-6.5,-5.66,-4.75,-3.3,-2.3,-1.35,-0.24,0.7,1.59,2.38,3.43,4.38,5.45,6.29,7.45,8.72,9.83,11.13,12.28,13.3,14.15,15.18,16.05,17.09,17.8,18.59,19.47,20.24,21.2,22.01,22.9,23.44,24.05,24.89,25.82,26.61,27.47,28.54,29.55,30.51,31.32,32.3,33.25,34.01,35.06,36.14,37.89,38.95,40.46,41.92,43.09,44.25,45.85,47.21,48.31,49.63,50.71,51.93,53.19,54.24,55.43,56.53,57.65,58.43,59.55,60.64,61.51,62.09,62.69,63.49,64.35,65.11,65.96,66.83,67.28,67.95,68.5,68.83,69.37,69.66,69.71,69.92,70.1,70.22,70.36,70.54,70.65,70.82,71.16,71.3,71.47,71.65,71.79,71.96,72.04,72.06,72.08,72.09,72.11,72.12,72.12,72.13,72.15,72.15,72.15,72.15,72.14,72.11,72.04,71.95,71.82,71.59,71.22,70.92,70.66,70.47,70.28,70.14,70.05,69.95,69.77,69.56,69.41,69.24,69.02,68.71,68.62,68.53,68.49,68.4,68.28,68.07,67.9,67.8,67.65,67.5,67.22,66.89,66.65,66.35,66.02,65.67,65.47,65.27,65.15,64.98,64.81,64.25,63.95,63.8,63.62,63.44,63.2,63.07,62.85,62.58,62.26,62.0,61.71,61.49,61.29,60.99,60.75,60.52,60.28,60.14,59.97,59.87,59.82,59.78,59.72,59.7,59.58,59.24,59.09,58.98,58.9,58.84,58.64,58.41,58.29,58.2,58.13,58.12,58.2,58.4,58.5,58.56,58.56,58.48,58.41,58.36,58.36,58.54,58.82,59.0,59.2,59.59,59.9,60.31,60.63,61.15,61.68,62.2,62.59,63.07,63.6,64.02,64.55,65.02,65.5,65.86,66.2,66.45,67.59,67.9,68.19,68.41,68.52,68.64,68.79,68.94,69.17,69.45,69.6,69.99,70.3,70.71,70.88,71.0,71.05,71.04,71.07,71.16,71.31,71.41,71.54,71.7,71.79,71.76,71.64,71.46,71.37,71.34,71.25,71.2,71.15,71.12,71.06,70.96,70.8,70.71,70.59,70.42,70.28,70.23,70.2,70.18,70.2,70.16,70.06,70.01,69.98,69.96,69.95,70.0,69.99,69.96,69.9,69.82,69.69,69.38,68.99,68.62,68.29,67.79,67.3,66.13,65.43,64.68,63.98,63.29,62.7,61.84,61.07,59.23,58.09,56.93,55.86,54.66,53.57,52.48,51.73,50.57,49.41,48.3,47.33,46.14,44.87,43.5,42.46,41.47,40.22,38.72,37.81,36.35,35.14,33.65,32.11,30.81,29.24,27.93,26.23,24.49,22.76,21.22,19.38,17.58,15.85,14.79,13.18,11.59,10.0,8.67,7.18,4.97,3.23,2.03,0.42,-1.0,-2.41,-3.57,-4.88,-5.96,-7.44,-8.28,-9.34,-10.79,-11.86,-13.2,-14.63,-16.12,-17.46,-18.82,-20.3,-21.72,-22.86,-24.14,-25.37,-26.54,-27.28,-28.45,-29.8,-31.3,-32.73,-34.29,-35.59,-36.72,-37.65,-38.58,-39.74,-41.05,-41.97,-42.83,-43.81,-44.58,-45.55,-46.57,-47.4,-48.24,-49.48,-50.37,-51.46,-52.3,-53.2,-54.1,-55.08,-55.81,-57.02,-58.14,-59.0,-59.59,-60.31,-60.79,-61.41,-62.05,-62.73,-63.58,-64.45,-65.17,-66.43,-67.71,-68.55,-69.45,-70.16,-70.93,-71.6,-72.5,-73.35,-74.17,-74.93,-75.55,-76.86,-77.61,-78.28,-79.08,-79.95,-80.85,-81.64,-82.63,-83.42,-84.59,-85.31,-86.35,-87.24,-88.06,-88.75,-89.61,-90.3,-91.04,-91.52,-92.13,-92.88,-93.63,-94.62,-95.57,-96.18,-96.77,-97.29,-98.1,-98.69,-99.26,-99.75,-100.11,-100.2,-100.24,-100.32,-100.45,-100.57,-100.7,-100.9,-100.89,-100.58,-100.4,-100.23,-100.0,-99.89,-99.89,-100.15,-100.35,-100.42,-100.34,-99.8,-99.31,-98.82,-98.38,-98.02,-97.78,-97.73,-97.69,-97.6,-97.47,-97.24,-96.82,-96.27,-95.75,-95.34,-94.95,-94.41,-93.85,-93.51,-93.03,-92.6,-92.25,-92.09,-92.0,-91.92,-91.78,-91.64,-91.49,-91.36,-91.35,-91.4,-91.52,-91.56,-91.47,-91.23,-90.97,-90.8,-90.68,-90.66,-90.68,-90.68,-90.73,-90.72,-90.58,-90.39,-90.17]};
+const $=id=>document.getElementById(id);
+function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+function svgEl(svg,h){svg.innerHTML=h}
+function path(xs,ys,sx,sy,x0,y0){let d='';for(let i=0;i<xs.length;i++){d+=(i?'L':'M')+(x0+sx(xs[i])).toFixed(1)+' '+(y0+sy(ys[i])).toFixed(1)}return d}
+function frame(W,H,m,xr,yr,xl,yl,xt=5,yt=4){ // returns {sx,sy,html}
+  const sx=v=>m.l+(v-xr[0])/(xr[1]-xr[0])*(W-m.l-m.r), sy=v=>H-m.b-(v-yr[0])/(yr[1]-yr[0])*(H-m.t-m.b);
+  let h='';const mute=css('--mute'),line=css('--line');
+  for(let i=0;i<=xt;i++){const v=xr[0]+(xr[1]-xr[0])*i/xt;h+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${m.t}" y2="${H-m.b}" stroke="${line}"/><text x="${sx(v)}" y="${H-m.b+16}" fill="${mute}" font-size="11" text-anchor="middle">${(xr[1]-xr[0])<0.5?v.toFixed(3):+v.toFixed(2)}</text>`}
+  for(let i=0;i<=yt;i++){const v=yr[0]+(yr[1]-yr[0])*i/yt;h+=`<line x1="${m.l}" x2="${W-m.r}" y1="${sy(v)}" y2="${sy(v)}" stroke="${line}"/><text x="${m.l-6}" y="${sy(v)+4}" fill="${mute}" font-size="11" text-anchor="end">${(yr[1]-yr[0])<=0.001?v.toFixed(5):(yr[1]-yr[0])<=0.05?v.toFixed(4):(yr[1]-yr[0])<=0.5?v.toFixed(2):(yr[1]-yr[0])<=4?v.toFixed(1):Math.round(v)}</text>`}
+  h+=`<text x="${(W+m.l-m.r)/2}" y="${H-4}" fill="${mute}" font-size="11" text-anchor="middle">${xl}</text><text x="12" y="${(H-m.b+m.t)/2}" fill="${mute}" font-size="11" text-anchor="middle" transform="rotate(-90 12 ${(H-m.b+m.t)/2})">${yl}</text>`;
+  return {sx,sy,html:h}}
+function legend(items,x,y){return items.map((it,i)=>`<line x1="${x+i*190}" x2="${x+i*190+22}" y1="${y}" y2="${y}" stroke="${it[0]}" stroke-width="2.5" ${it[2]||''}/><text x="${x+i*190+28}" y="${y+4}" fill="${css('--fg')}" font-size="12">${it[1]}</text>`).join('')}
+
+// ----- section 2
+function xAt(t){return interp(D.ht,D.hx,[t])[0]}
+function methods(tArr,L,P,E){ // returns poses: truth,fast,umi
+  const tf=tArr-L/1000;            // true capture time of the frame
+  const truth=xAt(tf);
+  // pose samples stamped with arrival = true time + P
+  const stamps=D.ht.map(t=>t+P/1000);
+  // FastUMI: nearest stamp to frame arrival
+  let k=0,b=1e9;for(let i=0;i<stamps.length;i++){const d=Math.abs(stamps[i]-tArr);if(d<b){b=d;k=i}}
+  const fast=D.hx[k];
+  // UMI style: capture times = arrival - measured delays (measured = true + E for camera, true for pose)
+  const frameCap=tArr-(L+E)/1000;
+  const umi=interp(stamps.map(s=>s-P/1000),D.hx,[frameCap])[0];
+  return {tf,truth,fast,umi,stampk:D.ht[k]}
+}
+function draw2(){
+  const L=+$('cam').value,P=+$('pose').value,E=+$('err').value,tArr=+$('arr').value;
+  $('camv').textContent=L+' ms';$('posev').textContent=P+' ms';$('errv').textContent=(E>0?'+':'')+E+' ms';$('arrv').textContent=tArr.toFixed(2)+' s';
+  const m=methods(tArr,L,P,E);
+  const w0=tArr-0.45,w1=tArr+0.05;
+  const mg={l:50,r:12,t:34,b:36};
+  const xs=[],ys=[];D.ht.forEach((t,i)=>{if(t>=w0-.05&&t<=w1+.05){xs.push(t);ys.push(D.hx[i])}});
+  const lo=Math.floor(Math.min(...ys)/10)*10-10,hi=Math.ceil(Math.max(...ys)/10)*10+10;
+  const f=frame(800,300,mg,[w0,w1],[lo,hi],'time (s)','x (mm)',5,4);
+  const ink=css('--ink'),dl=css('--delay'),fg=css('--fg'),mute=css('--mute'),good=css('--good');
+  const X=f.sx,Y=f.sy;
+  svgS($('ch2'),f.html+`<clipPath id="c2"><rect x="${mg.l}" y="${mg.t}" width="${800-mg.l-mg.r}" height="${300-mg.t-mg.b}"/></clipPath><g clip-path="url(#c2)"><path d="${path(xs,ys,X,Y,0,0)}" fill="none" stroke="${ink}" stroke-width="2"/></g>
+  <line x1="${X(m.tf)}" x2="${X(m.tf)}" y1="${mg.t}" y2="${300-mg.b}" stroke="${good}" stroke-width="2"/><text x="${X(m.tf)-6}" y="${mg.t+12}" fill="${good}" font-size="12" text-anchor="end">frame taken</text>
+  <line x1="${X(tArr)}" x2="${X(tArr)}" y1="${mg.t}" y2="${300-mg.b}" stroke="${mute}" stroke-width="2" stroke-dasharray="4 3"/><text x="${X(tArr)-6}" y="${mg.t+12}" fill="${mute}" font-size="12" text-anchor="end">frame arrives</text>
+  <circle cx="${X(m.tf)}" cy="${Y(m.truth)}" r="7" fill="${good}"/>
+  <circle cx="${X(m.stampk)}" cy="${Y(m.fast)}" r="6" fill="${dl}"/>
+  <circle cx="${X(tArr-(L+E)/1000)}" cy="${Y(m.umi)}" r="6" fill="${css('--ink')}" stroke="${fg}" stroke-width="1.5"/>`+
+  `<circle cx="60" cy="16" r="6" fill="${good}"/><text x="72" y="20" fill="${fg}" font-size="12">truth (frame taken)</text><circle cx="250" cy="16" r="6" fill="${dl}"/><text x="262" y="20" fill="${fg}" font-size="12">FastUMI style</text><circle cx="400" cy="16" r="6" fill="${ink}" stroke="${fg}" stroke-width="1.5"/><text x="412" y="20" fill="${fg}" font-size="12">UMI style</text>`);
+  const row=(name,v,c)=>`<tr><td style="color:${c}"><b>${name}</b></td><td>${v.toFixed(1)} mm</td><td><b>${(v-m.truth>=0?'+':'')}${(v-m.truth).toFixed(1)} mm</b></td></tr>`;
+  $('t2').innerHTML='<tr><th>Method</th><th>Pose given to the frame</th><th>Error vs truth ('+m.truth.toFixed(1)+' mm)</th></tr>'+row('FastUMI style: nearest sample, no delay',m.fast,dl)+row('UMI style: subtract delays, interpolate',m.umi,ink);
+  // whole log
+  const errs={fast:[],umi:[]};
+  for(let t=4.5;t<13.5;t+=1/30){const r=methods(t+L/1000,L,P,E);errs.fast.push(Math.abs(r.fast-r.truth));errs.umi.push(Math.abs(r.umi-r.truth))}
+  const st=a=>{const s=[...a].sort((x,y)=>x-y);return [a.reduce((x,y)=>x+y,0)/a.length,s[Math.floor(s.length*.95)],s[s.length-1]]};
+  const a=st(errs.fast),b=st(errs.umi);
+  $('t2b').innerHTML='<tr><th>Method</th><th>mean error</th><th>95th percentile</th><th>largest</th></tr>'+
+   `<tr><td>FastUMI style</td><td>${a[0].toFixed(1)} mm</td><td>${a[1].toFixed(1)} mm</td><td>${a[2].toFixed(1)} mm</td></tr><tr><td>UMI style</td><td>${b[0].toFixed(1)} mm</td><td>${b[1].toFixed(1)} mm</td><td>${b[2].toFixed(1)} mm</td></tr>`;
+}
+function svgS(el,h){el.innerHTML=h}
+['cam','pose','err','arr'].forEach(id=>$(id).oninput=draw2);
+// ----- section 3
+function draw3(){
+  const T=+$('ref').value/1000;$('refv').textContent=(T*1000).toFixed(0)+' ms';
+  const r=rng(11),est=[];
+  for(let i=0;i<60;i++){const tc=i/30+r()*0.004;const shown=Math.floor(tc/T)*T;const recv=tc+0.125+Math.abs(gauss(r))*0.001;est.push((recv-shown)*1000)}
+  const mean=est.reduce((a,b)=>a+b,0)/est.length,sd=Math.sqrt(est.reduce((a,b)=>a+(b-mean)**2,0)/est.length);
+  const f=frame(800,220,{l:50,r:12,t:20,b:34},[0,60],[100,175],'frame number','estimated delay (ms)',6,3);
+  svgS($('ch3'),f.html+est.map((v,i)=>`<circle cx="${f.sx(i)}" cy="${f.sy(v)}" r="3.5" fill="${css('--delay')}"/>`).join('')+`<line x1="${f.sx(0)}" x2="${f.sx(60)}" y1="${f.sy(125)}" y2="${f.sy(125)}" stroke="${css('--good')}" stroke-width="2" stroke-dasharray="4 3"/><text x="${f.sx(59)}" y="${f.sy(125)-6}" fill="${css('--good')}" font-size="12" text-anchor="end">true delay 125 ms</text>`);
+  $('ro3').innerHTML=`mean = <b>${mean.toFixed(1)} ms</b> &nbsp;|&nbsp; std = <b>${sd.toFixed(1)} ms</b> &nbsp;|&nbsp; spread of single frames = <b>${(Math.max(...est)-Math.min(...est)).toFixed(1)} ms</b>`;
+}
+$('ref').oninput=draw3;
+// ----- section 4 (UMI get_latency steps)
+(function(){
+ const dt=0.01,t=[],c=[];for(let i=0;i<1000;i++){const s=i*dt;t.push(s);c.push((Math.sin(s*10/1.5)*0.5+0.5)*80)}
+ let res=null;
+ function meas(d){const r=rng(5);return t.map((x,i)=>{const v=interp(t,c,[x-d/1000])[0];return v+gauss(r)*0.8})}
+ function draw(){
+  const d=+$('gd').value,s=+$('gs').value;$('gdv').textContent=d+' ms';$('gsv').textContent=s+' ms';
+  const m=meas(d);let q=0,n=0;const ms=interp(t,m,t.map(x=>x+s/1000));for(let i=0;i<t.length;i++){if(t[i]+s/1000<=9.99){q+=Math.abs(c[i]-ms[i]);n++}}
+  $('ro4').innerHTML=`slide = <b>${s} ms</b> &nbsp;|&nbsp; mean gap = <b>${(q/n).toFixed(1)} mm</b>`+(res!==null?` &nbsp;|&nbsp; get_latency says <b>${(res.lat*1000).toFixed(0)} ms</b>`:'');
+  const f=frame(800,240,{l:50,r:12,t:34,b:34},[0,4],[-10,90],'time (s)','gripper width (mm)',4,5);
+  const xs=[],ys=[],x2=[],y2=[];t.forEach((x,i)=>{if(x<=4){xs.push(x);ys.push(c[i])}if(x-s/1000>=0&&x-s/1000<=4){x2.push(x-s/1000);y2.push(m[i])}});
+  svgS($('ch4'),f.html+`<path d="${path(xs,ys,f.sx,f.sy,0,0)}" fill="none" stroke="${css('--ink')}" stroke-width="2.2"/><path d="${path(x2,y2,f.sx,f.sy,0,0)}" fill="none" stroke="${css('--delay')}" stroke-width="2.2"/>`+legend([[css('--ink'),'command (UMI sine)'],[css('--delay'),'measured width (simulated), slid back '+s+' ms']],50,16));
+  const g=frame(800,150,{l:50,r:12,t:12,b:34},[-600,600],[res?res.lo:-1,res?res.hi:1],'slide (ms)','correlation',6,2);
+  svgS($('ch4b'),res?g.html+`<path d="${path(res.lags,res.cor,g.sx,g.sy,0,0)}" fill="none" stroke="${css('--ink')}" stroke-width="2"/><line x1="${g.sx(res.lat*1000)}" x2="${g.sx(res.lat*1000)}" y1="12" y2="116" stroke="${css('--delay')}" stroke-dasharray="4 3" stroke-width="2"/><text x="${g.sx(res.lat*1000)+6}" y="26" fill="${css('--delay')}" font-size="12">${(res.lat*1000).toFixed(0)} ms</text>`:`<text x="400" y="80" fill="${css('--mute')}" font-size="13" text-anchor="middle">Press "Run get_latency" to draw the correlation of every slide</text>`);
+ }
+ function run(){ // port of get_latency steps: 1 ms grid, joint mean/std, correlation, argmax
+  const d=+$('gd').value,m=meas(d);const rd=0.001;const ts=[];for(let x=0;x<9.99;x+=rd)ts.push(x);
+  let a=Array.from(interp(t,c,ts)),b=Array.from(interp(t,m,ts));
+  const all=a.concat(b),mean=all.reduce((p,q)=>p+q,0)/all.length,sd=Math.sqrt(all.reduce((p,q)=>p+(q-mean)**2,0)/all.length);
+  a=a.map(v=>(v-mean)/sd);b=b.map(v=>(v-mean)/sd); // a=target, b=actual
+  const lags=[],cor=[];let best=-1e9,bl=0;
+  for(let k=-600;k<=600;k+=2){let s=0;for(let i=0;i<a.length;i++){const j=i+k;if(j>=0&&j<b.length)s+=b[j]*a[i]}lags.push(k);cor.push(s);if(s>best){best=s;bl=k}}
+  res={lat:bl*rd,lags,cor,lo:Math.min(...cor),hi:Math.max(...cor)};
+  const mn=res.lo,mx=res.hi;res.lo=mn-0.05*(mx-mn);res.hi=mx+0.05*(mx-mn);$('gs').value=Math.round(bl);draw()}
+ $('gd').oninput=()=>{res=null;draw()};$('gs').oninput=draw;$('gfind').onclick=run;draw();
+})();
+draw2();draw3();
+</script>
