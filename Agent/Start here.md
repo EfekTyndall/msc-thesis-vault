@@ -97,6 +97,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 - `Explainers/2026-11-18 How Robot Policies Learn.html`
 - `Explainers/2026-11-23 Robot Data Formats.html`
 - `Explainers/2026-11-25 From Recording to Robot.html`: the four replay steps (read, rehearse in simulation, safety check, real robot), what each calculates, and why steps 1–3 work as the robot-free check of handheld demos
+- [[2026-11-27 Latency sync method comparison]] (research, wide): three ways prior work lines up delayed streams, PICO controller timestamp facts from code, recommendation
 
 ## Archive (replaced, kept for history)
 
