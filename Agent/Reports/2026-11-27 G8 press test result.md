@@ -2,7 +2,7 @@
 date: 2026-11-27
 tags: [report, g8, recorder, rl5, pico]
 ---
-# G8 (press test): result and start/stop button for the RL5 recorder
+# G8 (press test): result and start/stop buttons for the RL5 recorder
 
 Ask (Martyn, 2026-11-27): run G8 (does pressing a PICO controller button move the controller pose enough to corrupt recorded data) and choose the recorder's start/stop button. Gap definition: [[2026-11-10 Research gaps from the PICO sim test]] (G8, hypothesis, no source). Part of the RL5 plan ([[2026-11-25 RL5 camera and recorder plan]]).
 
@@ -14,7 +14,7 @@ Why it was run: the tracked pose is what a policy learns from; a press that jerk
 
 What it means: the movement comes from the hand and fingers reaching for the button, not from the button (Martyn's observation), and no test can separate the two. A start/stop press happens before and after the usable part of a take, so the first and last 2 s of each take are cut and the movement never reaches the training data. The trigger is different: it is used during the task, so its coupling is part of the real operator motion in every demo.
 
-**Choice (Martyn, 2026-11-27): A is the recorder's start/stop button** (thumb, no change of grip, already the default in `software/xr/pose_log.py`). Cut the first and last 2 s of each take (2 s is a proposal, not a measured value).
+**Choice (Martyn, 2026-11-27): follow the team's teleoperation stack.** Double-click A starts a take, double-click B stops it, double-click X cancels it (team `xr_teleoperate`, `teleop/teleop_bindings.py` lines 66 to 68, read on the station Jetson 2026-11-27). Handheld and VR operators then use the same buttons. X is on the left controller; the handheld uses the right one, so cancel needs a right-hand button (open). Cut the first and last 2 s of each take (2 s is a proposal, not a measured value). Earlier in the day the choice was a single press of A; the double-click replaces it. The measurement above (A, B about 0.6 to 1.0 mm per press) supports using A and B: the press movement is small and in the cut part of the take.
 
 ## Measured (hand run, controller held still in the gun hold)
 
