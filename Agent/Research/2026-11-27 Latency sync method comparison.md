@@ -42,3 +42,18 @@ UMI paper appendix A; ser2net timing; whether bib papers kuhlmanndecanaviri2023 
 
 ## Add to Zotero (not in bib)
 Warburton et al. 2023 (10.3758/s13428-022-01983-5); ExtremControl (arXiv 2602.11321); Friston and Steed 2014; VRLate (arXiv 1809.06320); Hu 2025 (arXiv 2508.08642); Magic Leap 2 study (arXiv 2509.05391); Robotiq 2F-85 manual. (XRoboToolkit paper is already in the bib as zhao2025.)
+
+## Relative to PICO (Martyn's question, 2026-11-27)
+Question: can everything be lined up to the PICO pose so the PICO delay never has to be known? Yes for the camera: rigidly mounted camera and controller turn at the same rate, so matching their rotation speed gives the camera-vs-PICO offset directly, without either absolute delay and without the clock offset.
+- Precedent with code (read, not run): ethz-asl/hand_eye_calibration (Furrer et al. 2017), `python/hand_eye_calibration/time_alignment.py`: both pose streams resampled (l.124-180), rotation speed per sample (l.103-121), clip + smooth (l.23-44), cross-correlate and take the peak (l.47-60). Whole samples only. Kalibr (Furgale et al. 2013) adds a fine continuous step (IccSensors.py l.217-274, 326-351); ExtremControl's `cross_correlation` adds a parabola step (math_utils.py l.713-750). Banaszczyk 2024 code (head_trajectory, compare_traj_peaks.py l.73-119): peak matching on one axis.
+- Camera needs its own rotation: from a fixed marker board or visual odometry. Works for any camera (plug and play).
+- Gripper: PICO does not see the gripper width; no motion-based precedent for gripper vs camera or PICO. Gripper keeps its own measured number (UMI gripper test), placed on PICO time.
+- Accuracy for us unverified: published sub-ms figures use 200 Hz IMUs; a 30 Hz camera gives about 33 ms steps before a fine step. Needs turning motion. Controller prediction may change the offset between movement start and steady motion (Warburton 2023), unverified for PICO.
+
+| | Each device on its own | Relative to PICO |
+|---|---|---|
+| PICO delay needed | yes, no precedent to measure it | no |
+| Headset clock offset | must be handled separately | absorbed |
+| Camera | screen test (UMI) | rotation matching (hand_eye_calibration code) |
+| Gripper | own number (UMI test) | own number (same) |
+| New camera / Dex1-1 | new number each | rerun matching / new gripper number |
