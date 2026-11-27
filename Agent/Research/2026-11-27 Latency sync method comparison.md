@@ -24,8 +24,15 @@ The question: once each stream's delay is known, how do the streams get lined up
 ## Controller (PICO) facts, checked in XRoboToolkit code
 - Pose has no capture time. Only `timeStampNs` on the headset clock, set when the packet is built (TrackingData.cs l.155-156). Poses are predicted to display time (l.314-338). So the delay and the clock offset must be measured, not read.
 - No VR teleop repo found that estimates or compensates controller delay. No paper measures PICO controller delay.
-- Best method precedent: Morehead et al. 2023 (rail + 240 fps camera + LED, 21-42 ms on Vive/Rift/Index, about 4 ms uncertainty), no code.
+- Best method precedent: Warburton et al. 2023 (rail + 240 fps camera + LED, 21-42 ms on Vive/Rift/Index, about 4 ms uncertainty), no code.
 - Related: Hu et al. 2025 (UDP clock offset, code Duke-I3T-Lab/XR_Tracking_Evaluation, headset only); Magic Leap 2 controller on UR10e vs OptiTrack (arXiv 2509.05391, accuracy only).
+
+## PICO pass 2 (2026-11-27, deep research on Opus: PICO docs, forums and GitHub issues, papers)
+- Result: no measured PICO controller pose latency anywhere: not in PICO specs or SDK docs, not in XRoboToolkit or xr_teleoperate issues, not on Reddit or the PICO forum, not in papers.
+- PICO SDK: `GetControllerPredictPosition(controller, predictTime)` takes ms; 0 means no prediction (native header PxrInput.h). Pose struct has `poseTimeStampNs` ("time to obtain the data"), clock not documented. Prediction model closed source. No PICO latency test tool.
+- Closest PICO numbers are end to end, operator to robot, so they include the robot: HuMiT (arXiv 2610.29903, PICO 4 Ultra) 65 ms median, 200 fps camera + optical flow, about 20 ms packet-to-action from internal stamps. XRoboToolkit (zhao2025) reports video latency only (82 ms ZED Mini to PICO 4 Ultra).
+- Warburton et al. 2023: delay differs at movement start (21-42 ms) and in steady motion (2-13 ms) because of prediction, so one fixed number may not fit; for PICO unverified.
+- Closest precedent for a controller held by a robot: Banaszczyk 2024 (UR5e replay, motion peaks matched to remove a 0-200 ms clock offset; accuracy only).
 
 ## Robotiq gripper facts
 No latency number from any source. Manual: 200 Hz usual rate, 5 ms between commands. Must be measured.
@@ -34,4 +41,4 @@ No latency number from any source. Manual: 200 Hz usual rate, 5 ms between comma
 UMI paper appendix A; ser2net timing; whether bib papers kuhlmanndecanaviri2023 and kulozik2024 state delays (kulozik: about 10 ms estimated, not measured).
 
 ## Add to Zotero (not in bib)
-Morehead 2023 (10.3758/s13428-022-01983-5); ExtremControl (arXiv 2602.11321); Friston and Steed 2014; VRLate (arXiv 1809.06320); Hu 2025 (arXiv 2508.08642); Magic Leap 2 study (arXiv 2509.05391); Robotiq 2F-85 manual; XRoboToolkit paper (arXiv 2508.00097).
+Warburton et al. 2023 (10.3758/s13428-022-01983-5); ExtremControl (arXiv 2602.11321); Friston and Steed 2014; VRLate (arXiv 1809.06320); Hu 2025 (arXiv 2508.08642); Magic Leap 2 study (arXiv 2509.05391); Robotiq 2F-85 manual. (XRoboToolkit paper is already in the bib as zhao2025.)
