@@ -45,6 +45,10 @@ th,td{border-bottom:1px solid var(--line);padding:.5rem .6rem;text-align:left;ve
 th{font:600 .75rem var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
 .scroll{overflow-x:auto}
 .small{font-size:.84rem;color:var(--mute)}
+.callout{background:var(--delay2);border-radius:8px;padding:.7rem .9rem;margin:.8rem 0}
+.tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0}
+.cap{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem;margin:.5rem 0;font-size:.92rem}
+.cap code{font-size:.8em}
 .num{font:700 1.5rem var(--disp);color:var(--delay)}
 .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.8rem}
 .nums>div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.7rem .9rem}
@@ -66,6 +70,8 @@ details{margin:.6rem 0} summary{cursor:pointer;color:var(--ink);font-weight:500}
 <tr><td>Why no clock sync needed</td><td>both curves are stamped by one program</td><td>screen and camera are read by one computer</td><td>both streams are stamped on the recording computer when they arrive</td></tr>
 <tr><td>Purpose</td><td>find why teleop feels sluggish</td><td>line up training data and compensate when the policy runs</td><td>line up training data (handheld and VR)</td></tr>
 </table></div>
+<div class="callout"><b>What is a "slide"?</b> Moving one curve sideways in time. The code calls it a lag or shift. The first curve below is the controller. The second is the same motion seen a little later by the camera. Slide the second one back by the right amount and the two lie on top of each other. That amount is the delay.
+<svg class="chart" id="chSlide" viewBox="0 0 800 150" role="img" aria-label="Two waves, one shifted by 40 ms" style="margin-top:.5rem"></svg></div>
 <p class="small">"Delay" below always means: how many milliseconds late is stream B compared with stream A.</p>
 </div>
 
@@ -112,6 +118,7 @@ details{margin:.6rem 0} summary{cursor:pointer;color:var(--ink);font-weight:500}
 <svg class="chart" id="ch1" viewBox="0 0 800 300" role="img" aria-label="Command and robot position over 3 seconds"></svg>
 <div class="ctl"><button id="team1">Find best slide (team method)</button><button id="xc1">Find best slide (sub-tick method, section 3)</button></div>
 <div class="ro" id="res1">Press a button to let the code search.</div>
+<div class="callout"><b>Where does 8 ms come from?</b> From the robot log, not from the team's tool. Our replay program writes one row every 8 ms (125 rows per second, measured: median step 0.008 s in 3657 rows). A <b>tick</b> is one row. The team's loop runs at 30 Hz, so one team tick is about 33 ms, roughly four of our rows. The "≈31 Hz" button keeps every 4th row to imitate that. The team method moves one tick at a time, so with 33 ms ticks it can only answer in multiples of 33 ms.</div>
 <p>What this shows: the robot is ≈120 ms behind its command. The mismatch (mean gap between the curves) falls from 0.93 mm at no slide to 0.13 mm at 16 ticks (128 ms). Two limits of the team's method appear on this real file. It can only answer in whole ticks, so at 30 Hz the answer comes in steps of 33 ms (here 96 ms vs. 121 ms from the finer method). It also gave 104 ms at 125 Hz, a bit under the finer 121 ms. Cause not tested; the plain dot product sums over fewer samples as the slide grows (reasoned only). For the team's purpose (is the stutter 30 ms or 300 ms?) that is accurate enough.</p>
 <details><summary>Why the team does not need synchronised clocks, and we nearly do</summary>
 <p>The team's two curves come from <i>one program on one computer</i>. Our recorder will collect <i>camera</i> and <i>PICO controller</i> data, which come from two devices. In a real desk log of 25 Nov the headset's own timestamp is 579.25 s away from the recording PC's clock (constant within 17 ms over 30 s). So the headset time cannot be compared with the PC time directly; the recorder keeps the PC arrival time and measures the remaining delay with a movement, exactly as in section 3.</p></details>
@@ -123,14 +130,60 @@ details{margin:.6rem 0} summary{cursor:pointer;color:var(--ink);font-weight:500}
 <div class="card"><h3 style="margin-top:0">Robot position</h3><p>Use the robot's own timestamps if it has them. If not, assume the delay is half of a network ping time (ICMP round trip).</p></div>
 <div class="card"><h3 style="margin-top:0">Gripper width</h3><p>Command the gripper to open and close as a sine wave. Compare the commanded width with the measured width. The slide that makes them overlap is the delay. This is the same slide-and-score idea as the team's, here with a sine so the match has one clear peak.</p></div>
 </div>
+<h3>UMI's own code for this <span class="tag real">real code</span></h3>
+<p>UMI publishes the function that turns two curves into a delay: <code>get_latency</code> in <code>umi/common/latency_util.py</code> (github.com/real-stanford/universal_manipulation_interface, file read on 27 Nov, not in bib). The core is 15 lines. Line numbers are the file's own.</p>
+<pre><code><span class="ln"> 23 </span>n_samples = int((t_end - t_start) / resample_dt)       <span class="hl"># resample_dt = 1/1000: a 1 ms grid</span>
+<span class="ln"> 25 </span>target_samples = regular_sample(x_target, t_target, t_samples)   <span class="hl"># straight-line fill-in (interp1d)</span>
+<span class="ln"> 26 </span>actual_samples = regular_sample(x_actual, t_actual, t_samples)
+<span class="ln"> 28 </span># normalize samples to zero mean unit std
+<span class="ln"> 29 </span>mean = np.mean(np.concatenate([target_samples, actual_samples]))
+<span class="ln"> 30 </span>std = np.std(np.concatenate([target_samples, actual_samples]))
+<span class="ln"> 31 </span>target_samples = (target_samples - mean) / std      <span class="hl"># centered and scaled</span>
+<span class="ln"> 32 </span>actual_samples = (actual_samples - mean) / std
+<span class="ln"> 35 </span>correlation = ss.correlate(actual_samples, target_samples)   <span class="hl"># score for every possible slide</span>
+<span class="ln"> 36 </span>lags = ss.correlation_lags(len(actual_samples), len(target_samples))
+<span class="ln"> 37 </span>t_lags = lags * resample_dt                         <span class="hl"># slide in seconds</span>
+<span class="ln"> 43 </span>latency = t_lags[np.argmax(correlation)]            <span class="hl"># the best slide = the latency</span></code></pre>
+<p>So UMI's method has the same five steps as the picture in section 3: read both curves onto a 1 ms grid by straight lines, center and scale, score every slide, take the best. UMI's repo also holds typical numbers in <code>example/eval_robots_config.yaml</code>: robot observation latency 0.0001 s, gripper observation latency 0.01 s, and action latency 0.1 s for both. The file does not say how they were obtained.</p>
+<div class="scroll"><table>
+<tr><th></th><th>UMI <code>get_latency</code></th><th>Thesis <code>delay_xcorr.py</code></th></tr>
+<tr><td>Grid</td><td>1 ms, straight-line fill-in</td><td>1 ms, straight-line fill-in (same)</td></tr>
+<tr><td>Centering and scaling</td><td>one mean and one spread taken over both curves together</td><td>each curve on its own</td></tr>
+<tr><td>Score of each slide</td><td>sum of products (<code>scipy.signal.correlate</code>), all possible slides</td><td>average of products, only −0.3 s to +0.3 s</td></tr>
+<tr><td>Between 1 ms steps</td><td>no refinement: the best grid point</td><td>parabola through the top three points</td></tr>
+<tr><td>Positive result</td><td>actual signal late (reading of the code, not documented there)</td><td>second stream late (documented)</td></tr>
+</table></div>
+<p class="small">Not found: the script that runs the gripper sine test and calls <code>get_latency</code> (its sine frequency and amplitude). GitHub's folder pages could not be opened by the tool used. The paper's appendix text was read only as a summary. One oddity seen in the code, not tested: with <code>force_positive=True</code> the index of the best score is taken inside the positive-lag part but used on the full lag list (line 41). We use neither this option nor UMI's file.</p>
+<h3>Why a screen test has its own error</h3>
+<p>A 60 Hz screen redraws every 16.7 ms, and the panel adds some lag of its own. So the time the screen "shows" can be wrong by up to about one refresh plus that lag. UMI subtracts a "known" screen lag (l_display); the paper does not give the value. ViTaMIn-B subtracts nothing. The board wave and the robot sine run use no screen, so this error does not appear there. The screen test measures only the camera. It says nothing about the controller.</p>
+<h3>UMI's gripper check, as a picture <span class="tag sim">simulated</span></h3>
+<p>UMI commands the gripper to open and close as a sine and records the measured width. The width follows the command late. The slide that makes the two curves overlap is the gripper delay. Same idea as the team's, but a sine gives one clear peak. Real UMI data was not available; the late width curve below is made up (true delay 120 ms).</p>
+<div class="ctl"><label>Slide width curve back by <input id="shiftG" type="range" min="0" max="300" value="0"> <b id="shiftGv"></b></label></div>
+<div class="ro" id="roG"></div>
+<svg class="chart" id="chG" viewBox="0 0 800 230" role="img" aria-label="Commanded and measured gripper width"></svg>
 <h3>Then fix the data (worked example, invented numbers)</h3>
-<p>The camera is the slowest stream, so everything is aligned to it. A frame arrives at 10.000 s; the camera delay is 0.140 s, so it was taken at 9.860 s. The pose log has x = 100 mm at 9.854 s and x = 107 mm at 9.868 s (after subtracting that stream's own delay). The pose at 9.860 s is found by interpolation: 100 + (6/14) × 7 = <b>103 mm</b>. Without the correction the frame would be paired with the pose that arrived at the same moment, about 0.13 s later.</p>
+<p>Rule: compare "taken" times with "taken" times. A "taken" time is the arrival time minus that stream's measured delay. The camera is the slowest stream, so everything is aligned to its frame times.</p>
+<div class="scroll"><table>
+<tr><th>Item</th><th>Arrived at</th><th>Own delay</th><th>Taken at</th></tr>
+<tr><td>Camera frame</td><td>10.000 s</td><td>0.140 s</td><td><b>9.860 s</b></td></tr>
+<tr><td>Pose A (x = 100 mm)</td><td>9.864 s</td><td>0.010 s</td><td>9.854 s</td></tr>
+<tr><td>Pose B (x = 107 mm)</td><td>9.878 s</td><td>0.010 s</td><td>9.868 s</td></tr>
+</table></div>
+<p><b>Interpolation</b> means finding a value between two measured points on a straight line. The frame was taken at 9.860 s, between pose A (9.854 s) and pose B (9.868 s). It is 6 ms after A out of a 14 ms gap, so the pose is 6/14 of the way from 100 to 107: 100 + (6/14) × 7 = <b>103 mm</b>. Without the correction the frame would be paired with the pose that arrived at the same moment, about 0.13 s later.</p>
+<svg class="chart" id="chInterp" viewBox="0 0 800 190" role="img" aria-label="Interpolation between two poses"></svg>
 <p><b>Does it matter?</b> UMI's tossing task: 0.875 success with latency matching vs. 0.575 without (Fig. 8). ViTaMIn-B (<code>li2025</code>): final-step success 0.2 without vs. 0.7 with time alignment. Both numbers as recorded in the vault note.</p>
 <p><b>FastUMI</b> (<code>zhaxizhuoma2025</code>) does not measure anything. All streams run on one ROS clock at 60 fps, are cut to 20 Hz, and each image gets the nearest pose in time. That is simplest, but a constant delay of the camera stays hidden inside the data.</p>
 
 <h2>3 · How the thesis does it: the board wave</h2>
 <p>The thesis recorder (<code>software/recorder</code> in <code>dex1-1-handheld</code>, merged in PR 24) writes camera frames and controller poses to one raw file, each with the PC's arrival time. The delay between the two is measured once with a short test, <b>the board wave</b>: tape the PICO controller to a printed marker board, wave it in front of the D435i camera for about 2 minutes. The camera finds the board's position in each image; the controller reports its own position. <code>delay_xcorr.py</code> slides one curve over the other. The robot sine run (R5) would do the same with the robot as mover.</p>
 <p class="small">The script handles the two difficulties of our setup: different rates (camera 30 Hz, controller about 83 Hz in our logs, not 90) are both resampled onto a 1 ms grid, and the best slide is refined between neighbours with a parabola, so the answer is finer than the grid. Self-test of the script on simulated data: 40 / 0 / 123 / −17 ms found within 0.15 ms.</p>
+<h3>How <code>delay_xcorr.py</code> works, picture by picture</h3>
+<p>The script is the thesis's own (<code>software/recorder/delay_xcorr.py</code>). It does the same five steps as UMI's <code>get_latency</code> (see section 2), with a few changes listed in the table there. It does five things. Press 1 to 5. The curves are a <span class="tag real">real</span> controller log and a <span class="tag sim">simulated</span> camera that is 55 ms late (noise 0.5 mm, shown in pixels).</p>
+<div class="tabs" id="tabsS"></div>
+<div class="ctl" id="ctlS" hidden><label>Slide the controller curve later by <input id="shiftS" type="range" min="-100" max="150" value="0"> <b id="shiftSv"></b></label></div>
+<svg class="chart" id="chS" viewBox="0 0 800 330" role="img" aria-label="Step picture of delay_xcorr"></svg>
+<div class="cap" id="capS"></div>
+<p class="small">Checks and limits in the code: the search range is ±0.3 s in 1 ms steps (601 slides); the script stops with an error if the trimmed overlap is under 4 × 0.3 s = 1.2 s (no reason for the factor 4 is given in the code; it is only a minimum, and a real wave needs many periods); a positive result means the second stream is late; the search range must stay below half the motion period; the two curves must move in the same direction.</p>
 <h3>Try it</h3>
 <p><span class="tag real">real</span> controller curve: x position (mm) from the desk pose log of 23 Nov, 14 s of hand motion at about 83 Hz. <span class="tag sim">simulated</span> camera curve: the same motion sampled at 30 fps, made late by the delay you set, plus noise. No board-wave recording exists yet, so the camera half cannot be real today.</p>
 <div class="ctl">
@@ -155,6 +208,12 @@ details{margin:.6rem 0} summary{cursor:pointer;color:var(--ink);font-weight:500}
 <div class="ctl"><label>Delay <input id="d3" type="range" min="0" max="150" value="50"> <b id="d3v"></b></label></div>
 <div class="scroll"><table id="t3"></table></div>
 
+<h3>The robot sine run (R5), with the camera on the flange</h3>
+<svg class="chart" id="chRobot" viewBox="0 0 800 210" role="img" aria-label="Robot sine run setup"></svg>
+<p>The camera is on the flange, so it moves with the robot. A marker is fixed on the table. The controller is also fixed to the flange. The robot moves slowly along one axis in a sine (for example ±40 mm at 0.5 Hz). The camera sees the marker slide in the image, the robot log gives the arm's position, and the controller log gives the controller's position. <code>delay_xcorr.py</code> slides the camera curve against the robot curve, then the controller curve against the robot curve.</p>
+<p><b>No spatial calibration is needed for this.</b> Each curve is scaled to the same spread, so pixels versus millimetres and the camera-to-controller distance do not matter. Only the shape over time counts. (The controller-to-tip offset, D09 (calibration), is a separate later step.) <b>One sign detail:</b> the marker moves in the image opposite to the robot, so one curve must be flipped before the comparison, otherwise the best match comes out wrong. The plan has not stated this before. Not yet run.</p>
+<h3>Where the camera plugs in</h3>
+<div class="callout">For the board wave and the 10-minute take, the D435i has to be on the <b>station Jetson</b> (USB), because the recorder runs there and reads it as a plain webcam. It stays fixed on the desk; only the board moves. Plug it back into the station Pi before leaving the lab.</div>
 <h3>When to redo it</h3>
 <div class="scroll"><table>
 <tr><th>Change</th><th>Redo?</th><th>Why</th></tr>
@@ -222,8 +281,8 @@ function path(xs,ys,sx,sy,x0,y0){let d='';for(let i=0;i<xs.length;i++){d+=(i?'L'
 function frame(W,H,m,xr,yr,xl,yl,xt=5,yt=4){ // returns {sx,sy,html}
   const sx=v=>m.l+(v-xr[0])/(xr[1]-xr[0])*(W-m.l-m.r), sy=v=>H-m.b-(v-yr[0])/(yr[1]-yr[0])*(H-m.t-m.b);
   let h='';const mute=css('--mute'),line=css('--line');
-  for(let i=0;i<=xt;i++){const v=xr[0]+(xr[1]-xr[0])*i/xt;h+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${m.t}" y2="${H-m.b}" stroke="${line}"/><text x="${sx(v)}" y="${H-m.b+16}" fill="${mute}" font-size="11" text-anchor="middle">${+v.toFixed(2)}</text>`}
-  for(let i=0;i<=yt;i++){const v=yr[0]+(yr[1]-yr[0])*i/yt;h+=`<line x1="${m.l}" x2="${W-m.r}" y1="${sy(v)}" y2="${sy(v)}" stroke="${line}"/><text x="${m.l-6}" y="${sy(v)+4}" fill="${mute}" font-size="11" text-anchor="end">${(yr[1]-yr[0])<=2?v.toFixed(2):Math.round(v)}</text>`}
+  for(let i=0;i<=xt;i++){const v=xr[0]+(xr[1]-xr[0])*i/xt;h+=`<line x1="${sx(v)}" x2="${sx(v)}" y1="${m.t}" y2="${H-m.b}" stroke="${line}"/><text x="${sx(v)}" y="${H-m.b+16}" fill="${mute}" font-size="11" text-anchor="middle">${(xr[1]-xr[0])<0.5?v.toFixed(3):+v.toFixed(2)}</text>`}
+  for(let i=0;i<=yt;i++){const v=yr[0]+(yr[1]-yr[0])*i/yt;h+=`<line x1="${m.l}" x2="${W-m.r}" y1="${sy(v)}" y2="${sy(v)}" stroke="${line}"/><text x="${m.l-6}" y="${sy(v)+4}" fill="${mute}" font-size="11" text-anchor="end">${(yr[1]-yr[0])<=0.001?v.toFixed(5):(yr[1]-yr[0])<=0.05?v.toFixed(4):(yr[1]-yr[0])<=0.5?v.toFixed(2):(yr[1]-yr[0])<=4?v.toFixed(1):Math.round(v)}</text>`}
   h+=`<text x="${(W+m.l-m.r)/2}" y="${H-4}" fill="${mute}" font-size="11" text-anchor="middle">${xl}</text><text x="12" y="${(H-m.b+m.t)/2}" fill="${mute}" font-size="11" text-anchor="middle" transform="rotate(-90 12 ${(H-m.b+m.t)/2})">${yl}</text>`;
   return {sx,sy,html:h}}
 function legend(items,x,y){return items.map((it,i)=>`<line x1="${x+i*190}" x2="${x+i*190+22}" y1="${y}" y2="${y}" stroke="${it[0]}" stroke-width="2.5" ${it[2]||''}/><text x="${x+i*190+28}" y="${y+4}" fill="${css('--fg')}" font-size="12">${it[1]}</text>`).join('')}
@@ -293,6 +352,136 @@ function draw3(){const d=+$('d3').value;$('d3v').textContent=d+' ms';
   const rows=[['median, desk log (measured)',0.042],['90th percentile, desk log (measured)',0.147],['assumed pick-and-place speed (unverified)',0.3]];
   $('t3').innerHTML='<tr><th>Hand speed</th><th>m/s</th><th>Position error at '+d+' ms</th></tr>'+rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td><b>${(r[1]*d).toFixed(1)} mm</b></td></tr>`).join('')}
 $('d3').oninput=draw3;
+
+// ---------- slide intro
+(function(){const f=frame(800,150,{l:40,r:12,t:10,b:30},[0,2],[-1.3,1.3],'time (s)','',4,2);
+ const xs=[],a=[],b=[];for(let t=0;t<=2.0001;t+=0.01){xs.push(t);a.push(Math.sin(2*Math.PI*1.2*t));b.push(Math.sin(2*Math.PI*1.2*(t-0.1)))}
+ $('chSlide').innerHTML=f.html.replace(/>-1<|>1<|>0<|>-1\.3<|>1\.3<|>-0\.65<|>0\.65</g,'><')+
+ `<path d="${path(xs,a,f.sx,f.sy,0,0)}" fill="none" stroke="${css('--ink')}" stroke-width="2.4"/><path d="${path(xs,b,f.sx,f.sy,0,0)}" fill="none" stroke="${css('--delay')}" stroke-width="2.4"/>
+ <line x1="${f.sx(0.35+0.1)}" x2="${f.sx(0.35)}" y1="${f.sy(1.2)}" y2="${f.sy(1.2)}" stroke="${css('--fg')}" stroke-width="2"/><text x="${f.sx(0.5)}" y="${f.sy(1.2)+4}" fill="${css('--fg')}" font-size="12">slide back by 100 ms (made-up waves)</text>
+ <text x="${f.sx(1.45)}" y="${f.sy(-1.1)}" fill="${css('--ink')}" font-size="12">curve 1</text><text x="${f.sx(1.65)}" y="${f.sy(-1.1)}" fill="${css('--delay')}" font-size="12">curve 2, 100 ms later</text>`})();
+// ---------- tick/time utils for UMI gripper
+(function(){
+ const R=rng(3),t=[],c=[],w=[];const d=0.12;
+ for(let x=0;x<=12;x+=0.02){t.push(x);c.push(Math.sin(2*Math.PI*0.5*x));w.push(Math.sin(2*Math.PI*0.5*(x-d))+gauss(R)*0.02)}
+ function drawG(){const s=+$('shiftG').value/1000;$('shiftGv').textContent=(s*1000)+' ms';
+  const sc=interp(t,c,t.map(x=>x));let q=0,n=0;const ws=interp(t,w,t.map(x=>x+s));for(let i=0;i<t.length;i++){if(t[i]+s<=12){q+=Math.abs(c[i]-ws[i]);n++}}
+  $('roG').innerHTML=`slide = <b>${(s*1000)} ms</b> &nbsp;|&nbsp; mean gap between curves = <b>${(q/n).toFixed(3)}</b> (width units)`;
+  const f=frame(800,230,{l:46,r:12,t:34,b:34},[0,4],[-1.2,1.2],'time (s)','gripper width (scaled)',4,4);
+  const xs=[],ys=[],xs2=[],ys2=[];for(let i=0;i<t.length;i++){if(t[i]<=4){xs.push(t[i]);ys.push(c[i])}if(t[i]-s>=0&&t[i]-s<=4){xs2.push(t[i]-s);ys2.push(w[i])}}
+  $('chG').innerHTML=f.html+`<path d="${path(xs,ys,f.sx,f.sy,0,0)}" fill="none" stroke="${css('--ink')}" stroke-width="2.2"/><path d="${path(xs2,ys2,f.sx,f.sy,0,0)}" fill="none" stroke="${css('--delay')}" stroke-width="2.2"/>`+legend([[css('--ink'),'command (sine)'],[css('--delay'),'measured width, slid back '+(s*1000)+' ms']],46,16)}
+ $('shiftG').oninput=drawG;drawG();
+})();
+// ---------- interpolation picture
+(function(){const f=frame(800,190,{l:46,r:12,t:20,b:34},[9.85,9.872],[96,111],'taken time (s)','x (mm)',4,3);
+ const X=v=>f.sx(v),Y=v=>f.sy(v);const ink=css('--ink'),dl=css('--delay'),fg=css('--fg');
+ $('chInterp').innerHTML=f.html+`<line x1="${X(9.854)}" y1="${Y(100)}" x2="${X(9.868)}" y2="${Y(107)}" stroke="${ink}" stroke-width="2"/>
+ <circle cx="${X(9.854)}" cy="${Y(100)}" r="6" fill="${ink}"/><circle cx="${X(9.868)}" cy="${Y(107)}" r="6" fill="${ink}"/>
+ <line x1="${X(9.860)}" x2="${X(9.860)}" y1="${Y(96)}" y2="${Y(103)}" stroke="${dl}" stroke-dasharray="4 3" stroke-width="2"/><line x1="${f.sx(9.85)}" x2="${X(9.860)}" y1="${Y(103)}" y2="${Y(103)}" stroke="${dl}" stroke-dasharray="4 3" stroke-width="2"/>
+ <circle cx="${X(9.860)}" cy="${Y(103)}" r="6" fill="${dl}"/>
+ <text x="${X(9.854)-6}" y="${Y(100)+20}" fill="${fg}" font-size="12" text-anchor="end">pose A: 100 mm</text><text x="${X(9.868)+10}" y="${Y(107)+4}" fill="${fg}" font-size="12">pose B: 107 mm</text>
+ <text x="${X(9.860)+10}" y="${Y(103)+16}" fill="${dl}" font-size="12">camera frame taken: 103 mm (6/14 of the way)</text>`})();
+// ---------- robot sine run schematic
+(function(){const ink=css('--ink'),dl=css('--delay'),fg=css('--fg'),line=css('--line'),mute=css('--mute'),pan=css('--panel');
+ $('chRobot').innerHTML=`<rect x="0" y="170" width="800" height="40" fill="${line}"/><text x="14" y="195" fill="${mute}" font-size="12">table</text>
+ <rect x="560" y="176" width="46" height="8" fill="${fg}"/><text x="540" y="164" fill="${fg}" font-size="12">marker (fixed on table)</text>
+ <rect x="120" y="20" width="12" height="30" fill="${mute}"/><rect x="120" y="50" width="200" height="12" fill="${mute}"/><text x="140" y="14" fill="${mute}" font-size="12">robot arm</text>
+ <rect x="240" y="62" width="70" height="48" rx="6" fill="${pan}" stroke="${ink}" stroke-width="2"/><text x="248" y="90" fill="${ink}" font-size="12">camera</text>
+ <rect x="320" y="62" width="62" height="48" rx="6" fill="${pan}" stroke="${dl}" stroke-width="2"/><text x="326" y="82" fill="${dl}" font-size="12">controller</text><text x="326" y="98" fill="${dl}" font-size="12">taped on</text>
+ <path d="M 235 130 L 335 130" stroke="${fg}" stroke-width="2"/><path d="M 235 130 l 10 -6 m -10 6 l 10 6 M 335 130 l -10 -6 m 10 6 l -10 6" stroke="${fg}" stroke-width="2" fill="none"/><text x="250" y="150" fill="${fg}" font-size="12">robot moves left-right (sine)</text>
+ <path d="M 275 112 L 575 172" stroke="${ink}" stroke-width="1.5" stroke-dasharray="4 3"/><text x="410" y="125" fill="${ink}" font-size="12">camera sees the marker slide the opposite way</text>
+ <text x="590" y="30" fill="${fg}" font-size="12">3 curves vs time:</text><text x="590" y="50" fill="${fg}" font-size="12">robot position (reference)</text><text x="590" y="68" fill="${ink}" font-size="12">marker in image (flip sign)</text><text x="590" y="86" fill="${dl}" font-size="12">controller position</text>`})();
+// ---------- stepper
+const SD={};
+(function(){
+ const camMM=camera2();
+ function camera2(){const r=rng(7);return Array.from(interp(D.ht,D.hx,tc.map(t=>t-0.055)),x=>x+gauss(r)*0.5)}
+ SD.px=camMM.map(v=>320+1.8*v);
+ const lo=D.ht[0]+0.3, hi=D.ht[D.ht.length-1]-0.3, gs=0.003;
+ SD.grid=[];for(let g=Math.max(lo,tc[0]+0.3);g<Math.min(hi,tc[tc.length-1]-0.3);g+=gs)SD.grid.push(g);
+ SD.sig=norm(interp(tc,camMM,SD.grid));
+ SD.refAt=lag=>norm(interp(D.ht,D.hx,SD.grid.map(g=>g-lag)));
+ SD.est=estimateDelay(D.ht,D.hx,tc,camMM,0.3,0.001,0.003);
+})();
+const STEPS=[
+ ['1 Two curves','The controller log (real, about 83 samples per second, in millimetres) and the camera (simulated, 30 frames per second, in pixels). They show the same motion. They have different rates, different units, and the camera is 55 ms late. This is what the script is given.'],
+ ['2 Common grid','The samples of the two streams fall on different instants, so they cannot be compared directly. The script fills in a value every 1 ms by drawing a straight line between neighbouring real samples (interpolation). Big dots = real samples. Small ticks = the filled-in 1 ms values. Nothing new is measured: it only reads the saved recording. (This page uses 3 ms to stay quick.)'],
+ ['3 Same scale','Both curves are centered (their mean is subtracted) and scaled so their typical swing is 1 (divided by the standard deviation). Left: raw values, controller in mm, camera in pixels, far apart. Right: after centering and scaling, both swing around zero by the same amount. Only the shape and timing are left.'],
+ ['4 Try slides','For each slide from −300 ms to +300 ms the script shifts the controller curve and gives a score: the average of (curve 1 × curve 2) over the whole recording. 1 means identical shape, 0 unrelated. Drag the slider: the curves come together and the score in the lower chart climbs. The script does this 601 times.'],
+ ['5 Pick the peak','The highest score is the best slide. Its value is 1 ms accurate so far. The script then fits a parabola through the top point and its two neighbours and takes the top of the parabola, which can be between two 1 ms steps. For a true delay of 55 ms the script returns the value shown below (noise moves it a little).']
+];
+let stepS=0;
+function drawS(){
+ const sv=$('chS');$('capS').textContent=STEPS[stepS][1];$('ctlS').hidden=stepS!==3;
+ [...$('tabsS').children].forEach((b,i)=>b.classList.toggle('on',i===stepS));
+ const ink=css('--ink'),dl=css('--delay'),mute=css('--mute'),fg=css('--fg');
+ if(stepS===0){
+  const w0=4,w1=7.5;
+  const a=frame(800,150,{l:56,r:12,t:22,b:26},[w0,w1],[-200,100],'','controller x (mm)',7,3);
+  const b=frame(800,150,{l:56,r:12,t:22,b:30},[w0,w1],[0,500],'time (s)','camera x (px)',7,2);
+  let h='';
+  const pickD=(ts,v)=>{const xs=[],ys=[];ts.forEach((t,i)=>{if(t>=w0&&t<=w1){xs.push(t);ys.push(v[i])}});return[xs,ys]};
+  const [hx,hy]=pickD(D.ht,D.hx),[cx,cy]=pickD(tc,SD.px);
+  h+=a.html+`<path d="${path(hx,hy,a.sx,a.sy,0,0)}" fill="none" stroke="${ink}" stroke-width="1.8"/>`;
+  h+=`<g transform="translate(0,170)">`+b.html+cx.map((x,i)=>`<circle cx="${b.sx(x)}" cy="${b.sy(cy[i])}" r="2.6" fill="${dl}"/>`).join('')+`</g>`;
+  sv.innerHTML=h;
+ }else if(stepS===1){
+  const w0=5.30,w1=5.40;
+  const f=frame(800,330,{l:56,r:12,t:34,b:36},[w0,w1],[-60,0],'time (s)','x (mm)',5,6);
+  const hxs=[],hys=[];D.ht.forEach((t,i)=>{if(t>=w0&&t<=w1){hxs.push(t);hys.push(D.hx[i])}});
+  const cxs=[],cys=[];tc.forEach((t,i)=>{if(t>=w0&&t<=w1){cxs.push(t-0.055);cys.push((SD.px[i]-320)/1.8)}});
+  let h=f.html+`<clipPath id="cpS"><rect x="56" y="22" width="732" height="272"/></clipPath><g clip-path="url(#cpS)">`;
+  const tk=[];for(let t=w0;t<=w1;t+=0.001)tk.push(t);const iv=interp(hxs,hys,tk);
+  h+=tk.map((t,i)=>`<line x1="${f.sx(t)}" x2="${f.sx(t)}" y1="${f.sy(iv[i])-4}" y2="${f.sy(iv[i])+4}" stroke="${ink}" opacity=".55"/>`).join('');
+  h+=`<path d="${path(hxs,hys,f.sx,f.sy,0,0)}" fill="none" stroke="${ink}" stroke-width="1.5"/>`+hxs.map((x,i)=>`<circle cx="${f.sx(x)}" cy="${f.sy(hys[i])}" r="4" fill="${ink}"/>`).join('');
+  h+=cxs.map((x,i)=>`<circle cx="${f.sx(x)}" cy="${f.sy(cys[i])}" r="6" fill="${dl}"/>`).join('')+`</g>`;
+  h+=`<circle cx="66" cy="14" r="4" fill="${ink}"/><text x="76" y="18" fill="${fg}" font-size="12">controller: real samples (dots), 1 ms fill-in (ticks)</text><circle cx="470" cy="14" r="6" fill="${dl}"/><text x="482" y="18" fill="${fg}" font-size="12">camera frame (shown in mm)</text>`;
+  sv.innerHTML=h;
+ }else if(stepS===2){
+  const g=SD.grid,w0=4,w1=7.5;
+  const ref0=SD.refAt(0);
+  const rawA=frame(380,300,{l:44,r:8,t:22,b:30},[w0,w1],[-200,500],'time (s)','raw values',7,7);
+  const rawR=[],rawC=[];let hh=interp(D.ht,D.hx,g),cc=interp(tc,SD.px.map(v=>(v-320)/1.8),g);
+  const af=frame(380,300,{l:44,r:8,t:22,b:30},[w0,w1],[-3,3],'time (s)','after scaling',7,6);
+  const sel=(arr)=>{const xs=[],ys=[];g.forEach((t,i)=>{if(t>=w0&&t<=w1){xs.push(t);ys.push(arr[i])}});return[xs,ys]};
+  const pxArr=Array.from(interp(tc,SD.px,g));
+  const [x1,y1]=sel(hh),[x2,y2]=sel(pxArr),[x3,y3]=sel(ref0),[x4,y4]=sel(SD.sig);
+  sv.innerHTML=`<g>${rawA.html}<path d="${path(x1,y1,rawA.sx,rawA.sy,0,0)}" fill="none" stroke="${ink}" stroke-width="1.8"/><path d="${path(x2,y2,rawA.sx,rawA.sy,0,0)}" fill="none" stroke="${dl}" stroke-width="1.8"/></g>
+  <g transform="translate(410,0)">${af.html}<path d="${path(x3,y3,af.sx,af.sy,0,0)}" fill="none" stroke="${ink}" stroke-width="1.8"/><path d="${path(x4,y4,af.sx,af.sy,0,0)}" fill="none" stroke="${dl}" stroke-width="1.8"/></g>`+
+  `<text x="60" y="14" fill="${ink}" font-size="12">controller (mm)</text><text x="200" y="14" fill="${dl}" font-size="12">camera (px)</text><text x="470" y="14" fill="${fg}" font-size="12">both curves, centered and scaled (spread 1)</text>`;
+ }else if(stepS===3){
+  const lag=+$('shiftS').value/1000;$('shiftSv').textContent=(lag*1000)+' ms';
+  const ref=SD.refAt(lag);let s=0;for(let i=0;i<ref.length;i++)s+=ref[i]*SD.sig[i];s/=ref.length;
+  const w0=6.8,w1=7.2;
+  const f=frame(800,170,{l:46,r:12,t:20,b:28},[w0,w1],[-3.2,0.5],'time (s)','scaled',4,4);
+  const sel=(arr)=>{const xs=[],ys=[];SD.grid.forEach((t,i)=>{if(t>=w0&&t<=w1){xs.push(t);ys.push(arr[i])}});return[xs,ys]};
+  const [x1,y1]=sel(ref),[x2,y2]=sel(SD.sig);
+  const E=SD.est;const g=frame(800,130,{l:46,r:12,t:12,b:30},[-300,300],[Math.floor(Math.min(...E.scores)*50)/50,1],'slide (ms)','score',6,2);
+  const k=Math.round((lag+0.3)/0.001);
+  sv.setAttribute('viewBox','0 0 800 340');
+  sv.innerHTML=`<g>${f.html}<path d="${path(x2,y2,f.sx,f.sy,0,0)}" fill="none" stroke="${dl}" stroke-width="2.2"/><path d="${path(x1,y1,f.sx,f.sy,0,0)}" fill="none" stroke="${ink}" stroke-width="2.2"/></g>
+  <g transform="translate(0,180)">${g.html}<path d="${path(E.lags.map(l=>l*1000),E.scores,g.sx,g.sy,0,0)}" fill="none" stroke="${mute}" stroke-width="1.8"/><circle cx="${g.sx(lag*1000)}" cy="${g.sy(E.scores[Math.max(0,Math.min(E.scores.length-1,k))])}" r="6" fill="${dl}"/></g>
+  <text x="50" y="14" fill="${ink}" font-size="12">controller, slid ${(lag*1000)} ms later</text><text x="300" y="14" fill="${dl}" font-size="12">camera (simulated)</text><text x="500" y="14" fill="${fg}" font-size="12">score at this slide = ${s.toFixed(4)}</text>`;
+  return;
+ }else{
+  const E=SD.est,best=E.delay*1000;
+  const k0=Math.round((E.delay+0.3)/0.001);
+  const x0=Math.max(0,k0-8),x1=Math.min(E.lags.length-1,k0+8);
+  const xs=[],ys=[];for(let i=x0;i<=x1;i++){xs.push(E.lags[i]*1000);ys.push(E.scores[i])}
+  const ymin=Math.min(...ys),ymax=Math.max(...ys);const rng_=ymax-ymin||1e-6;
+  const f=frame(800,300,{l:60,r:12,t:20,b:34},[xs[0],xs[xs.length-1]],[ymin-0.1*rng_,ymax+0.1*rng_],'slide (ms)','score',8,4);
+  const kk=Math.round(best);let top=0;
+  for(let i=0;i<xs.length;i++)if(ys[i]>ys[top])top=i;
+  const a=ys[top-1],b=ys[top],c=ys[top+1];
+  sv.setAttribute('viewBox','0 0 800 330');
+  sv.innerHTML=f.html.replace(/>(\d)\.(\d\d)</g,'>$1.$2<')+`<path d="${path(xs,ys,f.sx,f.sy,0,0)}" fill="none" stroke="${mute}" stroke-width="1.2"/>`+xs.map((x,i)=>`<circle cx="${f.sx(x)}" cy="${f.sy(ys[i])}" r="${i>=top-1&&i<=top+1?6:3}" fill="${i>=top-1&&i<=top+1?ink:mute}"/>`).join('')+
+  `<line x1="${f.sx(best)}" x2="${f.sx(best)}" y1="20" y2="266" stroke="${dl}" stroke-width="2" stroke-dasharray="4 3"/><text x="${f.sx(best)+8}" y="36" fill="${dl}" font-size="13">parabola top: ${best.toFixed(2)} ms</text><text x="70" y="56" fill="${ink}" font-size="12">best 1 ms step: ${xs[top].toFixed(0)} ms</text>`;
+ }
+ sv.setAttribute('viewBox',stepS===1||stepS===0?'0 0 800 330':'0 0 800 330');
+}
+(function(){const tb=$('tabsS');STEPS.forEach((s,i)=>{const b=document.createElement('button');b.textContent=s[0];b.onclick=()=>{stepS=i;drawS()};tb.appendChild(b)});
+ $('shiftS').oninput=drawS;$('shiftS').value=-100;drawS()})();
+
 draw1();draw2();draw3();
-matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',()=>{draw1();draw2()});
+matchMedia('(prefers-color-scheme:dark)').addEventListener?.('change',()=>{location.reload()});
 </script>
