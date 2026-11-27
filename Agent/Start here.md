@@ -100,6 +100,7 @@ Source tags in the Research list: **bib** = papers in `msc-thesis/thesis/literat
 - `Explainers/2026-11-25 From Recording to Robot.html`: the four replay steps (read, rehearse in simulation, safety check, real robot), what each calculates, and why steps 1–3 work as the robot-free check of handheld demos
 - `Explainers/2026-11-26 Why Sync Matters.html`: RL5 (camera and recorder) sync in three panels: delay bench (gap = hand speed × delay, Anatomy figure), the Pi clock offset and the 2.5 s recorder hole drawn from the real take files, and the board-wave delay check (simulated)
 - `Explainers/2026-11-27 Sync Explainer.html`: how the team's diag tool (`analyze_diag.py`), UMI and the thesis board wave each measure a delay; real code lines, real UR10e replay and desk pose-log curves you can slide, side-by-side table, UMI's own `get_latency` code next to ours, a five-picture walk through `delay_xcorr.py`, robot sine run, when to redo the check (published artifact: https://claude.ai/artifact/RUnYzPFKDgkfFCNETJ1j36)
+- `Explainers/2026-11-27 Latency in Prior Work.html`: how UMI, DexUMI, ViTaMIn-B and FastUMI code measure and apply latency (real code lines, one frame handled two ways on a real controller log, screen test, UMI gripper test); visual version of [[2026-11-27 Latency sync prior-work code survey]] (published artifact: https://claude.ai/artifact/Hk4JrGsU3QmevRM5tJAbnM)
 
 ## Archive (replaced, kept for history)
 
