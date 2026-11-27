@@ -1,0 +1,35 @@
+---
+date: 2026-11-27
+tags: [research, sync, latency, replay-ladder]
+---
+# Latency and sync in prior-work code: what the repositories do
+
+Martyn's rule (2026-11-27): before any sync approach is proposed, read the public code of prior works and base the approach on it. This note is that survey. Checked = read in the cloned files on 2026-11-27 (commit hashes below). Nothing here was run: downloaded code was not executed.
+
+## Plain version
+
+The four handheld-gripper projects with public code all do the same two things. (1) They measure how late each stream arrives, once per device, and write the number into a config file or a command-line default. (2) At processing time they subtract that number from each stream's arrival time to get the capture time, then read the pose at each camera frame time by interpolation. The camera delay is measured by filming a screen that shows the current time as a QR code or ArUco marker. UMI measures gripper and robot delay by commanding a motion and comparing the command curve with the measured curve (cross-correlation, `get_latency`). FastUMI measures nothing and takes the nearest pose per frame.
+A motion-based camera delay (camera against a moving marker) has no precedent in these four code bases. For the controller pose delay, only ViTaMIn-B has a number (0.01 s, a config constant); its measurement is described in the paper, not in the code.
+
+## Per repository
+
+| Work (repo, commit) | Camera delay | Pose / robot / gripper delay | How the delay is applied | Source in this note |
+| --- | --- | --- | --- | --- |
+| UMI (real-stanford/universal_manipulation_interface, d095ba9) | QR code with `time.time()` on a screen; `latency = ts_recv - ts_qr`; the time to draw the QR is subtracted; mean and std over frames. `scripts/calibrate_uvc_camera_latency.py` lines 52-58, 65-82, 106-110 | Gripper: 10 s sine position command, width = (sin(t·10/1.5)·0.5+0.5)·80, scheduled with timestamps; `get_latency(target=command, actual=measured)`. `scripts/calibrate_gripper_latency.py` lines 28-33, 50-63. Robot: spacemouse-driven target poses, `get_latency` per pose dimension, `scripts/calibrate_robot_latency.py` line 110 | Constants in `diffusion_policy/config/task/umi.yaml` lines 3-5 (camera 0.125, robot 0.0001, gripper 0.02 s). Training: `latency_steps = (camera_obs_latency - robot_obs_latency) * dataset_frequency` (lines 27, 57); `common/sampler.py` lines 131-151 shift the pose index by it and interpolate (linear; rotation by Slerp). Live robot: camera timestamp = receive time minus `camera_obs_latency` (`umi/real_world/umi_env.py` line 209); action latency subtracted from target time (lines 312-325); `example/eval_robots_config.yaml`: action latency 0.1 s | `umi/common/latency_util.py` lines 5-53 (the function itself) |
+| DexUMI (real-stanford/DexUMI, acddb8f) | QR code with `time.monotonic()`, `latency = receive_time - capture_time`, mean/std/median. `real_script/camera_calibration/measure_latency.py` lines 48-87 | `mocap/latency_util.py` is a copy of UMI's `get_latency` (comment "from UMI codebase"); no caller found in the repo | `dexumi/data_recording/data_buffer.py`: capture time = `receive_time - latency` for camera (151-153), encoder (159-161), tracking (200-202), each FSR source (178-186); then interpolation (`real_script/data_generation_pipeline/0_interpolation.py`). Default camera latency 0.1849 s (`1_replay_hand.py` line 64) | |
+| ViTaMIn-B (chuanyune/ViTaMIn-B_code, 1923436) | ArUco marker with a logged display time; delay = video timestamp − ArUco timestamp of the first frame where marker 30 is found (`tools/cali_cam_latency/cali_cam_latency.py` lines 78-79). One frame, not an average | `config/task_config.yaml` lines 55-57: visual camera 0.14, tactile camera 0.08, pose 0.01 s (constants; the pose measurement is not in the code) | `vitamin_b_data_collection_pipeline/02_cali_offset_latency.py` (lines 76-88, 199) subtracts them from the timestamps; `03_trajectory_video_sync.py` (line 322; 385-401) reads the trajectory at video frame times, linear + Slerp | |
+| FastUMI (YdingTeam/FastUMI_Data, 16bb1a9) | none found | none found | `data_collection.py`: ROS header stamps (lines 100, 111), every 3rd frame kept (line 235), nearest trajectory sample per frame by `argmin` of the time difference (line 255) | |
+
+Details worth knowing:
+- UMI's `get_latency` (lines 19-43): both curves on a 1 ms grid (`resample_dt = 1/1000`, linear), one mean and one std taken over both curves together, `scipy.signal.correlate`, the best lag is the argmax, no sub-1 ms refinement, positive = the actual curve is late (reading of the code, not documented). Oddity, not tested: with `force_positive=True` the argmax index is taken inside the positive-lag part but used on the full lag list (line 41).
+- UMI keeps the delay as config constants, not in the recorded data; DexUMI keeps raw `receive_time` and computes the capture time at processing time.
+- The paper text (UMI Sec. III-B, verbatim; appendix A only as a summary): "we align all observations with respect to the stream with the highest latency (usually the camera)" and poses are interpolated at the image capture timestamps.
+
+## Not checked
+- UMI: the paper's appendix A in the original text; units and origin of the config numbers (the files do not say how they were obtained).
+- Other works (ActiveUMI: no code link found; exUMI, RAPID, HOMIE and others: not opened).
+- XRoboToolkit's own recording or timestamp handling.
+- Nothing was run.
+
+## Add to Zotero (not in bib)
+- UMI code repository (real-stanford/universal_manipulation_interface), DexUMI repository (real-stanford/DexUMI), ViTaMIn-B code (chuanyune/ViTaMIn-B_code), FastUMI data repo (YdingTeam/FastUMI_Data): cite as software next to the papers `chi2024`, `li2025`, `zhaxizhuoma2025` and the DexUMI paper (arXiv 2505.21864, check whether it is in the bib).
