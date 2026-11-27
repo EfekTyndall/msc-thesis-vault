@@ -16,6 +16,11 @@ The question: once each stream's delay is known, how do the streams get lined up
 | 2. No measurement, pair by timestamp | FastUMI | Nearest sample by timestamp; correct only if all streams have the same delay | FastUMI data_collection.py l.235, 255 |
 | 3. Estimate from each recording's own motion | ExtremControl (VR teleop, 54 to 64 ms end to end) | Optical flow of human and robot hand, offset that best aligns them | arXiv 2602.11321; no code found |
 
+## Plug and play check (Martyn, 2026-11-27: Dex1-1 gripper and other camera must swap in)
+- Option 1: yes. One delay number per device in the calibration file; the alignment step only reads the numbers and never knows the device. A new device needs only its own measurement. Same shape as UMI's config (one entry each for camera, gripper, robot).
+- Option 2: yes, but no numbers at all, so a swapped device with a different delay is silently wrong.
+- Option 3: no. Needs a matching signal pair per device type (human hand vs robot hand), so the alignment step becomes device-specific.
+
 ## Controller (PICO) facts, checked in XRoboToolkit code
 - Pose has no capture time. Only `timeStampNs` on the headset clock, set when the packet is built (TrackingData.cs l.155-156). Poses are predicted to display time (l.314-338). So the delay and the clock offset must be measured, not read.
 - No VR teleop repo found that estimates or compensates controller delay. No paper measures PICO controller delay.
